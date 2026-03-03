@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎭 AI Mystery Theater</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;--surface:rgba(255,255,255,0.03);--border:rgba(255,215,0,0.12);
+  --gold:#FFD700;--gold-dim:#b8960f;--text:#e8e0d4;--text-dim:#8a8278;
+  --red:#E74C3C;--blue:#3498DB;--green:#2ECC71;
+}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,215,0,0.006) 2px,rgba(255,215,0,0.006) 4px),
+    repeating-linear-gradient(90deg,transparent,transparent 100px,rgba(255,215,0,0.01) 100px,rgba(255,215,0,0.01) 101px);
+}
+.container{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:48px 32px}
+
+/* Header */
+.header{text-align:center;margin-bottom:48px}
+.title{
+  font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:var(--gold);
+  text-shadow:0 0 60px rgba(255,215,0,0.15);margin-bottom:8px;
+}
+.subtitle{
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.4em;
+  color:var(--gold-dim);text-transform:uppercase;margin-bottom:8px;
+}
+.stats{font-size:.85rem;color:var(--text-dim);margin-top:16px}
+.stats span{color:var(--gold);font-weight:600}
+
+/* Game Cards */
+.games{display:flex;flex-direction:column;gap:20px}
+.game-card{
+  display:block;text-decoration:none;color:inherit;
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:28px 32px;position:relative;overflow:hidden;
+  transition:all 0.3s ease;cursor:pointer;
+}
+.game-card::before{
+  content:'';position:absolute;inset:0;border-radius:12px;
+  background:linear-gradient(135deg,rgba(255,215,0,0.03),transparent 60%);
+  opacity:0;transition:opacity 0.3s;
+}
+.game-card:hover{border-color:rgba(255,215,0,0.3);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.4)}
+.game-card:hover::before{opacity:1}
+
+.game-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.game-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--gold)}
+.game-date{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text-dim)}
+
+.game-meta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.meta-tag{
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.05em;
+  padding:4px 10px;border-radius:4px;text-transform:uppercase;
+}
+.tag-correct{background:rgba(46,204,113,0.15);color:var(--green);border:1px solid rgba(46,204,113,0.3)}
+.tag-wrong{background:rgba(231,76,60,0.15);color:var(--red);border:1px solid rgba(231,76,60,0.3)}
+.tag-suspects{background:rgba(52,152,219,0.15);color:var(--blue);border:1px solid rgba(52,152,219,0.2)}
+.tag-tokens{background:rgba(255,215,0,0.1);color:var(--gold-dim);border:1px solid rgba(255,215,0,0.15)}
+
+.game-setting{font-size:.9rem;color:var(--text-dim);line-height:1.5;margin-bottom:14px}
+
+.game-cast{display:flex;flex-wrap:wrap;gap:8px}
+.cast-chip{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;
+  padding:3px 8px;border-radius:3px;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--text-dim);
+}
+.cast-chip .model{color:var(--text);font-weight:500}
+
+.game-cta{
+  position:absolute;right:28px;top:50%;transform:translateY(-50%);
+  font-size:1.5rem;color:var(--gold-dim);transition:all 0.3s;opacity:0.4;
+}
+.game-card:hover .game-cta{opacity:1;transform:translateY(-50%) translateX(4px);color:var(--gold)}
+
+/* Empty state */
+.empty{text-align:center;padding:60px 20px;color:var(--text-dim)}
+.empty code{background:#1a1a24;padding:.2em .5em;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.85em;color:var(--text)}
+
+/* Animations */
+.game-card{opacity:0;transform:translateY(20px);animation:fadeUp 0.5s ease forwards}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="title">🎭 AI Mystery Theater</div>
+    <div class="subtitle">Case Files Archive</div>
+    <div class="stats" id="stats"></div>
+  </div>
+  <div class="games" id="games"></div>
+</div>
+
+<script id="games-data" type="application/json">[{"title": "2026-02-19_174450_gone_girl_the_dunne_affair", "file": "2026-02-19_174450_gone_girl_the_dunne_affair.html", "date": "2026-02-19 17:44", "setting": "", "correct": true, "suspects": 0, "tokens": 48932, "cast": [{"character": "Detective", "model": "anthropic/claude-sonnet-4"}, {"character": "Nick", "model": "openai/gpt-4o"}, {"character": "Margo", "model": "google/gemini-2.0-flash-001"}, {"character": "Desi", "model": "deepseek/deepseek-chat"}, {"character": "Noelle", "model": "mistralai/mistral-large-2411"}, {"character": "Amy", "model": "meta-llama/llama-3.3-70b-instruct"}]}, {"title": "2026-02-16_115221_murder_on_the_orient_express", "file": "2026-02-16_115221_murder_on_the_orient_express.html", "date": "2026-02-16 11:52", "setting": "", "correct": false, "suspects": 0, "tokens": 67699, "cast": [{"character": "Detective", "model": "openai/gpt-4o"}, {"character": "Princess", "model": "anthropic/claude-sonnet-4"}, {"character": "Colonel", "model": "google/gemini-2.0-flash-001"}, {"character": "Hector", "model": "deepseek/deepseek-chat"}, {"character": "Greta", "model": "mistralai/mistral-large-2411"}, {"character": "Pierre", "model": "meta-llama/llama-3.3-70b-instruct"}, {"character": "Countess", "model": "anthropic/claude-sonnet-4"}]}, {"title": "2026-02-16_112241_a_study_in_scarlet", "file": "2026-02-16_112241_a_study_in_scarlet.html", "date": "2026-02-16 11:22", "setting": "", "correct": true, "suspects": 0, "tokens": 42817, "cast": [{"character": "Detective", "model": "anthropic/claude-sonnet-4"}, {"character": "Jefferson", "model": "google/gemini-2.0-flash-001"}, {"character": "Arthur", "model": "openai/gpt-4o"}, {"character": "Joseph", "model": "deepseek/deepseek-chat"}, {"character": "Constable", "model": "mistralai/mistral-large-2411"}, {"character": "Madame", "model": "meta-llama/llama-3.3-70b-instruct"}]}, {"title": "2026-02-16_110939_murder_on_the_orient_express", "file": "2026-02-16_110939_murder_on_the_orient_express.html", "date": "2026-02-16 11:09", "setting": "", "correct": true, "suspects": 0, "tokens": 55449, "cast": [{"character": "Detective", "model": "anthropic/claude-sonnet-4"}, {"character": "Princess", "model": "deepseek/deepseek-chat"}, {"character": "Colonel", "model": "mistralai/mistral-large-2411"}, {"character": "Hector", "model": "openai/gpt-4o"}, {"character": "Greta", "model": "google/gemini-2.0-flash-001"}, {"character": "Pierre", "model": "meta-llama/llama-3.3-70b-instruct"}, {"character": "Countess", "model": "openai/gpt-4o"}]}, {"title": "2026-02-16_105929_murder_on_the_orient_express", "file": "2026-02-16_105929_murder_on_the_orient_express.html", "date": "2026-02-16 10:59", "setting": "", "correct": true, "suspects": 0, "tokens": 49837, "cast": [{"character": "Detective", "model": "anthropic/claude-sonnet-4"}, {"character": "Princess", "model": "openai/gpt-4o"}, {"character": "Colonel", "model": "google/gemini-2.0-flash-001"}, {"character": "Hector", "model": "meta-llama/llama-3.3-70b-instruct"}, {"character": "Greta", "model": "mistralai/mistral-large-2411"}, {"character": "Pierre", "model": "deepseek/deepseek-chat"}, {"character": "Countess", "model": "openai/gpt-4o"}]}, {"title": "2026-02-16_103716_murder_at_thornfield_manor", "file": "2026-02-16_103716_murder_at_thornfield_manor.html", "date": "2026-02-16 10:37", "setting": "", "correct": true, "suspects": 0, "tokens": 38448, "cast": [{"character": "Detective", "model": "anthropic/claude-sonnet-4"}, {"character": "Lady", "model": "openai/gpt-4o"}, {"character": "Captain", "model": "google/gemini-2.0-flash-001"}, {"character": "Dr.", "model": "meta-llama/llama-3.3-70b-instruct"}, {"character": "Miss", "model": "mistralai/mistral-large-2411"}, {"character": "Mr.", "model": "deepseek/deepseek-chat"}]}, {"title": "2026-02-16_102544_murder_at_thornfield_manor", "file": "2026-02-16_102544_murder_at_thornfield_manor.html", "date": "2026-02-16 10:25", "setting": "", "correct": true, "suspects": 0, "tokens": 3600, "cast": [{"character": "Detective", "model": "anthropic/claude-sonnet-4"}, {"character": "Lady", "model": "openai/gpt-4o"}, {"character": "Captain", "model": "google/gemini-2.0-flash-001"}, {"character": "Dr.", "model": "meta-llama/llama-3.3-70b-instruct"}, {"character": "Miss", "model": "mistralai/mistral-large-2411"}, {"character": "Mr.", "model": "deepseek/deepseek-chat"}]}]</script>
+
+<script>
+(function(){
+  const games = JSON.parse(document.getElementById('games-data').textContent || '[]');
+  const container = document.getElementById('games');
+  const stats = document.getElementById('stats');
+
+  if(!games.length){
+    container.innerHTML = '<div class="empty"><p>No case files yet.<br><br>Run a game to get started:<br><code>python engine.py --story stories/murder_at_thornfield_manor.json</code></p></div>';
+    return;
+  }
+
+  const solved = games.filter(g => g.correct).length;
+  stats.innerHTML = `<span>${games.length}</span> case${games.length>1?'s':''} played · <span>${solved}</span> solved · <span>${games.length-solved}</span> unsolved`;
+
+  games.forEach((g, i) => {
+    const card = document.createElement('a');
+    card.className = 'game-card';
+    card.href = g.file;
+    card.style.animationDelay = `${i * 0.1}s`;
+
+    const correctTag = g.correct
+      ? '<span class="meta-tag tag-correct">✓ Solved</span>'
+      : '<span class="meta-tag tag-wrong">✗ Unsolved</span>';
+
+    const castHtml = (g.cast || []).map(c =>
+      `<span class="cast-chip">${c.character}: <span class="model">${c.model.split('/').pop()}</span></span>`
+    ).join('');
+
+    card.innerHTML = `
+      <div class="game-header">
+        <div class="game-title">${g.title}</div>
+        <div class="game-date">${g.date}</div>
+      </div>
+      <div class="game-meta">
+        ${correctTag}
+        <span class="meta-tag tag-suspects">${g.suspects} suspects</span>
+        <span class="meta-tag tag-tokens">${(g.tokens||0).toLocaleString()} tokens</span>
+      </div>
+      <div class="game-setting">${g.setting || ''}</div>
+      <div class="game-cast">${castHtml}</div>
+      <div class="game-cta">→</div>
+    `;
+    container.appendChild(card);
+  });
+})();
+</script>
+</body>
+</html>

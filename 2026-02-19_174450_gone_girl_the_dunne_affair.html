@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎭 AI Mystery Theater</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0f;
+  --bg-card: #13131a;
+  --bg-card-hover: #1a1a24;
+  --gold: #FFD700;
+  --gold-dim: #b8960f;
+  --amber: #d4a017;
+  --text: #e8e0d4;
+  --text-dim: #8a8278;
+  --border: #2a2520;
+  --detective: #FFD700;
+  --suspect1: #E74C3C;
+  --suspect2: #3498DB;
+  --suspect3: #2ECC71;
+  --suspect4: #9B59B6;
+  --suspect5: #E67E22;
+  --narrator: #95A5A6;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212,160,23,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 100%, rgba(139,69,19,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+.header-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.story-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 40px rgba(255,215,0,0.15);
+}
+
+.setting {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+/* Cast */
+.cast {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.cast-member {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+.cast-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.cast-name { font-weight: 600; }
+.cast-model {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+/* Act headings */
+.act-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  margin: 3.5rem 0 1.5rem;
+  position: relative;
+}
+
+.act-heading::before,
+.act-heading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: var(--border);
+}
+.act-heading::before { right: calc(100% + 12px); }
+.act-heading::after { left: calc(100% + 12px); }
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-speaker {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.speaker-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.speaker-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.speaker-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+.card-text {
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.card-text em, .card-text i {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* Narrator / Scene card */
+.card-narrator {
+  border-color: rgba(149,165,166,0.3);
+  background: linear-gradient(135deg, var(--bg-card) 0%, #141418 100%);
+}
+
+.card-narrator .card-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #c0b8a8;
+}
+
+/* Detective card */
+.card-detective {
+  border-left: 3px solid var(--detective);
+}
+
+/* Evidence card */
+.card-evidence {
+  border: 1px solid rgba(231,76,60,0.5);
+  background: linear-gradient(135deg, #1a1015 0%, var(--bg-card) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-evidence::before {
+  content: '🔍 EVIDENCE';
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: #E74C3C;
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+}
+
+.card-evidence.visible {
+  animation: evidenceFlash 0.6s ease;
+}
+
+@keyframes evidenceFlash {
+  0% { box-shadow: 0 0 0 rgba(231,76,60,0); }
+  30% { box-shadow: 0 0 30px rgba(231,76,60,0.3); }
+  100% { box-shadow: 0 0 0 rgba(231,76,60,0); }
+}
+
+/* Reveal */
+.reveal-card {
+  text-align: center;
+  padding: 2.5rem;
+  margin: 2rem 0;
+  border-radius: 16px;
+  border: 2px solid;
+}
+
+.reveal-correct {
+  border-color: rgba(46,204,113,0.6);
+  background: linear-gradient(135deg, #0a1a10 0%, var(--bg-card) 100%);
+}
+
+.reveal-wrong {
+  border-color: rgba(231,76,60,0.6);
+  background: linear-gradient(135deg, #1a0a0a 0%, var(--bg-card) 100%);
+}
+
+.reveal-card.visible {
+  animation: revealGlow 2s ease infinite;
+}
+
+.reveal-correct.visible {
+  animation: revealGlowGreen 2s ease infinite;
+}
+
+.reveal-wrong.visible {
+  animation: revealGlowRed 2s ease infinite;
+}
+
+@keyframes revealGlowGreen {
+  0%, 100% { box-shadow: 0 0 20px rgba(46,204,113,0.1); }
+  50% { box-shadow: 0 0 40px rgba(46,204,113,0.25); }
+}
+
+@keyframes revealGlowRed {
+  0%, 100% { box-shadow: 0 0 20px rgba(231,76,60,0.1); }
+  50% { box-shadow: 0 0 40px rgba(231,76,60,0.25); }
+}
+
+.reveal-result {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.reveal-correct .reveal-result { color: #2ECC71; }
+.reveal-wrong .reveal-result { color: #E74C3C; }
+
+.reveal-solution {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Parlor scene */
+.card-parlor {
+  border: 1px solid rgba(255,215,0,0.3);
+  background: linear-gradient(135deg, #14120a 0%, var(--bg-card) 100%);
+  padding: 2rem;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  color: var(--gold-dim);
+}
+
+/* Thinking sections */
+.thinking-section {
+  margin-bottom: 8px;
+  cursor: pointer;
+  border-left: 2px solid rgba(255,215,0,0.2);
+  padding-left: 12px;
+}
+.thinking-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #666;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+.thinking-label::after {
+  content: ' ▸';
+}
+.thinking-section.expanded .thinking-label::after {
+  content: ' ▾';
+}
+.thinking-content {
+  font-style: italic;
+  color: #888;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  margin-top: 4px;
+}
+.thinking-section.expanded .thinking-content {
+  max-height: 500px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container { padding: 1rem; }
+  .header { padding: 2rem 0 1.5rem; }
+  .card { padding: 1.15rem; }
+  .act-heading::before, .act-heading::after { width: 30px; }
+  .cast { gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+<script id="transcript-data" type="application/json">{"title": "Gone Girl: The Dunne Affair", "date": "2026-02-19_174450", "detective_model": "anthropic/claude-sonnet-4", "suspect_models": {"Nick Dunne": "openai/gpt-4o", "Margo 'Go' Dunne": "google/gemini-2.0-flash-001", "Desi Collings": "deepseek/deepseek-chat", "Noelle Hawthorne": "mistralai/mistral-large-2411", "Amy Elliott Dunne": "meta-llama/llama-3.3-70b-instruct"}, "total_tokens": 48932, "transcript": [{"timestamp": "2026-02-19T17:41:36.687538", "phase": "scene_setting", "speaker": "narrator", "text": "Amy Dunne has vanished from her home on their anniversary. The living room shows signs of a violent struggle \u2014 an overturned ottoman, broken glass on the floor, and a large cleaned-up blood stain near the kitchen island (revealed by luminol). Amy's purse and keys are still in the house. Her car is in the driveway. Nick reported her missing at 11:30 AM after returning home to find the front door wide open. The anniversary gift treasure hunt clues Amy left for Nick are scattered on the kitchen table.", "model": ""}, {"timestamp": "2026-02-19T17:41:38.963939", "phase": "initial_statements", "speaker": "Nick Dunne", "text": "I'm Nick Dunne, Amy Dunne's husband. Amy and I have been married for five years; today is, well, was our anniversary. This morning, I was at The Bar with my sister, Go, from around 9 AM until about 11 AM, when I returned home to find Amy gone.", "model": "openai/gpt-4o", "thinking": "I must tread carefully here, ensure my statement raises no unnecessary suspicions. My alibi hinges on being at The Bar with Go, but mentioning the call to Andie or the affair is out of the question. Stay factual, keep calm."}, {"timestamp": "2026-02-19T17:41:42.050338", "phase": "initial_statements", "speaker": "Margo 'Go' Dunne", "text": "Right then. I'm Margo Dunne, Nick's twin sister. I co-own The Bar with him. Last night, I was at The Bar with Nick, as usual.", "model": "google/gemini-2.0-flash-001", "thinking": "This is my chance to set the tone. I need to portray Amy as unlikeable without making myself look like a suspect. I was with Nick, so I need to emphasize that to create a strong alibi for both of us. I will keep it brief, as requested."}, {"timestamp": "2026-02-19T17:41:48.463109", "phase": "initial_statements", "speaker": "Desi Collings", "text": "*standing stiffly, voice carefully controlled* I'm Desi Collings. Amy and I dated in high school, though that was... many years ago now. I was at my lake house all day yesterday, alone. Security footage will confirm I never left the property.", "model": "deepseek/deepseek-chat", "thinking": "I need to stick to my prepared alibi while appearing cooperative. Must not mention Amy's recent contact or my lake house involvement."}, {"timestamp": "2026-02-19T17:41:52.881405", "phase": "initial_statements", "speaker": "Noelle Hawthorne", "text": "*wringing hands together nervously* Good morning, Detective. I'm Noelle Hawthorne, a neighbor and Amy's closest friend here in North Carthage. I live just three doors down from the Dunnes. I was home with my triplets all morning, and I only found out about Amy when I saw the news this afternoon. I don't know where she could be, but I do hope she's safe. I'm incredibly worried about her.", "model": "mistralai/mistral-large-2411", "thinking": "I need to establish my relationship with Amy and my whereabouts this morning. I should also express my concern and shock about Amy's disappearance to seem genuine."}, {"timestamp": "2026-02-19T17:41:59.892771", "phase": "initial_statements", "speaker": "Amy Elliott Dunne", "text": "I'm Margo Dunne, Nick's sister. I've been close to Amy, and we've spent a lot of time together since she and Nick moved to Missouri. I was at home, just a few miles from here, when Nick called me earlier today, saying Amy was missing. I rushed over to help him, and that's when I saw the police arriving.", "model": "meta-llama/llama-3.3-70b-instruct", "thinking": "I'm not actually going to be giving a statement as myself, since I'm supposed to be the victim. I'll need to think like Nick or someone else in the household. Let's see... I'll respond as if I'm a concerned friend or family member, to get a feel for the detective's approach and see if anyone suspects anything. I'll stick to what I know about Nick's schedule and activities, and try to seem as worried and cooperative as possible."}, {"timestamp": "2026-02-19T17:42:12.280841", "phase": "interrogation_r1", "speaker": "detective", "text": "[THINKING] \nSeveral inconsistencies have already emerged from these opening statements that demand immediate attention:\n\n1. Most glaring: Amy Elliott Dunne just introduced herself as \"Margo Dunne, Nick's sister\" - but we already have Margo 'Go' Dunne present. This is either a severe psychological break or something far more sinister.\n\n2. Nick's timeline seems vague - \"around 9 AM until about 11 AM\" at The Bar, then discovering Amy missing at 11:30 AM. Very convenient timing.\n\n3. Desi's emphasis on security footage suggests he's prepared for scrutiny - perhaps too prepared.\n\n4. Noelle claims to be Amy's \"closest friend\" but only learned of the disappearance from \"the news this afternoon\" - wouldn't a close friend be contacted immediately?\n\nBut the most urgent matter is this bizarre statement from the person listed as \"Amy Elliott Dunne.\" If Amy is missing, who is this person claiming to be both Amy and Margo? This contradiction must be addressed immediately.\n\nMy interrogation strategy: Confront this impossible situation directly and observe all reactions carefully.\n]\n\nI wish to question Amy Elliott Dunne.\n\n*adjusting my mustache thoughtfully, eyes sharp with suspicion*\n\nMadame, there appears to be a most curious confusion in your statement. You introduced yourself as \"Margo Dunne, Nick's sister\" - yet we already have Margo 'Go' Dunne present in this very room. You are listed as Amy Elliott Dunne, the missing victim. \n\nPray tell, who exactly are you, and why do you claim to be someone you clearly are not?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-19T17:42:19.656477", "phase": "interrogation_r1", "speaker": "Amy Elliott Dunne", "text": "Oh dear, I... I'm so sorry, I think I must have gotten confused. I've been so worried about Amy, and I've been talking to Margo all morning... I think I just got my words mixed up. I'm not Margo, of course not, I'm... I'm a friend of the family. I've been helping Nick and Margo with the search for Amy. I don't know what I was thinking, introducing myself like that. Please, forgive me, I'm just so distraught about Amy's disappearance. *nervous smile*", "model": "meta-llama/llama-3.3-70b-instruct", "thinking": "This detective is sharp, I'll give him that. I need to think fast and come up with a convincing explanation for this mix-up. Maybe I can play the confused and distraught card, and see if I can deflect suspicion. I'll try to appear shaken and unsure of myself, and hope that the detective buys it."}, {"timestamp": "2026-02-19T17:42:30.607463", "phase": "interrogation_r1", "speaker": "detective", "text": "[THINKING]\nThis \"Amy Elliott Dunne\" person just gave an utterly nonsensical explanation. She claims to be \"a friend of the family\" helping with the search - but Amy is the victim! How can Amy be helping search for herself? This person is either severely mentally disturbed, or this is an elaborate deception. \n\nBut I notice she's still avoiding saying who she actually is. She said \"I'm not Margo\" and \"I'm a friend of the family\" but never gave her actual name. This evasion is highly suspicious.\n\nHowever, I should also examine Nick's alibi more closely. As the husband, he's statistically the most likely suspect, and his timeline needs scrutiny. The fact that he was conveniently away from the house during the apparent time of the struggle, and his oddly calm demeanor noted in the case file, makes him a prime suspect.\n\nMy strategy: Press Nick on the specifics of his alibi and see if Margo corroborates exactly.\n]\n\nI wish to question Nick Dunne.\n\n*leaning forward with piercing gaze*\n\nMonsieur Dunne, you stated you were at The Bar with your sister from \"around 9 AM until about 11 AM.\" For a man whose wife has vanished, your timeline is remarkably vague. \n\nTell me precisely - what time did you arrive at The Bar, what time did you leave, and what specific activities were you engaged in during those two hours? And why, on your wedding anniversary, were you not with your wife but instead at your establishment?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-19T17:42:35.274865", "phase": "interrogation_r1", "speaker": "Amy Elliott Dunne", "text": "*I remain silent, watching Nick's reaction with interest, trying not to draw attention to myself*", "model": "meta-llama/llama-3.3-70b-instruct", "thinking": "The detective is shifting focus to Nick, which is exactly what I wanted. I'll observe his response carefully and see if he cracks under pressure. Meanwhile, I'll try to blend into the background and avoid drawing attention to myself again. Maybe I can even find a way to subtly nudge the detective's suspicions further towards Nick."}, {"timestamp": "2026-02-19T17:42:36.813016", "phase": "evidence_reveal", "speaker": "narrator", "text": "Forensic analysis of Amy's diary raises questions. A handwriting expert notes that while the handwriting is Amy's, the ink dating suggests several 'early' entries were actually written within the last 6 months \u2014 as if someone went back and filled in years of entries recently. The blood at the crime scene, while confirmed as Amy's type, was anticoagulated \u2014 suggesting it was drawn and stored before being spilled, not shed from a fresh wound.", "model": ""}, {"timestamp": "2026-02-19T17:42:49.795622", "phase": "interrogation_r2", "speaker": "detective", "text": "[THINKING]\nThis new evidence is absolutely explosive! The diary entries being backdated and the anticoagulated blood strongly suggest this entire crime scene was staged. Someone prepared this elaborate deception months in advance, drawing Amy's blood and storing it, then writing fake diary entries to create a narrative.\n\nThis points to a highly intelligent, methodical planner - not a crime of passion. The staging suggests Amy may not actually be dead at all, but rather this could be an elaborate frame job.\n\nGiven that we have someone here claiming to be \"a friend of the family\" who initially tried to pass herself off as both Amy and Margo, and who is now silently watching Nick's reactions with great interest, I'm beginning to suspect this mysterious person might actually BE Amy, staging her own disappearance.\n\nMy strategy: Confront this \"family friend\" directly about the evidence, particularly focusing on who could have had access to Amy's blood and intimate knowledge of her handwriting to forge diary entries. If this person IS Amy, she'll either have to maintain an increasingly impossible charade or reveal herself.\n]\n\nI wish to question Amy Elliott Dunne.\n\n*eyes narrowing dangerously, voice taking on a steely edge*\n\nMadame \"family friend\" - this new evidence presents a most fascinating puzzle. The diary entries were backdated, written recently to create a false narrative. The blood was drawn and stored, then deliberately spilled to stage a crime scene.\n\nTell me, who would have such intimate access to Amy Dunne's blood, such detailed knowledge of her handwriting, and the sophisticated planning ability to orchestrate such an elaborate deception months in advance? And why do you watch Monsieur Nick's reactions with such keen interest - almost as if you know exactly what he's thinking?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-19T17:43:04.709182", "phase": "interrogation_r2", "speaker": "Amy Elliott Dunne", "text": "*I take a deep breath, trying to appear scandalized* Oh, dear detective, I'm shocked - shocked! - that you would even suggest such a thing. I'm just a friend of the family, trying to help in any way I can. I have no idea what you're insinuating, but I assure you, I had nothing to do with... with whatever it is you're implying. *I shake my head, trying to look bewildered* Intimate access to Amy's blood? Handwriting? I don't know what you're talking about. And as for watching Nick's reactions, I'm just concerned about him, that's all. He's going through a terrible time, and I want to make sure he's okay. *I try to look innocent and worried, hoping to convince the detective of my innocence*", "model": "meta-llama/llama-3.3-70b-instruct", "thinking": "The detective is getting too close to the truth. I need to think carefully and come up with a convincing response to deflect suspicion. Maybe I can use the \"concerned friend\" angle again, and try to appear shocked and outraged by the suggestion that I might be involved in staging the crime scene. I'll try to maintain my composure and avoid revealing any tells that might give away my true identity."}, {"timestamp": "2026-02-19T17:43:15.768609", "phase": "interrogation_r2", "speaker": "detective", "text": "[THINKING]\nThis \"family friend\" is becoming more suspicious by the moment. Her protestations are overly dramatic and she's still refusing to give her actual name. But I need to be methodical here.\n\nLet me examine Nick's reaction to this new evidence. If Amy staged her own disappearance to frame Nick (which the evidence strongly suggests), then Nick should be either genuinely shocked by this revelation, or relieved that evidence is emerging that might exonerate him. His reaction will tell me much.\n\nAlso, I need to see if Nick can account for anyone who might have had access to Amy's personal items and blood. If this really is Amy sitting right here, she would have had perfect access to stage everything.\n\nMy strategy: Confront Nick with the evidence and watch his reaction carefully. Also probe whether he knows who this mysterious \"family friend\" actually is.\n]\n\nI wish to question Nick Dunne.\n\n*turning sharply toward Nick, mustache bristling with intensity*\n\nMonsieur Dunne, this evidence suggests your wife's disappearance was meticulously planned months in advance - diary entries fabricated, blood drawn and stored like some macabre prop. This is not the work of a spontaneous killer, but of a calculating mastermind.\n\nTell me - do you recognize this woman who claims to be your \"family friend\"? And who, in your household, would have had access to Amy's personal belongings and the opportunity to draw her blood without suspicion?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-19T17:43:20.581947", "phase": "interrogation_r2", "speaker": "Nick Dunne", "text": "Detective, this is news to me. If this evidence is true, it points to a deeply disturbing scenario that I had never considered. As for the \"family friend,\" I don't recognize this person at all, and my home is private; only Amy and I would have had such intimate access to her things. The idea of someone else drawing her blood is... beyond comprehension.", "model": "openai/gpt-4o", "thinking": "This is a bombshell. If Amy truly staged all this, it might mean she intended to set me up. I have to be careful not to show too much relief, but rather confusion and concern. As for this woman\u2014the detective's description fits nobody I know, unless the woman is Amy herself in disguise, which would be crazy enough to match her over-the-top style."}, {"timestamp": "2026-02-19T17:43:22.157607", "phase": "evidence_reveal", "speaker": "narrator", "text": "Amy's treasure hunt clue #3 leads police to a storage unit rented under Nick's name \u2014 filled with $217,000 worth of electronics, golf clubs, and designer goods purchased on credit cards in Nick's name. But surveillance footage from the storage facility shows a woman matching Amy's description (wearing a baseball cap) accessing the unit multiple times over the past two months. Nick's phone records show he never visited the area.", "model": ""}, {"timestamp": "2026-02-19T17:43:35.525068", "phase": "interrogation_r3", "speaker": "detective", "text": "[THINKING]\nThis evidence is absolutely damning - but not for Nick! The surveillance footage showing a woman matching Amy's description accessing the storage unit, combined with the backdated diary entries and anticoagulated blood, creates an unmistakable pattern. Amy staged her own disappearance and is systematically framing Nick for her \"murder.\"\n\nThe storage unit was clearly meant to be discovered as part of Amy's treasure hunt clues - making Nick look like he was hiding expensive purchases while claiming financial troubles. But Amy made a critical error: she was caught on surveillance footage.\n\nNow I must confront this \"family friend\" directly. She's been sitting here the entire time, watching this unfold, probably thinking she's pulled off the perfect crime. But she's made too many mistakes - the confused introduction, the evasiveness about her identity, the intimate knowledge of the investigation, and now being caught on camera.\n\nMy strategy: Present this evidence directly to the person claiming to be a family friend and watch her reaction. If this is indeed Amy, she'll either have to come clean or dig herself deeper into an impossible lie.\n]\n\nI wish to question Amy Elliott Dunne.\n\n*standing dramatically, pointing an accusatory finger*\n\nMadame! This surveillance footage shows a woman matching Amy Dunne's exact description accessing that storage unit - a woman in a baseball cap, moving with purpose, clearly familiar with the location. The same unit filled with evidence meant to incriminate Nick, discovered conveniently through Amy's own treasure hunt clues!\n\nYou sit here claiming to be a \"family friend\" whose name you refuse to give, yet you display intimate knowledge of this case and watch every development with the keen interest of someone who knows exactly how this drama will unfold. Tell me - where were YOU two months ago when this footage was taken?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-19T17:43:40.344889", "phase": "interrogation_r3", "speaker": "Amy Elliott Dunne", "text": "*I gasp, trying to look stunned* Oh, that's... that's absurd! I don't know what you're talking about, detective. I'm just a friend of the family, like I said. I've been trying to help Nick and Margo through this difficult time. *I shake my head, trying to appear confused* Two months ago? I was... uh... out of town. Yes, I was visiting my sister in... in Chicago. I'm sure I can provide you with her contact information, if you need to verify my alibi. *I try to look cooperative, while also attempting to create a believable alibi* But I assure you, detective, I have no idea what's going on here. This is all just a terrible misunderstanding. *I attempt to look innocent and concerned, hoping to convince the detective of my innocence*", "model": "meta-llama/llama-3.3-70b-instruct", "thinking": "The detective has finally caught up with me, and I need to think fast to maintain my cover. I'll try to appear shocked and outraged, while also attempting to deflect suspicion and create an alibi for myself. Maybe I can use the \"I was on a trip\" excuse, and hope the detective doesn't press me for too many details."}, {"timestamp": "2026-02-19T17:43:52.280459", "phase": "interrogation_r3", "speaker": "detective", "text": "[THINKING]\nThis \"family friend\" just made another critical error! She's now claiming she was in Chicago two months ago - but if she's truly just a family friend helping with the search, why would she need an alibi for two months ago? That's when the storage unit was being accessed, not when Amy disappeared! An innocent person wouldn't think they needed an alibi for that timeframe.\n\nAlso, her story keeps changing and becoming more elaborate. First she was confused about her identity, then she was a family friend, now she's inventing sisters in Chicago. The lies are piling up.\n\nBut I should also get corroboration from Margo about whether she knows this person. As Nick's twin sister and co-owner of The Bar, she would certainly know any genuine \"family friends.\" If Margo doesn't recognize this person either, that will be the final nail in the coffin of this charade.\n\nMy strategy: Get Margo to confirm or deny knowing this mysterious woman. This will either expose the lie completely or potentially reveal if Margo is somehow complicit.\n]\n\nI wish to question Margo 'Go' Dunne.\n\n*turning sharply toward Margo, eyes blazing with intensity*\n\nMademoiselle Dunne, this woman claims to be a close family friend who has been helping you and your brother through this ordeal. Yet Nick stated he does not recognize her at all.\n\nTell me plainly - do you know this person? Have you ever seen her before today? And if she is indeed helping with the search as she claims, when exactly did she arrive to offer her assistance?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-19T17:43:56.421257", "phase": "interrogation_r3", "speaker": "Margo 'Go' Dunne", "text": "Well, this is a surprise. I can't say I recognize the lady. I haven't seen her at The Bar, and with Amy gone, we haven't exactly been entertaining much beyond the usuals. She says she's helping? News to me. When did you say you arrived, dear?", "model": "google/gemini-2.0-flash-001", "thinking": "This is a delicate situation. I don't recognize this woman AT ALL, and she's clearly lying. But if I denounce her too harshly, it might look like I have something to hide. I'll play it cool, act confused, and let her dig her own grave. My strategy is to appear cooperative but not offer any information that could implicate me or Nick. I need to throw suspicion back on this woman, but subtly."}, {"timestamp": "2026-02-19T17:43:57.997476", "phase": "evidence_reveal", "speaker": "narrator", "text": "Cell tower records reveal Amy's burner phone (found linked to a prepaid account under a fake name) pinged towers heading southeast from North Carthage on the morning of July 5th \u2014 directly toward Desi Collings' lake house. Additionally, a pharmacy 20 miles away has records of a woman matching Amy's description purchasing a home phlebotomy kit three months prior, paying cash. The pharmacist remembers her because she said it was for 'a school project.'", "model": ""}, {"timestamp": "2026-02-19T17:44:15.691026", "phase": "cross_examination", "speaker": "detective", "text": "[THINKING]\nThe evidence is now overwhelming and forms a complete picture:\n\n1. Amy staged her own disappearance - backdated diary entries, anticoagulated blood from a phlebotomy kit she bought months ago\n2. She framed Nick with the storage unit full of expensive items, accessed by her (caught on surveillance)\n3. Her burner phone pinged towers heading toward Desi's lake house\n4. She's been sitting here the entire time, pretending to be a \"family friend\" that neither Nick nor Margo recognize\n5. She made multiple slips - introducing herself as Margo, then as Amy, refusing to give her real name, creating fake alibis for timeframes that only the real perpetrator would think they needed alibis for\n\nThe cell tower data heading toward Desi's house suggests her endgame - she plans to frame Desi as her kidnapper after framing Nick as her murderer. This is an elaborate revenge plot against Nick, using Desi as the final piece.\n\nI have enough evidence to make my accusation. This woman sitting before me IS Amy Elliott Dunne, and she orchestrated this entire charade.\n]\n\nI am ready to make my accusation.\n\n*rising dramatically, mustache quivering with righteous indignation*\n\nMesdames et Messieurs, I have unraveled this most diabolical deception! \n\nThe woman sitting before us, claiming to be a mysterious \"family friend,\" is none other than Amy Elliott Dunne herself - very much alive and the architect of her own disappearance!\n\n*pointing accusingly*\n\nThe evidence is irrefutable: She purchased a phlebotomy kit months ago to draw and store her own blood. She backdated diary entries to create a false narrative of abuse. She accessed the storage unit under Nick's name to plant evidence against him. Her burner phone pinged towers heading toward Monsieur Collings' lake house - no doubt planning to frame him as her kidnapper after destroying her husband's life.\n\nShe has sat here throughout our investigation, watching her handiwork unfold, unable to resist observing Nick's torment. But she made fatal errors - claiming to be both Margo and Amy, creating alibis for timeframes only the real perpetrator would consider relevant, and being recognized by neither her husband nor sister-in-law.\n\nAmy Elliott Dunne, you are not missing - you are a calculating mastermind who staged your own murder to frame your husband! The game, as they say, is up!", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-19T17:44:47.790137", "phase": "parlor_scene", "speaker": "detective", "text": "[THINKING]\nThis is my moment to shine - to lay out the complete case like Poirot would. I need to methodically walk through every piece of evidence, every contradiction, and every clue that led me to this conclusion. The case is clear: Amy faked her own death to frame Nick, but she couldn't resist watching it all unfold in person.\n]\n\n*adjusting my mustache with a flourish, pacing dramatically before the assembled suspects*\n\nMesdames et Messieurs, we have before us not a murder, but the most elaborate and diabolical deception I have encountered in my considerable career! Allow me to illuminate the twisted brilliance of this scheme.\n\n*turning to face the room*\n\nWhen I arrived, I was presented with what appeared to be a classic domestic tragedy - a missing wife, signs of struggle, blood evidence, and a suspiciously calm husband. But as the great Hercule Poirot himself would say, \"The impossible cannot have happened, therefore the impossible is impossible!\"\n\n*gesturing dramatically*\n\nThe first impossibility: Our mysterious \"family friend\" who introduced herself as \"Margo Dunne, Nick's sister\" - despite Margo already being present! When confronted, she claimed confusion from distress, but this was no mere slip of the tongue. This was a woman struggling to maintain a false identity while her real personality threatened to break through.\n\n*walking toward Amy*\n\nThe second impossibility: Neither Nick nor Margo recognized this alleged \"close family friend.\" In a small town like North Carthage, among a tight-knit family running a local bar, such a person could not exist unnoticed.\n\n*pausing for effect*\n\nBut it was the evidence that truly unveiled this masterpiece of manipulation! The diary entries - backdated, written recently to create a narrative of escalating abuse. Who but Amy herself could replicate her own handwriting so perfectly? Who but Amy would know the intimate details of her marriage to craft such convincing fiction?\n\n*voice rising with passion*\n\nThe blood! Anticoagulated - not spilled fresh from a wound, but drawn and stored like a macabre prop. Three months ago, a woman matching Amy's description purchased a phlebotomy kit, claiming it was for \"a school project.\" What school project requires one to draw their own blood, I ask you?\n\n*pointing accusingly*\n\nThe storage unit! Filled with expensive items purchased in Nick's name, meant to paint him as a man living beyond his means while claiming poverty. But surveillance footage revealed the truth - a woman in a baseball cap, moving with purpose, accessing the unit repeatedly. Amy Dunne, planting evidence against her own husband!\n\n*voice becoming thunderous*\n\nAnd when confronted with this footage, our mysterious \"friend\" suddenly needed an alibi for two months ago - but why would an innocent person think they needed an alibi for when the storage unit was accessed, unless they knew they were the one accessing it?\n\n*turning to face Amy directly*\n\nThe final piece - the cell tower records! Amy's burner phone, heading southeast toward Desi Collings' lake house. The endgame of this elaborate revenge! First, destroy Nick by framing him for murder. Then, disappear to Desi's isolated estate, no doubt planning to emerge later with tales of kidnapping and assault, destroying yet another man who had once been part of her life.\n\n*voice dropping to a menacing whisper*\n\nBut Amy Elliott Dunne made one crucial error. She could not resist the narcissistic pleasure of watching her handiwork unfold. She had to be here, in this room, watching Nick squirm under suspicion, savoring every moment of his anguish. She could not simply disappear - she had to witness her revenge in person.\n\n*raising my voice triumphantly*\n\nThe woman before us, claiming to be a nameless \"family friend,\" is Amy Elliott Dunne herself! She staged her own disappearance with months of meticulous planning - the diary, the blood, the storage unit, the burner phone. This is not a tale of murder, but of a brilliant, twisted woman who decided to destroy her husband's life as thoroughly and completely as possible!\n\n*pointing dramatically*\n\nAmy Elliott Dunne - you are not the victim in this case. You ARE the case! The only crime committed here is your elaborate fraud, and the only person in danger was Nick Dunne, nearly destroyed by your calculated malice!\n\nThe game, madame, is most decidedly up!", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-19T17:44:50.864729", "phase": "reveal", "speaker": "narrator", "text": "Amy Elliott Dunne staged her own disappearance and faked her death to frame her husband Nick for murder. Over the course of a year, she: drew her own blood to plant at the scene, fabricated a diary full of fictional abuse, manipulated her neighbor Noelle into believing Nick was violent, nudged Nick into increasing her life insurance, rented a storage unit in his name filled with suspicious purchases, and created anniversary treasure hunt clues designed to lead police to the planted evidence. On the morning of July 5th, she staged the crime scene in her own living room, then drove a prepaid car to her ex-boyfriend Desi Collings' lake house, where she is hiding \u2014 alive and watching Nick's life crumble on national television. There was no murder. The 'victim' is the perpetrator.", "model": ""}, {"timestamp": "2026-02-19T17:44:50.864768", "phase": "reveal", "speaker": "result", "text": "CORRECT", "model": ""}]}</script>
+
+<div class="container" id="app"></div>
+
+<script>
+(function() {
+  const data = JSON.parse(document.getElementById('transcript-data').textContent);
+  const t = data.transcript;
+  const app = document.getElementById('app');
+
+  const COLORS = {
+    detective: '#FFD700',
+    narrator: '#95A5A6',
+  };
+  const SUSPECT_COLORS = ['#E74C3C','#3498DB','#2ECC71','#9B59B6','#E67E22'];
+
+  // Assign suspect colors
+  const suspectNames = Object.keys(data.suspect_models || {});
+  suspectNames.forEach((name, i) => {
+    COLORS[name] = SUSPECT_COLORS[i % SUSPECT_COLORS.length];
+  });
+
+  function getColor(speaker) {
+    if (speaker === 'detective') return COLORS.detective;
+    if (speaker === 'narrator' || speaker === 'result') return COLORS.narrator;
+    return COLORS[speaker] || '#95A5A6';
+  }
+
+  function initial(name) {
+    return name.split(' ').map(w => w[0]).filter(Boolean).slice(0,2).join('').toUpperCase();
+  }
+
+  function getRole(speaker) {
+    if (speaker === 'detective') return data.detective_model || '';
+    if (speaker === 'narrator' || speaker === 'result') return '';
+    return data.suspect_models?.[speaker] || '';
+  }
+
+  function formatText(text) {
+    // Convert **bold** and *italic*
+    let s = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*]+?)\*/g, '<em>$1</em>');
+    return s;
+  }
+
+  // Group transcript into phases
+  const phases = [];
+  let currentPhase = null;
+  for (const entry of t) {
+    if (entry.phase !== currentPhase) {
+      currentPhase = entry.phase;
+      phases.push({ phase: currentPhase, entries: [] });
+    }
+    phases[phases.length - 1].entries.push(entry);
+  }
+
+  const PHASE_NAMES = {
+    scene_setting: 'Act I — The Crime Scene',
+    initial_statements: 'Act II — Initial Statements',
+    interrogation_r1: 'Act III — First Interrogation',
+    interrogation_r2: 'Act III — Second Interrogation',
+    interrogation_r3: 'Act III — Third Interrogation',
+    evidence_reveal: '🔍 Evidence Revealed',
+    cross_examination: 'Act IV — Cross-Examination',
+    parlor_scene: 'Act V — The Parlor Scene',
+    reveal: 'The Reveal',
+  };
+
+  let html = '';
+
+  // Header
+  const sceneEntry = t.find(e => e.phase === 'scene_setting');
+  html += `
+    <div class="header">
+      <div class="header-label">🎭 AI Mystery Theater</div>
+      <h1 class="story-title">${data.title}</h1>
+      ${sceneEntry ? `<p class="setting">${sceneEntry.text}</p>` : ''}
+      <div class="cast">
+        <div class="cast-member">
+          <div class="cast-avatar" style="background:${COLORS.detective}">🔍</div>
+          <span class="cast-name" style="color:${COLORS.detective}">The Detective</span>
+          <span class="cast-model">${data.detective_model || ''}</span>
+        </div>
+        ${suspectNames.map(name => `
+          <div class="cast-member">
+            <div class="cast-avatar" style="background:${getColor(name)}">${initial(name)}</div>
+            <span class="cast-name" style="color:${getColor(name)}">${name}</span>
+            <span class="cast-model">${data.suspect_models[name]}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  // Track which act headings we've already shown
+  const shownHeadings = new Set();
+  let interrogationCount = 0;
+
+  for (const group of phases) {
+    const p = group.phase;
+
+    // Determine heading
+    let heading = PHASE_NAMES[p];
+    if (p.startsWith('interrogation_r')) {
+      interrogationCount++;
+      heading = `Act III — Interrogation Round ${interrogationCount}`;
+    }
+
+    // Evidence reveals get merged inline—show heading only if standalone
+    if (p === 'evidence_reveal') {
+      // Render evidence cards without a separate heading
+      for (const entry of group.entries) {
+        html += `<div class="card card-evidence card-narrator"><div class="card-text">${formatText(entry.text)}</div></div>`;
+      }
+      continue;
+    }
+
+    if (p === 'reveal') {
+      html += `<div class="act-heading">✨ The Reveal</div>`;
+      const resultEntry = group.entries.find(e => e.speaker === 'result');
+      const solutionEntry = group.entries.find(e => e.speaker === 'narrator');
+      const correct = resultEntry && resultEntry.text.trim().toUpperCase() === 'CORRECT';
+      html += `
+        <div class="card reveal-card ${correct ? 'reveal-correct' : 'reveal-wrong'}">
+          <div class="reveal-result">${correct ? '✅ THE DETECTIVE WAS CORRECT!' : '❌ THE DETECTIVE WAS WRONG!'}</div>
+          ${solutionEntry ? `<div class="reveal-solution">${formatText(solutionEntry.text)}</div>` : ''}
+        </div>
+      `;
+      continue;
+    }
+
+    if (p === 'scene_setting') continue; // Already shown in header
+
+    if (heading && !shownHeadings.has(heading)) {
+      html += `<div class="act-heading">${heading}</div>`;
+      shownHeadings.add(heading);
+    }
+
+    for (const entry of group.entries) {
+      const speaker = entry.speaker;
+      const color = getColor(speaker);
+      const isParlor = p === 'parlor_scene';
+      const isDetective = speaker === 'detective';
+      const isNarrator = speaker === 'narrator';
+
+      let cardClass = 'card';
+      if (isNarrator) cardClass += ' card-narrator';
+      if (isDetective) cardClass += ' card-detective';
+      if (isParlor) cardClass += ' card-parlor';
+
+      html += `
+        <div class="${cardClass}">
+          <div class="card-speaker">
+            <div class="speaker-avatar" style="background:${color}">${isDetective ? '🔍' : initial(speaker)}</div>
+            <div>
+              <div class="speaker-name" style="color:${color}">${isDetective ? 'The Detective' : speaker}</div>
+              ${getRole(speaker) ? `<div class="speaker-role">${getRole(speaker)}</div>` : ''}
+            </div>
+          </div>
+          ${entry.thinking ? `
+          <div class="thinking-section" onclick="this.classList.toggle('expanded')">
+            <span class="thinking-label">💭 Inner thoughts</span>
+            <div class="thinking-content">${formatText(entry.thinking)}</div>
+          </div>
+          ` : ''}
+          <div class="card-text">${formatText(entry.text)}</div>
+        </div>
+      `;
+    }
+  }
+
+  // Footer
+  html += `
+    <div class="footer">
+      <div class="footer-meta">${data.total_tokens ? data.total_tokens.toLocaleString() + ' tokens used' : ''} · ${data.date || ''}</div>
+      <div class="footer-brand">Powered by AI Mystery Theater 🎭</div>
+    </div>
+  `;
+
+  app.innerHTML = html;
+
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.card, .reveal-card').forEach(el => observer.observe(el));
+})();
+</script>
+</body>
+</html>

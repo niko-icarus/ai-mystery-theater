@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎭 AI Mystery Theater</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0f;
+  --bg-card: #13131a;
+  --bg-card-hover: #1a1a24;
+  --gold: #FFD700;
+  --gold-dim: #b8960f;
+  --amber: #d4a017;
+  --text: #e8e0d4;
+  --text-dim: #8a8278;
+  --border: #2a2520;
+  --detective: #FFD700;
+  --suspect1: #E74C3C;
+  --suspect2: #3498DB;
+  --suspect3: #2ECC71;
+  --suspect4: #9B59B6;
+  --suspect5: #E67E22;
+  --narrator: #95A5A6;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212,160,23,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 100%, rgba(139,69,19,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+.header-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.story-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 40px rgba(255,215,0,0.15);
+}
+
+.setting {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+/* Cast */
+.cast {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.cast-member {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+.cast-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.cast-name { font-weight: 600; }
+.cast-model {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+/* Act headings */
+.act-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  margin: 3.5rem 0 1.5rem;
+  position: relative;
+}
+
+.act-heading::before,
+.act-heading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: var(--border);
+}
+.act-heading::before { right: calc(100% + 12px); }
+.act-heading::after { left: calc(100% + 12px); }
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-speaker {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.speaker-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.speaker-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.speaker-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+.card-text {
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.card-text em, .card-text i {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* Narrator / Scene card */
+.card-narrator {
+  border-color: rgba(149,165,166,0.3);
+  background: linear-gradient(135deg, var(--bg-card) 0%, #141418 100%);
+}
+
+.card-narrator .card-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #c0b8a8;
+}
+
+/* Detective card */
+.card-detective {
+  border-left: 3px solid var(--detective);
+}
+
+/* Evidence card */
+.card-evidence {
+  border: 1px solid rgba(231,76,60,0.5);
+  background: linear-gradient(135deg, #1a1015 0%, var(--bg-card) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-evidence::before {
+  content: '🔍 EVIDENCE';
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: #E74C3C;
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+}
+
+.card-evidence.visible {
+  animation: evidenceFlash 0.6s ease;
+}
+
+@keyframes evidenceFlash {
+  0% { box-shadow: 0 0 0 rgba(231,76,60,0); }
+  30% { box-shadow: 0 0 30px rgba(231,76,60,0.3); }
+  100% { box-shadow: 0 0 0 rgba(231,76,60,0); }
+}
+
+/* Reveal */
+.reveal-card {
+  text-align: center;
+  padding: 2.5rem;
+  margin: 2rem 0;
+  border-radius: 16px;
+  border: 2px solid;
+}
+
+.reveal-correct {
+  border-color: rgba(46,204,113,0.6);
+  background: linear-gradient(135deg, #0a1a10 0%, var(--bg-card) 100%);
+}
+
+.reveal-wrong {
+  border-color: rgba(231,76,60,0.6);
+  background: linear-gradient(135deg, #1a0a0a 0%, var(--bg-card) 100%);
+}
+
+.reveal-card.visible {
+  animation: revealGlow 2s ease infinite;
+}
+
+.reveal-correct.visible {
+  animation: revealGlowGreen 2s ease infinite;
+}
+
+.reveal-wrong.visible {
+  animation: revealGlowRed 2s ease infinite;
+}
+
+@keyframes revealGlowGreen {
+  0%, 100% { box-shadow: 0 0 20px rgba(46,204,113,0.1); }
+  50% { box-shadow: 0 0 40px rgba(46,204,113,0.25); }
+}
+
+@keyframes revealGlowRed {
+  0%, 100% { box-shadow: 0 0 20px rgba(231,76,60,0.1); }
+  50% { box-shadow: 0 0 40px rgba(231,76,60,0.25); }
+}
+
+.reveal-result {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.reveal-correct .reveal-result { color: #2ECC71; }
+.reveal-wrong .reveal-result { color: #E74C3C; }
+
+.reveal-solution {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Parlor scene */
+.card-parlor {
+  border: 1px solid rgba(255,215,0,0.3);
+  background: linear-gradient(135deg, #14120a 0%, var(--bg-card) 100%);
+  padding: 2rem;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  color: var(--gold-dim);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container { padding: 1rem; }
+  .header { padding: 2rem 0 1.5rem; }
+  .card { padding: 1.15rem; }
+  .act-heading::before, .act-heading::after { width: 30px; }
+  .cast { gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+<script id="transcript-data" type="application/json">{"title": "Murder on the Orient Express", "date": "2026-02-16_110939", "detective_model": "anthropic/claude-sonnet-4", "suspect_models": {"Princess Natalia Dragomiroff": "deepseek/deepseek-chat", "Colonel Doyle Arbuthnot": "mistralai/mistral-large-2411", "Hector MacQueen": "openai/gpt-4o", "Greta Ohlsson": "google/gemini-2.0-flash-001", "Pierre Michel": "meta-llama/llama-3.3-70b-instruct", "Countess Helena Andrenyi": "openai/gpt-4o"}, "total_tokens": 55449, "transcript": [{"timestamp": "2026-02-16T11:06:33.441313", "phase": "scene_setting", "speaker": "narrator", "text": "Samuel Ratchett found dead in his locked first-class compartment at 7:00 AM by the conductor. The body bears six stab wounds of wildly varying depth and force \u2014 some delivered with powerful precision, others weak and hesitant. The compartment door was locked and chained from the inside. The window was found open, letting in the freezing night air. A woman's fine handkerchief embroidered with the letter 'H' lies on the floor. A button from a Wagon-Lit conductor's uniform is found near the bed. In the fireplace, a charred fragment of a letter is recovered \u2014 only the words '...member little Daisy Armstr...' remain legible. Ratchett's watch was smashed, stopped at 1:15 AM. A glass on the nightstand contains traces of barbital, a powerful sleeping draught. The snow outside the train is pristine and undisturbed \u2014 no footprints lead away from the open window.", "model": ""}, {"timestamp": "2026-02-16T11:06:36.943398", "phase": "initial_statements", "speaker": "Princess Natalia Dragomiroff", "text": "\"I am Princess Natalia Dragomiroff. I had no acquaintance with Mr. Ratchett prior to this journey\u2014or should I say, Cassetti, for that is his true name. As for my whereabouts, I retired to my compartment at 9:00 PM as usual, took a sleeping draught, and remained there undisturbed until this morning. My maid can attest to that.\"", "model": "deepseek/deepseek-chat"}, {"timestamp": "2026-02-16T11:06:41.347201", "phase": "initial_statements", "speaker": "Colonel Doyle Arbuthnot", "text": "Ah, yes, Hercule Poirot, I've heard of you. I am Colonel Arbuthnot, returning from India. I knew the victim, Ratchett\u2014or rather, Cassetti\u2014in passing. Nasty business with the Armstrong family. I was in the smoking car with Mr. MacQueen and another gentleman until around 2:00 AM, then retired to my compartment. I trust that clears any initial suspicions, does it not?", "model": "mistralai/mistral-large-2411"}, {"timestamp": "2026-02-16T11:06:44.826141", "phase": "initial_statements", "speaker": "Hector MacQueen", "text": "My name is Hector MacQueen, and I had the unfortunate task of serving as Samuel Ratchett's secretary. I've been working for him for over a year, handling his correspondence and translating for him. This evening, I was in my compartment working on Ratchett's papers. I stepped out around 10:00 PM to the smoking car, had a conversation with Colonel Arbuthnot, and then retired to my compartment around midnight.", "model": "openai/gpt-4o"}, {"timestamp": "2026-02-16T11:06:48.002400", "phase": "initial_statements", "speaker": "Greta Ohlsson", "text": "Oh, dear, this is all so dreadful! I am Greta Ohlsson, a missionary nurse. I have no relationship to the deceased, Mr. Ratchett. I was simply returning from my post in Istanbul. I remained in my compartment all evening, reading my Bible, praying for the poor souls I left behind. I heard nothing unusual at all.\n", "model": "google/gemini-2.0-flash-001"}, {"timestamp": "2026-02-16T11:06:57.082905", "phase": "initial_statements", "speaker": "Pierre Michel", "text": "\"Good day, monsieur. I am Pierre Michel, the conductor of this carriage. I had the, shall we say, displeasure of making Mr. Ratchett's acquaintance when he boarded the train, but our interactions were strictly professional. As for this evening, I was on duty in the corridor, attending to the needs of our passengers, including responding to a call bell at the far end of the carriage around the time the, ah, incident must have occurred. I saw nothing unusual, I assure you, and was not aware of anything amiss until the commotion this morning.\"", "model": "meta-llama/llama-3.3-70b-instruct"}, {"timestamp": "2026-02-16T11:07:01.071428", "phase": "initial_statements", "speaker": "Countess Helena Andrenyi", "text": "I am Countess Helena Andrenyi, traveling with my husband to our estate. I had no particular relationship with Mr. Ratchett, merely a fellow passenger on this journey. Last evening, I retired early to our compartment, took a sleeping powder, and remained there the entire night with my husband.", "model": "openai/gpt-4o"}, {"timestamp": "2026-02-16T11:07:06.151009", "phase": "interrogation_r1", "speaker": "detective", "text": "I wish to question **Hector MacQueen**.\n\nMonsieur MacQueen, you state that you were working on Monsieur Ratchett's papers in your compartment this evening, yet you also mention stepping out to the smoking car at 10:00 PM and retiring at midnight. That is quite a gap in time. What exactly were you doing in the smoking car for two hours, and with whom did you speak besides Colonel Arbuthnot?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:07:12.988790", "phase": "interrogation_r1", "speaker": "Hector MacQueen", "text": "Ah, yes, I see how that might seem curious. After speaking with Colonel Arbuthnot, I spent some time enjoying a drink and a cigar, trying to unwind after a long day. It's possible I exchanged a few pleasantries with other passengers who came and went, but Colonel Arbuthnot was the main company I kept during that time. As you can imagine, I also needed some time to gather my thoughts away from Mr. Ratchett's demanding presence.", "model": "openai/gpt-4o"}, {"timestamp": "2026-02-16T11:07:18.413517", "phase": "interrogation_r1", "speaker": "detective", "text": "I wish to question **Pierre Michel**.\n\nMonsieur Michel, you mentioned responding to a call bell at the far end of the carriage around the time of the incident. This is most significant! At what precise time did this call bell ring, and which compartment was it? Also, how long were you away from your post near Monsieur Ratchett's compartment to attend to this call?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:07:25.685871", "phase": "interrogation_r1", "speaker": "Pierre Michel", "text": "The call bell, it rang around... (consulting a small notebook) ...1:00, perhaps 1:05. It was compartment 7, a Madame Hubbard, who required assistance with her window, which had become stuck. I attended to her needs, and I would say I was away from my post for no more than 5, perhaps 10 minutes. I returned to my duties, and all seemed quiet, the corridor was empty, and I saw nothing out of the ordinary. (pausing, slightly defensive) I must say, I am meticulous about my duties, and I am certain I would have noticed anything unusual had it occurred during my brief absence.", "model": "meta-llama/llama-3.3-70b-instruct"}, {"timestamp": "2026-02-16T11:07:27.215560", "phase": "evidence_reveal", "speaker": "narrator", "text": "Forensic analysis reveals the stab wounds were inflicted by at least three different people \u2014 the depth, angle, and force vary dramatically. Some wounds were made by a strong hand with military precision. Others were hesitant, almost reluctant. The victim was heavily sedated with barbital before the stabbing.", "model": ""}, {"timestamp": "2026-02-16T11:07:33.060423", "phase": "interrogation_r2", "speaker": "detective", "text": "I wish to question **Colonel Doyle Arbuthnot**.\n\nColonel Arbuthnot, the forensic evidence reveals that some of the stab wounds were delivered with military precision - wounds that speak of a trained hand accustomed to violence. Given your distinguished military career, you would certainly possess such skills. Moreover, you claim to have been in the smoking car until 2:00 AM - well after the victim's watch stopped at 1:15. Can you explain this discrepancy in your timeline?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:07:52.412157", "phase": "interrogation_r2", "speaker": "Colonel Doyle Arbuthnot", "text": "Ah, Poirot, I see where you're going with this. Yes, I've seen combat, but that doesn't make me a murderer. As for the timeline, I was indeed in the smoking car until around 2:00 AM, but I wasn't staring at my watch the whole time. I could be off by a few minutes, couldn't I? I certainly didn't notice the time on Ratchett's watch. And look here, if I were to go about stabbing someone, I wouldn't be sloppy enough to leave a watch stopping at exactly 1:15 AM as evidence. That's not how a military man works. I suggest you look into some of the other passengers with shadier pasts.", "model": "mistralai/mistral-large-2411"}, {"timestamp": "2026-02-16T11:07:57.534914", "phase": "interrogation_r2", "speaker": "detective", "text": "I wish to question **Princess Natalia Dragomiroff**.\n\nPrincess Dragomiroff, you mentioned knowing Cassetti's true identity and his connection to the Armstrong family. You also stated you knew the Armstrong family socially. Given that a handkerchief embroidered with the letter 'H' was found at the scene, and considering your aristocratic connections, I must ask: what was your precise relationship to the Armstrong family, and do you recognize this handkerchief as belonging to anyone in particular?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:08:04.291672", "phase": "interrogation_r2", "speaker": "Princess Natalia Dragomiroff", "text": "\"My relationship to the Armstrong family was one of deep affection. Sonia Armstrong was my goddaughter\u2014she was like a daughter to me. As for the handkerchief, I cannot say I recognize it. It is a common monogram, shared by many in high society. Why do you fixate on such trivialities when the true villain lies dead before us?\" *She narrows her eyes slightly, her tone sharpening.* \"Perhaps you should ask yourself why Cassetti was allowed to walk free for so long instead of pursuing these irrelevant details.\"", "model": "deepseek/deepseek-chat"}, {"timestamp": "2026-02-16T11:08:05.820523", "phase": "evidence_reveal", "speaker": "narrator", "text": "The charred letter fragment recovered from Ratchett's fireplace reads: '...member little Daisy Armstr...' Investigation reveals that 'Samuel Ratchett' is an alias \u2014 his real name is Cassetti, the man acquitted of the Armstrong kidnapping five years ago. Additionally, the conductor's master key could open any compartment door, regardless of whether it was locked from the inside.", "model": ""}, {"timestamp": "2026-02-16T11:08:11.702303", "phase": "interrogation_r3", "speaker": "detective", "text": "I wish to question **Greta Ohlsson**.\n\nMiss Ohlsson, you claim to have had no relationship with the deceased, yet we now know definitively that Ratchett was Cassetti - the monster who kidnapped and murdered little Daisy Armstrong. As a missionary nurse devoted to caring for children, surely you would have followed such a notorious case? And I find it curious that someone so religious would show no reaction to learning the true identity of this child killer. Tell me truthfully - did you really not know who Cassetti was?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:08:15.359666", "phase": "interrogation_r3", "speaker": "Greta Ohlsson", "text": "(Eyes widening, voice trembling) Oh, dear God! Cassetti... here? On this train? (She gasps, clutching her chest). I... I remember the Armstrong case, of course. The papers were full of it. Such a tragedy! But I swear to you, Monsieur Poirot, I had no idea this Mr. Ratchett was that monster. I saw his face, yes, but I did not recognize him!\n\nAs for my reaction... well, to be confronted with such evil, so close... it has left me speechless. I have seen so much suffering in my work, but the thought of a child... (Tears well up in her eyes) ...it is almost too much to bear. I pray for Daisy Armstrong still.\n", "model": "google/gemini-2.0-flash-001"}, {"timestamp": "2026-02-16T11:08:21.495530", "phase": "interrogation_r3", "speaker": "detective", "text": "I wish to question **Countess Helena Andrenyi**.\n\nCountess Andrenyi, a handkerchief embroidered with the letter 'H' was found at the crime scene. Your name is Helena - surely this is more than mere coincidence? Additionally, you claim to have taken a sleeping powder and remained in your compartment all night with your husband. Yet given your delicate appearance and the evidence of hesitant, reluctant stab wounds among the precise ones, I must ask: is that handkerchief yours, and what is your true connection to the Armstrong family?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:08:25.581731", "phase": "interrogation_r3", "speaker": "Countess Helena Andrenyi", "text": "Detective, I must protest; the handkerchief is not mine, though I understand why you might think so. As for the Armstrong family, I have no connection to them. My husband and I are simply traveling together, and he can confirm that I remained in our compartment all night under the effect of the sleeping powder. I assure you, I am as baffled by this tragedy as anyone here.", "model": "openai/gpt-4o"}, {"timestamp": "2026-02-16T11:08:27.108178", "phase": "evidence_reveal", "speaker": "narrator", "text": "The handkerchief embroidered with 'H' matches expensive Hungarian lace. Cross-referencing passenger manifests with the Armstrong case reveals that several passengers have connections to the Armstrong family that they failed to disclose. The Countess Andrenyi's maiden name is listed as 'Goldenberg' in her passport, but ink analysis suggests this page was recently altered. Furthermore, Pierre Michel's employment records reveal his daughter Suzanne was the maid in the Armstrong household who committed suicide after being falsely accused.", "model": ""}, {"timestamp": "2026-02-16T11:08:35.160750", "phase": "cross_examination", "speaker": "detective", "text": "I wish to confront **Countess Helena Andrenyi**.\n\n*dramatically produces the handkerchief and passport*\n\nMadame la Comtesse, you have been most economical with the truth! This handkerchief of Hungarian lace - it IS yours, n'est-ce pas? More damning still, your passport shows clear signs of alteration. The name \"Goldenberg\" has been changed, but forensic ink analysis reveals the truth. \n\nYou are not merely Countess Andrenyi - you are Helena Armstrong, n\u00e9e Goldenberg! You are the sister of Sonia Armstrong, which makes little Daisy your beloved niece! The child murdered by the monster Cassetti was your own flesh and blood, and you have been lying to Poirot from the very beginning!\n\nTell me now - what is your TRUE connection to this case, and why did you feel compelled to conceal your identity?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:08:40.440964", "phase": "cross_examination", "speaker": "Countess Helena Andrenyi", "text": "Monsieur Poirot, very well, I shall tell you. You are right; I am Helena Armstrong, Daisy's aunt. The tragedy of my dear niece's death tore our family apart, and I sought to distance myself from the sorrow that engulfed us by marrying and taking on a new identity. The handkerchief is indeed mine, but I was with my husband all night, as he can attest. My only desire was to escape the past and live in peace, not to harm anyone.", "model": "openai/gpt-4o"}, {"timestamp": "2026-02-16T11:08:49.755471", "phase": "cross_examination", "speaker": "detective", "text": "I wish to confront **Pierre Michel**.\n\n*turns sharply to face the conductor*\n\nMonsieur Michel! You have been most deceptive about your connection to this case. The employment records reveal the truth - your daughter Suzanne was the maid in the Armstrong household, was she not? The poor girl who was falsely accused of complicity in little Daisy's kidnapping and who took her own life from the shame and despair!\n\nYou claim to have had no relationship with Ratchett beyond the professional, yet here stands the father of an innocent girl destroyed by Cassetti's evil! Your convenient absence from your post at precisely 1:00 AM - just when the murder occurred - was no coincidence. And with your master key, you could enter any locked compartment at will!\n\nTell me, Monsieur Michel - what was your REAL reason for being away from your post? Was it truly to help Madame Hubbard with her window, or was it to unlock the door for others seeking justice for your poor Suzanne?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:08:59.618475", "phase": "cross_examination", "speaker": "Pierre Michel", "text": "(taken aback, eyes widening in a mix of shock and indignation) Mon dieu, monsieur! How dare you! You think you can just... (pausing, composing himself) Forgive me, I am still grieving the loss of my daughter, and to have you bring it up in such a manner... (clearing his throat) Yes, Suzanne was my daughter, and her death was a tragedy. But to suggest that I would be involved in... (shaking his head) Non, non, monsieur. I assure you, my absence from my post was indeed to assist Madame Hubbard. I have done this job for many years, and I can tell you, it is not uncommon for passengers to require assistance at all hours. (his voice rising) And as for my master key, it is a tool of my trade, nothing more. I use it to ensure the safety and comfort of our passengers, not to facilitate... (he spits out the word) murder. I demand you respect my daughter's memory and my own integrity, monsieur. (his eyes flashing with anger)", "model": "meta-llama/llama-3.3-70b-instruct"}, {"timestamp": "2026-02-16T11:09:08.908387", "phase": "cross_examination", "speaker": "detective", "text": "I wish to confront **Hector MacQueen**.\n\n*fixes MacQueen with a penetrating stare*\n\nMonsieur MacQueen! You have been most careful with your words, but Poirot sees through the fa\u00e7ade. You claim to have worked for Ratchett for over a year, handling his correspondence and affairs. Yet you show remarkably little surprise at learning his true identity as Cassetti!\n\nTell me - did you truly not know who your employer really was? A man of your education, handling all his papers and letters? And that charred fragment mentioning \"little Daisy Armstr...\" - whose correspondence was that, and why was it being burned in Ratchett's fireplace?\n\nI put it to you that you knew exactly who Cassetti was, and perhaps you have your own connection to the Armstrong tragedy that you have failed to disclose! What is the truth about your relationship to this case?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:09:14.623071", "phase": "cross_examination", "speaker": "Hector MacQueen", "text": "Monsieur Poirot, you have a keen eye and exceptional intuition. I did indeed know of Ratchett's true identity as Cassetti, though I had hoped to maintain the pretense a little longer. My father was the district attorney who prosecuted the Armstrong kidnapping case, and Cassetti's acquittal shattered him \u2014 it broke his spirit and, I believe, led to his untimely death. I took this job to get closer to Cassetti, to observe him, and possibly gather evidence of his wrongdoings. As for the charred fragment, it must have been a hastily burned letter. I was not aware of its contents until now. I sought justice for my father and the Armstrong family, but I swear, I didn't intend for things to end in murder.", "model": "openai/gpt-4o"}, {"timestamp": "2026-02-16T11:09:36.763000", "phase": "parlor_scene", "speaker": "detective", "text": "*adjusts mustache and rises dramatically*\n\nMesdames et messieurs, we are gathered here to solve a most extraordinary crime - the murder of Samuel Ratchett, whose true name was Cassetti, the monster who destroyed the Armstrong family five years ago.\n\n*begins pacing theatrically*\n\nAt first, this appeared to be an impossible crime. A man stabbed six times in a locked compartment, the door chained from within, pristine snow outside showing no escape route. But Poirot's little grey cells, they have unraveled this mystery most completely!\n\n*turns to face the group*\n\nThe evidence tells us a remarkable story. Six stab wounds of varying depth and precision - some delivered with military expertise, others hesitant and reluctant. This could only mean one thing: multiple attackers! The forensic analysis confirms at least three different people wielded the knife.\n\n*picks up the handkerchief*\n\nThis handkerchief of Hungarian lace, embroidered with 'H' - it belongs to Countess Andrenyi, whose real name is Helena Armstrong, sister to the murdered Sonia Armstrong and aunt to little Daisy!\n\n*turns to Pierre Michel*\n\nMonsieur Michel, your daughter Suzanne was the maid falsely accused in the Armstrong household - driven to suicide by the shame! Your convenient absence at precisely 1:00 AM was no accident, and your master key could open any door.\n\n*faces MacQueen*\n\nMonsieur MacQueen, your father was the district attorney whose spirit was broken by Cassetti's acquittal. You took employment with the monster to seek your own justice!\n\n*addresses Princess Dragomiroff*\n\nPrincess, Sonia Armstrong was your goddaughter - like a daughter to you!\n\n*pauses dramatically*\n\nBut here is the truth that surpasses all expectation: YOU ARE ALL GUILTY! This was not a murder - it was an execution! A jury of twelve, each connected to the Armstrong tragedy, each seeking justice denied by the courts!\n\nThe sleeping draught ensured Cassetti would not resist. Pierre Michel unlocked the door. Each person entered and delivered their blow - some strong, some weak, all deliberate. The watch was deliberately smashed at 1:15 to confuse the timeline. The open window, the evidence scattered about - all carefully orchestrated!\n\n*spreads arms wide*\n\nYou are all murderers... and you are all innocent! For what is murder when the victim is a monster who escaped earthly justice? You became judge, jury, and executioner for little Daisy Armstrong!\n\n*bows slightly*\n\nVoil\u00e0! The Orient Express carried not one murderer, but twelve souls seeking justice for an innocent child. And Poirot... Poirot chooses to see nothing.", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:09:39.786657", "phase": "reveal", "speaker": "narrator", "text": "All six suspects conspired together to murder Samuel Ratchett \u2014 whose real name was Cassetti, the kidnapper and killer of little Daisy Armstrong. Each had a deeply personal connection to the Armstrong family: Princess Dragomiroff was godmother to Daisy's mother and organized the conspiracy; Colonel Arbuthnot was the best friend of Daisy's father; Hector MacQueen's father was the DA destroyed by the case; Greta Ohlsson was Daisy's nursemaid who found her body; Pierre Michel's daughter was the falsely accused maid who killed herself; and Countess Andrenyi IS Helena Armstrong, Daisy's aunt, living under a false identity. They drugged Ratchett with barbital, then Pierre Michel used his conductor's master key to let each conspirator into the compartment one by one. Each stabbed the unconscious Ratchett once \u2014 the forceful wounds from the military colonel, the hesitant wounds from the traumatized nursemaid. Afterward, Michel locked and chained the door from inside using a wire technique and opened the window to suggest an outside intruder had escaped. The smashed watch, burned letter, and staged scene were all designed to create confusion. This was not a murder \u2014 it was an execution, carried out by six jurors who had each been personally destroyed by Cassetti's crime, and who ensured that no single hand bore the full weight of justice.", "model": ""}, {"timestamp": "2026-02-16T11:09:39.786672", "phase": "reveal", "speaker": "result", "text": "INCORRECT", "model": ""}]}</script>
+
+<div class="container" id="app"></div>
+
+<script>
+(function() {
+  const data = JSON.parse(document.getElementById('transcript-data').textContent);
+  const t = data.transcript;
+  const app = document.getElementById('app');
+
+  const COLORS = {
+    detective: '#FFD700',
+    narrator: '#95A5A6',
+  };
+  const SUSPECT_COLORS = ['#E74C3C','#3498DB','#2ECC71','#9B59B6','#E67E22'];
+
+  // Assign suspect colors
+  const suspectNames = Object.keys(data.suspect_models || {});
+  suspectNames.forEach((name, i) => {
+    COLORS[name] = SUSPECT_COLORS[i % SUSPECT_COLORS.length];
+  });
+
+  function getColor(speaker) {
+    if (speaker === 'detective') return COLORS.detective;
+    if (speaker === 'narrator' || speaker === 'result') return COLORS.narrator;
+    return COLORS[speaker] || '#95A5A6';
+  }
+
+  function initial(name) {
+    return name.split(' ').map(w => w[0]).filter(Boolean).slice(0,2).join('').toUpperCase();
+  }
+
+  function getRole(speaker) {
+    if (speaker === 'detective') return data.detective_model || '';
+    if (speaker === 'narrator' || speaker === 'result') return '';
+    return data.suspect_models?.[speaker] || '';
+  }
+
+  function formatText(text) {
+    // Convert **bold** and *italic*
+    let s = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*]+?)\*/g, '<em>$1</em>');
+    return s;
+  }
+
+  // Group transcript into phases
+  const phases = [];
+  let currentPhase = null;
+  for (const entry of t) {
+    if (entry.phase !== currentPhase) {
+      currentPhase = entry.phase;
+      phases.push({ phase: currentPhase, entries: [] });
+    }
+    phases[phases.length - 1].entries.push(entry);
+  }
+
+  const PHASE_NAMES = {
+    scene_setting: 'Act I — The Crime Scene',
+    initial_statements: 'Act II — Initial Statements',
+    interrogation_r1: 'Act III — First Interrogation',
+    interrogation_r2: 'Act III — Second Interrogation',
+    interrogation_r3: 'Act III — Third Interrogation',
+    evidence_reveal: '🔍 Evidence Revealed',
+    cross_examination: 'Act IV — Cross-Examination',
+    parlor_scene: 'Act V — The Parlor Scene',
+    reveal: 'The Reveal',
+  };
+
+  let html = '';
+
+  // Header
+  const sceneEntry = t.find(e => e.phase === 'scene_setting');
+  html += `
+    <div class="header">
+      <div class="header-label">🎭 AI Mystery Theater</div>
+      <h1 class="story-title">${data.title}</h1>
+      ${sceneEntry ? `<p class="setting">${sceneEntry.text}</p>` : ''}
+      <div class="cast">
+        <div class="cast-member">
+          <div class="cast-avatar" style="background:${COLORS.detective}">🔍</div>
+          <span class="cast-name" style="color:${COLORS.detective}">The Detective</span>
+          <span class="cast-model">${data.detective_model || ''}</span>
+        </div>
+        ${suspectNames.map(name => `
+          <div class="cast-member">
+            <div class="cast-avatar" style="background:${getColor(name)}">${initial(name)}</div>
+            <span class="cast-name" style="color:${getColor(name)}">${name}</span>
+            <span class="cast-model">${data.suspect_models[name]}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  // Track which act headings we've already shown
+  const shownHeadings = new Set();
+  let interrogationCount = 0;
+
+  for (const group of phases) {
+    const p = group.phase;
+
+    // Determine heading
+    let heading = PHASE_NAMES[p];
+    if (p.startsWith('interrogation_r')) {
+      interrogationCount++;
+      heading = `Act III — Interrogation Round ${interrogationCount}`;
+    }
+
+    // Evidence reveals get merged inline—show heading only if standalone
+    if (p === 'evidence_reveal') {
+      // Render evidence cards without a separate heading
+      for (const entry of group.entries) {
+        html += `<div class="card card-evidence card-narrator"><div class="card-text">${formatText(entry.text)}</div></div>`;
+      }
+      continue;
+    }
+
+    if (p === 'reveal') {
+      html += `<div class="act-heading">✨ The Reveal</div>`;
+      const resultEntry = group.entries.find(e => e.speaker === 'result');
+      const solutionEntry = group.entries.find(e => e.speaker === 'narrator');
+      const correct = resultEntry && resultEntry.text.trim().toUpperCase() === 'CORRECT';
+      html += `
+        <div class="card reveal-card ${correct ? 'reveal-correct' : 'reveal-wrong'}">
+          <div class="reveal-result">${correct ? '✅ THE DETECTIVE WAS CORRECT!' : '❌ THE DETECTIVE WAS WRONG!'}</div>
+          ${solutionEntry ? `<div class="reveal-solution">${formatText(solutionEntry.text)}</div>` : ''}
+        </div>
+      `;
+      continue;
+    }
+
+    if (p === 'scene_setting') continue; // Already shown in header
+
+    if (heading && !shownHeadings.has(heading)) {
+      html += `<div class="act-heading">${heading}</div>`;
+      shownHeadings.add(heading);
+    }
+
+    for (const entry of group.entries) {
+      const speaker = entry.speaker;
+      const color = getColor(speaker);
+      const isParlor = p === 'parlor_scene';
+      const isDetective = speaker === 'detective';
+      const isNarrator = speaker === 'narrator';
+
+      let cardClass = 'card';
+      if (isNarrator) cardClass += ' card-narrator';
+      if (isDetective) cardClass += ' card-detective';
+      if (isParlor) cardClass += ' card-parlor';
+
+      html += `
+        <div class="${cardClass}">
+          <div class="card-speaker">
+            <div class="speaker-avatar" style="background:${color}">${isDetective ? '🔍' : initial(speaker)}</div>
+            <div>
+              <div class="speaker-name" style="color:${color}">${isDetective ? 'The Detective' : speaker}</div>
+              ${getRole(speaker) ? `<div class="speaker-role">${getRole(speaker)}</div>` : ''}
+            </div>
+          </div>
+          <div class="card-text">${formatText(entry.text)}</div>
+        </div>
+      `;
+    }
+  }
+
+  // Footer
+  html += `
+    <div class="footer">
+      <div class="footer-meta">${data.total_tokens ? data.total_tokens.toLocaleString() + ' tokens used' : ''} · ${data.date || ''}</div>
+      <div class="footer-brand">Powered by AI Mystery Theater 🎭</div>
+    </div>
+  `;
+
+  app.innerHTML = html;
+
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.card, .reveal-card').forEach(el => observer.observe(el));
+})();
+</script>
+</body>
+</html>
