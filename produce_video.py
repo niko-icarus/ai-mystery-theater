@@ -14,7 +14,7 @@ from PIL import Image, ImageDraw, ImageFont
 from elevenlabs import ElevenLabs
 
 # Config
-API_KEY = "REDACTED"
+API_KEY = os.environ.get("ELEVEN_LABS_API_KEY", "")
 OUTPUT_DIR = Path(__file__).parent / "production"
 OUTPUT_DIR.mkdir(exist_ok=True)
 
