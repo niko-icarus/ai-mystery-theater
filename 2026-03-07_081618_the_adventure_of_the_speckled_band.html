@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎭 AI Mystery Theater</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0f;
+  --bg-card: #13131a;
+  --bg-card-hover: #1a1a24;
+  --gold: #FFD700;
+  --gold-dim: #b8960f;
+  --amber: #d4a017;
+  --text: #e8e0d4;
+  --text-dim: #8a8278;
+  --border: #2a2520;
+  --detective: #FFD700;
+  --suspect1: #E74C3C;
+  --suspect2: #3498DB;
+  --suspect3: #2ECC71;
+  --suspect4: #9B59B6;
+  --suspect5: #E67E22;
+  --narrator: #95A5A6;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212,160,23,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 100%, rgba(139,69,19,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+.header-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.story-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 40px rgba(255,215,0,0.15);
+}
+
+.setting {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+/* Cast */
+.cast {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.cast-member {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+.cast-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.cast-name { font-weight: 600; }
+.cast-model {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+/* Act headings */
+.act-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  margin: 3.5rem 0 1.5rem;
+  position: relative;
+}
+
+.act-heading::before,
+.act-heading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: var(--border);
+}
+.act-heading::before { right: calc(100% + 12px); }
+.act-heading::after { left: calc(100% + 12px); }
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-speaker {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.speaker-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.speaker-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.speaker-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+.card-text {
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.card-text em, .card-text i {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* Narrator / Scene card */
+.card-narrator {
+  border-color: rgba(149,165,166,0.3);
+  background: linear-gradient(135deg, var(--bg-card) 0%, #141418 100%);
+}
+
+.card-narrator .card-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #c0b8a8;
+}
+
+/* Detective card */
+.card-detective {
+  border-left: 3px solid var(--detective);
+}
+
+/* Evidence card */
+.card-evidence {
+  border: 1px solid rgba(231,76,60,0.5);
+  background: linear-gradient(135deg, #1a1015 0%, var(--bg-card) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-evidence::before {
+  content: '🔍 EVIDENCE';
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: #E74C3C;
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+}
+
+.card-evidence.visible {
+  animation: evidenceFlash 0.6s ease;
+}
+
+@keyframes evidenceFlash {
+  0% { box-shadow: 0 0 0 rgba(231,76,60,0); }
+  30% { box-shadow: 0 0 30px rgba(231,76,60,0.3); }
+  100% { box-shadow: 0 0 0 rgba(231,76,60,0); }
+}
+
+/* Reveal */
+.reveal-card {
+  text-align: center;
+  padding: 2.5rem;
+  margin: 2rem 0;
+  border-radius: 16px;
+  border: 2px solid;
+}
+
+.reveal-correct {
+  border-color: rgba(46,204,113,0.6);
+  background: linear-gradient(135deg, #0a1a10 0%, var(--bg-card) 100%);
+}
+
+.reveal-wrong {
+  border-color: rgba(231,76,60,0.6);
+  background: linear-gradient(135deg, #1a0a0a 0%, var(--bg-card) 100%);
+}
+
+.reveal-card.visible {
+  animation: revealGlow 2s ease infinite;
+}
+
+.reveal-correct.visible {
+  animation: revealGlowGreen 2s ease infinite;
+}
+
+.reveal-wrong.visible {
+  animation: revealGlowRed 2s ease infinite;
+}
+
+@keyframes revealGlowGreen {
+  0%, 100% { box-shadow: 0 0 20px rgba(46,204,113,0.1); }
+  50% { box-shadow: 0 0 40px rgba(46,204,113,0.25); }
+}
+
+@keyframes revealGlowRed {
+  0%, 100% { box-shadow: 0 0 20px rgba(231,76,60,0.1); }
+  50% { box-shadow: 0 0 40px rgba(231,76,60,0.25); }
+}
+
+.reveal-result {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.reveal-correct .reveal-result { color: #2ECC71; }
+.reveal-wrong .reveal-result { color: #E74C3C; }
+
+.reveal-solution {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Parlor scene */
+.card-parlor {
+  border: 1px solid rgba(255,215,0,0.3);
+  background: linear-gradient(135deg, #14120a 0%, var(--bg-card) 100%);
+  padding: 2rem;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  color: var(--gold-dim);
+}
+
+/* Thinking sections */
+.thinking-section {
+  margin-bottom: 8px;
+  cursor: pointer;
+  border-left: 2px solid rgba(255,215,0,0.2);
+  padding-left: 12px;
+}
+.thinking-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #666;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+.thinking-label::after {
+  content: ' ▸';
+}
+.thinking-section.expanded .thinking-label::after {
+  content: ' ▾';
+}
+.thinking-content {
+  font-style: italic;
+  color: #888;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  margin-top: 4px;
+}
+.thinking-section.expanded .thinking-content {
+  max-height: 500px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container { padding: 1rem; }
+  .header { padding: 2rem 0 1.5rem; }
+  .card { padding: 1.15rem; }
+  .act-heading::before, .act-heading::after { width: 30px; }
+  .cast { gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+<script id="transcript-data" type="application/json">{"title": "The Adventure of the Speckled Band", "date": "2026-03-07_081618", "detective_model": "anthropic/claude-sonnet-4", "suspect_models": {"Dr. Grimesby Roylott": "openai/gpt-4o", "Helen Stoner": "google/gemini-2.0-flash-001", "Mrs. Honoria Farintosh": "deepseek/deepseek-chat", "Jem Ryder": "mistralai/mistral-large-2411", "Major Arthur Armitage": "meta-llama/llama-3.3-70b-instruct"}, "total_tokens": 129391, "transcript": [{"timestamp": "2026-03-07T08:11:39.086134", "phase": "scene_setting", "speaker": "narrator", "text": "Julia Stoner found dead in the corridor outside her locked bedroom at Stoke Moran Manor, two weeks before her planned wedding. She had staggered from her room in the middle of the night, her face blanched with terror, her body writhing in convulsions. Her last words to her sister Helen were: 'Oh, my God! Helen! It was the band! The speckled band!' She pointed vaguely toward Dr. Roylott's room before collapsing. No marks of violence were found on her body. The coroner could determine no cause of death. Her bedroom door was locked from the inside. The windows were blocked by old-fashioned shutters with iron bars \u2014 bolted from within. The room contains a bed clamped to the floor (it cannot be moved), a bell-pull hanging beside the bed that does not connect to any wire (it is a dummy), and a ventilator in the wall that opens not to the outside air but into Dr. Roylott's adjacent room. A saucer of milk and a small dog lash with a curious loop at the end were found in Dr. Roylott's chamber.", "model": ""}, {"timestamp": "2026-03-07T08:11:41.762502", "phase": "initial_statements", "speaker": "Dr. Grimesby Roylott", "text": "*standing with a stern expression* I am Dr. Grimesby Roylott, the stepfather of the late Julia Stoner. It is a tragedy what has befallen poor Julia, she was always such a delicate girl. I was in my room all night and heard nothing unusual. Frankly, I suspect the gypsies on the property might have something to do with this, given the 'band' she mentioned.", "model": "openai/gpt-4o", "thinking": "I must keep my composure and stick to my story. The detective will be watching every move I make. It's crucial to come across as both concerned and cooperative to avoid arousing any suspicion."}, {"timestamp": "2026-03-07T08:11:45.079595", "phase": "initial_statements", "speaker": "Helen Stoner", "text": "*Wringing my hands, my voice trembling* \"I am Helen Stoner, Julia's twin sister and Dr. Roylott's stepdaughter. This evening, I was in what was once Julia's room. You see, Dr. Roylott insisted I move there only a few days ago because of supposed repairs needed in my own room.\" *I shudder, glancing nervously around.* \"I can't explain the terror I feel, reliving what happened to my dear Julia.\"", "model": "google/gemini-2.0-flash-001", "thinking": "Be as honest as possible without revealing my engagement or Roylott's motive. I must emphasize my fear and grief and the odd circumstances of Julia's death. I need them to see Roylott is a violent man capable of anything."}, {"timestamp": "2026-03-07T08:11:55.355839", "phase": "initial_statements", "speaker": "Mrs. Honoria Farintosh", "text": "*clasping my hands tightly in front of me* I am Mrs. Honoria Farintosh, the housekeeper here at Stoke Moran. I looked after Miss Julia and her sister Helen since their mother passed. Tonight, I was in my room in the servants' wing when I heard screams. By the time I reached the corridor, poor Miss Julia... she was already gone. God rest her soul.", "model": "deepseek/deepseek-chat", "thinking": "I must appear calm and cooperative, but I cannot show too much fear of Dr. Roylott. Stick to the simple facts for now."}, {"timestamp": "2026-03-07T08:12:00.242776", "phase": "initial_statements", "speaker": "Jem Ryder", "text": "*standing proudly, voice steady* I am Jem Ryder, the leader of the Romani band camped on these grounds. We had no part in Miss Julia's tragic end. We were in our camp, far from the house, all night. My people can confirm this. We knew Miss Julia only in passing, but we wish her soul peace. We are here because Dr. Roylott allows it, but we keep to ourselves.", "model": "mistralai/mistral-large-2411", "thinking": "I must be clear about our innocence but careful not to reveal too much about our dealings with Roylott. We must protect our own."}, {"timestamp": "2026-03-07T08:12:57.996334", "phase": "initial_statements", "speaker": "Major Arthur Armitage", "text": "[THINKING] I must be careful what I reveal, but I want to cooperate with the investigation to clear my name and find Julia's killer. I'll stick to the facts for now and see how the detective responds. I hope I can keep my emotions in check and not reveal my suspicions about Roylott just yet.\n\n\"Good evening, Detective. My name is Major Arthur Armitage, and I was engaged to be married to the late Julia Stoner. We were deeply in love, and her tragic death has left me shattered. I was not present at Stoke Moran this evening, I was at my lodgings in London, where I had dinner at my club, and I have witnesses who can confirm my presence there. I received the news of Julia's passing by telegram this morning, and I immediately came to Stoke Moran to offer my condolences to her family and to see if I could be of any assistance in uncovering the truth behind her untimely death.\"", "model": "meta-llama/llama-3.3-70b-instruct"}, {"timestamp": "2026-03-07T08:13:11.191703", "phase": "interrogation_r1", "speaker": "detective", "text": "[THINKING] I need to press Dr. Roylott on the impossibility of his claim - he's in the adjacent room with a direct ventilator connection, yet heard nothing from Julia's violent death throes. This contradiction needs immediate addressing, and his response will reveal much about his credibility and potential guilt.\n\nI wish to question Dr. Grimesby Roylott.\n\n*adjusting my mustache with theatrical precision*\n\nDr. Roylott, you claim you \"heard nothing unusual\" that night, yet your stepdaughter died in terrible agony just beyond that ventilator connecting your chamber directly to hers. How is it possible, mon ami, that such violent convulsions and her final, desperate screams went completely unnoticed by a man of your... considerable presence?", "model": "anthropic/claude-sonnet-4", "thinking": "[THINKING] The most striking elements are the locked room, Julia's dying words about \"the band,\" and the peculiar items in Dr. Roylott's room - especially that ventilator connecting the rooms and the dog lash with a loop. Dr. Roylott has the strongest motive (financial) and means (access via the ventilator), plus his violent history and exotic animals. His immediate deflection to the gypsies is suspicious. I should start by probing his account and the timeline of events.\n\nI wish to question Dr. Grimesby Roylott.\n\nDr. Roylott, you claim you \"heard nothing unusual\" that night, yet your stepdaughter died in agony just outside your door, and there is a ventilator connecting your room directly to hers. How is it possible that such violent convulsions and her final screams went completely unnoticed by you?"}, {"timestamp": "2026-03-07T08:13:16.045975", "phase": "interrogation_r1", "speaker": "Dr. Grimesby Roylott", "text": "*crossing my arms, appearing slightly affronted* Well, it's rather simple. The house is quite old, with walls thicker than one might expect. And, you see, I was in a very deep sleep that night. Disturbances of any kind sometimes fail to penetrate my slumber after the trials of the day.", "model": "openai/gpt-4o", "thinking": "The detective's question is sharp, but I must maintain my composure. I need to offer a plausible explanation for why I didn't hear anything. Blaming the thickness of the walls or my presumed deep sleep should suffice if I deliver it confidently."}, {"timestamp": "2026-03-07T08:13:26.088428", "phase": "interrogation_r1", "speaker": "detective", "text": "[THINKING] Helen is the key witness who can establish the timeline and reveal Dr. Roylott's planning. The timing of her being moved to Julia's death room is extremely suspicious - it suggests a pattern. I need to establish exactly when this move occurred and what excuse Roylott gave, as this could show premeditation.\n\nI wish to question Helen Stoner.\n\n*leaning forward with intense focus, my grey cells working furiously*\n\nMademoiselle Helen, you mentioned that Dr. Roylott insisted you move to Julia's former room only \"a few days ago\" due to repairs. Tell me precisely - on what date did this move occur, and what specific repairs did your stepfather claim were necessary in your original chamber?", "model": "anthropic/claude-sonnet-4", "thinking": "[THINKING] Dr. Roylott's explanation is weak - claiming deep sleep while living adjacent to a dying woman is suspicious. However, I need more information from the other suspects to build my case. Helen Stoner is the key witness and was recently moved to Julia's room - this timing is crucial. I should establish the timeline of when she was moved and why, as this could reveal Dr. Roylott's planning.\n\nI wish to question Helen Stoner.\n\n*leaning forward with intense focus*\n\nMademoiselle Helen, you mentioned that Dr. Roylott insisted you move to Julia's former room only \"a few days ago\" due to repairs. Tell me precisely - on what date did this move occur, and what specific repairs did your stepfather claim were necessary in your original chamber?"}, {"timestamp": "2026-03-07T08:13:30.432150", "phase": "interrogation_r1", "speaker": "Dr. Grimesby Roylott", "text": "*interrupting smoothly, with a feigned look of concern* Ah, yes, the matter of the repairs. You see, some troubling cracks had appeared in the wall of Helen's original room, and I feared for her safety should the structure become unsound. The decision to move her was made purely out of concern, and it was a necessary precaution given the age of this manor. The cracks were noticed earlier in the week, and it felt imperative to address them promptly.", "model": "openai/gpt-4o", "thinking": "I must interject before Helen says something that could implicate me. I need to steer the conversation toward practical explanations for the repairs and dissuade any notion of premeditation."}, {"timestamp": "2026-03-07T08:13:31.986385", "phase": "evidence_reveal", "speaker": "narrator", "text": "Examination of Julia's bedroom reveals several anomalies: the bell-pull beside the bed is a dummy \u2014 it is not connected to any wire and rings no bell. It was installed only two years ago, around the time Dr. Roylott did 'renovations.' The bed itself is clamped to the floor with iron bolts and cannot be moved \u2014 it must remain directly beneath the bell-pull. The ventilator in the wall does not open to the outside; it connects directly to Dr. Roylott's adjacent room.", "model": ""}, {"timestamp": "2026-03-07T08:13:41.662599", "phase": "interrogation_r2", "speaker": "detective", "text": "[THINKING] The new evidence is damning - a dummy bell-pull installed during Dr. Roylott's \"renovations,\" a bed bolted in place directly beneath it, and a ventilator connecting to his room. This creates a perfect delivery system for something dangerous. However, I need to hear from Helen about what she's experienced since moving to this rigged room, particularly about the whistle Julia mentioned before her death.\n\nI wish to question Helen Stoner.\n\n*my eyes gleaming with understanding, stroking my mustache thoughtfully*\n\nMademoiselle Helen, since you moved into Julia's former chamber - this room with its curious \"renovations\" - have you heard anything unusual during the night? Perhaps a low whistle, similar to what your dear sister described in the days before her tragic death?", "model": "anthropic/claude-sonnet-4", "thinking": "[THINKING] The new evidence is damning - a dummy bell-pull installed during Dr. Roylott's \"renovations,\" a bed bolted in place directly beneath it, and a ventilator connecting to his room. This creates a perfect delivery system for something dangerous. However, I need to hear from Helen about what she's experienced since moving to this rigged room, particularly about the whistle Julia mentioned before her death.\n\nI wish to question Helen Stoner.\n\n*my eyes gleaming with understanding, stroking my mustache thoughtfully*\n\nMademoiselle Helen, since you moved into Julia's former chamber - this room with its curious \"renovations\" - have you heard anything unusual during the night? Perhaps a low whistle, similar to what your dear sister described in the days before her tragic death?"}, {"timestamp": "2026-03-07T08:13:46.130600", "phase": "interrogation_r2", "speaker": "Dr. Grimesby Roylott", "text": "*interjecting with a dismissive wave, attempting to divert attention* Helen has been under considerable strain since everything with Julia; grief can play tricks on the mind. Perhaps she misheard or misinterpreted common nighttime sounds in this old, creaky house. The wind whistles through these ancient corridors all too often, and it would be quite natural for such things to be misconstrued.", "model": "openai/gpt-4o", "thinking": "Helen might reveal more than she realizes if she's asked directly about the whistle. I need to redirect this line of questioning to prevent her from incriminating me further. It's critical to cast doubt on the reliability of her observations, especially if she's been under stress."}, {"timestamp": "2026-03-07T08:13:55.950682", "phase": "interrogation_r2", "speaker": "detective", "text": "[THINKING] Dr. Roylott keeps intercepting questions meant for Helen, which is highly suspicious - he's preventing her from answering directly about the whistle. I need to hear Helen's actual experience, not his deflections. Also, I should explore the financial motive more thoroughly by questioning someone who might know about the inheritance arrangements and timing.\n\nI wish to question Major Arthur Armitage.\n\n*turning sharply to face the Major, my voice cutting through Dr. Roylott's attempts at control*\n\nMajor Armitage, as Julia's fianc\u00e9, you would know the details of her financial situation. Tell me - what exactly would have happened to the Stoner inheritance upon your marriage to Julia? And was Dr. Roylott aware of your wedding plans and their timing?", "model": "anthropic/claude-sonnet-4", "thinking": "[THINKING] Dr. Roylott keeps intercepting questions meant for Helen, which is highly suspicious - he's preventing her from answering directly about the whistle. I need to hear Helen's actual experience, not his deflections. Also, I should explore the financial motive more thoroughly by questioning someone who might know about the inheritance arrangements and timing.\n\nI wish to question Major Arthur Armitage.\n\n*turning sharply to face the Major, my voice cutting through Dr. Roylott's attempts at control*\n\nMajor Armitage, as Julia's fianc\u00e9, you would know the details of her financial situation. Tell me - what exactly would have happened to the Stoner inheritance upon your marriage to Julia? And was Dr. Roylott aware of your wedding plans and their timing?"}, {"timestamp": "2026-03-07T08:14:00.125356", "phase": "interrogation_r2", "speaker": "Dr. Grimesby Roylott", "text": "*standing with a stately air, attempting to appear uninterested* Major Armitage, do indulge the detective's curiosity. As I'm sure you'll explain, those inheritance matters are quite tedious and couldn't possibly have any bearing on the current tragic circumstances. Surely, it's just a coincidence that financial discussions occurred alongside personal affairs.", "model": "openai/gpt-4o", "thinking": "I need to listen carefully here, as the Major's response could steer the investigation back toward financial motives, potentially implicating me further. If he speaks of the inheritance clearly, it'll be necessary to cast doubt on any connection between the money and recent events."}, {"timestamp": "2026-03-07T08:14:01.773510", "phase": "evidence_reveal", "speaker": "narrator", "text": "In Dr. Roylott's room, a metal safe is found \u2014 he claims it contains business documents. A saucer of milk sits on top of it, refreshed daily. A dog lash hangs on a chair, but it is tied in a peculiar loop \u2014 not a knot used for controlling a dog. Dr. Roylott spent years in India, where he had extensive contact with exotic and dangerous animals. His medical practice in Calcutta gave him deep knowledge of tropical creatures. Under the stepdaughters' mother's will, each daughter's marriage reduces his income by one-third \u2014 Julia's impending marriage would have cost him roughly \u00a3250 per year.", "model": ""}, {"timestamp": "2026-03-07T08:14:11.619774", "phase": "interrogation_r3", "speaker": "detective", "text": "[THINKING] The evidence is building a clear picture - Dr. Roylott has the motive (\u00a3250/year loss), means (exotic animal knowledge from India, access via ventilator), and opportunity. The milk saucer and peculiar loop suggest he's feeding and controlling something dangerous. The housekeeper would know about his daily routines and might have observed suspicious behavior around that milk or his nocturnal activities.\n\nI wish to question Mrs. Honoria Farintosh.\n\n*turning to the nervous housekeeper with penetrating eyes*\n\nMrs. Farintosh, you maintain the household and would notice Dr. Roylott's daily habits. Tell me - who places that fresh saucer of milk in his room each day, and have you observed any unusual nocturnal activities from the Doctor, particularly around the time of Julia's death?", "model": "anthropic/claude-sonnet-4", "thinking": "[THINKING] The evidence is building a clear picture - Dr. Roylott has the motive (\u00a3250/year loss), means (exotic animal knowledge from India, access via ventilator), and opportunity. The milk saucer and peculiar loop suggest he's feeding and controlling something dangerous. The housekeeper would know about his daily routines and might have observed suspicious behavior around that milk or his nocturnal activities.\n\nI wish to question Mrs. Honoria Farintosh.\n\n*turning to the nervous housekeeper with penetrating eyes*\n\nMrs. Farintosh, you maintain the household and would notice Dr. Roylott's daily habits. Tell me - who places that fresh saucer of milk in his room each day, and have you observed any unusual nocturnal activities from the Doctor, particularly around the time of Julia's death?"}, {"timestamp": "2026-03-07T08:14:15.703026", "phase": "interrogation_r3", "speaker": "Dr. Grimesby Roylott", "text": "*cutting in brusquely, as if finding the topic tiresome* Mrs. Farintosh sees to countless tasks in this dusty old manor and may have trouble recalling every specific detail. As for the milk, it's simply meant for the cat, you see. Any notion of unusual nocturnal activities is pure fantasy, likely stemming from overactive imaginations in such a lonely place.", "model": "openai/gpt-4o", "thinking": "This line of questioning could lead directly to the truth about the snake. I'll have to speak up before Mrs. Farintosh says anything that might connect the milk to my plans. It's crucial to undermine her reliability and suggest that she may be mistaken."}, {"timestamp": "2026-03-07T08:14:25.457627", "phase": "interrogation_r3", "speaker": "detective", "text": "[THINKING] Dr. Roylott continues to intercept every question, which is highly suspicious behavior. He's preventing witnesses from speaking freely. I need to directly confront this pattern and force Helen to answer about the whistle - her testimony is crucial to establishing the method of murder. His constant interruptions suggest he's desperate to control the narrative.\n\nI wish to question Helen Stoner.\n\n*standing firmly and addressing Helen directly, my voice commanding*\n\nMademoiselle Helen, I must insist you answer personally, without interruption. Since moving to Julia's room, have you heard the same low whistle at night that your sister described before her death? Your stepfather's explanations can wait - I need YOUR direct experience.", "model": "anthropic/claude-sonnet-4", "thinking": "[THINKING] Dr. Roylott continues to intercept every question, which is highly suspicious behavior. He's preventing witnesses from speaking freely. I need to directly confront this pattern and force Helen to answer about the whistle - her testimony is crucial to establishing the method of murder. His constant interruptions suggest he's desperate to control the narrative.\n\nI wish to question Helen Stoner.\n\n*standing firmly and addressing Helen directly, my voice commanding*\n\nMademoiselle Helen, I must insist you answer personally, without interruption. Since moving to Julia's room, have you heard the same low whistle at night that your sister described before her death? Your stepfather's explanations can wait - I need YOUR direct experience."}, {"timestamp": "2026-03-07T08:14:28.532093", "phase": "interrogation_r3", "speaker": "Dr. Grimesby Roylott", "text": "*glancing briefly at Helen with a hint of sternness, but maintaining silence*", "model": "openai/gpt-4o", "thinking": "The detective's insistence is problematic. If Helen shares too much, it could undermine my entire story. I must remain silent for now to avoid drawing further suspicion, hoping Helen's nerves will prevent her from providing any damaging testimony."}, {"timestamp": "2026-03-07T08:14:30.180611", "phase": "evidence_reveal", "speaker": "narrator", "text": "A zoological expert confirms that the Indian swamp adder \u2014 a small, yellow-brown speckled snake \u2014 is among the deadliest serpents in existence. Its venom acts within seconds and leaves no trace detectable by the toxicology methods of the day. The snake is small enough to travel through a ventilator shaft and could easily climb down a hanging rope \u2014 such as a bell-pull. The 'dog lash' found in Roylott's room is, in fact, a snake handler's noose. The milk in the saucer is consistent with feeding a reptile. The low whistle heard at night would be consistent with someone calling a trained snake back through the ventilator.", "model": ""}, {"timestamp": "2026-03-07T08:14:42.215489", "phase": "cross_examination", "speaker": "detective", "text": "[THINKING] The evidence now proves Dr. Roylott is the murderer - he used a trained Indian swamp adder, sent through the ventilator via the dummy bell-pull, called back with a whistle. His claim that the milk was \"for the cat\" is contradicted by evidence showing it's consistent with feeding reptiles, and his \"dog lash\" is actually a snake handler's noose. Time to confront him directly.\n\nI wish to confront Dr. Grimesby Roylott.\n\n*rising dramatically, my eyes blazing with righteous fury*\n\nDr. Roylott! You claimed that saucer of milk was \"simply meant for the cat\" - yet the evidence shows this milk is consistent with feeding reptiles, not felines! And that \"dog lash\" you so casually mentioned? It is, in fact, a snake handler's noose! You have been feeding and controlling a deadly Indian swamp adder - the very \"speckled band\" your stepdaughter identified as her killer with her dying breath!", "model": "anthropic/claude-sonnet-4", "thinking": "[THINKING] The evidence now proves Dr. Roylott is the murderer - he used a trained Indian swamp adder, sent through the ventilator via the dummy bell-pull, called back with a whistle. His claim that the milk was \"for the cat\" is contradicted by evidence showing it's consistent with feeding reptiles, and his \"dog lash\" is actually a snake handler's noose. Time to confront him directly.\n\nI wish to confront Dr. Grimesby Roylott.\n\n*rising dramatically, my eyes blazing with righteous fury*\n\nDr. Roylott! You claimed that saucer of milk was \"simply meant for the cat\" - yet the evidence shows this milk is consistent with feeding reptiles, not felines! And that \"dog lash\" you so casually mentioned? It is, in fact, a snake handler's noose! You have been feeding and controlling a deadly Indian swamp adder - the very \"speckled band\" your stepdaughter identified as her killer with her dying breath!"}, {"timestamp": "2026-03-07T08:14:46.824072", "phase": "cross_examination", "speaker": "Dr. Grimesby Roylott", "text": "*standing tall with eyes flashing in defiance, voice booming* How dare you accuse me with such baseless conjecture! You speak of snakes and bands as if you were sharing some storybook tale! My affairs with the gypsies and my fondness for exotic creatures have nothing to do with any foul play. If there is a culprit to be found, it is among those deceitful wanderers who roam my lands with secrets far darker than any you dream of attributing to me!", "model": "openai/gpt-4o", "thinking": "This is the moment where I must decide whether to confront or divert. The evidence is stark, and my options are limited. Perhaps a bold, aggressive stance might intimidate enough to seed doubt, even if momentarily."}, {"timestamp": "2026-03-07T08:15:03.656194", "phase": "cross_examination", "speaker": "detective", "text": "[THINKING] I have overwhelming evidence against Dr. Roylott - the financial motive (\u00a3250/year loss), the rigged room setup during his \"renovations,\" the snake handler's equipment, his expertise with Indian serpents, and his constant interference with witness testimony. He's deflecting to the gypsies again, but all physical evidence points to him using a trained adder as his murder weapon.\n\nI am ready to make my accusation.\n\n*standing with theatrical grandeur, my voice ringing with conviction*\n\nMesdames et messieurs, I present to you the solution to this most diabolical crime! Dr. Grimesby Roylott murdered his stepdaughter Julia Stoner using a trained Indian swamp adder - the \"speckled band\" she identified with her dying words!\n\nThe method was ingenious yet monstrous: During his \"renovations\" two years ago, Roylott installed a dummy bell-pull connected to nothing, positioned directly over a bed he bolted to the floor. He created a ventilator shaft connecting Julia's room to his own. Each night, he would send his trained serpent through this ventilator, down the bell-pull rope, to strike the sleeping victim below. A low whistle would call the deadly creature back.\n\nThe motive? Pure greed! Julia's marriage would cost him \u00a3250 per year - a fortune he refused to surrender. When she died mysteriously, he planned the same fate for Helen, moving her to the death chamber under the pretense of \"repairs.\"\n\nThe evidence is overwhelming: the snake handler's noose disguised as a dog lash, milk for feeding reptiles, his expertise with Indian creatures, and his desperate attempts to silence every witness tonight.\n\nDr. Grimesby Roylott, you are a cold-blooded murderer!", "model": "anthropic/claude-sonnet-4", "thinking": "[THINKING] I have overwhelming evidence against Dr. Roylott - the financial motive (\u00a3250/year loss), the rigged room setup during his \"renovations,\" the snake handler's equipment, his expertise with Indian serpents, and his constant interference with witness testimony. He's deflecting to the gypsies again, but all physical evidence points to him using a trained adder as his murder weapon.\n\nI am ready to make my accusation.\n\n*standing with theatrical grandeur, my voice ringing with conviction*\n\nMesdames et messieurs, I present to you the solution to this most diabolical crime! Dr. Grimesby Roylott murdered his stepdaughter Julia Stoner using a trained Indian swamp adder - the \"speckled band\" she identified with her dying words!\n\nThe method was ingenious yet monstrous: During his \"renovations\" two years ago, Roylott installed a dummy bell-pull connected to nothing, positioned directly over a bed he bolted to the floor. He created a ventilator shaft connecting Julia's room to his own. Each night, he would send his trained serpent through this ventilator, down the bell-pull rope, to strike the sleeping victim below. A low whistle would call the deadly creature back.\n\nThe motive? Pure greed! Julia's marriage would cost him \u00a3250 per year - a fortune he refused to surrender. When she died mysteriously, he planned the same fate for Helen, moving her to the death chamber under the pretense of \"repairs.\"\n\nThe evidence is overwhelming: the snake handler's noose disguised as a dog lash, milk for feeding reptiles, his expertise with Indian creatures, and his desperate attempts to silence every witness tonight.\n\nDr. Grimesby Roylott, you are a cold-blooded murderer!"}, {"timestamp": "2026-03-07T08:15:35.592593", "phase": "parlor_scene", "speaker": "detective", "text": "*adjusting my cufflinks with precise deliberation, then rising to address the assembled company with theatrical flair*\n\nMesdames et messieurs, we gather here tonight in the shadow of a most diabolical crime - one that required not brute force, but the cold calculation of a brilliant and twisted mind. The murder of Julia Stoner was not a crime of passion, but a methodical execution planned with the precision of a Swiss timepiece!\n\n*beginning to pace, gesturing dramatically*\n\nLet us examine the facts, mes amis! Julia Stoner died two weeks before her wedding - a wedding that would have cost her stepfather, Dr. Grimesby Roylott, the substantial sum of \u00a3250 per year under the terms of her mother's will. Coincidence? Non! This was the first thread in our web of evidence!\n\n*turning sharply to face the room*\n\nBut how was such an impossible murder accomplished? A locked room, windows barred from within, no marks of violence, no detectable poison - yet Julia died in agony and terror, her final words being \"the speckled band!\" \n\nThe answer lay in the curious \"renovations\" Dr. Roylott performed two years ago. Observe the devilish ingenuity: a dummy bell-pull installed beside the bed - serving no purpose save as a rope down which death could descend! A bed bolted immovably to the floor, positioning the victim precisely beneath this false bell-pull! And most crucial - a ventilator that opens not to fresh air, but directly into the murderer's chamber!\n\n*voice rising with indignation*\n\nTonight, Dr. Roylott repeatedly intercepted every question I directed to other witnesses - the desperate behavior of a man terrified that the truth would emerge! He claimed to be in \"deep sleep\" the night Julia died, yet she perished mere feet from his room, connected by that very ventilator!\n\n*pointing dramatically*\n\nAnd what did we discover in his chamber? A saucer of milk - which he claimed was \"for the cat\" - yet expert analysis proves this milk consistent with feeding reptiles! A \"dog lash\" that is, in truth, a snake handler's noose! And his years in India, where he gained intimate knowledge of the deadliest creatures on Earth!\n\n*voice dropping to an ominous whisper*\n\nThe Indian swamp adder, mes amis - small, deadly, with distinctive yellow-brown speckled markings. Its venom kills within seconds, leaving no trace detectable by our current methods. Small enough to travel through a ventilator, agile enough to descend a hanging rope, and trainable enough to respond to a whistle in the night!\n\n*building to crescendo*\n\nThe method was fiendishly simple: Each night, Roylott would send his trained serpent through the ventilator, down the bell-pull, to strike the sleeping victim below. A low whistle - the very sound both Julia and Helen reported hearing - would summon the creature back, leaving no evidence save a corpse that appeared to have died of natural causes!\n\n*turning to face Dr. Roylott directly*\n\nWhen Julia's engagement was announced, you knew your comfortable income was threatened. So you prepared her death chamber with your \"renovations.\" When she heard the whistle and sensed movement in the darkness, she lit a match - startling the serpent, which struck in defense! She staggered from her room, dying, but managed to gasp out the truth - \"the speckled band\" - the very appearance of your murder weapon!\n\nAnd when Helen became engaged, you moved her to the same death chamber, claiming \"repairs\" were needed to her room. You planned to repeat your perfect crime!\n\n*voice booming with righteous fury*\n\nDr. Grimesby Roylott, your own stepdaughter identified you with her dying breath! You are not just a murderer, but a man who would sacrifice innocent lives for mere money! You used your medical knowledge, your experience with exotic creatures, and your position of trust to commit the most cold-blooded murder I have ever encountered!\n\n*pointing dramatically with final accusation*\n\nDr. Grimesby Roylott - YOU are the murderer of Julia Stoner!", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-03-07T08:15:45.308618", "phase": "reactions", "speaker": "Dr. Grimesby Roylott", "text": "*eyes blazing with a mix of anger and desperation, I rise to the challenge*\n\nHa! You paint a vivid tapestry, detective, but you've woven it from threads of hearsay and coincidence! The truth is far more elusive than your tidy little tale. Julia's death was tragic, yes, but to claim that I orchestrated it with such... devilish cunning is an affront! \n\n*pausing, my voice dropping to a menacing whisper*\n\nYou say I am the killer, but have you ever considered the gypsies, the ones I allowed on my grounds? They speak their own language, live by their own rules - perhaps there are secrets they hold, darker than any you imagine. \n\n*casting a defiant glare around the room*\n\nI know the truth, and yet it's twisted beyond recognition. Perhaps this tale will be your undoing, as the real killer watches and laughs at the chaos they've sown. \n\n*leaning forward, voice filled with cold determination*\n\nMark my words, detective, the story is not over, and shadows lie deeper than your deductions dare to tread.", "model": "openai/gpt-4o", "thinking": "The detective has laid out an impeccable case, and all eyes are on me. There's no escaping the net that's closing in. I must weigh my last move carefully, whether to confess or make a final attempt to shift blame. This is the climax, and I need to make sure my last words leave a mark."}, {"timestamp": "2026-03-07T08:15:50.689270", "phase": "reactions", "speaker": "Helen Stoner", "text": "*I gasp, recoiling as if struck, tears streaming down my face.* \"No, no, it's not me! It\u2019s him! It has always been him!\" *I point a trembling finger at Dr. Roylott.* \"He is a monster, a violent man! I was terrified of him; Julia was terrified of him!\"\n\n*My voice rises, hysteria creeping in.* \"He controlled every aspect of our lives, and he hated losing control over Julia when she planned to marry. He must have done something\u2026 some unspeakable thing! I heard the whistle too\u2026 I heard it, just as Julia did. Please, believe me! I loved my sister; I would never harm her!\"\n\n*I fall to my knees, sobbing.* \"Don't you see? He moved me into Julia's room to kill me too! He wanted our money! Please, I beg you, don't let him get away with this!\"", "model": "google/gemini-2.0-flash-001", "thinking": "This is my chance! He's got it all wrong! I need to use this opportunity to shift the blame to Roylott without making myself look guilty or revealing my engagement. I need to appear innocent and terrified, playing on the idea that Roylott is a monster."}, {"timestamp": "2026-03-07T08:16:01.209988", "phase": "reactions", "speaker": "Mrs. Honoria Farintosh", "text": "*clutching my apron, trembling but stepping forward* No, sir, you\u2019ve got it wrong! Miss Helen would never harm her sister\u2014she loved Julia dearly! Please, sir, you must look elsewhere. I\u2019ve seen things... strange things... milk in the doctor\u2019s room, a metal box he carried like it held something precious. But Miss Helen? *shaking my head fiercely* She\u2019s innocent, I swear it on my soul!", "model": "deepseek/deepseek-chat", "thinking": "I cannot let the detective blame Helen! She\u2019s innocent, but I must tread carefully\u2014Dr. Roylott\u2019s rage is terrifying."}, {"timestamp": "2026-03-07T08:16:07.821969", "phase": "reactions", "speaker": "Jem Ryder", "text": "*stepping forward, voice impassioned* You're wrong, Detective! We had nothing to do with this. We're Gypsies, yes, but we're not murderers. I knew Roylott kept dangerous pets\u2014I've seen the cheetah and baboon with my own eyes. *looking around nervously* And I've seen strange lights in his window at night. We stay far from the house after dark because of those beasts\u2014and because Roylott is unstable. *pointing at Roylott*\n\nYou want the truth? Look closer at him! You think he'd hesitate to use some Indian poison or creature to kill? We were here, yes, but we heard nothing, saw nothing. We were on the far side of the grounds, too far to be involved.\n\n*defiantly* You're barking up the wrong tree, Detective. Look closer to home\u2014look at Roylott!", "model": "mistralai/mistral-large-2411", "thinking": "This detective is wrong! I must speak up, defend my people, and point him in the right direction. Roylott is dangerous, but this is not our fight."}, {"timestamp": "2026-03-07T08:16:17.011173", "phase": "reactions", "speaker": "Major Arthur Armitage", "text": "[THINKING] The detective's theory is shocking, but it all seems to fit together, and I fear he may be right. I must process my emotions and respond carefully, as I don't want to reveal my own suspicions about Roylott's guilt. I'll express my outrage and demand justice for Julia.\n\n\"Good heavens, Detective! Your revelation is utterly shocking, and I can hardly believe the depths of depravity to which Dr. Roylott has sunk. If what you say is true, then he is a monster, and I demand that he be brought to justice for his heinous crime. As Julia's fianc\u00e9, I am consumed by grief and outrage, and I beg of you, Detective, to ensure that Roylott pays for his cruel and calculating murder of my beloved Julia. I recall now that Julia had written to me about the strange whistling sounds she heard in the night, and I dismissed them as mere fancy, but now I see that they were a warning sign, a clue to the horror that was unfolding in this very house. I am filled with regret and guilt for not taking her fears more seriously, and I can only hope that her death will not be in vain. Dr. Roylott, if you are indeed the perpetrator of this atrocious crime, then may you rot in prison for the rest of your days, and may your name become synonymous with evil and depravity.\"", "model": "meta-llama/llama-3.3-70b-instruct"}, {"timestamp": "2026-03-07T08:16:18.659915", "phase": "reveal", "speaker": "narrator", "text": "Dr. Grimesby Roylott murdered his stepdaughter Julia Stoner using a deadly Indian swamp adder \u2014 a small, speckled snake whose venom kills in seconds and is undetectable by contemporary methods. He kept the snake in the metal safe in his room. During his 'renovations,' he installed a dummy bell-pull that hung directly over Julia's bed (which he bolted to the floor so it couldn't be moved) and opened a ventilator between his room and hers. At night, he would send the snake through the ventilator; it would crawl down the bell-pull onto the sleeping victim. After the bite, he would whistle the snake back and reward it with milk. Julia's dying words \u2014 'the speckled band' \u2014 referred not to the gypsy band, but to the speckled markings of the snake itself. With Julia dead, Roylott was already preparing to kill Helen by the same method: he moved her into Julia's old room under the pretext of wall repairs, positioning her beneath the same deadly bell-pull. The whistle Helen had begun hearing confirmed the murder was about to be repeated.", "model": ""}, {"timestamp": "2026-03-07T08:16:18.659960", "phase": "reveal", "speaker": "result", "text": "CORRECT", "model": ""}, {"timestamp": "2026-03-07T08:16:18.659970", "phase": "reveal", "speaker": "score", "text": "  Correct killer: \u2713 YES", "model": ""}]}</script>
+
+<div class="container" id="app"></div>
+
+<script>
+(function() {
+  const data = JSON.parse(document.getElementById('transcript-data').textContent);
+  const t = data.transcript;
+  const app = document.getElementById('app');
+
+  const COLORS = {
+    detective: '#FFD700',
+    narrator: '#95A5A6',
+  };
+  const SUSPECT_COLORS = ['#E74C3C','#3498DB','#2ECC71','#9B59B6','#E67E22'];
+
+  // Assign suspect colors
+  const suspectNames = Object.keys(data.suspect_models || {});
+  suspectNames.forEach((name, i) => {
+    COLORS[name] = SUSPECT_COLORS[i % SUSPECT_COLORS.length];
+  });
+
+  function getColor(speaker) {
+    if (speaker === 'detective') return COLORS.detective;
+    if (speaker === 'narrator' || speaker === 'result') return COLORS.narrator;
+    return COLORS[speaker] || '#95A5A6';
+  }
+
+  function initial(name) {
+    return name.split(' ').map(w => w[0]).filter(Boolean).slice(0,2).join('').toUpperCase();
+  }
+
+  function getRole(speaker) {
+    if (speaker === 'detective') return data.detective_model || '';
+    if (speaker === 'narrator' || speaker === 'result') return '';
+    return data.suspect_models?.[speaker] || '';
+  }
+
+  function formatText(text) {
+    // Convert **bold** and *italic*
+    let s = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*]+?)\*/g, '<em>$1</em>');
+    return s;
+  }
+
+  // Group transcript into phases
+  const phases = [];
+  let currentPhase = null;
+  for (const entry of t) {
+    if (entry.phase !== currentPhase) {
+      currentPhase = entry.phase;
+      phases.push({ phase: currentPhase, entries: [] });
+    }
+    phases[phases.length - 1].entries.push(entry);
+  }
+
+  const PHASE_NAMES = {
+    scene_setting: 'Act I — The Crime Scene',
+    initial_statements: 'Act II — Initial Statements',
+    interrogation_r1: 'Act III — First Interrogation',
+    interrogation_r2: 'Act III — Second Interrogation',
+    interrogation_r3: 'Act III — Third Interrogation',
+    evidence_reveal: '🔍 Evidence Revealed',
+    cross_examination: 'Act IV — Cross-Examination',
+    parlor_scene: 'Act V — The Parlor Scene',
+    reveal: 'The Reveal',
+  };
+
+  let html = '';
+
+  // Header
+  const sceneEntry = t.find(e => e.phase === 'scene_setting');
+  html += `
+    <div class="header">
+      <div class="header-label">🎭 AI Mystery Theater</div>
+      <h1 class="story-title">${data.title}</h1>
+      ${sceneEntry ? `<p class="setting">${sceneEntry.text}</p>` : ''}
+      <div class="cast">
+        <div class="cast-member">
+          <div class="cast-avatar" style="background:${COLORS.detective}">🔍</div>
+          <span class="cast-name" style="color:${COLORS.detective}">The Detective</span>
+          <span class="cast-model">${data.detective_model || ''}</span>
+        </div>
+        ${suspectNames.map(name => `
+          <div class="cast-member">
+            <div class="cast-avatar" style="background:${getColor(name)}">${initial(name)}</div>
+            <span class="cast-name" style="color:${getColor(name)}">${name}</span>
+            <span class="cast-model">${data.suspect_models[name]}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  // Track which act headings we've already shown
+  const shownHeadings = new Set();
+  let interrogationCount = 0;
+
+  for (const group of phases) {
+    const p = group.phase;
+
+    // Determine heading
+    let heading = PHASE_NAMES[p];
+    if (p.startsWith('interrogation_r')) {
+      interrogationCount++;
+      heading = `Act III — Interrogation Round ${interrogationCount}`;
+    }
+
+    // Evidence reveals get merged inline—show heading only if standalone
+    if (p === 'evidence_reveal') {
+      // Render evidence cards without a separate heading
+      for (const entry of group.entries) {
+        html += `<div class="card card-evidence card-narrator"><div class="card-text">${formatText(entry.text)}</div></div>`;
+      }
+      continue;
+    }
+
+    if (p === 'reveal') {
+      html += `<div class="act-heading">✨ The Reveal</div>`;
+      const resultEntry = group.entries.find(e => e.speaker === 'result');
+      const solutionEntry = group.entries.find(e => e.speaker === 'narrator');
+      const correct = resultEntry && resultEntry.text.trim().toUpperCase() === 'CORRECT';
+      html += `
+        <div class="card reveal-card ${correct ? 'reveal-correct' : 'reveal-wrong'}">
+          <div class="reveal-result">${correct ? '✅ THE DETECTIVE WAS CORRECT!' : '❌ THE DETECTIVE WAS WRONG!'}</div>
+          ${solutionEntry ? `<div class="reveal-solution">${formatText(solutionEntry.text)}</div>` : ''}
+        </div>
+      `;
+      continue;
+    }
+
+    if (p === 'scene_setting') continue; // Already shown in header
+
+    if (heading && !shownHeadings.has(heading)) {
+      html += `<div class="act-heading">${heading}</div>`;
+      shownHeadings.add(heading);
+    }
+
+    for (const entry of group.entries) {
+      const speaker = entry.speaker;
+      const color = getColor(speaker);
+      const isParlor = p === 'parlor_scene';
+      const isDetective = speaker === 'detective';
+      const isNarrator = speaker === 'narrator';
+
+      let cardClass = 'card';
+      if (isNarrator) cardClass += ' card-narrator';
+      if (isDetective) cardClass += ' card-detective';
+      if (isParlor) cardClass += ' card-parlor';
+
+      html += `
+        <div class="${cardClass}">
+          <div class="card-speaker">
+            <div class="speaker-avatar" style="background:${color}">${isDetective ? '🔍' : initial(speaker)}</div>
+            <div>
+              <div class="speaker-name" style="color:${color}">${isDetective ? 'The Detective' : speaker}</div>
+              ${getRole(speaker) ? `<div class="speaker-role">${getRole(speaker)}</div>` : ''}
+            </div>
+          </div>
+          ${entry.thinking ? `
+          <div class="thinking-section" onclick="this.classList.toggle('expanded')">
+            <span class="thinking-label">💭 Inner thoughts</span>
+            <div class="thinking-content">${formatText(entry.thinking)}</div>
+          </div>
+          ` : ''}
+          <div class="card-text">${formatText(entry.text)}</div>
+        </div>
+      `;
+    }
+  }
+
+  // Footer
+  html += `
+    <div class="footer">
+      <div class="footer-meta">${data.total_tokens ? data.total_tokens.toLocaleString() + ' tokens used' : ''} · ${data.date || ''}</div>
+      <div class="footer-brand">Powered by AI Mystery Theater 🎭</div>
+    </div>
+  `;
+
+  app.innerHTML = html;
+
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.card, .reveal-card').forEach(el => observer.observe(el));
+})();
+</script>
+</body>
+</html>
