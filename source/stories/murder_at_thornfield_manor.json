@@ -1,0 +1,95 @@
+{
+  "title": "Murder at Thornfield Manor",
+  "setting": "A grand English country estate, winter 1926. A dinner party of old acquaintances has turned deadly.",
+  "crime_scene": "Lord Edmund Thornfield found dead in his locked study at 11:15 PM. A glass of brandy on his desk, half-finished. A letter opener on the floor with blood. The window was latched from inside. A faint smell of almonds in the air. His pocket watch stopped at 10:47 PM.",
+  "detective_style": "methodical and incisive, with dry wit — in the tradition of the great drawing-room detectives",
+  "victim": {
+    "name": "Lord Edmund Thornfield",
+    "description": "Wealthy industrialist, 62, known for his ruthless business dealings and many enemies. Recently changed his will."
+  },
+  "locations": {
+    "manor_exterior": "Gothic manor in winter fog, gravel drive",
+    "study": "Dark wood-paneled study, fireplace, brandy decanter on desk",
+    "drawing_room": "Elegant drawing room, candlelight, velvet furniture",
+    "billiard_room": "Green-baize billiard room, cigar smoke",
+    "library": "Floor-to-ceiling bookshelves, leather armchairs",
+    "garden": "Snow-covered garden path, moonlight",
+    "smoking_room": "Small smoking room with view of hallway",
+    "upstairs_bedrooms": "Private bedrooms on the upper floor"
+  },
+  "suspects": [
+    {
+      "name": "Lady Margaret Thornfield",
+      "role": "The wife",
+      "public_info": "Edmund's much younger second wife, 34. Married him 5 years ago. Known to enjoy the lifestyle his money provides.",
+      "private_info": "Was having an affair with Captain Ashworth. Knew Edmund was planning to cut her out of the will after discovering the affair. Was in the drawing room 'reading' from 10:00-11:00 PM. Actually snuck upstairs at 10:30 to retrieve love letters from her bedroom before Edmund could find them.",
+      "is_guilty": false,
+      "alibi": "Says she was in the drawing room reading all evening. The butler can confirm she was there at 10:00 and 11:00 but not in between.",
+      "secrets": ["Having an affair with Captain Ashworth", "Knew about the will change", "Left the drawing room for 30 minutes around 10:30"],
+      "location_initial": "drawing_room"
+    },
+    {
+      "name": "Captain James Ashworth",
+      "role": "The war hero",
+      "public_info": "Decorated military officer, 38. Old friend of the Thornfield family. Staying as a weekend guest.",
+      "private_info": "In love with Lady Margaret. Edmund confronted him at 9 PM and told him to leave by morning. Has gambling debts of £20,000 that Margaret had been secretly paying. Was in the billiard room from 10:00 PM. Went to the garden at 10:20 for a cigarette — was actually meeting Margaret's maid to pass a message.",
+      "is_guilty": false,
+      "alibi": "Says he was in the billiard room all evening playing solo. No witnesses for the 10:20-10:45 gap.",
+      "secrets": ["Affair with Lady Margaret", "Massive gambling debts", "Was confronted by Edmund", "Met the maid in the garden"],
+      "location_initial": "billiard_room"
+    },
+    {
+      "name": "Dr. Harold Pembrooke",
+      "role": "The family physician",
+      "public_info": "Family doctor for 20 years, 58. Gentle, bookish manner. Close friend of the victim.",
+      "private_info": "Has been slowly embezzling from a medical charity he co-runs with Edmund. Edmund discovered the discrepancy last week and told Pembrooke he would report him — it would mean prison and disgrace. Pembrooke has medical knowledge and access to poisons. He slipped potassium cyanide into Edmund's brandy decanter at 9:45 PM when he 'went to check on Edmund's heart medication' in the study. The letter opener wound was self-inflicted by Edmund in his death throes — NOT the cause of death.",
+      "is_guilty": true,
+      "alibi": "Says he was in the library reading medical journals from 9:30 onwards. Admits he briefly visited the study at 9:45 to leave Edmund's heart medication but says Edmund wasn't there.",
+      "secrets": ["Embezzling from the charity", "Edmund threatened to report him", "Has access to cyanide through his practice", "Visited the study at 9:45 PM"],
+      "location_initial": "library"
+    },
+    {
+      "name": "Miss Victoria Thornfield",
+      "role": "The daughter",
+      "public_info": "Edmund's daughter from his first marriage, 28. Artist, lives in London. Contentious relationship with her stepmother.",
+      "private_info": "Came to the dinner specifically to confront her father about selling her late mother's estate — Rosewood Cottage — which he promised would always stay in the family. They argued bitterly at 8 PM. She went to her room crying at 9:30 and stayed there. Her room is directly above the study — she heard a thud at approximately 10:45 (Edmund collapsing) but assumed he dropped something.",
+      "is_guilty": false,
+      "alibi": "Says she went to her room at 9:30 PM and didn't leave. The housemaid brought her tea at 10:00 and can confirm she was there, visibly upset.",
+      "secrets": ["Bitter argument with father", "Heard the thud at 10:45 but didn't investigate", "Hated her stepmother", "Was set to inherit significantly less under the new will"],
+      "location_initial": "upstairs_bedrooms"
+    },
+    {
+      "name": "Mr. Reginald Cross",
+      "role": "The solicitor",
+      "public_info": "Edmund's personal solicitor, 50. Arrived that afternoon to handle paperwork. Stayed for dinner at Edmund's insistence.",
+      "private_info": "Drafted the new will that afternoon — knows exactly who benefits and who doesn't. The new will leaves everything to a charitable foundation, cutting out both Margaret AND Victoria. Cross would be the executor with a generous fee. He has no motive for murder but has information everyone wants. He was in the smoking room from 10:00 PM with a clear view of the study door — he saw Dr. Pembrooke enter the study at 9:45 and leave after about 3 minutes, looking flustered.",
+      "is_guilty": false,
+      "alibi": "Was in the smoking room from 10:00 PM. Can see the hallway to the study from there.",
+      "secrets": ["Knows the new will contents", "Saw Pembrooke enter the study at 9:45", "The new will benefits him as executor"],
+      "location_initial": "smoking_room"
+    }
+  ],
+  "evidence_reveals": [
+    {
+      "round": 1,
+      "clue": "The forensic examination reveals the cause of death was NOT the letter opener wound — it was cyanide poisoning. The wound appears to have been caused by Lord Thornfield grabbing the opener and falling on it during convulsions. The brandy glass contained traces of potassium cyanide.",
+      "targets": ["Dr. Harold Pembrooke"]
+    },
+    {
+      "round": 2,
+      "clue": "The butler's log shows that Dr. Pembrooke requested access to the study at 9:45 PM to 'deliver his lordship's evening heart medication.' He was alone in the study for approximately 3 minutes. Lord Thornfield had not yet retired to the study at that time.",
+      "targets": ["Dr. Harold Pembrooke"]
+    },
+    {
+      "round": 3,
+      "clue": "A search of Dr. Pembrooke's medical bag reveals a nearly empty vial labeled 'Potassium Cyanide — Laboratory Use Only.' His practice records show he requisitioned it six months ago for 'rodent control at the clinic.' Additionally, financial records from the Thornfield-Pembrooke Medical Charity show a discrepancy of £8,000 over three years.",
+      "targets": ["Dr. Harold Pembrooke"]
+    }
+  ],
+  "solution": "Dr. Harold Pembrooke murdered Lord Thornfield by poisoning his brandy with potassium cyanide. He visited the study at 9:45 PM under the pretense of delivering heart medication and laced the brandy decanter. When Thornfield retired to his study later and drank, the cyanide killed him within minutes. The faint smell of almonds, the stopped watch at 10:47 (time of death), and the self-inflicted letter opener wound (death throes) all point to poisoning, not stabbing. Pembrooke's motive: Edmund had discovered Pembrooke's embezzlement from their shared charity and threatened to report him, which would mean prison and the end of his career.",
+  "solution_data": {
+    "killer": "Dr. Harold Pembrooke",
+    "motive": "embezzlement discovery — Edmund threatened to report him",
+    "method": "cyanide poisoning via brandy decanter"
+  }
+}

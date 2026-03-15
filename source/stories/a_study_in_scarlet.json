@@ -1,0 +1,92 @@
+{
+  "title": "A Study in Scarlet",
+  "setting": "London, 1881. A body has been discovered in an abandoned house at 3 Lauriston Gardens, Brixton. The renowned consulting detective has been called to investigate.",
+  "crime_scene": "Enoch Drebber found dead in an empty room at 3 Lauriston Gardens. No wounds on the body, but his face is contorted in an expression of absolute terror and hatred. The word 'RACHE' is written on the wall in blood — but NOT the victim's blood. A small pill box is found nearby, along with a woman's gold wedding ring on the floor. The victim's pockets contain a gold watch, a gold pin, business cards reading 'Enoch J. Drebber, Cleveland, Ohio,' a small diary-like book, and some money. No signs of robbery. No weapon found. A cab was seen outside the house earlier that evening.",
+  "detective_style": "coldly analytical and brilliant, with a flair for the dramatic reveal — observation is everything",
+  "locations": {
+    "lauriston_gardens": "Empty house at 3 Lauriston Gardens, Brixton — dusty rooms, bloodwriting on wall",
+    "street_outside": "Gaslit London street outside the crime scene",
+    "boarding_house": "Madame Charpentier's boarding house, modest but respectable",
+    "hotel": "Halliday's Private Hotel",
+    "police_station": "Scotland Yard interview room"
+  },
+  "victim": {
+    "name": "Enoch Drebber",
+    "description": "An American from Cleveland, Ohio. Found dead in an empty room with no visible wounds but a face frozen in terror and hatred. Recently arrived in London after traveling rapidly through Europe with his companion."
+  },
+  "suspects": [
+    {
+      "name": "Jefferson Hope",
+      "role": "The cab driver",
+      "location_initial": "street_outside",
+      "public_info": "A weathered, rough-looking cab driver in his 50s but looks much older from years of hardship. Claims he picked up a fare near Brixton that evening but says he never went inside the house.",
+      "private_info": "He IS the murderer. He lured Drebber into the cab, drove him to the empty house, and confronted him. He offered Drebber a choice between two pills — one poison (an alkaloid), one harmless — and took the other himself. Drebber chose the poison pill and died. Hope wrote 'RACHE' (German for 'revenge') on the wall in his own nosebleed blood (he has an aortic aneurysm and gets nosebleeds). He accidentally dropped the wedding ring — Lucy's ring, which he's carried for 20 years. He has a fatal heart condition and knows he's dying.",
+      "is_guilty": true,
+      "alibi": "Was driving his cab all evening. Dropped a fare at Euston Station around 9 PM, then drove around looking for more fares. Says he was near Brixton but never entered the house.",
+      "secrets": ["Murdered Drebber for revenge", "Has Lucy Ferrier's story memorized", "Carries the pill box", "Has an aortic aneurysm and frequent nosebleeds", "Was a settler in Utah decades ago", "Has been tracking Drebber for 20 years across America and Europe"]
+    },
+    {
+      "name": "Arthur Charpentier",
+      "role": "The naval officer",
+      "location_initial": "boarding_house",
+      "public_info": "A young lieutenant in the Royal Navy, 25, hot-tempered. His mother runs the boarding house where Drebber was staying.",
+      "private_info": "Drebber was staying at his mother's boarding house and had been making aggressive, drunken advances toward his sister Alice. On the night of the murder, Arthur confronted Drebber and threw him out of the house, threatening to beat him with a stick if he returned. He followed Drebber partway down the street in a rage but turned back. He's terrified he'll be accused because he had clear motive and was seen arguing violently with the victim hours before the murder.",
+      "is_guilty": false,
+      "alibi": "Says he was at home all evening after 9 PM. His mother and sister can confirm he returned home angry but stayed in.",
+      "secrets": ["Violently confronted and threatened Drebber that evening", "His sister Alice was harassed by Drebber", "Followed Drebber into the street with a cudgel"]
+    },
+    {
+      "name": "Joseph Stangerson",
+      "role": "The secretary",
+      "location_initial": "hotel",
+      "public_info": "An American, Drebber's traveling companion and secretary, thin and nervous. They've been traveling together through Europe.",
+      "private_info": "He was Drebber's accomplice in the forced marriage to Lucy Ferrier years ago — he was the other suitor the Mormon elders offered Lucy. He knows about their dark past and has been living in fear that someone has been following them across Europe. On the night of the murder, Drebber went out alone after they argued about money. Stangerson stayed at Halliday's Private Hotel. He is genuinely terrified because he knows whoever killed Drebber is likely coming for him next — and he's right.",
+      "is_guilty": false,
+      "alibi": "Was at Halliday's Private Hotel all evening. The hotel clerk can confirm he didn't leave. He and Drebber had argued and separated for the evening.",
+      "secrets": ["Was Drebber's accomplice in the Lucy Ferrier affair", "Knows they've been followed across Europe", "Is carrying a telegram warning them of danger", "Fears for his own life"]
+    },
+    {
+      "name": "Constable John Rance",
+      "role": "The policeman",
+      "location_initial": "lauriston_gardens",
+      "public_info": "The police constable who found the body during his night beat, 40s, by-the-book but not particularly sharp.",
+      "private_info": "He found the body at approximately 2 AM during his patrol. The door to 3 Lauriston Gardens was open, which was unusual. He saw a light inside (a candle left by Hope). He entered and found the body. Crucially, he encountered a drunk man staggering on the street near the house earlier (around midnight) — this was actually Jefferson Hope returning to search for the lost wedding ring, but Rance dismissed him as a common drunk and didn't get a good look. He's embarrassed about this oversight.",
+      "is_guilty": false,
+      "alibi": "Was on his regular beat all night. Found the body and reported it immediately.",
+      "secrets": ["Saw a 'drunk' near the house around midnight but let him go", "Didn't get a description of the man", "Found the front door ajar", "Noticed fresh cab wheel tracks outside the house"]
+    },
+    {
+      "name": "Madame Charpentier",
+      "role": "The boarding house keeper",
+      "location_initial": "boarding_house",
+      "public_info": "The French-born boarding house keeper, 50s, protective mother. Drebber and Stangerson were her lodgers.",
+      "private_info": "She witnessed Drebber's drunken harassment of her daughter Alice that evening. She confronted Drebber and ordered him to leave her establishment. When he refused, her son Arthur physically threw him out. She's terrified that Arthur killed Drebber after following him out. She's withholding information to protect her son — specifically, she saw Arthur grab a cudgel and follow Drebber down the street, and he didn't return for over an hour.",
+      "is_guilty": false,
+      "alibi": "Was at her boarding house all evening. Witnessed the confrontation with Drebber.",
+      "secrets": ["Her son Arthur followed Drebber with a weapon", "She's protecting Arthur by withholding information", "She knows Drebber left drunk and belligerent around 8 PM"]
+    }
+  ],
+  "evidence_reveals": [
+    {
+      "round": 1,
+      "targets": ["Jefferson Hope"],
+      "clue": "Chemical analysis of the pill box found at the scene reveals it contained two pills of identical appearance. One contains a powerful alkaloid poison — a rare compound. The other is completely harmless. This was not a random poisoning but a deliberate, ritualistic method. Additionally, analysis of the blood writing 'RACHE' on the wall confirms it is NOT the victim's blood type — it belongs to someone else entirely."
+    },
+    {
+      "round": 2,
+      "targets": ["Joseph Stangerson", "Jefferson Hope"],
+      "clue": "Investigation into Drebber's background reveals he recently arrived from America and had been traveling rapidly through Europe as if being pursued. Hotel records show Drebber and his companion Stangerson moving between cities every few days — Copenhagen, Paris, and now London. A telegram found in Stangerson's possession reads: 'J.H. is in Europe. He knows. Leave immediately.' Furthermore, cab records show a cab was hired near Brixton at approximately 11 PM and the driver matches the description of a tall, rough-looking man."
+    },
+    {
+      "round": 3,
+      "targets": ["Jefferson Hope"],
+      "clue": "The wedding ring found at the scene has been identified — it is engraved inside with 'To my darling Lucy, with eternal love.' Records trace it to a Lucy Ferrier of Salt Lake City, Utah, who died twenty years ago shortly after being forced into marriage with Enoch Drebber. Her lover, a man named Jefferson Hope, disappeared shortly after her death and has never been found. A cab driver matching Hope's description was seen near the boarding house earlier that evening, and the same cab was spotted outside 3 Lauriston Gardens."
+    }
+  ],
+  "solution_data": {
+    "killer": "Jefferson Hope",
+    "motive": "twenty-year revenge for the forced marriage and death of Lucy Ferrier",
+    "method": "forced poison pill choice — one pill lethal, one harmless"
+  },
+  "solution": "Jefferson Hope, a London cab driver, murdered Enoch Drebber as an act of revenge twenty years in the making. Hope had loved Lucy Ferrier, who was forced to marry Drebber by Mormon elders in Utah. Lucy died within a month. Hope tracked Drebber across two continents. On the night of the murder, he picked up a drunken Drebber in his cab, drove him to the empty house at Lauriston Gardens, and forced him to choose between two pills — one poisoned, one harmless — a grim game of chance. Drebber chose the poison and died. Hope wrote 'RACHE' (revenge) on the wall in blood from his own nosebleed — he suffers from a fatal aortic aneurysm. He accidentally dropped Lucy's wedding ring at the scene. The word RACHE, while German for revenge, was meant as Hope's personal declaration. Hope is dying and wanted justice before his own death."
+}

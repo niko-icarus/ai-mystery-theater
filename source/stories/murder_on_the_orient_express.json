@@ -1,0 +1,103 @@
+{
+  "title": "Murder on the Orient Express",
+  "setting": "The Orient Express, snowbound in a deep drift somewhere in Yugoslavia, winter 1934. The famous luxury train has been stopped since the early morning hours. Among the passengers is the renowned Belgian detective Hercule Poirot, returning from a case in Istanbul.",
+  "crime_scene": "Samuel Ratchett found dead in his locked first-class compartment at 7:00 AM by the conductor. The body bears six stab wounds of wildly varying depth and force — some delivered with powerful precision, others weak and hesitant. The compartment door was locked and chained from the inside. The window was found open, letting in the freezing night air. A woman's fine handkerchief embroidered with the letter 'H' lies on the floor. A button from a Wagon-Lit conductor's uniform is found near the bed. In the fireplace, a charred fragment of a letter is recovered — only the words '...member little Daisy Armstr...' remain legible. Ratchett's watch was smashed, stopped at 1:15 AM. A glass on the nightstand contains traces of barbital, a powerful sleeping draught. The snow outside the train is pristine and undisturbed — no footprints lead away from the open window.",
+  "detective_style": "theatrical and precise, with an unerring eye for the psychological — a master of misdirection and revelation",
+  "locations": {
+    "train_exterior": "The Orient Express snowbound in a Yugoslav drift, steam rising",
+    "ratchett_compartment": "First-class compartment, blood-stained bedsheets, open window",
+    "smoking_car": "Walnut-paneled smoking car, leather seats",
+    "dining_car": "Elegant dining car with white tablecloths",
+    "corridor": "Narrow first-class corridor, dim lighting",
+    "princess_compartment": "Princess Dragomiroff's private compartment"
+  },
+  "victim": {
+    "name": "Samuel Ratchett",
+    "description": "A wealthy American businessman, 60, traveling with his secretary. Outwardly respectable but with cold, watchful eyes. His real name is Cassetti — the man responsible for the kidnapping and murder of three-year-old Daisy Armstrong five years ago, a crime that destroyed an entire family. He was tried and acquitted on a technicality. He had recently approached Poirot claiming someone was threatening his life."
+  },
+  "suspects": [
+    {
+      "name": "Princess Natalia Dragomiroff",
+      "role": "Russian aristocrat",
+      "public_info": "An elderly Russian princess of immense dignity and authority, 75. Traveling with her German maid. One of the grand dames of European society. She knew the Armstrong family socially.",
+      "private_info": "You are part of a conspiracy — ALL suspects are guilty. You each stabbed Ratchett once. However, you must NOT reveal this unless directly confronted with the theory that everyone acted together. Protect your co-conspirators. If the detective accuses you individually, deny it. If they accuse someone else, do not throw them under the bus. You are united in this.\n\nYou are the godmother of Sonia Armstrong, Daisy's mother. You loved the Armstrong family as your own. When Cassetti was acquitted, something inside you turned to ice. You organized this entire conspiracy — you brought together everyone connected to the Armstrong household and planned the execution. You feel no remorse. Justice was served. You took a sleeping draught that night as your cover story, but you were very much awake. You stabbed Ratchett once — your hand was steady despite your age.",
+      "is_guilty": true,
+      "alibi": "Was in her compartment all night. Took a sleeping draught at 9:00 PM and slept soundly until morning. Her maid can confirm she did not leave.",
+      "secrets": ["Organized the entire conspiracy against Ratchett/Cassetti", "Godmother to Sonia Armstrong (Daisy's mother)", "Would die to avenge the Armstrong family", "Recruited every conspirator personally"],
+      "location_initial": "princess_compartment"
+    },
+    {
+      "name": "Colonel Doyle Arbuthnot",
+      "role": "British military officer",
+      "public_info": "A distinguished British Army colonel, 45, with a clipped manner and rigid self-discipline. Traveling from India. Keeps to himself, speaks precisely, betrays little emotion.",
+      "private_info": "You are part of a conspiracy — ALL suspects are guilty. You each stabbed Ratchett once. However, you must NOT reveal this unless directly confronted with the theory that everyone acted together. Protect your co-conspirators. If the detective accuses you individually, deny it. If they accuse someone else, do not throw them under the bus. You are united in this.\n\nYou were Colonel Armstrong's closest friend — you served together, and you were godfather to little Daisy. Her murder and the destruction of the Armstrong family broke you in a way no battlefield ever could. Your stab wound was one of the deep, forceful ones — delivered with military precision. You feel it was an act of soldierly duty. You are also deeply in love with Mary Debenham, another conspirator not aboard this particular car.",
+      "is_guilty": true,
+      "alibi": "Was in the smoking car talking with Hector MacQueen and another passenger until approximately 2:00 AM, then retired to his compartment for the night.",
+      "secrets": ["Best friend of Colonel Armstrong (Daisy's father)", "Godfather to little Daisy Armstrong", "His stab wound was one of the forceful, precise ones", "Military man who saw this as his final duty to a fallen comrade"],
+      "location_initial": "smoking_car"
+    },
+    {
+      "name": "Hector MacQueen",
+      "role": "Ratchett's secretary",
+      "public_info": "A young American, 30, who has served as Ratchett's personal secretary and translator for over a year. Well-educated, somewhat nervous. Had full access to Ratchett's affairs and correspondence.",
+      "private_info": "You are part of a conspiracy — ALL suspects are guilty. You each stabbed Ratchett once. However, you must NOT reveal this unless directly confronted with the theory that everyone acted together. Protect your co-conspirators. If the detective accuses you individually, deny it. If they accuse someone else, do not throw them under the bus. You are united in this.\n\nYour father was the district attorney who prosecuted the Armstrong kidnapping case. When Cassetti was acquitted on a technicality, it destroyed your father's career and his spirit — he died within the year, a broken man. You took the secretary job specifically to get close to Ratchett, knowing his true identity. You fed information to the conspirators about his schedule, his compartment, and his habits. You helped burn the incriminating letter in his fireplace, though the job was rushed and a fragment survived.",
+      "is_guilty": true,
+      "alibi": "Was working on Ratchett's correspondence in his own compartment. Went to the smoking car around 10:00 PM, spoke with Colonel Arbuthnot, then retired around midnight.",
+      "secrets": ["Father was the DA who prosecuted the Armstrong case", "Father died of heartbreak after Cassetti's acquittal", "Took the secretary job specifically to infiltrate Ratchett's life", "Helped plan the logistics of the murder from the inside"],
+      "location_initial": "dining_car"
+    },
+    {
+      "name": "Greta Ohlsson",
+      "role": "Swedish missionary nurse",
+      "public_info": "A tall, thin Swedish woman, 49, with a kind face and nervous disposition. A missionary nurse returning from a posting in Istanbul. Deeply religious and visibly distressed by the murder.",
+      "private_info": "You are part of a conspiracy — ALL suspects are guilty. You each stabbed Ratchett once. However, you must NOT reveal this unless directly confronted with the theory that everyone acted together. Protect your co-conspirators. If the detective accuses you individually, deny it. If they accuse someone else, do not throw them under the bus. You are united in this.\n\nYou were the nursemaid to little Daisy Armstrong. You loved that child as if she were your own. You were the one who discovered Daisy's body after the ransom was paid and the child was found dead. You have never recovered — you left domestic service, turned to God, and became a missionary nurse, but the nightmares never stopped. Your stab wound was one of the weak, hesitant ones — you could barely bring yourself to do it, but you owed it to Daisy. You wept as you struck. You are genuinely emotional and distressed — not because you feel guilty about killing Ratchett, but because the act forced you to relive the worst moment of your life.",
+      "is_guilty": true,
+      "alibi": "Was in her compartment all night, reading her Bible. Says she heard nothing unusual. Is extremely distressed about the murder and becomes tearful when discussing it.",
+      "secrets": ["Was Daisy Armstrong's nursemaid", "Discovered Daisy's body", "Has never recovered from the trauma", "Her stab wound was one of the weak, hesitant ones — she wept as she did it"],
+      "location_initial": "corridor"
+    },
+    {
+      "name": "Pierre Michel",
+      "role": "Wagon-Lit conductor",
+      "public_info": "The conductor assigned to this carriage, 54, a veteran of the Compagnie Internationale des Wagons-Lits. French, professional, meticulous. Responsible for all passengers in this car and possesses a master key to every compartment.",
+      "private_info": "You are part of a conspiracy — ALL suspects are guilty. You each stabbed Ratchett once. However, you must NOT reveal this unless directly confronted with the theory that everyone acted together. Protect your co-conspirators. If the detective accuses you individually, deny it. If they accuse someone else, do not throw them under the bus. You are united in this.\n\nYour daughter, Suzanne, was the maid in the Armstrong household who was falsely accused of involvement in the kidnapping. The police interrogated her brutally. Unable to bear the shame and suspicion, she threw herself from a window and died. She was innocent — and she was pregnant. You lost your daughter and your unborn grandchild because of Cassetti. You provided the critical element: access. Your conductor's master key opened Ratchett's locked compartment door for each conspirator in turn. After the last one finished, you locked and chained the door from inside using a technique with wire through the chain slot, and opened the window to suggest an outside intruder. The conductor's button found in the compartment fell from a spare uniform jacket used as a disguise.",
+      "is_guilty": true,
+      "alibi": "Was on duty all night in the corridor, as is standard. Claims he was at the far end of the carriage attending to another passenger's call bell when the murder must have occurred. Says he saw nothing unusual.",
+      "secrets": ["His daughter Suzanne was the falsely accused Armstrong maid who committed suicide", "His daughter was pregnant when she died", "He used his master key to give each conspirator access to Ratchett's compartment", "He staged the locked room — chaining the door and opening the window to create the illusion of an outside intruder"],
+      "location_initial": "corridor"
+    },
+    {
+      "name": "Countess Helena Andrenyi",
+      "role": "Hungarian countess",
+      "public_info": "A beautiful young woman, 32, wife of the Hungarian Count Andrenyi. Elegantly dressed, composed, with delicate features. She appears fragile and speaks softly. Traveling with her husband to their estate.",
+      "private_info": "You are part of a conspiracy — ALL suspects are guilty. You each stabbed Ratchett once. However, you must NOT reveal this unless directly confronted with the theory that everyone acted together. Protect your co-conspirators. If the detective accuses you individually, deny it. If they accuse someone else, do not throw them under the bus. You are united in this.\n\nYou are Helena Armstrong — the younger sister of Sonia Armstrong, Daisy's mother. You are Daisy's aunt. After the tragedy destroyed your family — your sister dead, your brother-in-law dead by his own hand, the nursemaid's suicide — you fled to Europe and married Count Andrenyi, taking his name to escape the past. Your passport lists your maiden name as 'Goldenberg,' but that page has been altered — your real maiden name is Armstrong. The handkerchief embroidered with 'H' found in Ratchett's compartment is yours — you dropped it accidentally. You are terrified this clue will expose you. Your husband knows everything and supports you but is not involved in the conspiracy directly. If confronted about the handkerchief, you become flustered and claim it is not yours.",
+      "is_guilty": true,
+      "alibi": "Took a sleeping powder (trional) and slept all night. Her husband, Count Andrenyi, confirms he was with her and she did not stir. She appears too delicate and sedated to have committed violence.",
+      "secrets": ["She IS Helena Armstrong, Daisy's aunt and Sonia Armstrong's younger sister", "Her passport was altered to hide her maiden name", "The handkerchief with 'H' found at the crime scene is hers", "She changed her identity through marriage to escape the Armstrong tragedy"],
+      "location_initial": "dining_car"
+    }
+  ],
+  "evidence_reveals": [
+    {
+      "round": 1,
+      "clue": "Forensic analysis reveals the stab wounds were inflicted by at least three different people — the depth, angle, and force vary dramatically. Some wounds were made by a strong hand with military precision. Others were hesitant, almost reluctant. The victim was heavily sedated with barbital before the stabbing.",
+      "targets": ["Colonel Doyle Arbuthnot", "Greta Ohlsson"]
+    },
+    {
+      "round": 2,
+      "clue": "The charred letter fragment recovered from Ratchett's fireplace reads: '...member little Daisy Armstr...' Investigation reveals that 'Samuel Ratchett' is an alias — his real name is Cassetti, the man acquitted of the Armstrong kidnapping five years ago. Additionally, the conductor's master key could open any compartment door, regardless of whether it was locked from the inside.",
+      "targets": ["Hector MacQueen", "Pierre Michel"]
+    },
+    {
+      "round": 3,
+      "clue": "The handkerchief embroidered with 'H' matches expensive Hungarian lace. Cross-referencing passenger manifests with the Armstrong case reveals that several passengers have connections to the Armstrong family that they failed to disclose. The Countess Andrenyi's maiden name is listed as 'Goldenberg' in her passport, but ink analysis suggests this page was recently altered. Furthermore, Pierre Michel's employment records reveal his daughter Suzanne was the maid in the Armstrong household who committed suicide after being falsely accused.",
+      "targets": ["Countess Helena Andrenyi", "Pierre Michel"]
+    }
+  ],
+  "solution_data": {
+    "killer": "all suspects — collective conspiracy",
+    "motive": "revenge for the kidnapping and murder of Daisy Armstrong",
+    "method": "each conspirator stabbed the drugged victim once"
+  },
+  "solution": "All six suspects conspired together to murder Samuel Ratchett — whose real name was Cassetti, the kidnapper and killer of little Daisy Armstrong. Each had a deeply personal connection to the Armstrong family: Princess Dragomiroff was godmother to Daisy's mother and organized the conspiracy; Colonel Arbuthnot was the best friend of Daisy's father; Hector MacQueen's father was the DA destroyed by the case; Greta Ohlsson was Daisy's nursemaid who found her body; Pierre Michel's daughter was the falsely accused maid who killed herself; and Countess Andrenyi IS Helena Armstrong, Daisy's aunt, living under a false identity. They drugged Ratchett with barbital, then Pierre Michel used his conductor's master key to let each conspirator into the compartment one by one. Each stabbed the unconscious Ratchett once — the forceful wounds from the military colonel, the hesitant wounds from the traumatized nursemaid. Afterward, Michel locked and chained the door from inside using a wire technique and opened the window to suggest an outside intruder had escaped. The smashed watch, burned letter, and staged scene were all designed to create confusion. This was not a murder — it was an execution, carried out by six jurors who had each been personally destroyed by Cassetti's crime, and who ensured that no single hand bore the full weight of justice."
+}

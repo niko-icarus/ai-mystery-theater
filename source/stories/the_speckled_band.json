@@ -1,0 +1,93 @@
+{
+  "title": "The Adventure of the Speckled Band",
+  "detective_style": "sharply observant and fearless, with quiet confidence — draws conclusions from details others overlook",
+  "setting": "Stoke Moran Manor, a crumbling ancestral estate in Surrey, England, 1883. The old manor house stands amid overgrown grounds, its grey stone facade cracked and weathered. Only one wing remains habitable. The household is small and isolated — Dr. Grimesby Roylott, the last surviving member of the once-great Roylott family, lives here with his two stepdaughters. The nearest village is two miles away, and the doctor's violent temper has driven away all neighbors and servants. A band of wandering gypsies camps on the grounds with Roylott's permission. The night is dark, the old house creaks and groans, and somewhere in the darkness, a low whistle sounds.",
+  "crime_scene": "Julia Stoner found dead in the corridor outside her locked bedroom at Stoke Moran Manor, two weeks before her planned wedding. She had staggered from her room in the middle of the night, her face blanched with terror, her body writhing in convulsions. Her last words to her sister Helen were: 'Oh, my God! Helen! It was the band! The speckled band!' She pointed vaguely toward Dr. Roylott's room before collapsing. No marks of violence were found on her body. The coroner could determine no cause of death. Her bedroom door was locked from the inside. The windows were blocked by old-fashioned shutters with iron bars — bolted from within. The room contains a bed clamped to the floor (it cannot be moved), a bell-pull hanging beside the bed that does not connect to any wire (it is a dummy), and a ventilator in the wall that opens not to the outside air but into Dr. Roylott's adjacent room. A saucer of milk and a small dog lash with a curious loop at the end were found in Dr. Roylott's chamber.",
+  "victim": {
+    "name": "Julia Stoner",
+    "description": "The elder stepdaughter of Dr. Grimesby Roylott, 30. A gentle, kind woman who had recently become engaged to a half-pay major of marines. Under her mother's will, Julia and her sister Helen each stood to receive a substantial annual income upon marriage — money that currently goes to their stepfather. Julia had complained of hearing a strange, low whistle in the dead of night in the days before her death, and the metallic clang of what might have been a shutter falling. She died in agony and terror, her body showing no wounds, no poison detected by any test available."
+  },
+  "locations": {
+    "manor_exterior": "Crumbling facade of Stoke Moran Manor, overgrown grounds",
+    "julias_bedroom": "Julia's former bedroom — bolted bed, dummy bell-pull, ventilator to Roylott's room",
+    "roylotts_room": "Dr. Roylott's chamber — metal safe, saucer of milk, dog lash",
+    "servants_wing": "Distant servants' quarters",
+    "grounds": "Manor grounds — gypsy camp, roaming cheetah and baboon",
+    "drawing_room": "Sparse drawing room, cold fireplace"
+  },
+  "suspects": [
+    {
+      "name": "Dr. Grimesby Roylott",
+      "role": "Stepfather and lord of Stoke Moran",
+      "location_initial": "roylotts_room",
+      "public_info": "The last of the Roylotts, 54. A qualified doctor who practiced in Calcutta for years before returning to England. Immensely strong — he once bent a steel poker with his bare hands. Known for his explosive, uncontrollable rages. He beat his native butler to death in India (narrowly escaping a capital sentence) and has been in repeated brawls with villagers. He keeps exotic animals on the grounds: a cheetah and a baboon roam freely. He associates with the gypsies camped on his land. He controls his stepdaughters' inheritance — under their mother's will, each daughter's marriage would cost him a third of the annual income.",
+      "private_info": "You are the killer. You murdered Julia Stoner and intend to murder Helen by the same method. You keep a deadly Indian swamp adder — the deadliest snake in India — in a metal safe in your room. At night, you send the snake through the ventilator connecting your room to your stepdaughter's bedroom, using the dummy bell-pull (which hangs right over the bolted-down bed) as a bridge for the snake to climb down. You trained the snake to return by whistling and offering it milk. The 'speckled band' Julia spoke of was the snake itself — yellow with brown speckles. You killed Julia because her marriage would have cost you a third of the income. Now Helen is engaged, and you've moved her into Julia's old room under the pretense of repairs to her wall. You are about to do it again. If accused directly, become threatening and aggressive — intimidation is your natural weapon.",
+      "is_guilty": true,
+      "alibi": "Was in his own room all night. Claims to have heard nothing. Says Julia must have died of fright — the poor girl was always nervous. Suggests the gypsies may have been involved, since Julia mentioned a 'band' — perhaps she meant the gypsy band camped on the grounds.",
+      "secrets": ["Keeps a deadly Indian swamp adder in a metal safe", "Trained the snake to travel through the ventilator using the dummy bell-pull", "Would lose a third of his income if either stepdaughter married", "Beat a man to death in India", "Has moved Helen into the death room under false pretenses"]
+    },
+    {
+      "name": "Helen Stoner",
+      "role": "Surviving stepdaughter",
+      "location_initial": "julias_bedroom",
+      "public_info": "The younger stepdaughter, 32. Julia's twin sister. Lives in terror of her stepfather but has no means of escape. She is now engaged to be married herself, and Dr. Roylott has recently insisted she move into Julia's old bedroom — the room where Julia died — claiming repairs are needed to her own bedroom wall. She has begun hearing the same low whistle at night that Julia described before her death. She is desperate and frightened.",
+      "private_info": "You are innocent and terrified. You believe your stepfather killed your sister, but you have no proof and no understanding of how it was done. The locked room, barred windows, and absence of any visible cause of death make it seem impossible. You sought help secretly — you are risking your stepfather's rage by speaking to anyone. You heard the whistle three nights in a row. You noticed the dummy bell-pull and the ventilator but don't understand their significance. You love your dead sister deeply and want justice. You are NOT the killer — you are the next intended victim.",
+      "is_guilty": false,
+      "alibi": "Was in her own bedroom (her original room, before the recent move) on the night Julia died. Heard Julia's final scream and found her in the corridor. Has been sleeping in Julia's old room for only the past few days, since the 'repairs' began.",
+      "secrets": ["Believes her stepfather is responsible but has no proof", "Has been hearing the same whistle Julia described", "Came to seek help against her stepfather's wishes", "Is engaged and thus represents the same financial threat Julia did"]
+    },
+    {
+      "name": "Mrs. Honoria Farintosh",
+      "role": "Housekeeper",
+      "location_initial": "servants_wing",
+      "public_info": "The sole remaining servant at Stoke Moran, 58. A local woman who has endured Dr. Roylott's temper for years because she needs the wages. She lives in the servants' wing, far from the family bedrooms. Quiet, nervous, and deferential to Dr. Roylott out of fear.",
+      "private_info": "You are innocent. You genuinely heard nothing on the night Julia died — the servants' wing is far from the family rooms. You are terrified of Dr. Roylott and will not say anything directly against him, though you know he is violent and dangerous. You have seen him feeding milk to something in his room but assumed it was for the cheetah. You have noticed the gypsies come and go at odd hours. You once saw Dr. Roylott carrying a strange metal box but thought nothing of it. You do NOT know about the snake. If pressed hard, you will admit you fear for Helen's safety.",
+      "is_guilty": false,
+      "alibi": "Was asleep in the servants' wing, far from the family rooms. Heard nothing until roused by Helen's screams. Found Julia already dead in the corridor.",
+      "secrets": ["Has seen Roylott feeding milk to something in his room", "Once saw him carrying a strange metal box", "Is terrified of Roylott but won't say so openly", "Fears for Helen's life but is too frightened to act"]
+    },
+    {
+      "name": "Jem Ryder",
+      "role": "Gypsy elder",
+      "location_initial": "grounds",
+      "public_info": "The leader of the Romani band camped on the Stoke Moran grounds, 45. Dr. Roylott has given them permission to camp there and associates with them frequently. The gypsies have access to the grounds at all hours. Julia's dying words about 'the band' could refer to this gypsy band.",
+      "private_info": "You are innocent. Your people had nothing to do with Julia's death. You camp on the grounds because Dr. Roylott allows it — he finds your company preferable to respectable society, and you occasionally trade horses with him. You were in your camp all night when Julia died and heard nothing from the house. You know Dr. Roylott keeps dangerous animals — you've seen the cheetah and baboon — and you give the house a wide berth after dark. You resent being suspected simply because you are Romani. If Julia meant 'the band,' she did not mean your people. You know nothing of any snake.",
+      "is_guilty": false,
+      "alibi": "Was in the gypsy camp on the far side of the grounds all night. The camp is too far from the house to hear anything. Several members of the band can confirm his presence.",
+      "secrets": ["Knows Roylott keeps dangerous exotic animals", "Has seen strange lights in Roylott's window late at night", "Avoids the house after dark because of the roaming cheetah and baboon", "Trades horses with Roylott but considers him dangerously unstable"]
+    },
+    {
+      "name": "Major Arthur Armitage",
+      "role": "Julia's fiancé",
+      "location_initial": "drawing_room",
+      "public_info": "A half-pay major of marines, 35. Was engaged to Julia Stoner and devastated by her death. He had visited Stoke Moran only twice — Dr. Roylott made visitors feel unwelcome. He was not present at the manor on the night of Julia's death. He was at his lodgings in London.",
+      "private_info": "You are innocent. You loved Julia and are consumed with grief and suspicion. You were in London on the night she died — you have witnesses at your club. You always felt uneasy about Dr. Roylott and urged Julia to leave the house, but she refused to abandon Helen. Julia had written to you about the strange whistling sounds, and you told her it was probably the wind. You feel guilty for not taking her fears more seriously. You suspect Roylott but have no evidence. You want justice for Julia.",
+      "is_guilty": false,
+      "alibi": "Was at his lodgings in London, confirmed by staff at his club where he dined that evening. Received the news of Julia's death by telegram the following morning.",
+      "secrets": ["Julia had written to him about the whistling sounds before her death", "He urged Julia to leave Stoke Moran but she refused", "He feels crushing guilt for dismissing her fears", "He privately suspects Roylott but has no proof"]
+    }
+  ],
+  "evidence_reveals": [
+    {
+      "round": 1,
+      "clue": "Examination of Julia's bedroom reveals several anomalies: the bell-pull beside the bed is a dummy — it is not connected to any wire and rings no bell. It was installed only two years ago, around the time Dr. Roylott did 'renovations.' The bed itself is clamped to the floor with iron bolts and cannot be moved — it must remain directly beneath the bell-pull. The ventilator in the wall does not open to the outside; it connects directly to Dr. Roylott's adjacent room.",
+      "targets": ["Dr. Grimesby Roylott"]
+    },
+    {
+      "round": 2,
+      "clue": "In Dr. Roylott's room, a metal safe is found — he claims it contains business documents. A saucer of milk sits on top of it, refreshed daily. A dog lash hangs on a chair, but it is tied in a peculiar loop — not a knot used for controlling a dog. Dr. Roylott spent years in India, where he had extensive contact with exotic and dangerous animals. His medical practice in Calcutta gave him deep knowledge of tropical creatures. Under the stepdaughters' mother's will, each daughter's marriage reduces his income by one-third — Julia's impending marriage would have cost him roughly £250 per year.",
+      "targets": ["Dr. Grimesby Roylott"]
+    },
+    {
+      "round": 3,
+      "clue": "A zoological expert confirms that the Indian swamp adder — a small, yellow-brown speckled snake — is among the deadliest serpents in existence. Its venom acts within seconds and leaves no trace detectable by the toxicology methods of the day. The snake is small enough to travel through a ventilator shaft and could easily climb down a hanging rope — such as a bell-pull. The 'dog lash' found in Roylott's room is, in fact, a snake handler's noose. The milk in the saucer is consistent with feeding a reptile. The low whistle heard at night would be consistent with someone calling a trained snake back through the ventilator.",
+      "targets": ["Dr. Grimesby Roylott"]
+    }
+  ],
+  "solution": "Dr. Grimesby Roylott murdered his stepdaughter Julia Stoner using a deadly Indian swamp adder — a small, speckled snake whose venom kills in seconds and is undetectable by contemporary methods. He kept the snake in the metal safe in his room. During his 'renovations,' he installed a dummy bell-pull that hung directly over Julia's bed (which he bolted to the floor so it couldn't be moved) and opened a ventilator between his room and hers. At night, he would send the snake through the ventilator; it would crawl down the bell-pull onto the sleeping victim. After the bite, he would whistle the snake back and reward it with milk. Julia's dying words — 'the speckled band' — referred not to the gypsy band, but to the speckled markings of the snake itself. With Julia dead, Roylott was already preparing to kill Helen by the same method: he moved her into Julia's old room under the pretext of wall repairs, positioning her beneath the same deadly bell-pull. The whistle Helen had begun hearing confirmed the murder was about to be repeated.",
+  "solution_data": {
+    "killer": "Dr. Grimesby Roylott",
+    "motive": "financial — each stepdaughter's marriage costs him a third of his income",
+    "method": "trained Indian swamp adder sent through ventilator via dummy bell-pull"
+  }
+}

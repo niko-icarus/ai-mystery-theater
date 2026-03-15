@@ -1,0 +1,95 @@
+{
+  "title": "Gone Girl: The Dunne Affair",
+  "setting": "North Carthage, Missouri, a fading river town. July 5th — the morning of Nick and Amy Dunne's fifth wedding anniversary. The media circus hasn't started yet, but the police are already suspicious.",
+  "crime_scene": "Amy Dunne has vanished from her home on their anniversary. The living room shows signs of a violent struggle — an overturned ottoman, broken glass on the floor, and a large cleaned-up blood stain near the kitchen island (revealed by luminol). Amy's purse and keys are still in the house. Her car is in the driveway. Nick reported her missing at 11:30 AM after returning home to find the front door wide open. The anniversary gift treasure hunt clues Amy left for Nick are scattered on the kitchen table.",
+  "victim": {
+    "name": "Amy Elliott Dunne",
+    "description": "36, former New York writer and the inspiration for her parents' bestselling 'Amazing Amy' children's book series. Beautiful, brilliant, and — to all appearances — the perfect wife. Moved to Missouri two years ago when Nick lost his job. Currently missing, presumed dead."
+  },
+  "detective_style": "dogged and skeptical, trusting evidence over emotion — every alibi gets checked twice",
+  "locations": {
+    "dunne_house": "The Dunne home — overturned furniture, blood stain revealed by luminol",
+    "the_bar": "The Bar — Nick and Go's dive bar on the waterfront",
+    "neighborhood": "Quiet suburban neighborhood, volunteer search staging area",
+    "police_station": "North Carthage PD interview room",
+    "lake_house": "Desi Collings' secluded lake house estate"
+  },
+  "suspects": [
+    {
+      "name": "Nick Dunne",
+      "role": "The husband",
+      "location_initial": "the_bar",
+      "public_info": "38, co-owner of a local bar called The Bar (funded by Amy's trust fund money). Former magazine writer in New York. Handsome, charming, but seems oddly calm about his wife's disappearance. Smiled during the first press conference.",
+      "private_info": "Has been having an affair with Andie Hardy, a 23-year-old college student, for over a year. He spent the morning of the disappearance at the bar with his twin sister. He genuinely did NOT harm Amy — but he can't reveal his alibi fully without exposing the affair. He maxed out credit cards on purchases Amy didn't know about (gifts for Andie). His marriage was deeply unhappy. He had recently increased Amy's life insurance policy to $1.2 million — at Amy's own suggestion, which he didn't think twice about.",
+      "is_guilty": false,
+      "alibi": "Says he was at The Bar from 9 AM with his sister Go, then came home at 11 AM to find Amy gone. True, but he also made a 20-minute call to Andie at 10:15 AM that he's hiding.",
+      "secrets": ["Affair with Andie Hardy", "Increased life insurance recently", "Spent Amy's trust fund money", "Marriage was miserable", "Hiding the phone call to Andie"]
+    },
+    {
+      "name": "Margo 'Go' Dunne",
+      "role": "The twin sister",
+      "location_initial": "the_bar",
+      "public_info": "38, Nick's twin. Co-owns The Bar with him. Loyal, sharp-tongued, protective of her brother. Was with Nick the morning Amy disappeared.",
+      "private_info": "Knows about Nick's affair with Andie and has been covering for him. Despises Amy — thinks she's controlling and manipulative. She was at the bar with Nick that morning but stepped out for 30 minutes around 10 AM to run an errand (buying bar supplies at the store, has receipt). She's fiercely protective of Nick and will shade the truth to help him, but she had nothing to do with Amy's disappearance.",
+      "is_guilty": false,
+      "alibi": "At The Bar all morning with Nick. Has a receipt from a supply store at 10:05 AM (was out briefly). No reason to harm Amy despite disliking her.",
+      "secrets": ["Knows about Nick's affair", "Has been covering for him", "Hates Amy", "Left the bar briefly around 10 AM"]
+    },
+    {
+      "name": "Desi Collings",
+      "role": "The ex-boyfriend",
+      "location_initial": "lake_house",
+      "public_info": "40, wealthy heir to a textile fortune. Amy's high school boyfriend. Still sends her letters and gifts years later. Lives in a lake house estate 40 minutes from North Carthage.",
+      "private_info": "Has been obsessively in love with Amy since prep school. Amy reached out to him secretly three weeks before her disappearance — he thought she was rekindling their relationship. He has no idea he's being used. He did NOT take Amy by force or harm her. Amy contacted HIM and asked for help escaping her 'abusive husband.' He prepared his lake house for her arrival. He is currently hiding Amy at his lake house, believing he's rescuing her.",
+      "is_guilty": false,
+      "alibi": "Says he was at his lake house all day on July 5th. His security cameras can confirm he didn't leave the property. Claims he hasn't spoken to Amy in months — this is a lie.",
+      "secrets": ["Amy contacted him three weeks ago", "Hiding Amy at his lake house", "Still obsessed with Amy", "Believes he's saving her from Nick"]
+    },
+    {
+      "name": "Noelle Hawthorne",
+      "role": "The neighbor and best friend",
+      "location_initial": "neighborhood",
+      "public_info": "35, mother of triplets. Lives three doors down. Claims to be Amy's closest friend in North Carthage. Organized the initial volunteer search effort with passionate intensity.",
+      "private_info": "Amy deliberately befriended Noelle as part of her plan — feeding her a false narrative of abuse for months. Noelle genuinely believes Nick was beating Amy and that Amy was secretly pregnant. Amy gave Noelle a diary (planted) and told her things specifically so Noelle would go to the police after the disappearance. Noelle is an unwitting pawn, not a perpetrator. She has no idea Amy is alive.",
+      "is_guilty": false,
+      "alibi": "Was home with her triplets all morning. Neighbor's doorbell camera confirms she didn't leave until noon when she heard about Amy on the news.",
+      "secrets": ["Amy told her Nick was abusive", "Believes Amy was pregnant", "Has items Amy planted with her", "Will go to police with abuse allegations"]
+    },
+    {
+      "name": "Amy Elliott Dunne",
+      "role": "The victim",
+      "location_initial": "neighborhood",
+      "disguise_identity": {
+        "name": "Nancy Morgan",
+        "role": "A traveling journalist passing through town who knew Amy casually"
+      },
+      "public_info": "Missing, presumed kidnapped or dead. Left anniversary treasure hunt clues for Nick. Her diary, recovered from the house, paints a terrifying picture of escalating abuse by Nick, culminating in a fear that he would kill her.",
+      "private_info": "Amy is alive. She orchestrated her own disappearance over the course of a year to frame Nick for her murder. She staged the crime scene (bought her own blood over months using a home phlebotomy kit), planted the diary with fabricated abuse entries, manipulated Noelle into being a witness, nudged Nick into increasing the life insurance, and left treasure hunt clues designed to lead police to incriminating evidence she planted (purchases in Nick's name, a storage unit full of expensive items). She befriended Desi as her escape plan. She is currently hiding at Desi's lake house, watching the news coverage with satisfaction. Amy is the mastermind — there is no murder, only an elaborate frame job.",
+      "is_guilty": true,
+      "alibi": "Has no alibi — she IS the supposed victim. The 'crime scene' was staged by her over several hours on the morning of July 5th before she drove to Desi's lake house in a prepaid car she'd hidden weeks earlier.",
+      "secrets": ["Alive and hiding at Desi's lake house", "Staged her own crime scene", "Fabricated the diary", "Drew her own blood over months to plant at the scene", "Manipulated Noelle, Desi, and Nick as pawns", "The 'treasure hunt' clues lead to planted evidence against Nick", "Purchased a prepaid car under a fake name"]
+    }
+  ],
+  "evidence_reveals": [
+    {
+      "round": 1,
+      "clue": "Forensic analysis of Amy's diary raises questions. A handwriting expert notes that while the handwriting is Amy's, the ink dating suggests several 'early' entries were actually written within the last 6 months — as if someone went back and filled in years of entries recently. The blood at the crime scene, while confirmed as Amy's type, was anticoagulated — suggesting it was drawn and stored before being spilled, not shed from a fresh wound.",
+      "targets": ["Nick Dunne", "Noelle Hawthorne"]
+    },
+    {
+      "round": 2,
+      "clue": "Amy's treasure hunt clue #3 leads police to a storage unit rented under Nick's name — filled with $217,000 worth of electronics, golf clubs, and designer goods purchased on credit cards in Nick's name. But surveillance footage from the storage facility shows a woman matching Amy's description (wearing a baseball cap) accessing the unit multiple times over the past two months. Nick's phone records show he never visited the area.",
+      "targets": ["Nick Dunne"]
+    },
+    {
+      "round": 3,
+      "clue": "Cell tower records reveal Amy's burner phone (found linked to a prepaid account under a fake name) pinged towers heading southeast from North Carthage on the morning of July 5th — directly toward Desi Collings' lake house. Additionally, a pharmacy 20 miles away has records of a woman matching Amy's description purchasing a home phlebotomy kit three months prior, paying cash. The pharmacist remembers her because she said it was for 'a school project.'",
+      "targets": ["Desi Collings", "Amy Elliott Dunne"]
+    }
+  ],
+  "solution_data": {
+    "motive": "revenge frame husband destroy his life punish infidelity",
+    "method": "staged disappearance faked death planted evidence fabricated diary blood"
+  },
+  "solution": "Amy Elliott Dunne staged her own disappearance and faked her death to frame her husband Nick for murder. Over the course of a year, she: drew her own blood to plant at the scene, fabricated a diary full of fictional abuse, manipulated her neighbor Noelle into believing Nick was violent, nudged Nick into increasing her life insurance, rented a storage unit in his name filled with suspicious purchases, and created anniversary treasure hunt clues designed to lead police to the planted evidence. On the morning of July 5th, she staged the crime scene in her own living room, then drove a prepaid car to her ex-boyfriend Desi Collings' lake house, where she is hiding — alive and watching Nick's life crumble on national television. There was no murder. The 'victim' is the perpetrator."
+}
