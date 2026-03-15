@@ -523,7 +523,33 @@ body::before {
       continue;
     }
 
-    if (p === 'scene_setting') continue; // Already shown in header
+    if (p === 'scene_setting') {
+      // First beat is used in the header subtitle; render the rest as narrator cards
+      const remainingBeats = group.entries.slice(1);
+      if (remainingBeats.length > 0) {
+        html += `<div class="act-heading">The Crime</div>`;
+        for (const entry of remainingBeats) {
+          html += `
+            <div class="card card-narrator">
+              <div class="card-text">${formatText(entry.text)}</div>
+            </div>
+          `;
+        }
+      }
+      continue;
+    }
+
+    // Show detective_arrival as part of the scene
+    if (p === 'detective_arrival') {
+      for (const entry of group.entries) {
+        html += `
+          <div class="card card-narrator">
+            <div class="card-text">${formatText(entry.text)}</div>
+          </div>
+        `;
+      }
+      continue;
+    }
 
     if (heading && !shownHeadings.has(heading)) {
       html += `<div class="act-heading">${heading}</div>`;
