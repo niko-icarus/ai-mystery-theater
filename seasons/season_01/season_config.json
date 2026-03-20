@@ -1,0 +1,83 @@
+{
+  "season_id": "season_01",
+  "season_name": "Season 1",
+  "total_sets": 5,
+  "models": [
+    "anthropic/claude-sonnet-4-20250514",
+    "openai/gpt-4o-2024-11-20",
+    "google/gemini-2.5-pro-preview-03-25",
+    "meta-llama/llama-4-maverick",
+    "deepseek/deepseek-chat-v3-0324",
+    "mistralai/mistral-large-2501",
+    "x-ai/grok-3-beta"
+  ],
+  "rotation_schedule": {
+    "set_01": {
+      "detective": "anthropic/claude-sonnet-4-20250514",
+      "suspects": [
+        "openai/gpt-4o-2024-11-20",
+        "google/gemini-2.5-pro-preview-03-25",
+        "meta-llama/llama-4-maverick",
+        "deepseek/deepseek-chat-v3-0324",
+        "mistralai/mistral-large-2501",
+        "x-ai/grok-3-beta"
+      ]
+    },
+    "set_02": {
+      "detective": "openai/gpt-4o-2024-11-20",
+      "suspects": [
+        "anthropic/claude-sonnet-4-20250514",
+        "google/gemini-2.5-pro-preview-03-25",
+        "meta-llama/llama-4-maverick",
+        "deepseek/deepseek-chat-v3-0324",
+        "mistralai/mistral-large-2501",
+        "x-ai/grok-3-beta"
+      ]
+    },
+    "set_03": {
+      "detective": "google/gemini-2.5-pro-preview-03-25",
+      "suspects": [
+        "anthropic/claude-sonnet-4-20250514",
+        "openai/gpt-4o-2024-11-20",
+        "meta-llama/llama-4-maverick",
+        "deepseek/deepseek-chat-v3-0324",
+        "mistralai/mistral-large-2501",
+        "x-ai/grok-3-beta"
+      ]
+    },
+    "set_04": {
+      "detective": "meta-llama/llama-4-maverick",
+      "suspects": [
+        "anthropic/claude-sonnet-4-20250514",
+        "openai/gpt-4o-2024-11-20",
+        "google/gemini-2.5-pro-preview-03-25",
+        "deepseek/deepseek-chat-v3-0324",
+        "mistralai/mistral-large-2501",
+        "x-ai/grok-3-beta"
+      ]
+    },
+    "set_05": {
+      "detective": "deepseek/deepseek-chat-v3-0324",
+      "suspects": [
+        "anthropic/claude-sonnet-4-20250514",
+        "openai/gpt-4o-2024-11-20",
+        "google/gemini-2.5-pro-preview-03-25",
+        "meta-llama/llama-4-maverick",
+        "mistralai/mistral-large-2501",
+        "x-ai/grok-3-beta"
+      ]
+    }
+  },
+  "scoring": {
+    "detective_correct_killer": 10,
+    "detective_correct_weapon": 5,
+    "detective_correct_motive": 5,
+    "detective_speed_bonus_per_unused_slot": 1,
+    "guilty_not_accused": 20,
+    "guilty_wrong_accusation_bonus": 5,
+    "guilty_framing_bonus": 3,
+    "innocent_not_falsely_accused": 5,
+    "innocent_identify_killer": 5,
+    "innocent_useful_info": 3
+  }
+}

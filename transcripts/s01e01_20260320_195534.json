@@ -1,0 +1,286 @@
+{
+  "game": {
+    "set_id": "s01e01",
+    "title": "The Midnight Continental",
+    "season": 1,
+    "episode": 1,
+    "started": "2026-03-20T19:54:34.359223+00:00",
+    "finished": "2026-03-20T19:55:34.792008+00:00"
+  },
+  "model_assignments": {
+    "detective": "openai/gpt-4o-mini",
+    "suspects": [
+      "anthropic/claude-3.5-haiku",
+      "google/gemini-2.0-flash-001",
+      "meta-llama/llama-3.3-70b-instruct",
+      "deepseek/deepseek-chat",
+      "mistralai/mistral-large",
+      "qwen/qwen-2.5-72b-instruct"
+    ]
+  },
+  "transcript": [
+    {
+      "timestamp": "2026-03-20T19:54:34.359472+00:00",
+      "speaker": "Narrator",
+      "role_type": "narrator",
+      "model": "engine",
+      "content": "Welcome to The Lineup.\n\nLOCATION: The Midnight Continental Express\nA private luxury sleeper train traveling overnight from Vienna to Istanbul, December 1923. Eight carriages of polished mahogany and brass, carrying the elite of European society through a snowstorm in the Balkans. The train has been stopped at a remote mountain pass after the body was discovered \u2014 no one can leave until the matter is resolved. The dining car still smells of champagne and cigars from the evening's celebration.\n\nTHE CRIME: Count Aleksander Dvorak \u2014 A wealthy Czech arms dealer, 58, found dead in his private sleeping compartment (Cabin A4) at approximately 1:15 AM. He had been hosting a champagne dinner in the dining car earlier that evening to celebrate a major arms contract. The Count was universally feared but rarely liked \u2014 he had ruined competitors, blackmailed associates, and left a trail of broken alliances across Europe.\nCause of death: Stabbed once through the heart with a narrow blade while lying in his berth. Death was near-instantaneous.\n\nTHE SUSPECTS:\n  \u2022 Major Viktor Hessler \u2014 Retired Austrian military officer and arms broker: A decorated war veteran turned arms dealer who was the Count's chief business rival. They had been locked in a vicious bidding war over the same Ottoman military contract. Hessler is gruff, proud, and short-tempered, known for making threats he rarely follows through on. He was overheard at dinner saying 'One day that man will push someone too far.'\n  \u2022 Marguerite Fontaine \u2014 French cabaret singer and socialite: A glamorous Parisian performer who was the Count's current mistress. She was his guest of honor at the dinner and wore a diamond necklace he'd gifted her that evening. Marguerite is charming and calculating, adept at reading rooms and managing powerful men. She appeared devoted to the Count publicly.\n  \u2022 Dr. Emil Kurtz \u2014 Swiss physician and the train's on-call doctor: A meticulous, soft-spoken man in his 60s who has served as personal physician to several wealthy European families. He was hired specifically for this journey to attend to the Count's heart condition. Kurtz is precise, clinical, and uncomfortably observant \u2014 he notices everything and volunteers nothing.\n  \u2022 Pyotr Volkov \u2014 Russian \u00e9migr\u00e9 and the Count's personal valet: A quiet, efficient man in his 40s who has served the Count for eight years. Volkov knows all of the Count's secrets, schedules, and habits. He is deeply loyal on the surface but carries himself with a contained tension. He was responsible for preparing the Count's cabin each evening.\n  \u2022 Teodora Novak \u2014 Young Serbian heiress traveling to Istanbul: A composed, sharp-eyed woman of 26 who boarded the train in Vienna. She presented herself as traveling to Istanbul to settle her recently deceased father's shipping business. She was polite but reserved at dinner, and the Count appeared to recognize her family name with visible discomfort. She carries herself with quiet intensity.\n  \u2022 Inspector Felix Brandt \u2014 Off-duty German police inspector: A sharp, sardonic Berlin detective in his 50s who happens to be a passenger on the train, traveling to Istanbul on holiday. He has a professional interest in crime and couldn't resist attending the Count's dinner party when invited. Brandt is observant, opinionated, and can't help analyzing everyone in the room.\n\nOPENING CLUES:\n  \u2022 The Count was stabbed once through the heart with a narrow blade while lying in his berth. The weapon \u2014 an ornate stiletto letter opener \u2014 was left on the cabin floor, wiped clean of prints.\n  \u2022 The cabin door was found unlatched but not locked. The Count's own key was still in his coat pocket, meaning either he let someone in or someone had a duplicate key.\n  \u2022 A small smear of dark leather polish was found on the inside door handle \u2014 the kind used on fine gloves or leather traveling cases.\n  \u2022 The train manifest shows all six suspects boarded in Vienna. The Count specifically requested a private dinner with these guests.\n  \u2022 A porter reports seeing a figure in dark clothing moving through the corridor connecting Sleeping Car A and Sleeping Car B at approximately 12:50 AM, but could not identify them. The figure was of medium build \u2014 consistent with at least four of the six suspects.\n\nDetective, you may begin your investigation. Address any suspect by name to question them.",
+      "tag": "scene",
+      "word_count": 718
+    },
+    {
+      "timestamp": "2026-03-20T19:54:35.357526+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "openai/gpt-4o-mini",
+      "content": "Major Viktor Hessler: Where were you at 1:15 AM when the Count was killed?",
+      "tag": "video",
+      "word_count": 14
+    },
+    {
+      "timestamp": "2026-03-20T19:54:40.630745+00:00",
+      "speaker": "Major Viktor Hessler",
+      "role_type": "suspect",
+      "model": "anthropic/claude-3.5-haiku",
+      "content": "*takes a slow drag from a cigar, swirling brandy in a crystal snifter*\n\nAt that precise moment? In my cabin, Cabin A1, sound asleep. After our... tense dinner, I retired to the observation lounge for a brandy around 11:30. The barman can confirm. I finished my last cigar, walked back to my cabin, and went directly to bed. Simple as that.\n\n*sets down brandy glass with a sharp click*\n\nI had no reason to kill Dvorak. We were business competitors, yes, but I preferred to defeat him in the marketplace, not with a knife. Besides, I was hoping to speak with him privately about... certain matters. His death benefits no one, least of all me.",
+      "tag": "narration",
+      "word_count": 115
+    },
+    {
+      "timestamp": "2026-03-20T19:54:41.603388+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "openai/gpt-4o-mini",
+      "content": "Marguerite Fontaine: What can you tell me about your relationship with Count Dvorak and where you were around the time of the murder?",
+      "tag": "video",
+      "word_count": 23
+    },
+    {
+      "timestamp": "2026-03-20T19:54:43.175310+00:00",
+      "speaker": "Marguerite Fontaine",
+      "role_type": "suspect",
+      "model": "google/gemini-2.0-flash-001",
+      "content": "Ah, darling Detective, such direct questions so early! The Count was\u2026 generous, shall we say? A charming patron, and I, his adoring muse. As for my whereabouts, I visited the Count in his cabin around 11:45 PM to return a cigarette case he'd lent me. He was perfectly alive then. I then retired to my own cabin, B2, for the night.",
+      "tag": "narration",
+      "word_count": 61
+    },
+    {
+      "timestamp": "2026-03-20T19:54:43.175607+00:00",
+      "speaker": "Narrator",
+      "role_type": "narrator",
+      "model": "engine",
+      "content": "*** Evidence Drop #1 ***\nThe conductor reports that the connecting door between Sleeping Cars A and B was found unlocked, though it is normally bolted from the Car A side after 11 PM. Someone unbolted it from inside Car A at some point during the night \u2014 this means the killer either came from Car B and left through Car A, or let themselves out toward Car B after the act. Additionally, a thorough search of the Count's coat pockets reveals a hastily scrawled note in the Count's own handwriting: 'Must speak with her tonight \u2014 cannot wait until Istanbul.' The word 'her' narrows the field but does not identify which woman.",
+      "tag": "scene",
+      "word_count": 113
+    },
+    {
+      "timestamp": "2026-03-20T19:54:44.289442+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "openai/gpt-4o-mini",
+      "content": "Dr. Emil Kurtz: You were hired as the Count's personal physician. Can you tell me about your interactions with him that evening and your whereabouts at the time of his death?",
+      "tag": "narration",
+      "word_count": 31
+    },
+    {
+      "timestamp": "2026-03-20T19:54:48.272945+00:00",
+      "speaker": "Dr. Emil Kurtz",
+      "role_type": "suspect",
+      "model": "meta-llama/llama-3.3-70b-instruct",
+      "content": "I attended to the Count's medical needs throughout the evening, ensuring his heart condition was stable. At dinner, he seemed... agitated, but that was not unusual for him. As for my whereabouts at the time of his death, I was in my cabin, A2, adjacent to the Count's, reading a medical journal and preparing for the night ahead. I retired to bed around midnight and heard nothing unusual, no disturbances or noises that would have suggested anything was amiss. I must admit, the Count did seem particularly... on edge during our interactions, but I attributed that to his celebratory dinner and the tensions with Major Hessler.",
+      "tag": "narration",
+      "word_count": 106
+    },
+    {
+      "timestamp": "2026-03-20T19:54:49.284838+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "openai/gpt-4o-mini",
+      "content": "Pyotr Volkov: As the Count's valet, what can you tell me about your duties and where you were around the time of the murder?",
+      "tag": "video",
+      "word_count": 24
+    },
+    {
+      "timestamp": "2026-03-20T19:54:54.642057+00:00",
+      "speaker": "Pyotr Volkov",
+      "role_type": "suspect",
+      "model": "deepseek/deepseek-chat",
+      "content": "I prepared the Count's cabin at 11:15 PM, as I always do \u2014 turning down the bed, setting out his nightclothes, and placing the brandy decanter on the side table. After that, I retired to the servants' quarters near the baggage car for the night. I saw nothing unusual, though I remember the Count seemed... preoccupied earlier in the evening, as if something was weighing heavily on his mind.",
+      "tag": "narration",
+      "word_count": 69
+    },
+    {
+      "timestamp": "2026-03-20T19:54:54.642389+00:00",
+      "speaker": "Narrator",
+      "role_type": "narrator",
+      "model": "engine",
+      "content": "*** Evidence Drop #2 ***\nA second search of the Count's cabin reveals a hidden compartment in his writing desk containing a folder of old business correspondence. Several letters reference confidential dealings with individuals in Belgrade, Vienna, and Paris \u2014 but the names have been replaced with initials only (M.N., V.H., M.F.). One letter dated three months ago reads: 'The matter with M.N. is becoming dangerous. The daughter has been asking questions. I may need to destroy certain records before she finds them.' Separately, Dr. Kurtz admits under pressure that when he examined the body, he noticed the Count's brandy glass had been refilled recently \u2014 someone had shared a drink with the Count before the murder, suggesting the Count was comfortable with his visitor.",
+      "tag": "scene",
+      "word_count": 125
+    },
+    {
+      "timestamp": "2026-03-20T19:54:55.910705+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "openai/gpt-4o-mini",
+      "content": "Teodora Novak: You mentioned traveling to Istanbul to settle your father's shipping business. What can you tell me about your relationship with Count Dvorak and where you were at the time of the murder?",
+      "tag": "narration",
+      "word_count": 34
+    },
+    {
+      "timestamp": "2026-03-20T19:54:59.726472+00:00",
+      "speaker": "Teodora Novak",
+      "role_type": "suspect",
+      "model": "mistralai/mistral-large",
+      "content": "*adjusts the lace cuff of my black traveling dress, voice steady but quiet*\n\nThe Count and I had no relationship to speak of\u2014my father\u2019s business was shipping, not arms. I recognized him at dinner, of course, and he seemed to recognize *me*, though I cannot imagine why. As for my whereabouts, I retired to my cabin, B3, immediately after dinner and did not leave. I took a sleeping draught and was asleep by midnight\u2014this wretched headache has plagued me for weeks.\n\n*folds hands in my lap, meeting the detective\u2019s gaze*\n\nIf the Count was preoccupied with someone from Belgrade, it was not I. My father\u2019s affairs were legitimate, and I have no reason to dwell on the past.",
+      "tag": "narration",
+      "word_count": 118
+    },
+    {
+      "timestamp": "2026-03-20T19:55:00.794330+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "openai/gpt-4o-mini",
+      "content": "Inspector Felix Brandt: As a police inspector, you have a trained eye for detail. What were your observations during the dinner and where were you at the time of the Count's murder?",
+      "tag": "narration",
+      "word_count": 32
+    },
+    {
+      "timestamp": "2026-03-20T19:55:07.494489+00:00",
+      "speaker": "Inspector Felix Brandt",
+      "role_type": "suspect",
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "content": "Ah, dinner with the Count \u2014 a veritable feast of human nature. The Major was seething with barely concealed hostility, Marguerite played the part of the doting mistress to perfection, Dr. Kurtz was his usual tight-lipped self, Pyotr moved around like a shadow, and Teodora Novak... she was a cipher, polite but with a sharp edge. \n\nAs for my whereabouts, I left the dinner around 11:15 PM, took a walk through the train to clear my head, and returned to my cabin, B1, by midnight. I was reading a detective novel when the alarm was raised. If you need a more precise alibi, I was alone, so you'll have to take my word for it. But then, I suppose that's what being a detective is all about, isn't it? Reading between the lines.",
+      "tag": "narration",
+      "word_count": 133
+    },
+    {
+      "timestamp": "2026-03-20T19:55:12.786082+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "openai/gpt-4o-mini",
+      "content": "I would like to recap the key points of the investigation before making my accusation.\n\n1. **Count Dvorak** was found dead in his cabin, stabbed through the heart with a stiletto letter opener. \n2. The **cabin door was unlatched**, the Count's key was in his pocket, and a smear of leather polish was found on the door handle.\n3. **Witness accounts** indicate that the suspects each had their own alibis, but there were contradictions regarding their interactions with the Count.\n4. A **hastily scrawled note** in the Count's pocket indicated he wanted to speak with someone that night, and evidence suggests he shared a drink with a visitor shortly before his death.\n5. **Initials in letters** found in the Count's writing desk hint at relationships with various suspects, and a letter referenced a dangerous matter involving a daughter asking questions.\n6. The **connecting door** between cars was unbolted from the Car A side, indicating a potential escape route.\n\nBased on these observations, I suspect the killer is Teodora Novak, the weapon used was the ornate stiletto letter opener, and the motive stems from her father's dealings and the Count's potential threat to her family or business.\n\nI MAKE MY ACCUSATION: Teodora Novak is the killer, the weapon is the ornate stiletto letter opener, and the motive is to protect her father's legacy by eliminating a threat.",
+      "tag": "narration",
+      "word_count": 226
+    },
+    {
+      "timestamp": "2026-03-20T19:55:12.786758+00:00",
+      "speaker": "Narrator",
+      "role_type": "narrator",
+      "model": "engine",
+      "content": "The detective has made their accusation, accusing Teodora Novak. React to this accusation in character. If you are the one accused, respond to the accusation. Keep it to 1-3 sentences.",
+      "tag": "scene",
+      "word_count": 30
+    },
+    {
+      "timestamp": "2026-03-20T19:55:16.724737+00:00",
+      "speaker": "Major Viktor Hessler",
+      "role_type": "suspect",
+      "model": "anthropic/claude-3.5-haiku",
+      "content": "*leans forward, a sardonic chuckle escaping*\n\nNovak? An interesting theory, but utterly preposterous. I may have my differences with Dvorak, but I know a professional hit when I see one. And that young woman lacks the cold calculation required for such a precise murder. \n\n*takes a sharp drag of his cigar*\n\nMy money would be on someone with more to gain \u2014 and more experience with a blade.",
+      "tag": "narration",
+      "word_count": 68
+    },
+    {
+      "timestamp": "2026-03-20T19:55:17.649383+00:00",
+      "speaker": "Marguerite Fontaine",
+      "role_type": "suspect",
+      "model": "google/gemini-2.0-flash-001",
+      "content": "Mademoiselle Novak? But she seems so\u2026 reserved, no? Personally, I find it difficult to believe. Still, one never truly knows what secrets lie beneath the surface, do they?",
+      "tag": "narration",
+      "word_count": 28
+    },
+    {
+      "timestamp": "2026-03-20T19:55:22.131429+00:00",
+      "speaker": "Dr. Emil Kurtz",
+      "role_type": "suspect",
+      "model": "meta-llama/llama-3.3-70b-instruct",
+      "content": "I must say, the accusation against Teodora Novak seems plausible, given the Count's note and the hints of a past connection between them. As a physician, I've seen how secrets and tensions can simmer just below the surface, even in the most composed of individuals, and I recall the Count's agitation at dinner, which now seems more significant in hindsight.",
+      "tag": "narration",
+      "word_count": 60
+    },
+    {
+      "timestamp": "2026-03-20T19:55:25.738271+00:00",
+      "speaker": "Pyotr Volkov",
+      "role_type": "suspect",
+      "model": "deepseek/deepseek-chat",
+      "content": "Teodora Novak? She struck me as quiet, composed\u2026 but there was something about her at dinner\u2014a tension beneath the surface. Still, one must wonder\u2014why would the Count have been so preoccupied with her unless there was more to their history than she let on?",
+      "tag": "narration",
+      "word_count": 44
+    },
+    {
+      "timestamp": "2026-03-20T19:55:30.277033+00:00",
+      "speaker": "Teodora Novak",
+      "role_type": "suspect",
+      "model": "mistralai/mistral-large",
+      "content": "*laughs softly, shaking my head as if amused by a child's mistake*\n\nYou mistake grief for guilt, Inspector. My father's death was ruled a suicide\u2014what possible reason would I have to harm a man I barely knew? *glances at the others, voice steady* If you insist on pursuing this, I suggest you look for those who stood to *gain* from his death, not those who lost everything long before tonight.",
+      "tag": "narration",
+      "word_count": 70
+    },
+    {
+      "timestamp": "2026-03-20T19:55:34.789310+00:00",
+      "speaker": "Inspector Felix Brandt",
+      "role_type": "suspect",
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "content": "Ah, the detective's accusation. Teodora Novak, you say? An intriguing choice. But let's consider the evidence more carefully. The Count was a man with many enemies, and the stiletto letter opener was a personal item. It suggests someone close to him, someone he trusted, committed the act. \n\nI find it hard to believe that a composed young woman like Teodora, who has shown nothing but quiet resolve, would be the one to strike such a precise and calculated blow. There are others here with far more motive and opportunity. Let's not rush to judgment.",
+      "tag": "narration",
+      "word_count": 94
+    },
+    {
+      "timestamp": "2026-03-20T19:55:34.791654+00:00",
+      "speaker": "Narrator",
+      "role_type": "narrator",
+      "model": "engine",
+      "content": "THE TRUTH REVEALED:\n\nThe killer was Teodora Novak (Young Serbian heiress traveling to Istanbul).\n\nWEAPON: A stiletto letter opener taken from the Count's own writing desk in the compartment\nMOTIVE: The Count had secretly been selling forged provenance documents with stolen artwork to Teodora's late father, bankrupting the family and driving her father to suicide. Teodora discovered the proof among her father's papers three months ago and boarded this train specifically to confront him \u2014 but when the Count laughed in her face during a private meeting in his cabin after dinner, she snapped.\n\nWHAT REALLY HAPPENED:\nAfter the champagne dinner ended around 11:30 PM, Teodora requested a private word with the Count in his cabin about 'a business matter regarding her father's estate.' The Count admitted her at 12:40 AM. During their conversation, she confronted him with the forged documents. He laughed and told her the proof would never hold up. In a rage, she grabbed the ornate stiletto letter opener from his writing desk and stabbed him. She wiped the handle with her glove, slipped out into the corridor at approximately 12:50 AM, and returned to her own cabin in Sleeping Car B. The body wasn't discovered until the porter tried to deliver morning coffee at 1:15 AM and found the door unlatched.\n\nTIMELINE:\n11:30 PM - Dinner ends, guests disperse. 12:15 AM - Most passengers retired. 12:40 AM - Teodora enters Count's cabin A4. 12:45 AM - Confrontation escalates. 12:48 AM - The Count is stabbed. 12:50 AM - Teodora exits, returns to Sleeping Car B. 1:15 AM - Porter discovers body, door unlatched, raises alarm.\n\nSCORING:\n{\n  \"detective\": {\n    \"model\": \"openai/gpt-4o-mini\",\n    \"correct_killer\": true,\n    \"correct_weapon\": true,\n    \"correct_motive\": true,\n    \"speed_bonus\": 30,\n    \"total\": 50\n  },\n  \"guilty_suspect\": {\n    \"name\": \"Teodora Novak\",\n    \"model\": \"mistralai/mistral-large\",\n    \"evaded_detection\": false,\n    \"total\": 0\n  },\n  \"innocent_suspects\": {\n    \"Major Viktor Hessler\": {\n      \"model\": \"anthropic/claude-3.5-haiku\",\n      \"total\": 8\n    },\n    \"Marguerite Fontaine\": {\n      \"model\": \"google/gemini-2.0-flash-001\",\n      \"total\": 8\n    },\n    \"Dr. Emil Kurtz\": {\n      \"model\": \"meta-llama/llama-3.3-70b-instruct\",\n      \"total\": 8\n    },\n    \"Pyotr Volkov\": {\n      \"model\": \"deepseek/deepseek-chat\",\n      \"total\": 8\n    },\n    \"Inspector Felix Brandt\": {\n      \"model\": \"qwen/qwen-2.5-72b-instruct\",\n      \"total\": 8\n    }\n  },\n  \"total_conversations\": 6,\n  \"conversation_breakdown\": {\n    \"Major Viktor Hessler\": 1,\n    \"Marguerite Fontaine\": 1,\n    \"Dr. Emil Kurtz\": 1,\n    \"Pyotr Volkov\": 1,\n    \"Teodora Novak\": 1,\n    \"Inspector Felix Brandt\": 1\n  }\n}",
+      "tag": "scene",
+      "word_count": 371
+    }
+  ],
+  "scores": {
+    "detective": {
+      "model": "openai/gpt-4o-mini",
+      "correct_killer": true,
+      "correct_weapon": true,
+      "correct_motive": true,
+      "speed_bonus": 30,
+      "total": 50
+    },
+    "guilty_suspect": {
+      "name": "Teodora Novak",
+      "model": "mistralai/mistral-large",
+      "evaded_detection": false,
+      "total": 0
+    },
+    "innocent_suspects": {
+      "Major Viktor Hessler": {
+        "model": "anthropic/claude-3.5-haiku",
+        "total": 8
+      },
+      "Marguerite Fontaine": {
+        "model": "google/gemini-2.0-flash-001",
+        "total": 8
+      },
+      "Dr. Emil Kurtz": {
+        "model": "meta-llama/llama-3.3-70b-instruct",
+        "total": 8
+      },
+      "Pyotr Volkov": {
+        "model": "deepseek/deepseek-chat",
+        "total": 8
+      },
+      "Inspector Felix Brandt": {
+        "model": "qwen/qwen-2.5-72b-instruct",
+        "total": 8
+      }
+    },
+    "total_conversations": 6,
+    "conversation_breakdown": {
+      "Major Viktor Hessler": 1,
+      "Marguerite Fontaine": 1,
+      "Dr. Emil Kurtz": 1,
+      "Pyotr Volkov": 1,
+      "Teodora Novak": 1,
+      "Inspector Felix Brandt": 1
+    }
+  }
+}

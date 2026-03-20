@@ -1,0 +1,50 @@
+{
+  "season": 1,
+  "models": {
+    "openai/gpt-4o-mini": {
+      "total": 32,
+      "detective_score": 32,
+      "suspect_score": 0,
+      "games": 1
+    },
+    "mistralai/mistral-large": {
+      "total": 23,
+      "detective_score": 0,
+      "suspect_score": 23,
+      "games": 1
+    },
+    "anthropic/claude-3.5-haiku": {
+      "total": 3,
+      "detective_score": 0,
+      "suspect_score": 3,
+      "games": 1
+    },
+    "google/gemini-2.0-flash-001": {
+      "total": 8,
+      "detective_score": 0,
+      "suspect_score": 8,
+      "games": 1
+    },
+    "meta-llama/llama-3.3-70b-instruct": {
+      "total": 8,
+      "detective_score": 0,
+      "suspect_score": 8,
+      "games": 1
+    },
+    "deepseek/deepseek-chat": {
+      "total": 8,
+      "detective_score": 0,
+      "suspect_score": 8,
+      "games": 1
+    },
+    "qwen/qwen-2.5-72b-instruct": {
+      "total": 8,
+      "detective_score": 0,
+      "suspect_score": 8,
+      "games": 1
+    }
+  },
+  "games_played": [
+    "s01e01"
+  ]
+}

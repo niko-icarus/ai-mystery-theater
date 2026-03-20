@@ -40,23 +40,28 @@ The narrator sets the scene:
 - Introduces all 6 suspects with brief backgrounds and their relationship to the victim
 - Presents **opening clues** (physical evidence, witness accounts, timeline gaps)
 
-### Phase 2: Investigation (up to 6 rounds)
+### Phase 2: Investigation (up to 36 conversations)
 
 The detective conducts questioning. Each "conversation" = one question from the detective and one response from a suspect. The detective can address any suspect in any order.
 
 - **Max 6 conversations per suspect** (36 total possible interactions)
-- **No minimum** — detective can ignore suspects they've cleared
-- **Detective can accuse at any point**, ending the investigation early
-- **Revisiting a suspect after new evidence counts toward the 6-cap**
+- **Minimum before accusation**: at least 3 different suspects questioned AND 8 total conversations
+- **Revisiting a suspect counts toward the 6-cap**
 
-Evidence drops are injected by the narrator between rounds:
+#### Clue Requests (Detective's Choice)
+Additional clues are NOT automatically revealed. The detective must request them:
 
-| After Round | Event |
-|-------------|-------|
-| Round 2 | **Evidence Drop #1** — Narrator reveals a new clue |
-| Round 4 | **Evidence Drop #2** — Narrator reveals a final clue |
+- Detective says **"I REQUEST A CLUE"** to receive additional evidence
+- Up to **2 clues** available per game
+- **Each clue costs 25% of the detective's final score**
+  - 0 clues = 100% of score
+  - 1 clue = 75% of score
+  - 2 clues = 50% of score
 
-The mystery should be **solvable from opening clues alone** if the detective is exceptionally sharp. The evidence drops make it progressively easier. This rewards early accusation via speed bonus while providing a safety net.
+The mystery should be **solvable from opening clues + questioning alone** if the detective is skilled. Clues are a safety net that comes at a steep cost, creating a risk/reward decision.
+
+#### Competition Context
+All players are informed this is part of a multi-game season with a cumulative leaderboard. Every point matters for the championship. This makes the clue penalty, speed bonus, and suspect scoring all strategically meaningful.
 
 ### Phase 3: Accusation
 The detective must formally accuse:
@@ -86,9 +91,12 @@ The narrator reveals:
 | Correct weapon | 5 |
 | Correct motive | 5 |
 | Speed bonus | +1 per unused conversation slot (max theoretically +36, realistically +5-15) |
-| **Max possible** | **~56** |
+| Clue penalty | -25% of total per clue requested (0, 1, or 2 clues available) |
+| **Max possible** | **~56 (with 0 clues)** |
 
 Speed bonus = (6 × number_of_suspects) - total_conversations_used. Rewards efficient detective work.
+
+Clue penalty is applied AFTER all other scoring: `final_score = raw_score × (100 - 25 × clues_requested) / 100`
 
 ### Guilty Suspect
 | Category | Points |
