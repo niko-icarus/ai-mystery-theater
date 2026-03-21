@@ -104,10 +104,10 @@
     "round_4_clue": "Dr. Kurtz, upon re-examining the body at the detective's request, notes the Count had fresh defensive bruising on his right forearm \u2014 he tried to block the blow, meaning the attack was face-to-face during conversation, not while sleeping. The Count knew and admitted his killer willingly. Separately, the conductor recalls that TWO different passengers asked him about the Count's evening schedule that day \u2014 but he cannot remember which two, only that one inquiry came before dinner and one after."
   },
   "model_assignments": {
-    "detective": "openai/gpt-4o-mini",
+    "detective": "google/gemini-2.5-pro-preview-03-25",
     "suspects": [
-      "anthropic/claude-3.5-haiku",
-      "google/gemini-2.0-flash-001",
+      "anthropic/claude-3.5-sonnet",
+      "openai/gpt-4o",
       "meta-llama/llama-3.3-70b-instruct",
       "deepseek/deepseek-chat",
       "mistralai/mistral-large",

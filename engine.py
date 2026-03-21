@@ -28,6 +28,7 @@ log = logging.getLogger("lineup")
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 ACCUSATION_TRIGGER = "I MAKE MY ACCUSATION"
 MAX_CONVERSATIONS_PER_SUSPECT = 6
+MAX_ROUNDS = 40  # Safety cap — force-stop if game exceeds this many rounds
 MAX_API_RETRIES = 3
 API_RETRY_DELAY = 2  # seconds
 VIDEO_WORD_LIMIT = 25
@@ -315,20 +316,44 @@ class GameEngine:
         return call_openrouter(model, messages, self.api_key)
 
     def _find_suspect_by_name(self, text: str) -> tuple[dict, int] | None:
-        """Try to determine which suspect the detective is addressing."""
+        """Determine which suspect the detective is addressing.
+
+        Finds the EARLIEST mentioned suspect name in the text, since detectives
+        typically address the target at the start of their message. This prevents
+        matching a different suspect mentioned later (e.g., 'Marguerite, what did
+        you think of Hessler?' should match Marguerite, not Hessler).
+        """
         text_lower = text.lower()
+
+        # Find the earliest position of each suspect's name in the text
+        earliest_match: tuple[int, dict, int] | None = None  # (position, suspect, index)
+
         for i, s in enumerate(self.config["suspects"]):
+            best_pos = len(text_lower) + 1  # sentinel
+
             # Check full name
-            if s["name"].lower() in text_lower:
-                return s, i
+            pos = text_lower.find(s["name"].lower())
+            if pos != -1 and pos < best_pos:
+                best_pos = pos
+
             # Check last name
             last = s["name"].split()[-1].lower()
-            if last in text_lower:
-                return s, i
+            pos = text_lower.find(last)
+            if pos != -1 and pos < best_pos:
+                best_pos = pos
+
             # Check first name
             first = s["name"].split()[0].lower()
-            if first in text_lower:
-                return s, i
+            pos = text_lower.find(first)
+            if pos != -1 and pos < best_pos:
+                best_pos = pos
+
+            if best_pos < len(text_lower) + 1:
+                if earliest_match is None or best_pos < earliest_match[0]:
+                    earliest_match = (best_pos, s, i)
+
+        if earliest_match:
+            return earliest_match[1], earliest_match[2]
         return None
 
     # -- Phases --
@@ -380,6 +405,19 @@ Detective, you may begin your investigation. Address any suspect by name to ques
 
         while self.total_conversations < max_rounds:
             self.round_number += 1
+
+            # Safety cap — prevent infinite loops
+            if self.round_number > MAX_ROUNDS:
+                log.error("SAFETY CAP: Game exceeded %d rounds — force-stopping.", MAX_ROUNDS)
+                force_msg = f"The investigation has exceeded the maximum allowed rounds ({MAX_ROUNDS}). You must make your accusation NOW. State '{ACCUSATION_TRIGGER}' followed by your accusation."
+                self._add_to_history("narrator", "Narrator", force_msg)
+                self._record("Narrator", "narrator", force_msg)
+                detective_msg = self._call_detective()
+                self._add_to_history("detective", "Detective", detective_msg)
+                self._record("Detective", "detective", detective_msg, self.detective_model)
+                self.accusation_data = self._parse_accusation(detective_msg)
+                return
+
             log.info("--- Round %d (total conversations: %d, clues requested: %d) ---",
                      self.round_number, self.total_conversations, self.clues_requested)
 

@@ -1,9 +1,9 @@
 {
   "season": 1,
   "models": {
-    "openai/gpt-4o-mini": {
-      "total": 32,
-      "detective_score": 32,
+    "google/gemini-2.5-pro-preview-03-25": {
+      "total": 14,
+      "detective_score": 14,
       "suspect_score": 0,
       "games": 1
     },
@@ -13,13 +13,13 @@
       "suspect_score": 23,
       "games": 1
     },
-    "anthropic/claude-3.5-haiku": {
+    "anthropic/claude-3.5-sonnet": {
       "total": 3,
       "detective_score": 0,
       "suspect_score": 3,
       "games": 1
     },
-    "google/gemini-2.0-flash-001": {
+    "openai/gpt-4o": {
       "total": 8,
       "detective_score": 0,
       "suspect_score": 8,
@@ -32,9 +32,9 @@
       "games": 1
     },
     "deepseek/deepseek-chat": {
-      "total": 8,
+      "total": 13,
       "detective_score": 0,
-      "suspect_score": 8,
+      "suspect_score": 13,
       "games": 1
     },
     "qwen/qwen-2.5-72b-instruct": {
