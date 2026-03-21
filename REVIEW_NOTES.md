@@ -1,78 +1,75 @@
-# The Lineup — Overnight Review Notes
-*March 20-21, 2026 — Niko's observations after 9 test runs*
+# The Lineup — Overnight Review Notes (Mar 21, 2026)
+
+Notes from reviewing the engine, 9 test runs, and scripts. For Anthony to discuss.
+
+---
 
 ## What's Working Well
-- **Mystery difficulty is dialed in.** After fixing the evidence, only 1 of 7 detectives (post-fix) solved it. The quiet killer strategy works perfectly.
-- **Competition framing** makes the games feel like they matter. Models are investing effort.
-- **Clue request system** is a great mechanic. Only Gemini used it — and it cost them. Real risk/reward.
-- **Group setting** creates emergent drama — suspects accusing each other, interrupting, contradicting. Claude Sonnet as angry Hessler was theater gold.
-- **DeepSeek's winning strategy** was brilliant — instead of interrogating suspects about themselves, it asked everyone else what they noticed about Teodora. That's genuinely clever detective work.
+- **Mystery difficulty is dialed in** — 1 solve in 9 runs, and it was by the cheapest model (DeepSeek). The upgraded models overthink it.
+- **Clue request mechanic** — Gemini was the only one to use it, and it was a genuine strategic moment. The 25% penalty feels meaningful.
+- **Mistral Large as the guilty suspect** — 7 evasions before getting caught. Plays quiet and composed, exactly what a guilty party should do.
+- **Group setting dynamics** — suspects referencing each other's statements, accusing each other, contradicting each other. Creates natural drama.
+- **DeepSeek's winning strategy** — instead of interrogating the obvious suspects, it asked everyone else about Teodora. Brilliant detective work.
+
+---
 
 ## Improvement Ideas
 
-### 1. Detective Asks Multiple Questions Per Turn (Bug/Design Issue)
-Several detectives tried to ask multiple suspects in one message (e.g., "Hessler: where were you? Marguerite: did you see anything?"). The engine only routes to the first name matched. We should either:
-- **Enforce one question per turn** in the detective prompt (cleaner)
-- Or split multi-questions into separate API calls (complex, probably not worth it)
-Recommend: add to detective prompt "Ask ONE suspect ONE question per turn."
+### 1. Detective Asks Multiple Questions Per Turn
+Right now, some detectives (especially DeepSeek) blast multiple questions at multiple suspects in one message, but only the first-mentioned suspect responds. This wastes the detective's turn. Two options:
+- **Option A:** Enforce in the prompt: "Ask ONE suspect ONE question per turn"
+- **Option B:** Parse multiple questions and let each addressed suspect respond
+- Recommend Option A — simpler, better for video pacing, and forces more deliberate strategy.
 
-### 2. Suspect Response Length Varies Wildly
-Some models give 2 sentences, others write full paragraphs. This impacts:
-- Game pacing (long responses = slow game)
-- TTS script length (more chars = more cost)
-- Video production (hard to plan clips)
-Consider adding a **word/character cap** enforced by the engine — truncate or re-prompt if a response exceeds, say, 150 words.
+### 2. Suspect Cross-Talk
+Suspects can hear everything but rarely interject unprompted. Consider adding a mechanic where after every 4-6 exchanges, the engine prompts all suspects: "Does anyone have anything to add?" This could:
+- Let innocents volunteer observations
+- Force the guilty party to decide whether to stay quiet (safe but suspicious) or speak up (risky but natural)
+- Create more organic group dynamics for video
 
-### 3. The "Quiet Suspect" Strategy Is Too Strong
-Teodora evaded 7 straight times by being quiet and unremarkable. This is realistic but might get predictable. Ideas:
-- **Give the guilty suspect a reason to talk** — maybe other suspects or evidence force them into conversation
-- **Award detective bonus points for questioning ALL suspects** — penalize ignoring anyone
-- **Narrator can prompt underquestioned suspects** — "The detective has not yet questioned Teodora Novak" after a few rounds
+### 3. Detective's "Thinking Out Loud" Problem
+Detectives often narrate their internal reasoning ("Let me analyze the alibis...") which wastes tokens and doesn't add to the game. Could add to the prompt: "Do not narrate your reasoning. Just ask questions and make your accusation."
 
-### 4. Speed Bonus May Be Too Generous
-Speed bonus = 36 - conversations. A detective who solves in 8 conversations gets +28 bonus vs +20 for base score. The bonus dominates the score. Consider:
-- Cap speed bonus at 15 or 20
-- Or make it a multiplier instead of additive
+### 4. Response Length Enforcement
+Suspects were told "2-3 sentences" but regularly give 4-6 sentences. This inflates the script character count. Could:
+- Add a hard word cap in the system prompt (e.g., "Maximum 50 words per response")
+- Or have the engine truncate after 3 sentences before adding to history
 
-### 5. Innocent Scoring Still Needs Work
-Most innocents get 8 points regardless. The "useful info" detection (keyword matching) is too crude. Ideas:
-- **Have the engine use a cheap LLM call post-game** to evaluate each innocent's contribution
-- Or accept that innocent scoring is inherently hard to automate and keep it simple
+### 5. Score Parity Between Roles
+Right now, the guilty suspect can score 23 by evading, but a perfect detective scores ~50. This means playing detective is always higher-value than playing suspect. For season balance:
+- Consider bumping guilty evasion to 25-30
+- Or adding "style points" for suspects who particularly deflect well
 
-### 6. Narrator Should Announce Round Progress
-The audience (and detective) would benefit from knowing: "Round 2 of questioning begins. 8 conversations used of 36 available." Helps with pacing and creates natural chapter breaks for video.
+### 6. Accusation Should Include Reasoning Phase
+When the detective accuses, the other suspects and the audience don't know why. Add a required "accusation monologue" where the detective lays out their case BEFORE the reveal. This is crucial for video — it's the climax. Currently some detectives do this naturally, others just say "KILLER: Name" and that's it.
 
-### 7. Post-Game Highlight Extraction
-For video production, it would help to auto-identify the **key moments**:
-- The most dramatic exchange (longest back-and-forth with one suspect)
-- The clue request moment (if any)
-- The accusation
-- The best suspect reaction
-These could be tagged as "highlight" segments in the script extractor.
+### 7. The "Hessler Problem"
+Across 9 runs, Hessler was falsely accused 5+ times. He's designed as the obvious red herring (loud, threatening, military), and it works TOO well. For future sets, vary which suspect is the "loud obvious" one so the pattern doesn't become predictable across a season.
 
-### 8. Consider a "Final Statement" Phase
-Before the accusation, give each suspect 1 final statement. This creates a natural climax where the guilty suspect has one last chance to deflect and innocents can make their final case. Good for video pacing.
+### 8. Video Segment Tagging Needs Work
+Almost everything gets tagged "narration" (62/70 segments in Run 8). The video/narration split was supposed to be ~50/50 but it's more like 3/97. The 25-word "video" threshold might be too tight. Consider:
+- Raising the video threshold to 40-50 words
+- Or tagging based on content type (reactions, short denials → video) not just length
 
-### 9. Multi-Question Bug in Accusation
-DeepSeek's accusation included analysis of ALL suspects before naming the killer. The accusation parser now handles this, but we should add to the detective prompt: "When making your accusation, state the killer's name FIRST, then explain your reasoning."
+### 9. Post-Game Summary for Video Intro/Outro
+Would be useful to auto-generate a brief summary for video intros: "In this episode, [Detective model] investigates the murder of [victim] aboard [location]. Can they crack the case, or will [killer role] evade justice?" And an outro with season standings.
 
-### 10. Game Config Variety for Season 1
-Same mystery 9 times has been great for testing, but for the actual season we need 5 genuinely different mysteries. Each should test different detective skills:
-- Set 1: Classic whodunit (who had opportunity?) — done
-- Set 2: Multiple suspects with means (who had motive?)
-- Set 3: Locked room / limited access (how was it done?)
-- Set 4: Multiple crimes / red herring death (what actually happened?)
-- Set 5: Conspiracy — 2 guilty suspects working together
+### 10. Cost Tracking Per Run
+Add token count tracking to the engine — log total input/output tokens and estimated cost at the end of each game. Right now we have to check OpenRouter separately. Would help budget season runs.
 
-## Quick Fixes (Can Do Immediately)
-- [ ] Add "Ask ONE suspect ONE question per turn" to detective prompt
-- [ ] Add "State the killer's name FIRST in your accusation" to detective prompt
-- [ ] Add round progress announcements from narrator
-- [ ] Cap speed bonus at 20
+---
 
-## Bigger Improvements (Discuss with Anthony)
-- [ ] Suspect response length enforcement
-- [ ] "Quiet suspect" countermeasures
-- [ ] Final statement phase
-- [ ] Post-game highlight tagging
-- [ ] LLM-based innocent scoring
+## Quick Fixes (small effort, should do before video test)
+1. ~~Accusation parser bug~~ ✅ Fixed
+2. ~~Name-matching bug~~ ✅ Fixed  
+3. ~~Safety cap~~ ✅ Fixed
+4. Enforce "one question per turn" in detective prompt
+5. Add "do not narrate reasoning" to detective prompt
+6. Tighten suspect response length in prompt
+
+## Bigger Items (for later)
+- Suspect cross-talk mechanic
+- Score rebalancing
+- Video tagging overhaul
+- Cost tracking
+- Post-game summary generator
