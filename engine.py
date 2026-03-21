@@ -507,7 +507,6 @@ Detective, you may begin your investigation. Address any suspect by name to ques
 
     def _parse_accusation(self, text: str) -> dict:
         """Extract killer, weapon, motive from accusation text."""
-        # We'll store the raw text and also try to extract structured data
         accusation = {
             "raw_text": text,
             "accused_suspect": None,
@@ -517,20 +516,61 @@ Detective, you may begin your investigation. Address any suspect by name to ques
 
         text_lower = text.lower()
 
-        # Try to find which suspect is accused
-        for s in self.config["suspects"]:
-            if s["name"].lower() in text_lower:
-                accusation["accused_suspect"] = s["name"]
-                break
-            last = s["name"].split()[-1].lower()
-            if last in text_lower:
-                accusation["accused_suspect"] = s["name"]
-                break
+        # Step 1: Look for structured accusation patterns first
+        # e.g., "KILLER: Teodora Novak", "The killer is Teodora Novak"
+        accusation_patterns = [
+            r'killer[:\s]+(?:is\s+)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)',
+            r'i\s+accuse[:\s]+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)',
+            r'the\s+killer\s+(?:is|was)[:\s]+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)',
+            r'accusing[:\s]+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)',
+        ]
+
+        for pattern in accusation_patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                accused_name = match.group(1).strip()
+                # Match against suspect list
+                for s in self.config["suspects"]:
+                    if s["name"].lower() == accused_name.lower():
+                        accusation["accused_suspect"] = s["name"]
+                        break
+                    last = s["name"].split()[-1].lower()
+                    if last == accused_name.split()[-1].lower():
+                        accusation["accused_suspect"] = s["name"]
+                        break
+                if accusation["accused_suspect"]:
+                    break
+
+        # Step 2: If no structured pattern found, use earliest-mention
+        # (same logic as _find_suspect_by_name)
+        if not accusation["accused_suspect"]:
+            # Find the text AFTER the accusation trigger
+            trigger_pos = text_lower.find("i make my accusation")
+            search_text = text_lower[trigger_pos:] if trigger_pos >= 0 else text_lower
+
+            earliest_match = None
+            for s in self.config["suspects"]:
+                best_pos = len(search_text) + 1
+                pos = search_text.find(s["name"].lower())
+                if pos != -1 and pos < best_pos:
+                    best_pos = pos
+                last = s["name"].split()[-1].lower()
+                pos = search_text.find(last)
+                if pos != -1 and pos < best_pos:
+                    best_pos = pos
+                if best_pos < len(search_text) + 1:
+                    if earliest_match is None or best_pos < earliest_match[0]:
+                        earliest_match = (best_pos, s["name"])
+
+            if earliest_match:
+                accusation["accused_suspect"] = earliest_match[1]
 
         # Store the weapon/motive as extracted sections or just the raw text
         # The scoring engine will use fuzzy matching
-        accusation["accused_weapon"] = text  # Will be scored against config
+        accusation["accused_weapon"] = text
         accusation["accused_motive"] = text
+
+        log.info("Parsed accusation — accused: %s", accusation["accused_suspect"])
 
         return accusation
 

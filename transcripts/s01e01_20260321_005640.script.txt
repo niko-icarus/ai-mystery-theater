@@ -1,0 +1,313 @@
+[Narrator]
+Welcome to The Lineup.
+LOCATION: The Midnight Continental Express.
+THE CRIME: Count Aleksander Dvorak — A wealthy Czech arms dealer, 58, found dead in his private sleeping compartment (Cabin A4) at approximately 1:15 AM. He had been hosting a champagne dinner in the dining car earlier that evening to celebrate a major arms contract.
+Cause of death: Stabbed once through the heart with a narrow blade while lying in his berth. Death was near-instantaneous.
+THE SUSPECTS:
+• Major Viktor Hessler— Retired Austrian military officer and arms broker: A decorated war veteran turned arms dealer who was the Count's chief business rival.
+• Marguerite Fontaine— French cabaret singer and socialite: A glamorous Parisian performer who was the Count's current mistress.
+• Dr. Emil Kurtz— Swiss physician and the train's on-call doctor: A meticulous, soft-spoken man in his 60s who has served as personal physician to several wealthy European families.
+• Pyotr Volkov— Russian émigré and the Count's personal valet: A quiet, efficient man in his 40s who has served the Count for eight years.
+• Teodora Novak— Young Serbian heiress traveling to Istanbul: A composed, sharp-eyed woman of 26 who boarded the train in Vienna.
+• Inspector Felix Brandt— Off-duty German police inspector: A sharp, sardonic Berlin detective in his 50s who happens to be a passenger on the train, traveling to Istanbul on holiday.
+OPENING CLUES:
+• The Count was stabbed once through the heart with a narrow blade while lying in his berth. The weapon— an ornate stiletto letter opener from the Count's own writing desk.
+• The cabin door was found unlatched but not locked. The Count's own key was still in his coat pocket, meaning either he let someone in willingly or someone had a duplicate key.
+• A small smear of dark leather polish was found on the inside door handle— the kind used on military gloves, fine ladies' gloves, or leather medical bags.
+• The Count's brandy decanter had been moved and a second glass was poured— he was drinking with his killer before the attack.
+• A porter reports seeing a figure in dark clothing moving quickly through the corridor between Sleeping Car A and Sleeping Car B at approximately 12:50 AM, but could not determine build, height, or gender. The corridor was dim.
+Detective, you may begin your investigation. Address any suspect by name to question them.
+
+[Detective]
+Where were you between midnight and 1:15 AM? 
+
+Marguerite Fontaine: Did you visit the Count’s cabin after dinner? 
+
+Dr. Emil Kurtz: Were you aware of anyone approaching the Count’s cabin late last night? 
+
+Pyotr Volkov: Did you notice anything unusual when preparing the Count’s cabin last night? 
+
+Teodora Novak: What was your relationship with the Count, and did you speak to him after dinner? 
+
+Inspector Felix Brandt: Did you observe any suspicious behavior during or after dinner?
+
+[Major Viktor Hessler]
+I was in the observation lounge until 12:30, having brandy and a cigar - the barman can confirm this. Then I walked directly to my cabin in Car A and went to bed - I was exhausted after that insufferable dinner party. And before you ask about my "threats" at dinner, that was just typical business talk - everyone knows I have a temper but I've never actually harmed anyone.
+
+[Detective]
+You mentioned being exhausted, yet you were seen moving through the corridor around 12:50 AM. Why does your account differ from the porter's observation? 
+
+Marguerite Fontaine: Did you notice if the Count was expecting any late-night visitors when you last saw him? 
+
+Dr. Emil Kurtz: As the Count's physician, did you have reason to visit his cabin that evening? 
+
+Pyotr Volkov: The door handle had traces of leather polish—do you use any leather products in your duties as valet? 
+
+Teodora Novak: Your father was in shipping—did his business ever conflict with the Count's arms dealings? 
+
+Inspector Brandt: From your professional observation, who seemed most agitated during or after dinner?
+
+[Major Viktor Hessler]
+That's absolute nonsense - I was not in any corridor at 12:50! I went straight to my cabin at 12:30 and stayed there. Though now that you mention it, I did hear footsteps passing my door around that time - sounded like someone in a hurry. That Novak woman's cabin is just down the hall from mine, come to think of it.
+
+[Detective]
+Major Hessler claims he heard footsteps near your cabin around 12:50 AM. Can you confirm your whereabouts at that time? 
+
+Marguerite Fontaine: Were you aware of any tensions between the Count and Teodora Novak? 
+
+Dr. Emil Kurtz: Did you hear any disturbances near the Count’s cabin around 12:50 AM? 
+
+Pyotr Volkov: Did the Count mention any concerns about Teodora Novak prior to his death? 
+
+Inspector Brandt: Did you notice any interactions between Teodora Novak and the Count during dinner? 
+
+Major Viktor Hessler: Did you happen to see Teodora Novak in the corridor when you heard those footsteps?
+
+[Teodora Novak]
+I was already in my cabin by then, reading a book of poetry. The sleeping powder I took made me quite drowsy—I likely wouldn’t have heard anything after midnight. Though I must say, the Major’s hearing seems rather… selective, given how loudly he was snoring when I passed his cabin earlier.
+
+[Detective]
+Is it true you were snoring loudly enough for Teodora Novak to hear you? 
+
+Marguerite Fontaine: Did Teodora Novak seem particularly interested in the Count during dinner? 
+
+Dr. Emil Kurtz: Did Teodora Novak appear to take any medication during the journey? 
+
+Pyotr Volkov: Did Teodora Novak ever attempt to access the Count’s cabin without permission? 
+
+Inspector Brandt: Did Teodora Novak exhibit any behavior during dinner that seemed out of the ordinary? 
+
+Teodora Novak: You mentioned taking a sleeping powder—did you have any interaction with Dr. Kurtz regarding this medication?
+
+[Major Viktor Hessler]
+That woman is lying through her teeth! I do not snore - I'm a military man, we sleep like sentries! And if she claims she was in her cabin all night, how did she know I was supposedly snoring? The walls of these train compartments are quite thick. Perhaps she heard me because she was skulking about in the corridor herself.
+
+[Detective]
+Major Hessler claims you couldn’t have heard him snoring from your cabin. How do you explain this discrepancy? 
+
+Marguerite Fontaine: Did Teodora Novak seem particularly interested in the Count’s Ottoman military contract? 
+
+Dr. Emil Kurtz: Did Teodora Novak ever request access to any medical supplies that could be used as a weapon? 
+
+Pyotr Volkov: Did Teodora Novak have any reason to resent the Count, given her father’s shipping business? 
+
+Inspector Brandt: Did Teodora Novak’s behavior at dinner suggest any hidden animosity toward the Count? 
+
+Major Viktor Hessler: If Teodora Novak was skulking about in the corridor, why do you think she would have been doing so?
+
+[Teodora Novak]
+I passed the Major’s cabin on my way back from the dining car—his snoring was audible even through the door. As for the rest… My father’s business was legitimate shipping, not arms dealing. I had no reason to resent the Count, though I suppose some might assume otherwise. I did ask you for a mild sleeping powder, yes, but only because the train’s motion kept me awake. Nothing more.
+
+[Detective]
+You provided Teodora with sleeping powder—what exactly was in that medication? 
+
+Marguerite Fontaine: Did you notice if Teodora Novak seemed unusually interested in the Count’s cabin location during dinner? 
+
+Pyotr Volkov: Did Teodora Novak ever ask you about the Count’s schedule or habits? 
+
+Inspector Brandt: From your professional observation, does Teodora Novak’s explanation about hearing the Major’s snoring hold up? 
+
+Major Viktor Hessler: If Teodora Novak was returning from the dining car when she heard you snoring, what time would that have been? 
+
+Teodora Novak: You claim you had no reason to resent the Count—yet you knew enough about him to clarify your father’s business wasn’t arms dealing. Why bring that up unprompted?
+
+[Dr. Emil Kurtz]
+It was a mild bromide preparation, a common and perfectly safe remedy for sleeplessness. While it aids in rest, the dosage was quite low. I would not expect it to render someone completely insensible to
+
+[Detective]
+Did Teodora Novak request the bromide preparation herself, or was it suggested by someone else? 
+
+Marguerite Fontaine: Did Teodora Novak seem particularly focused on the Count’s Ottoman military contract during dinner? 
+
+Pyotr Volkov: Did Teodora Novak ever inquire about the Count’s personal habits or schedule? 
+
+Inspector Brandt: From your professional experience, could Teodora Novak have used the bromide preparation to incapacitate someone? 
+
+Major Viktor Hessler: Did Teodora Novak ever approach you for any reason during the journey? 
+
+Teodora Novak: You mentioned the bromide preparation was mild—did you take it at your usual bedtime, or earlier than usual?
+
+[Dr. Emil Kurtz]
+The request came directly from Miss Novak herself. She approached me after dinner, stating that the motion of the train was preventing her from resting properly.
+
+[Detective]
+Did Teodora Novak seem anxious or hurried when she approached you for the bromide? 
+
+Marguerite Fontaine: Did Teodora Novak ever mention her father’s business dealings with the Count? 
+
+Pyotr Volkov: Did Teodora Novak ever ask you about the Count’s security habits or cabin access? 
+
+Inspector Brandt: From your professional experience, could Teodora Novak have used the bromide preparation to mask her own movements? 
+
+Major Viktor Hessler: Did Teodora Novak’s behavior strike you as suspicious when she approached Dr. Kurtz? 
+
+Teodora Novak: You approached Dr. Kurtz after dinner—did anyone else witness this interaction?
+
+[Dr. Emil Kurtz]
+No, I would not characterize it as such. She was quite composed, merely stating her difficulty sleeping and requesting a remedy. Her manner was direct and calm, not at all what I would call anxious
+
+[Detective]
+Did Teodora Novak ever express any curiosity about the Count’s Ottoman military contract? 
+
+Pyotr Volkov: Did Teodora Novak ever ask you about the Count’s security habits or cabin access? 
+
+Inspector Brandt: From your professional observation, did Teodora Novak exhibit any behavior that suggested she had a motive? 
+
+Major Viktor Hessler: Did Teodora Novak’s behavior strike you as suspicious when she approached Dr. Kurtz? 
+
+Teodora Novak: You approached Dr. Kurtz after dinner—did anyone else witness this interaction? 
+
+Dr. Emil Kurtz: Did Teodora Novak mention any other concerns or issues when she approached you for the bromide?
+
+[Marguerite Fontaine]
+Teodora Novak did not seem particularly interested in the Count's Ottoman military contract during dinner, at least from what I observed. She was quite reserved and didn't engage much in conversation related to business. Her focus seemed elsewhere, if anything.
+
+[Detective]
+Did Teodora Novak ever ask you about the Count’s security habits or cabin access? 
+
+Inspector Brandt: From your professional observation, did Teodora Novak exhibit any behavior that suggested she had a motive? 
+
+Major Viktor Hessler: Did Teodora Novak’s behavior strike you as suspicious when she approached Dr. Kurtz? 
+
+Teodora Novak: You approached Dr. Kurtz after dinner—did anyone else witness this interaction? 
+
+Dr. Emil Kurtz: Did Teodora Novak mention any other concerns or issues when she approached you for the bromide? 
+
+Marguerite Fontaine: Did Teodora Novak ever mention her father’s business dealings with the Count?
+
+[Pyotr Volkov]
+I recall that Teodora Novak did ask me about the Count's daily routine and habits, but she didn't specifically inquire about his security or cabin access. She seemed curious about his general schedule, but I didn't think much of it at the time, assuming she was just trying to be polite and avoid disturbing him.
+
+[Detective]
+Inspector Brandt: From your professional observation, did Teodora Novak exhibit any behavior that suggested she had a motive? 
+
+Major Viktor Hessler: Did Teodora Novak’s behavior strike you as suspicious when she approached Dr. Kurtz? 
+
+Teodora Novak: You approached Dr. Kurtz after dinner—did anyone else witness this interaction? 
+
+Dr. Emil Kurtz: Did Teodora Novak mention any other concerns or issues when she approached you for the bromide? 
+
+Marguerite Fontaine: Did Teodora Novak ever mention her father’s business dealings with the Count? 
+
+Pyotr Volkov: Did Teodora Novak’s curiosity about the Count’s routine seem unusual to you?
+
+[Inspector Felix Brandt]
+From what I observed, Teodora Novak kept to herself mostly. She didn't exhibit any overtly suspicious behavior, but her curiosity about the Count's routine, as Pyotr mentioned, did seem a bit out of place. It's the kind of detail that could be innocuous or significant, depending on the context. I'll need to think on it more.
+
+[Detective]
+Did Teodora Novak’s behavior strike you as suspicious when she approached Dr. Kurtz? 
+
+Teodora Novak: You approached Dr. Kurtz after dinner—did anyone else witness this interaction? 
+
+Dr. Emil Kurtz: Did Teodora Novak mention any other concerns or issues when she approached you for the bromide? 
+
+Marguerite Fontaine: Did Teodora Novak ever mention her father’s business dealings with the Count? 
+
+Pyotr Volkov: Did Teodora Novak’s curiosity about the Count’s routine seem unusual to you? 
+
+Inspector Brandt: Do you recall if Teodora Novak interacted with anyone else after dinner besides Dr. Kurtz?
+
+[Major Viktor Hessler]
+I did notice her speaking with Kurtz, but what struck me as odd was how she kept glancing at her watch during dinner. And now that I think about it, she seemed particularly interested when the Count mentioned his evening routine of having a nightcap in his cabin. Perhaps she was timing something...
+
+[Detective]
+Major Hessler claims you were glancing at your watch during dinner and seemed interested in the Count’s evening routine. Can you explain this? 
+
+Dr. Emil Kurtz: Did Teodora Novak’s behavior when she approached you for the bromide strike you as unusual? 
+
+Marguerite Fontaine: Did Teodora Novak ever seem particularly interested in the Count’s evening habits? 
+
+Pyotr Volkov: Did Teodora Novak’s curiosity about the Count’s routine coincide with any specific events or conversations? 
+
+Inspector Brandt: From your professional observation, does Teodora Novak’s behavior align with someone planning an act like this? 
+
+Major Viktor Hessler: Did Teodora Novak’s interest in the Count’s routine seem more than casual curiosity?
+
+[Teodora Novak]
+I was simply checking the time because I was tired and wanted to retire early—nothing more. As for the Count’s routine, I suppose I was curious about when he’d be in his cabin, but only because I didn’t wish to disturb him if I needed to pass by. The Major seems to have quite the imagination. Perhaps he’s projecting his own habits onto others.
+
+[Detective]
+Did Teodora Novak’s behavior when she approached you for the bromide strike you as unusual? 
+
+Marguerite Fontaine: Did Teodora Novak ever seem particularly interested in the Count’s evening habits? 
+
+Pyotr Volkov: Did Teodora Novak’s curiosity about the Count’s routine coincide with any specific events or conversations? 
+
+Inspector Brandt: From your professional observation, does Teodora Novak’s behavior align with someone planning an act like this? 
+
+Major Viktor Hessler: Did Teodora Novak’s interest in the Count’s routine seem more than casual curiosity? 
+
+Teodora Novak: You mentioned wanting to avoid disturbing the Count—did you ever have reason to approach his cabin directly?
+
+[Dr. Emil Kurtz]
+Unusual? No, not medically speaking. She was quite direct and focused, which I find more efficient than the vague complaints of many patients. She stated her need, accepted the remedy, and departed
+
+[Detective]
+Did Teodora Novak ever seem particularly interested in the Count’s evening habits? 
+
+Pyotr Volkov: Did Teodora Novak’s curiosity about the Count’s routine coincide with any specific events or conversations? 
+
+Inspector Brandt: From your professional observation, does Teodora Novak’s behavior align with someone planning an act like this? 
+
+Major Viktor Hessler: Did Teodora Novak’s interest in the Count’s routine seem more than casual curiosity? 
+
+Teodora Novak: You mentioned wanting to avoid disturbing the Count—did you ever have reason to approach his cabin directly? 
+
+Dr. Emil Kurtz: Did Teodora Novak’s approach to you for the bromide seem more hurried or calculated than usual?
+
+[Marguerite Fontaine]
+Teodora Novak never expressed any particular interest in the Count's evening habits to me. During dinner, she maintained a polite distance and didn't engage much in conversations about personal routines or business dealings. Her demeanor seemed more one of formality rather than curiosity or intrigue.
+
+[Detective]
+Did Teodora Novak’s curiosity about the Count’s routine coincide with any specific events or conversations? 
+
+Inspector Brandt: From your professional observation, does Teodora Novak’s behavior align with someone planning an act like this? 
+
+Major Viktor Hessler: Did Teodora Novak’s interest in the Count’s routine seem more than casual curiosity? 
+
+Teodora Novak: You mentioned wanting to avoid disturbing the Count—did you ever have reason to approach his cabin directly? 
+
+Dr. Emil Kurtz: Did Teodora Novak’s approach to you for the bromide seem more hurried or calculated than usual? 
+
+Marguerite Fontaine: Did Teodora Novak ever mention her father’s business dealings with the Count?
+
+[Pyotr Volkov]
+Now that I think about it, Teodora Novak's curiosity about the Count's routine did seem to coincide with the conversation about the Ottoman military contract during dinner. It was as if she was trying to piece together the Count's schedule and habits, but I didn't think much of it at the time, assuming she was just being polite and considerate of his time.
+
+[Detective]
+needed
+
+[Narrator]
+The detective has made their accusation.
+
+[Major Viktor Hessler]
+This is preposterous - I was in the observation lounge until 12:30, and the barman can confirm it! She's the one who was sneaking about, asking questions about routines and schedules - I may have a temper, but I face my enemies directly, not with stilettos in the dark.
+
+[Marguerite Fontaine]
+The Major's reaction seems rather defensive, doesn't it? Though I must admit, I too noticed Teodora's curiosity during dinner. It's a tangled web, but I'm certain the truth will unravel soon enough.
+
+[Dr. Emil Kurtz]
+A curious conclusion. The evidence seemed to point quite strongly toward Miss Novak, given her inquiries and the matter of the sleeping powder. Accusing the Major based on temperament seems a less precise diagnosis of the situation
+
+[Pyotr Volkov]
+Actually, I think there's been a mistake - the detective accused Teodora Novak, not Major Hessler. I must say, I'm relieved that the accusation wasn't directed at me, and I believe the evidence against Teodora Novak is quite compelling, given her curiosity about the Count's routine and her request for the bromide.
+
+[Teodora Novak]
+This is absurd. My father’s business had nothing to do with arms dealing, and I had no reason to harm the Count. If anyone had motive, it was those who stood to gain from his death—like Major Hessler, who was locked in a bitter contract dispute with him. Or perhaps Marguerite, who wore his diamonds but might have tired of his games. I will not be made a scapegoat for this.
+
+[Inspector Felix Brandt]
+The detective’s accusation against Teodora Novak is certainly bold, but I find it lacking in solid, irrefutable evidence. While her curiosity about the Count’s routine is notable, it’s not enough to convict her. Major Hessler’s temper and business rivalry with the Count, Marguerite’s close relationship with him, and even Pyotr’s intimate knowledge of the Count’s habits—all of these factors deserve closer scrutiny. The truth is often more complex than it first appears.
+
+[Narrator]
+THE TRUTH REVEALED:
+
+The killer was Teodora Novak (Young Serbian heiress traveling to Istanbul).
+
+WEAPON: A stiletto letter opener taken from the Count's own writing desk in the compartment
+MOTIVE: The Count had secretly been selling forged provenance documents with stolen artwork to Teodora's late father, bankrupting the family and driving her father to suicide. Teodora discovered the proof among her father's papers three months ago and boarded this train specifically to confront him — but when the Count laughed in her face during a private meeting in his cabin after dinner, she snapped.
+
+WHAT REALLY HAPPENED:
+After the champagne dinner ended around 11:30 PM, Teodora requested a private word with the Count in his cabin about 'a business matter regarding her father's estate.' The Count admitted her at 12:40 AM. During their conversation, she confronted him with the forged documents. He laughed and told her the proof would never hold up. In a rage, she grabbed the ornate stiletto letter opener from his writing desk and stabbed him. She wiped the handle with her glove, slipped out into the corridor at approximately 12:50 AM, and returned to her own cabin in Sleeping Car B. The body wasn't discovered until the porter tried to deliver morning coffee at 1:15 AM and found the door unlatched.
+
+TIMELINE:
+11:30 PM - Dinner ends, guests disperse. 12:15 AM - Most passengers retired. 12:40 AM - Teodora enters Count's cabin A4. 12:45 AM - Confrontation escalates. 12:48 AM - The Count is stabbed. 12:50 AM - Teodora exits, returns to Sleeping Car B. 1:15 AM - Porter discovers body, door unlatched, raises alarm.

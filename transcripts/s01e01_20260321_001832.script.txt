@@ -30,37 +30,39 @@ the Count’s cabin at 11:15 PM, as I always do. I set out his nightclothes, tur
 You were the Count's guest of honor. When did you last see him alive, and what were his plans for the rest of the evening?
 
 [Marguerite Fontaine]
-Oh, what a dreadful affair this is! I last saw Count Dvorak around 11:45 PM when I returned to his cabin to deliver a cigarette case I had borrowed.
+Oh, what a dreadful affair this is! I last saw Count Dvorak around 11:45 PM when I returned to his cabin to deliver a cigarette case I had borrowed. He seemed quite well at the time, and after a brief exchange, I retired to my own cabin, B2, for the night. As for his plans, he mentioned having a nightcap before going to bed.
 
 [Detective]
 You were overheard at dinner making what could be construed as a threat against the Count. After the party broke up, where did you retire for the evening, and did you see
 
 [Major Viktor Hessler]
-Bah, that comment at dinner was nothing but hot air - the kind of thing any businessman might say in frustration. After the party, I went to the observation lounge for brandy and cigars, as is my custom.
+Bah, that comment at dinner was nothing but hot air - the kind of thing any businessman might say in frustration. After the party, I went to the observation lounge for brandy and cigars, as is my custom. The barman there served me until about 12:30 - he'll confirm it. Then I walked straight to my cabin in A1 and went to bed. 
+
+And before you ask - yes, the Count and I had our differences over business matters. But I'm a soldier, Inspector. If I wanted someone dead, I'd challenge them face to face, not skulk about with letter openers in the night.
 
 [Detective]
 As the Count's physician, what was the state of his health, and when did you last see him?
 
 [Dr. Emil Kurtz]
-I had been monitoring the Count's heart condition closely throughout the journey, and he was doing reasonably well, considering his condition. I last saw him at dinner, where he seemed his usual self, albeit a bit more...
+I had been monitoring the Count's heart condition closely throughout the journey, and he was doing reasonably well, considering his condition. I last saw him at dinner, where he seemed his usual self, albeit a bit more... animated than usual. After dinner, I retired to my cabin, A2, which is adjacent to the Count's cabin, A4, and spent the evening reading a medical journal until I went to sleep around midnight. I didn't hear anything unusual during the night.
 
 [Detective]
 You were quiet at dinner, but observant. Where did you go after the party, and did you notice anything or anyone in the corridors?
 
 [Teodora Novak]
-I retired to my cabin, B3, immediately after dinner—around 11:30 PM, I believe. I read for a while, then took a sleeping powder to help with the train's motion.
+I retired to my cabin, B3, immediately after dinner—around 11:30 PM, I believe. I read for a while, then took a sleeping powder to help with the train's motion. I did hear someone moving about in the corridor around midnight, but I assumed it was another passenger. The walls are thin, after all. I noticed nothing out of the ordinary.
 
 [Detective]
 As a fellow man of the law, your observations are of particular interest. What did you make of the group dynamic at dinner, and where were you after the party concluded?
 
 [Inspector Felix Brandt]
-Ah, the dynamics at dinner were quite the spectacle, weren't they? The Count was the center of attention, but there was an undercurrent of tension.
+Ah, the dynamics at dinner were quite the spectacle, weren't they? The Count was the center of attention, but there was an undercurrent of tension. Hessler's comments were particularly fiery, and Marguerite seemed to be walking a fine line between devotion and calculation. As for myself, I left the dinner around 11:15 PM, took a stroll through the train to get my bearings, and was back in my cabin, B1, by midnight. I spent the rest of the evening reading a detective novel until the alarm woke me. A rather uneventful evening, I must say.
 
 [Detective]
 Your cabin, A2, is adjacent to the Count's. Are you quite certain you heard nothing at all, not even a raised voice or a brief struggle?
 
 [Dr. Emil Kurtz]
-I'm absolutely certain, Detective. As a physician, I'm accustomed to sleeping lightly, and I can assure you that I would have been alerted to any unusual sounds.
+I'm absolutely certain, Detective. As a physician, I'm accustomed to sleeping lightly, and I can assure you that I would have been alerted to any unusual sounds. However, I did notice that the Count's voice was somewhat raised during dinner, particularly when discussing his business dealings with Major Hessler. But as for any sounds coming from the Count's cabin later that night, I'm afraid I heard nothing out of the ordinary.
 
 [Detective]
 You stated you retired to the servants' quarters after preparing the Count's room. Did anyone else have a key to the Count's cabin, to your knowledge? And
@@ -72,13 +74,13 @@ Only the Count and myself had keys to his cabin, Inspector. Though... the Count 
 You mentioned you returned to the Count's cabin at 11:45 PM. What was the purpose of this late-night visit, and did he seem to be
 
 [Marguerite Fontaine]
-I returned to the Count's cabin to return a cigarette case I had borrowed earlier in the evening, a trivial matter, really. When I saw him, he seemed quite his usual self — perhaps a bit weary from the evening's festivities, but nothing out of the ordinary.
+I returned to the Count's cabin to return a cigarette case I had borrowed earlier in the evening, a trivial matter, really. When I saw him, he seemed quite his usual self — perhaps a bit weary from the evening's festivities, but nothing out of the ordinary. We exchanged a few words, and I left him in good spirits, as far as I could tell.
 
 [Detective]
 You claim you went to your cabin at 12:30 AM. The porter saw a figure moving near your cabin corridor at 12:50 AM,
 
 [Major Viktor Hessler]
-By 12:50 I was already in my berth. And before you make insinuations - I wear dress shoes, not those military boots with polish.
+By 12:50 I was already in my berth. And before you make insinuations - I wear dress shoes, not those military boots with polish. The barman will verify I was drinking brandy until 12:30, and I went straight to my cabin. Though now that you mention timings - it strikes me as odd that the doctor claims he heard nothing when his cabin shares a wall with the Count's. Even through these thin walls, I could hear that Serbian girl pacing in her cabin half the night.
 
 [Detective]
 Major Hessler claims he could hear you pacing in your cabin. This seems at odds with your statement that you took a sleeping powder and retired for the night. Can you clarify this discrepancy
@@ -90,7 +92,7 @@ I was reading for some time—perhaps pacing occasionally when a passage frustra
 Inspector Brandt: You mention taking a stroll through the train to "get your bearings" before returning to your cabin. Did your stroll take you past the Count's cabin, and did you observe anything
 
 [Inspector Felix Brandt]
-Indeed, my stroll did take me past the Count's cabin, but I observed nothing out of the ordinary. The corridors were quiet, and most passengers seemed to have retired for the night.
+Indeed, my stroll did take me past the Count's cabin, but I observed nothing out of the ordinary. The corridors were quiet, and most passengers seemed to have retired for the night. I did notice the porter mentioned, moving swiftly through the corridor, but I paid little attention to him at the time. It was a brief encounter, and I continued on my way back to my cabin.
 
 [Detective]
 You mentioned the Count could be careless with his key. Describe the last time you saw the Count's key before you retired for the evening. Was it in his possession when
@@ -102,35 +104,106 @@ I last saw the Count's key when I prepared his cabin at 11:15 PM. It was in his 
 Dr. Kurtz: You carry a leather medical bag, do you not? And you claim to have heard nothing, despite Major Hessler attesting to the thinness of the walls by hearing Ms
 
 [Dr. Emil Kurtz]
-The leather medical bag, yes... I do carry one, and it's possible that it may have been polished with a similar type of leather polish that was found on the door handle.
+The leather medical bag, yes... I do carry one, and it's possible that it may have been polished with a similar type of leather polish that was found on the door handle. However, I must reiterate that I heard nothing unusual during the night, despite the thin walls. As a physician, I'm accustomed to sleeping lightly, but I'm also a heavy sleeper once I'm asleep. I assure you, Inspector, that I had nothing to do with the Count's demise.
 
 [Detective]
 You returned to the Count's cabin at 11:45 PM. Was the door locked when you arrived? And did the Count mention expecting any other visitors that evening?
 
 [Marguerite Fontaine]
-When I arrived at the Count's cabin, the door was indeed unlocked, which I found a bit unusual but not entirely out of character for him. He didn't mention expecting any other visitors that evening, and our conversation was brief, mostly about returning the cigarette case.
+When I arrived at the Count's cabin, the door was indeed unlocked, which I found a bit unusual but not entirely out of character for him. He didn't mention expecting any other visitors that evening, and our conversation was brief, mostly about returning the cigarette case. He seemed content to retire for the night with his usual nightcap.
 
 [Detective]
 You claim to have retired immediately after dinner around 11:30 PM, yet Major Hessler heard you pacing. You also mentioned taking a sleeping powder. It seems unusual to
 
 [Teodora Novak]
-It seems unusual to you, Inspector, because you assume a woman in mourning should behave predictably. I was restless—grieving my father’s death, the train’s motion, the weight of settling his affairs.
+It seems unusual to you, Inspector, because you assume a woman in mourning should behave predictably. I was restless—grieving my father’s death, the train’s motion, the weight of settling his affairs. The sleeping powder was to quiet my thoughts, not to drug myself into oblivion.
+
+If you suspect me of leaving my cabin, I suggest you find proof. Otherwise, these insinuations grow tiresome.
 
 [Detective]
 Major Hessler: You were in the observation lounge until 12:30 AM. Can you describe who else was present during that time? Did you speak with anyone besides the barman?
 
 [Major Viktor Hessler]
-The lounge was nearly empty by then - most had retired after that insufferable dinner party. The barman was there of course, and that police inspector Brandt passed through briefly.
+The lounge was nearly empty by then - most had retired after that insufferable dinner party. The barman was there of course, and that police inspector Brandt passed through briefly. Come to think of it, I saw Dr. Kurtz hurrying through as well, which seems odd given he claims to have been reading in his cabin until midnight.
+
+But I kept to myself, nursing my brandy and trying to forget that damned Ottoman contract business.
+
+[Detective]
+Dr. Kurtz: Major Hessler places you in the observation lounge corridor after midnight, yet you stated you were in your cabin reading until midnight. Can you account for this discrepancy in your timeline?
+
+[Dr. Emil Kurtz]
+I... ...may have taken a short walk to clear my head before retiring for the night. It's possible I was in the corridor around that time, but I didn't enter the observation lounge or speak with anyone. I was simply taking a brief stroll to refresh myself before returning to my cabin. I assure you, Inspector, it was just a minor omission on my part, not an attempt to deceive.
+
+[Dr. Emil Kurtz]
+I'd like to clarify that my earlier omission was indeed an honest mistake, not an attempt to deceive. As a physician, I'm accustomed to precision, but even I can make errors. I assure you, Inspector, my intention was not to mislead, but rather to provide accurate information to the best of my ability at the time. I understand that my altered alibi may raise suspicions, but I implore you to consider the context and my overall demeanor throughout this investigation. I am willing to cooperate fully and provide any additional information that may aid in uncovering the truth.
+
+[Detective]
+Your 'minor omission' happens to place you out of your room and in the corridors of the train precisely during the timeframe the murder could have occurred. You will understand
+
+[Detective]
+You stated only you and the Count had keys. If someone were to have a copy made, where would the Count have likely left his key unguarded?
+
+[Pyotr Volkov]
+The Count often left his coat unattended during dinners or social gatherings, Inspector. His key was usually in the coat pocket, and he sometimes draped it over chairs or left it in the dining car while mingling. Anyone with access to those areas could have taken it briefly to have a copy made. He was... careless in such matters.
 
 [Detective]
 Inspector Brandt: You mentioned seeing Dr. Kurtz in the corridor after midnight. Can you describe his demeanor? Did he seem agitated, hurried, or was it unremarkable?
 
 [Inspector Felix Brandt]
-I did notice Dr. Kurtz in the corridor after midnight, but his demeanor was unremarkable.
+I did notice Dr. Kurtz in the corridor after midnight, but his demeanor was unremarkable. He seemed to be on his way to his cabin, moving with the usual clinical efficiency one might expect from a physician. There was nothing out of the ordinary about his behavior that I can recall. He didn't appear agitated or hurried, just focused on his path.
+
+[Detective]
+You mentioned you are traveling to Istanbul to settle your recently deceased father's shipping business. What was your father's name, and did he have any business dealings with
+
+[Teodora Novak]
+My father was Miroslav Novak, a respected art dealer in Belgrade. He had no direct business dealings with the Count that I'm aware of—at least, none he ever discussed with me. His shipping interests were entirely separate from the Count's... enterprises.
+
+Why do you ask? Do you suspect some connection between my father and this tragedy?
+
+[Detective]
+I'm exploring all connections, Ms. Novak. A man like the Count had a wide and often destructive reach.
+
+I REQUEST A CLUE.
 
 [Narrator]
 ****
 The conductor reports that the connecting door between Sleeping Cars A and B was found unbolted from the Car A side — meaning the killer either entered from Car B or exited toward Car B. Additionally, a torn scrap of paper was found under the Count's body, reading only: "...cannot forgive what you have done to..." — the handwriting does not match the Count's. It could match several suspects but is too small a sample for definitive analysis.
+
+[Detective]
+This new evidence is significant. The unbolted door between cars A and B implicates those in Car B more strongly, and the note suggests a motive of personal revenge.
+
+Teodora Novak: Your father, Miroslav Novak, was an art dealer. Did he have any dealings, personal or professional, with Count Dvorak? The Count was known to collect art, sometimes aggressively.
+
+[Teodora Novak]
+My father dealt in legitimate art, Inspector—paintings, sculptures, antiquities with proper provenance. The Count's name never appeared in his ledgers, but... I found documents among his papers after his death. Forged provenance certificates, tied to pieces he'd acquired in the last two years. Documents that bore the Count's signature.
+
+If the Count was selling him forgeries, it would explain why my father's business collapsed so suddenly. He was a proud man. He would never have knowingly dealt in stolen or fake art.
+
+[Detective]
+So, your presence on this train is not about a shipping business. It is about your father, Miroslav Novak, and his ruin at the hands of Count Dvorak. Did you confront
+
+[Teodora Novak]
+I came to settle my father's affairs—of them. The shipping business was legitimate, Inspector. The rest... was personal.
+
+I spoke to the Count privately after dinner, yes. About the forgeries. He laughed. Said the documents would never hold up in court. That my father was a fool for trusting him. But I left his cabin alive, Inspector. And I returned to mine. Alone.
+
+[Detective]
+Dr. Kurtz: A new detail has emerged. You were seen in the corridor after midnight, and now we know the connecting door between cars A and B was unbolted from the Car A side. You were staying in Car A. Can you explain why you would have been near that connecting door late at night?
+
+[Dr. Emil Kurtz]
+As I mentioned earlier, I did take a short walk to clear my head after midnight. I recall now that I did approach the connecting door, but only to ensure it was secure. As the train's physician, I have a habit of checking on the overall safety and well-being of the passengers, even in the middle of the night. I may have touched the door, but I didn't unbolt it. I'm certain of that. Although, now that you mention it, I do remember noticing that the door was slightly ajar when I approached it. I assumed one of the passengers had simply forgotten to close it properly. I hope this clarifies my actions, Inspector.
+
+[Detective]
+You are staying in Cabin B2. The connecting door between cars A and B was found unbolted from the Car A side, allowing passage. You admit to being in the Count's cabin earlier. What can you tell me about this connecting door?
+
+[Marguerite Fontaine]
+Ah, the connecting door — a detail I hadn't considered. While I did pass through it earlier in the evening on my way to the Count's cabin, I returned to my own shortly after our brief conversation. I can't speak for its status later in the night, nor do I recall paying it much attention. It was always my understanding that the door was typically kept bolted. Perhaps someone else unbolted it after my visit?
+
+[Detective]
+You were quartered near the baggage car. To get there from the Count's cabin in Car A, would you have passed through the connecting door into Car B? And did you notice if it was bolted or not?
+
+[Pyotr Volkov]
+No, Inspector—the servants' passage runs along the opposite side of the train, parallel to the passenger corridors. I never used the connecting door between cars A and B that night. When I left the Count's cabin at 11:15, I took the service corridor straight to the baggage area. Though... now that you mention it, I did notice that door was often left unbolted during the day for convenience. The Count complained about it just last week.
 
 [Detective]
 I MAKE MY ACCUSATION.
@@ -155,6 +228,24 @@ But you were seen. Your alibi crumbled. And your motive, though hidden, was the 
 
 [Narrator]
 The detective has made their accusation.
+
+[Major Viktor Hessler]
+Hah! A sound deduction, Inspector, even if it wasn't aimed at me. I suspected Kurtz myself - his story about not hearing anything through those paper-thin walls was nonsense from the start. And that business about "checking the connecting door" - what physician makes midnight security rounds? I look forward to seeing justice served.
+
+[Marguerite Fontaine]
+Oh, my! It seems the pieces are falling into place. I can't say I'm surprised, considering the good doctor's evasive manner. Let's hope this revelation brings some semblance of peace to those affected by the Count's treachery.
+
+[Dr. Emil Kurtz]
+No, this can't be... I... I was just trying to protect myself, my reputation... The Count had ruined me, was ruining me...
+
+[Pyotr Volkov]
+So it wasn't about my father after all. Though I can't say I blame him. The Count destroyed many lives. Even yours, it seems.
+
+[Teodora Novak]
+A tragic end for a tragic man. Though I suppose justice has been served—one way or another. The Count had a way of making enemies of us all, didn’t he?
+
+[Inspector Felix Brandt]
+A fascinating web of deceit and revenge, indeed. I must admit, the doctor's unraveling story was a compelling one. But as an observant man, I couldn't help but notice the inconsistencies in his alibi. The polished leather bag, the midnight stroll, and the conveniently unlatched door—each detail pointed to a man with something to hide. Justice, it seems, has a way of catching up with those who think they can escape it.
 
 [Narrator]
 THE TRUTH REVEALED:

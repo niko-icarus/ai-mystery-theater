@@ -321,50 +321,9 @@ def extract_script(transcript_path: str, target_chars: int = 15000) -> dict:
     script_segments = trimmed
     total_chars = sum(len(s['content']) for s in script_segments)
     
-    # Step 2: If still over target, limit exchanges per suspect
-    if total_chars > target_chars:
-        # Keep max 3 best exchanges per suspect (shortest question + response pairs)
-        suspect_counts = {}
-        filtered = []
-        for seg in script_segments:
-            if seg['type'] in ('opening', 'evidence', 'accusation', 'reveal', 'transition'):
-                filtered.append(seg)
-            elif seg['type'] == 'question':
-                filtered.append(seg)
-            elif seg['type'] == 'response':
-                count = suspect_counts.get(seg['speaker'], 0)
-                if count < 3:
-                    filtered.append(seg)
-                    suspect_counts[seg['speaker']] = count + 1
-                # else skip — too many responses from this suspect
-        script_segments = filtered
-        total_chars = sum(len(s['content']) for s in script_segments)
-    
-    # Step 3: If still over target, truncate long responses
-    if total_chars > target_chars:
-        for seg in script_segments:
-            if seg['type'] == 'response' and len(seg['content']) > 300:
-                # Keep first 2 sentences
-                sentences = re.split(r'(?<=[.!?])\s+', seg['content'])
-                seg['content'] = ' '.join(sentences[:2])
-            elif seg['type'] == 'question' and len(seg['content']) > 200:
-                sentences = re.split(r'(?<=[.!?])\s+', seg['content'])
-                seg['content'] = ' '.join(sentences[:2])
-        total_chars = sum(len(s['content']) for s in script_segments)
-    
-    # Step 4: If STILL over target, remove orphaned questions (no response follows)
-    if total_chars > target_chars:
-        cleaned = []
-        for i, seg in enumerate(script_segments):
-            if seg['type'] == 'question':
-                # Check if next segment is a response
-                if i + 1 < len(script_segments) and script_segments[i + 1]['type'] == 'response':
-                    cleaned.append(seg)
-                # else skip orphaned question
-            else:
-                cleaned.append(seg)
-        script_segments = cleaned
-        total_chars = sum(len(s['content']) for s in script_segments)
+    # No further aggressive trimming — keep all dialogue intact.
+    # The main cuts are: stage directions, character prefixes, detective
+    # preambles, internal recaps, narrator nudges, and atmospheric descriptions.
     
     # Build the final script
     script_lines = []

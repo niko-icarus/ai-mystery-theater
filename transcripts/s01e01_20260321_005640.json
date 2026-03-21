@@ -1,0 +1,451 @@
+{
+  "game": {
+    "set_id": "s01e01",
+    "title": "The Midnight Continental",
+    "season": 1,
+    "episode": 1,
+    "started": "2026-03-21T00:51:55.844569+00:00",
+    "finished": "2026-03-21T00:56:40.439102+00:00"
+  },
+  "model_assignments": {
+    "detective": "deepseek/deepseek-chat",
+    "suspects": [
+      "anthropic/claude-3.5-sonnet",
+      "openai/gpt-4o",
+      "google/gemini-2.5-pro-preview-03-25",
+      "meta-llama/llama-3.3-70b-instruct",
+      "mistralai/mistral-large",
+      "qwen/qwen-2.5-72b-instruct"
+    ]
+  },
+  "transcript": [
+    {
+      "timestamp": "2026-03-21T00:51:55.844835+00:00",
+      "speaker": "Narrator",
+      "role_type": "narrator",
+      "model": "engine",
+      "content": "Welcome to The Lineup.\n\nLOCATION: The Midnight Continental Express\nA private luxury sleeper train traveling overnight from Vienna to Istanbul, December 1923. Eight carriages of polished mahogany and brass, carrying the elite of European society through a snowstorm in the Balkans. The train has been stopped at a remote mountain pass after the body was discovered \u2014 no one can leave until the matter is resolved. The dining car still smells of champagne and cigars from the evening's celebration.\n\nTHE CRIME: Count Aleksander Dvorak \u2014 A wealthy Czech arms dealer, 58, found dead in his private sleeping compartment (Cabin A4) at approximately 1:15 AM. He had been hosting a champagne dinner in the dining car earlier that evening to celebrate a major arms contract. The Count was universally feared but rarely liked \u2014 he had ruined competitors, blackmailed associates, and left a trail of broken alliances across Europe.\nCause of death: Stabbed once through the heart with a narrow blade while lying in his berth. Death was near-instantaneous.\n\nTHE SUSPECTS:\n  \u2022 Major Viktor Hessler \u2014 Retired Austrian military officer and arms broker: A decorated war veteran turned arms dealer who was the Count's chief business rival. They had been locked in a vicious bidding war over the same Ottoman military contract. Hessler is gruff, proud, and short-tempered, known for making threats he rarely follows through on. He was overheard at dinner saying 'One day that man will push someone too far.'\n  \u2022 Marguerite Fontaine \u2014 French cabaret singer and socialite: A glamorous Parisian performer who was the Count's current mistress. She was his guest of honor at the dinner and wore a diamond necklace he'd gifted her that evening. Marguerite is charming and calculating, adept at reading rooms and managing powerful men. She appeared devoted to the Count publicly.\n  \u2022 Dr. Emil Kurtz \u2014 Swiss physician and the train's on-call doctor: A meticulous, soft-spoken man in his 60s who has served as personal physician to several wealthy European families. He was hired specifically for this journey to attend to the Count's heart condition. Kurtz is precise, clinical, and uncomfortably observant \u2014 he notices everything and volunteers nothing.\n  \u2022 Pyotr Volkov \u2014 Russian \u00e9migr\u00e9 and the Count's personal valet: A quiet, efficient man in his 40s who has served the Count for eight years. Volkov knows all of the Count's secrets, schedules, and habits. He is deeply loyal on the surface but carries himself with a contained tension. He was responsible for preparing the Count's cabin each evening.\n  \u2022 Teodora Novak \u2014 Young Serbian heiress traveling to Istanbul: A composed, sharp-eyed woman of 26 who boarded the train in Vienna. She presented herself as traveling to Istanbul to settle her recently deceased father's shipping business. She was polite but reserved at dinner, and exchanged only brief pleasantries with the Count. She carries herself with quiet intensity but shows no obvious hostility toward anyone.\n  \u2022 Inspector Felix Brandt \u2014 Off-duty German police inspector: A sharp, sardonic Berlin detective in his 50s who happens to be a passenger on the train, traveling to Istanbul on holiday. He has a professional interest in crime and couldn't resist attending the Count's dinner party when invited. Brandt is observant, opinionated, and can't help analyzing everyone in the room.\n\nOPENING CLUES:\n  \u2022 The Count was stabbed once through the heart with a narrow blade while lying in his berth. The weapon \u2014 an ornate stiletto letter opener from the Count's own writing desk \u2014 was left on the cabin floor, wiped clean of prints.\n  \u2022 The cabin door was found unlatched but not locked. The Count's own key was still in his coat pocket, meaning either he let someone in willingly or someone had a duplicate key.\n  \u2022 A small smear of dark leather polish was found on the inside door handle \u2014 the kind used on military gloves, fine ladies' gloves, or leather medical bags.\n  \u2022 The Count's brandy decanter had been moved and a second glass was poured \u2014 he was drinking with his killer before the attack. The second glass was also wiped clean.\n  \u2022 A porter reports seeing a figure in dark clothing moving quickly through the corridor between Sleeping Car A and Sleeping Car B at approximately 12:50 AM, but could not determine build, height, or gender. The corridor was dim.\n\nDetective, you may begin your investigation. Address any suspect by name to question them.",
+      "tag": "scene",
+      "word_count": 733
+    },
+    {
+      "timestamp": "2026-03-21T00:52:01.124648+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Major Viktor Hessler: Where were you between midnight and 1:15 AM?  \n\nMarguerite Fontaine: Did you visit the Count\u2019s cabin after dinner?  \n\nDr. Emil Kurtz: Were you aware of anyone approaching the Count\u2019s cabin late last night?  \n\nPyotr Volkov: Did you notice anything unusual when preparing the Count\u2019s cabin last night?  \n\nTeodora Novak: What was your relationship with the Count, and did you speak to him after dinner?  \n\nInspector Felix Brandt: Did you observe any suspicious behavior during or after dinner?",
+      "tag": "narration",
+      "word_count": 80
+    },
+    {
+      "timestamp": "2026-03-21T00:52:05.133034+00:00",
+      "speaker": "Major Viktor Hessler",
+      "role_type": "suspect",
+      "model": "anthropic/claude-3.5-sonnet",
+      "content": "*Adjusting my military collar with clear irritation* I was in the observation lounge until 12:30, having brandy and a cigar - the barman can confirm this. Then I walked directly to my cabin in Car A and went to bed - I was exhausted after that insufferable dinner party. *Takes out handkerchief and dabs forehead* And before you ask about my \"threats\" at dinner, that was just typical business talk - everyone knows I have a temper but I've never actually harmed anyone.",
+      "tag": "narration",
+      "word_count": 83
+    },
+    {
+      "timestamp": "2026-03-21T00:52:11.314660+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Major Viktor Hessler: You mentioned being exhausted, yet you were seen moving through the corridor around 12:50 AM. Why does your account differ from the porter's observation?  \n\nMarguerite Fontaine: Did you notice if the Count was expecting any late-night visitors when you last saw him?  \n\nDr. Emil Kurtz: As the Count's physician, did you have reason to visit his cabin that evening?  \n\nPyotr Volkov: The door handle had traces of leather polish\u2014do you use any leather products in your duties as valet?  \n\nTeodora Novak: Your father was in shipping\u2014did his business ever conflict with the Count's arms dealings?  \n\nInspector Brandt: From your professional observation, who seemed most agitated during or after dinner?",
+      "tag": "narration",
+      "word_count": 112
+    },
+    {
+      "timestamp": "2026-03-21T00:52:16.070908+00:00",
+      "speaker": "Major Viktor Hessler",
+      "role_type": "suspect",
+      "model": "anthropic/claude-3.5-sonnet",
+      "content": "*Bristling with indignation* That's absolute nonsense - I was not in any corridor at 12:50! I went straight to my cabin at 12:30 and stayed there. *Tugs at collar nervously* Though now that you mention it, I did hear footsteps passing my door around that time - sounded like someone in a hurry. That Novak woman's cabin is just down the hall from mine, come to think of it.",
+      "tag": "narration",
+      "word_count": 69
+    },
+    {
+      "timestamp": "2026-03-21T00:52:24.421655+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Teodora Novak: Major Hessler claims he heard footsteps near your cabin around 12:50 AM. Can you confirm your whereabouts at that time?  \n\nMarguerite Fontaine: Were you aware of any tensions between the Count and Teodora Novak?  \n\nDr. Emil Kurtz: Did you hear any disturbances near the Count\u2019s cabin around 12:50 AM?  \n\nPyotr Volkov: Did the Count mention any concerns about Teodora Novak prior to his death?  \n\nInspector Brandt: Did you notice any interactions between Teodora Novak and the Count during dinner?  \n\nMajor Viktor Hessler: Did you happen to see Teodora Novak in the corridor when you heard those footsteps?",
+      "tag": "narration",
+      "word_count": 99
+    },
+    {
+      "timestamp": "2026-03-21T00:52:30.407446+00:00",
+      "speaker": "Teodora Novak",
+      "role_type": "suspect",
+      "model": "mistralai/mistral-large",
+      "content": "*Adjusts my shawl with quiet composure, though my fingers tighten slightly*\n\nI was already in my cabin by then, reading a book of poetry. The sleeping powder I took made me quite drowsy\u2014I likely wouldn\u2019t have heard anything after midnight. *Pauses, glancing at Hessler* Though I must say, the Major\u2019s hearing seems rather\u2026 selective, given how loudly he was snoring when I passed his cabin earlier.",
+      "tag": "narration",
+      "word_count": 66
+    },
+    {
+      "timestamp": "2026-03-21T00:52:37.214692+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Major Viktor Hessler: Is it true you were snoring loudly enough for Teodora Novak to hear you?  \n\nMarguerite Fontaine: Did Teodora Novak seem particularly interested in the Count during dinner?  \n\nDr. Emil Kurtz: Did Teodora Novak appear to take any medication during the journey?  \n\nPyotr Volkov: Did Teodora Novak ever attempt to access the Count\u2019s cabin without permission?  \n\nInspector Brandt: Did Teodora Novak exhibit any behavior during dinner that seemed out of the ordinary?  \n\nTeodora Novak: You mentioned taking a sleeping powder\u2014did you have any interaction with Dr. Kurtz regarding this medication?",
+      "tag": "narration",
+      "word_count": 92
+    },
+    {
+      "timestamp": "2026-03-21T00:52:41.059054+00:00",
+      "speaker": "Major Viktor Hessler",
+      "role_type": "suspect",
+      "model": "anthropic/claude-3.5-sonnet",
+      "content": "*Face reddening with anger* That woman is lying through her teeth! I do not snore - I'm a military man, we sleep like sentries! *Straightens jacket defensively* And if she claims she was in her cabin all night, how did she know I was supposedly snoring? The walls of these train compartments are quite thick. *Narrows eyes* Perhaps she heard me because she was skulking about in the corridor herself.",
+      "tag": "narration",
+      "word_count": 70
+    },
+    {
+      "timestamp": "2026-03-21T00:52:53.548244+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Teodora Novak: Major Hessler claims you couldn\u2019t have heard him snoring from your cabin. How do you explain this discrepancy?  \n\nMarguerite Fontaine: Did Teodora Novak seem particularly interested in the Count\u2019s Ottoman military contract?  \n\nDr. Emil Kurtz: Did Teodora Novak ever request access to any medical supplies that could be used as a weapon?  \n\nPyotr Volkov: Did Teodora Novak have any reason to resent the Count, given her father\u2019s shipping business?  \n\nInspector Brandt: Did Teodora Novak\u2019s behavior at dinner suggest any hidden animosity toward the Count?  \n\nMajor Viktor Hessler: If Teodora Novak was skulking about in the corridor, why do you think she would have been doing so?",
+      "tag": "narration",
+      "word_count": 108
+    },
+    {
+      "timestamp": "2026-03-21T00:52:56.419648+00:00",
+      "speaker": "Teodora Novak",
+      "role_type": "suspect",
+      "model": "mistralai/mistral-large",
+      "content": "*Sighs softly, keeping my voice measured*\n\nI passed the Major\u2019s cabin on my way back from the dining car\u2014his snoring was audible even through the door. As for the rest\u2026 *glances at Volkov* My father\u2019s business was legitimate shipping, not arms dealing. I had no reason to resent the Count, though I suppose some might assume otherwise. *Turns to Dr. Kurtz* I did ask you for a mild sleeping powder, yes, but only because the train\u2019s motion kept me awake. Nothing more.",
+      "tag": "narration",
+      "word_count": 82
+    },
+    {
+      "timestamp": "2026-03-21T00:53:04.196037+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Dr. Emil Kurtz: You provided Teodora with sleeping powder\u2014what exactly was in that medication?  \n\nMarguerite Fontaine: Did you notice if Teodora Novak seemed unusually interested in the Count\u2019s cabin location during dinner?  \n\nPyotr Volkov: Did Teodora Novak ever ask you about the Count\u2019s schedule or habits?  \n\nInspector Brandt: From your professional observation, does Teodora Novak\u2019s explanation about hearing the Major\u2019s snoring hold up?  \n\nMajor Viktor Hessler: If Teodora Novak was returning from the dining car when she heard you snoring, what time would that have been?  \n\nTeodora Novak: You claim you had no reason to resent the Count\u2014yet you knew enough about him to clarify your father\u2019s business wasn\u2019t arms dealing. Why bring that up unprompted?",
+      "tag": "narration",
+      "word_count": 116
+    },
+    {
+      "timestamp": "2026-03-21T00:53:17.103314+00:00",
+      "speaker": "Dr. Emil Kurtz",
+      "role_type": "suspect",
+      "model": "google/gemini-2.5-pro-preview-03-25",
+      "content": "It was a mild bromide preparation, a common and perfectly safe remedy for sleeplessness. While it aids in rest, the dosage was quite low. I would not expect it to render someone completely insensible to",
+      "tag": "narration",
+      "word_count": 35
+    },
+    {
+      "timestamp": "2026-03-21T00:53:26.831310+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Dr. Emil Kurtz: Did Teodora Novak request the bromide preparation herself, or was it suggested by someone else?  \n\nMarguerite Fontaine: Did Teodora Novak seem particularly focused on the Count\u2019s Ottoman military contract during dinner?  \n\nPyotr Volkov: Did Teodora Novak ever inquire about the Count\u2019s personal habits or schedule?  \n\nInspector Brandt: From your professional experience, could Teodora Novak have used the bromide preparation to incapacitate someone?  \n\nMajor Viktor Hessler: Did Teodora Novak ever approach you for any reason during the journey?  \n\nTeodora Novak: You mentioned the bromide preparation was mild\u2014did you take it at your usual bedtime, or earlier than usual?",
+      "tag": "narration",
+      "word_count": 100
+    },
+    {
+      "timestamp": "2026-03-21T00:53:37.273719+00:00",
+      "speaker": "Dr. Emil Kurtz",
+      "role_type": "suspect",
+      "model": "google/gemini-2.5-pro-preview-03-25",
+      "content": "The request came directly from Miss Novak herself. She approached me after dinner, stating that the motion of the train was preventing her from resting properly.",
+      "tag": "narration",
+      "word_count": 26
+    },
+    {
+      "timestamp": "2026-03-21T00:53:50.589348+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Dr. Emil Kurtz: Did Teodora Novak seem anxious or hurried when she approached you for the bromide?  \n\nMarguerite Fontaine: Did Teodora Novak ever mention her father\u2019s business dealings with the Count?  \n\nPyotr Volkov: Did Teodora Novak ever ask you about the Count\u2019s security habits or cabin access?  \n\nInspector Brandt: From your professional experience, could Teodora Novak have used the bromide preparation to mask her own movements?  \n\nMajor Viktor Hessler: Did Teodora Novak\u2019s behavior strike you as suspicious when she approached Dr. Kurtz?  \n\nTeodora Novak: You approached Dr. Kurtz after dinner\u2014did anyone else witness this interaction?",
+      "tag": "narration",
+      "word_count": 95
+    },
+    {
+      "timestamp": "2026-03-21T00:54:04.823064+00:00",
+      "speaker": "Dr. Emil Kurtz",
+      "role_type": "suspect",
+      "model": "google/gemini-2.5-pro-preview-03-25",
+      "content": "No, I would not characterize it as such. She was quite composed, merely stating her difficulty sleeping and requesting a remedy. Her manner was direct and calm, not at all what I would call anxious",
+      "tag": "narration",
+      "word_count": 35
+    },
+    {
+      "timestamp": "2026-03-21T00:54:14.319497+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Marguerite Fontaine: Did Teodora Novak ever express any curiosity about the Count\u2019s Ottoman military contract?  \n\nPyotr Volkov: Did Teodora Novak ever ask you about the Count\u2019s security habits or cabin access?  \n\nInspector Brandt: From your professional observation, did Teodora Novak exhibit any behavior that suggested she had a motive?  \n\nMajor Viktor Hessler: Did Teodora Novak\u2019s behavior strike you as suspicious when she approached Dr. Kurtz?  \n\nTeodora Novak: You approached Dr. Kurtz after dinner\u2014did anyone else witness this interaction?  \n\nDr. Emil Kurtz: Did Teodora Novak mention any other concerns or issues when she approached you for the bromide?",
+      "tag": "narration",
+      "word_count": 97
+    },
+    {
+      "timestamp": "2026-03-21T00:54:16.412403+00:00",
+      "speaker": "Marguerite Fontaine",
+      "role_type": "suspect",
+      "model": "openai/gpt-4o",
+      "content": "Teodora Novak did not seem particularly interested in the Count's Ottoman military contract during dinner, at least from what I observed. She was quite reserved and didn't engage much in conversation related to business. Her focus seemed elsewhere, if anything.",
+      "tag": "narration",
+      "word_count": 40
+    },
+    {
+      "timestamp": "2026-03-21T00:54:25.602429+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Pyotr Volkov: Did Teodora Novak ever ask you about the Count\u2019s security habits or cabin access?  \n\nInspector Brandt: From your professional observation, did Teodora Novak exhibit any behavior that suggested she had a motive?  \n\nMajor Viktor Hessler: Did Teodora Novak\u2019s behavior strike you as suspicious when she approached Dr. Kurtz?  \n\nTeodora Novak: You approached Dr. Kurtz after dinner\u2014did anyone else witness this interaction?  \n\nDr. Emil Kurtz: Did Teodora Novak mention any other concerns or issues when she approached you for the bromide?  \n\nMarguerite Fontaine: Did Teodora Novak ever mention her father\u2019s business dealings with the Count?",
+      "tag": "narration",
+      "word_count": 96
+    },
+    {
+      "timestamp": "2026-03-21T00:54:37.414566+00:00",
+      "speaker": "Pyotr Volkov",
+      "role_type": "suspect",
+      "model": "meta-llama/llama-3.3-70b-instruct",
+      "content": "I recall that Teodora Novak did ask me about the Count's daily routine and habits, but she didn't specifically inquire about his security or cabin access. She seemed curious about his general schedule, but I didn't think much of it at the time, assuming she was just trying to be polite and avoid disturbing him.",
+      "tag": "narration",
+      "word_count": 55
+    },
+    {
+      "timestamp": "2026-03-21T00:54:50.304949+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Inspector Brandt: From your professional observation, did Teodora Novak exhibit any behavior that suggested she had a motive?  \n\nMajor Viktor Hessler: Did Teodora Novak\u2019s behavior strike you as suspicious when she approached Dr. Kurtz?  \n\nTeodora Novak: You approached Dr. Kurtz after dinner\u2014did anyone else witness this interaction?  \n\nDr. Emil Kurtz: Did Teodora Novak mention any other concerns or issues when she approached you for the bromide?  \n\nMarguerite Fontaine: Did Teodora Novak ever mention her father\u2019s business dealings with the Count?  \n\nPyotr Volkov: Did Teodora Novak\u2019s curiosity about the Count\u2019s routine seem unusual to you?",
+      "tag": "narration",
+      "word_count": 94
+    },
+    {
+      "timestamp": "2026-03-21T00:54:52.948912+00:00",
+      "speaker": "Inspector Felix Brandt",
+      "role_type": "suspect",
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "content": "From what I observed, Teodora Novak kept to herself mostly. She didn't exhibit any overtly suspicious behavior, but her curiosity about the Count's routine, as Pyotr mentioned, did seem a bit out of place. It's the kind of detail that could be innocuous or significant, depending on the context. I'll need to think on it more.",
+      "tag": "narration",
+      "word_count": 56
+    },
+    {
+      "timestamp": "2026-03-21T00:54:59.779368+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Major Viktor Hessler: Did Teodora Novak\u2019s behavior strike you as suspicious when she approached Dr. Kurtz?  \n\nTeodora Novak: You approached Dr. Kurtz after dinner\u2014did anyone else witness this interaction?  \n\nDr. Emil Kurtz: Did Teodora Novak mention any other concerns or issues when she approached you for the bromide?  \n\nMarguerite Fontaine: Did Teodora Novak ever mention her father\u2019s business dealings with the Count?  \n\nPyotr Volkov: Did Teodora Novak\u2019s curiosity about the Count\u2019s routine seem unusual to you?  \n\nInspector Brandt: Do you recall if Teodora Novak interacted with anyone else after dinner besides Dr. Kurtz?",
+      "tag": "narration",
+      "word_count": 93
+    },
+    {
+      "timestamp": "2026-03-21T00:55:03.683555+00:00",
+      "speaker": "Major Viktor Hessler",
+      "role_type": "suspect",
+      "model": "anthropic/claude-3.5-sonnet",
+      "content": "*Adjusts military jacket thoughtfully* I did notice her speaking with Kurtz, but what struck me as odd was how she kept glancing at her watch during dinner. *Leans forward* And now that I think about it, she seemed particularly interested when the Count mentioned his evening routine of having a nightcap in his cabin. *Narrows eyes* Perhaps she was timing something...",
+      "tag": "narration",
+      "word_count": 61
+    },
+    {
+      "timestamp": "2026-03-21T00:55:10.767327+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Teodora Novak: Major Hessler claims you were glancing at your watch during dinner and seemed interested in the Count\u2019s evening routine. Can you explain this?  \n\nDr. Emil Kurtz: Did Teodora Novak\u2019s behavior when she approached you for the bromide strike you as unusual?  \n\nMarguerite Fontaine: Did Teodora Novak ever seem particularly interested in the Count\u2019s evening habits?  \n\nPyotr Volkov: Did Teodora Novak\u2019s curiosity about the Count\u2019s routine coincide with any specific events or conversations?  \n\nInspector Brandt: From your professional observation, does Teodora Novak\u2019s behavior align with someone planning an act like this?  \n\nMajor Viktor Hessler: Did Teodora Novak\u2019s interest in the Count\u2019s routine seem more than casual curiosity?",
+      "tag": "narration",
+      "word_count": 108
+    },
+    {
+      "timestamp": "2026-03-21T00:55:13.431262+00:00",
+      "speaker": "Teodora Novak",
+      "role_type": "suspect",
+      "model": "mistralai/mistral-large",
+      "content": "*Smooths my skirt with deliberate calm, though my pulse quickens*\n\nI was simply checking the time because I was tired and wanted to retire early\u2014nothing more. As for the Count\u2019s routine, I suppose I was curious about when he\u2019d be in his cabin, but only because I didn\u2019t wish to disturb him if I needed to pass by. *Glances at Hessler* The Major seems to have quite the imagination. Perhaps he\u2019s projecting his own habits onto others.",
+      "tag": "narration",
+      "word_count": 77
+    },
+    {
+      "timestamp": "2026-03-21T00:55:20.049442+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Dr. Emil Kurtz: Did Teodora Novak\u2019s behavior when she approached you for the bromide strike you as unusual?  \n\nMarguerite Fontaine: Did Teodora Novak ever seem particularly interested in the Count\u2019s evening habits?  \n\nPyotr Volkov: Did Teodora Novak\u2019s curiosity about the Count\u2019s routine coincide with any specific events or conversations?  \n\nInspector Brandt: From your professional observation, does Teodora Novak\u2019s behavior align with someone planning an act like this?  \n\nMajor Viktor Hessler: Did Teodora Novak\u2019s interest in the Count\u2019s routine seem more than casual curiosity?  \n\nTeodora Novak: You mentioned wanting to avoid disturbing the Count\u2014did you ever have reason to approach his cabin directly?",
+      "tag": "narration",
+      "word_count": 102
+    },
+    {
+      "timestamp": "2026-03-21T00:55:31.967641+00:00",
+      "speaker": "Dr. Emil Kurtz",
+      "role_type": "suspect",
+      "model": "google/gemini-2.5-pro-preview-03-25",
+      "content": "Unusual? No, not medically speaking. She was quite direct and focused, which I find more efficient than the vague complaints of many patients. She stated her need, accepted the remedy, and departed",
+      "tag": "narration",
+      "word_count": 32
+    },
+    {
+      "timestamp": "2026-03-21T00:55:39.952820+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Marguerite Fontaine: Did Teodora Novak ever seem particularly interested in the Count\u2019s evening habits?  \n\nPyotr Volkov: Did Teodora Novak\u2019s curiosity about the Count\u2019s routine coincide with any specific events or conversations?  \n\nInspector Brandt: From your professional observation, does Teodora Novak\u2019s behavior align with someone planning an act like this?  \n\nMajor Viktor Hessler: Did Teodora Novak\u2019s interest in the Count\u2019s routine seem more than casual curiosity?  \n\nTeodora Novak: You mentioned wanting to avoid disturbing the Count\u2014did you ever have reason to approach his cabin directly?  \n\nDr. Emil Kurtz: Did Teodora Novak\u2019s approach to you for the bromide seem more hurried or calculated than usual?",
+      "tag": "narration",
+      "word_count": 103
+    },
+    {
+      "timestamp": "2026-03-21T00:55:41.638246+00:00",
+      "speaker": "Marguerite Fontaine",
+      "role_type": "suspect",
+      "model": "openai/gpt-4o",
+      "content": "Teodora Novak never expressed any particular interest in the Count's evening habits to me. During dinner, she maintained a polite distance and didn't engage much in conversations about personal routines or business dealings. Her demeanor seemed more one of formality rather than curiosity or intrigue.",
+      "tag": "narration",
+      "word_count": 45
+    },
+    {
+      "timestamp": "2026-03-21T00:55:52.241110+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "Pyotr Volkov: Did Teodora Novak\u2019s curiosity about the Count\u2019s routine coincide with any specific events or conversations?  \n\nInspector Brandt: From your professional observation, does Teodora Novak\u2019s behavior align with someone planning an act like this?  \n\nMajor Viktor Hessler: Did Teodora Novak\u2019s interest in the Count\u2019s routine seem more than casual curiosity?  \n\nTeodora Novak: You mentioned wanting to avoid disturbing the Count\u2014did you ever have reason to approach his cabin directly?  \n\nDr. Emil Kurtz: Did Teodora Novak\u2019s approach to you for the bromide seem more hurried or calculated than usual?  \n\nMarguerite Fontaine: Did Teodora Novak ever mention her father\u2019s business dealings with the Count?",
+      "tag": "narration",
+      "word_count": 103
+    },
+    {
+      "timestamp": "2026-03-21T00:55:53.856463+00:00",
+      "speaker": "Pyotr Volkov",
+      "role_type": "suspect",
+      "model": "meta-llama/llama-3.3-70b-instruct",
+      "content": "Now that I think about it, Teodora Novak's curiosity about the Count's routine did seem to coincide with the conversation about the Ottoman military contract during dinner. It was as if she was trying to piece together the Count's schedule and habits, but I didn't think much of it at the time, assuming she was just being polite and considerate of his time.",
+      "tag": "narration",
+      "word_count": 63
+    },
+    {
+      "timestamp": "2026-03-21T00:56:04.525168+00:00",
+      "speaker": "Detective",
+      "role_type": "detective",
+      "model": "deepseek/deepseek-chat",
+      "content": "**Final Accusation:**  \n\n**I MAKE MY ACCUSATION**  \n\n**KILLER:** Teodora Novak  \n**WEAPON:** The Count\u2019s own stiletto letter opener  \n**MOTIVE:** Revenge for her father\u2019s ruined shipping business, which was deliberately sabotaged by the Count\u2019s arms dealings.  \n\n**Key Evidence:**  \n1. **Opportunity:** Teodora inquired about the Count\u2019s routine (Pyotr Volkov\u2019s testimony) and knew when he\u2019d be alone in his cabin.  \n2. **Method:** The bromide she requested from Dr. Kurtz could have been used to ensure the Count was drowsy and less alert.  \n3. **Trace Evidence:** The leather polish on the door handle aligns with her gloves (noticed by Marguerite Fontaine as \"fine ladies' wear\").  \n4. **Contradictions:** Her claim about hearing Hessler\u2019s snoring doesn\u2019t hold up\u2014the walls are too thick, and she had no reason to be in the corridor unless she was en route to the Count\u2019s cabin.  \n\n**Conclusion:**  \nTeodora Novak planned this meticulously, using her father\u2019s grudge as justification. She feigned disinterest but was the only one who *needed* the Count dead\u2014not for money or passion, but for justice.  \n\n**Case closed.**",
+      "tag": "narration",
+      "word_count": 167
+    },
+    {
+      "timestamp": "2026-03-21T00:56:04.525681+00:00",
+      "speaker": "Narrator",
+      "role_type": "narrator",
+      "model": "engine",
+      "content": "The detective has made their accusation, accusing Major Viktor Hessler. React to this accusation in character. If you are the one accused, respond to the accusation. Keep it to 1-3 sentences.",
+      "tag": "scene",
+      "word_count": 31
+    },
+    {
+      "timestamp": "2026-03-21T00:56:09.036116+00:00",
+      "speaker": "Major Viktor Hessler",
+      "role_type": "suspect",
+      "model": "anthropic/claude-3.5-sonnet",
+      "content": "*Standing up sharply, military bearing evident* This is preposterous - I was in the observation lounge until 12:30, and the barman can confirm it! *Points accusingly at Teodora* She's the one who was sneaking about, asking questions about routines and schedules - I may have a temper, but I face my enemies directly, not with stilettos in the dark.",
+      "tag": "narration",
+      "word_count": 59
+    },
+    {
+      "timestamp": "2026-03-21T00:56:10.632762+00:00",
+      "speaker": "Marguerite Fontaine",
+      "role_type": "suspect",
+      "model": "openai/gpt-4o",
+      "content": "The Major's reaction seems rather defensive, doesn't it? Though I must admit, I too noticed Teodora's curiosity during dinner. It's a tangled web, but I'm certain the truth will unravel soon enough.",
+      "tag": "narration",
+      "word_count": 32
+    },
+    {
+      "timestamp": "2026-03-21T00:56:22.742519+00:00",
+      "speaker": "Dr. Emil Kurtz",
+      "role_type": "suspect",
+      "model": "google/gemini-2.5-pro-preview-03-25",
+      "content": "A curious conclusion. The evidence seemed to point quite strongly toward Miss Novak, given her inquiries and the matter of the sleeping powder. Accusing the Major based on temperament seems a less precise diagnosis of the situation",
+      "tag": "narration",
+      "word_count": 37
+    },
+    {
+      "timestamp": "2026-03-21T00:56:33.894949+00:00",
+      "speaker": "Pyotr Volkov",
+      "role_type": "suspect",
+      "model": "meta-llama/llama-3.3-70b-instruct",
+      "content": "Actually, I think there's been a mistake - the detective accused Teodora Novak, not Major Hessler. I must say, I'm relieved that the accusation wasn't directed at me, and I believe the evidence against Teodora Novak is quite compelling, given her curiosity about the Count's routine and her request for the bromide.",
+      "tag": "narration",
+      "word_count": 52
+    },
+    {
+      "timestamp": "2026-03-21T00:56:37.153706+00:00",
+      "speaker": "Teodora Novak",
+      "role_type": "suspect",
+      "model": "mistralai/mistral-large",
+      "content": "*Sits very still, my hands folded in my lap, my voice measured but trembling slightly with controlled fury*\n\nThis is absurd. My father\u2019s business had nothing to do with arms dealing, and I had no reason to harm the Count. *Glances at the others* If anyone had motive, it was those who stood to gain from his death\u2014like Major Hessler, who was locked in a bitter contract dispute with him. Or perhaps Marguerite, who wore his diamonds but might have tired of his games. *Shakes my head* I will not be made a scapegoat for this.",
+      "tag": "narration",
+      "word_count": 96
+    },
+    {
+      "timestamp": "2026-03-21T00:56:40.436154+00:00",
+      "speaker": "Inspector Felix Brandt",
+      "role_type": "suspect",
+      "model": "qwen/qwen-2.5-72b-instruct",
+      "content": "The detective\u2019s accusation against Teodora Novak is certainly bold, but I find it lacking in solid, irrefutable evidence. While her curiosity about the Count\u2019s routine is notable, it\u2019s not enough to convict her. Major Hessler\u2019s temper and business rivalry with the Count, Marguerite\u2019s close relationship with him, and even Pyotr\u2019s intimate knowledge of the Count\u2019s habits\u2014all of these factors deserve closer scrutiny. The truth is often more complex than it first appears.",
+      "tag": "narration",
+      "word_count": 72
+    },
+    {
+      "timestamp": "2026-03-21T00:56:40.438607+00:00",
+      "speaker": "Narrator",
+      "role_type": "narrator",
+      "model": "engine",
+      "content": "THE TRUTH REVEALED:\n\nThe killer was Teodora Novak (Young Serbian heiress traveling to Istanbul).\n\nWEAPON: A stiletto letter opener taken from the Count's own writing desk in the compartment\nMOTIVE: The Count had secretly been selling forged provenance documents with stolen artwork to Teodora's late father, bankrupting the family and driving her father to suicide. Teodora discovered the proof among her father's papers three months ago and boarded this train specifically to confront him \u2014 but when the Count laughed in her face during a private meeting in his cabin after dinner, she snapped.\n\nWHAT REALLY HAPPENED:\nAfter the champagne dinner ended around 11:30 PM, Teodora requested a private word with the Count in his cabin about 'a business matter regarding her father's estate.' The Count admitted her at 12:40 AM. During their conversation, she confronted him with the forged documents. He laughed and told her the proof would never hold up. In a rage, she grabbed the ornate stiletto letter opener from his writing desk and stabbed him. She wiped the handle with her glove, slipped out into the corridor at approximately 12:50 AM, and returned to her own cabin in Sleeping Car B. The body wasn't discovered until the porter tried to deliver morning coffee at 1:15 AM and found the door unlatched.\n\nTIMELINE:\n11:30 PM - Dinner ends, guests disperse. 12:15 AM - Most passengers retired. 12:40 AM - Teodora enters Count's cabin A4. 12:45 AM - Confrontation escalates. 12:48 AM - The Count is stabbed. 12:50 AM - Teodora exits, returns to Sleeping Car B. 1:15 AM - Porter discovers body, door unlatched, raises alarm.\n\nSCORING:\n{\n  \"detective\": {\n    \"model\": \"deepseek/deepseek-chat\",\n    \"correct_killer\": false,\n    \"correct_weapon\": true,\n    \"correct_motive\": true,\n    \"speed_bonus\": 20,\n    \"clues_requested\": 0,\n    \"clue_penalty_pct\": 0,\n    \"score_before_penalty\": 30,\n    \"total\": 30\n  },\n  \"guilty_suspect\": {\n    \"name\": \"Teodora Novak\",\n    \"model\": \"mistralai/mistral-large\",\n    \"evaded_detection\": true,\n    \"total\": 23\n  },\n  \"innocent_suspects\": {\n    \"Major Viktor Hessler\": {\n      \"model\": \"anthropic/claude-3.5-sonnet\",\n      \"total\": 3\n    },\n    \"Marguerite Fontaine\": {\n      \"model\": \"openai/gpt-4o\",\n      \"total\": 8\n    },\n    \"Dr. Emil Kurtz\": {\n      \"model\": \"google/gemini-2.5-pro-preview-03-25\",\n      \"total\": 8\n    },\n    \"Pyotr Volkov\": {\n      \"model\": \"meta-llama/llama-3.3-70b-instruct\",\n      \"total\": 13\n    },\n    \"Inspector Felix Brandt\": {\n      \"model\": \"qwen/qwen-2.5-72b-instruct\",\n      \"total\": 8\n    }\n  },\n  \"total_conversations\": 16,\n  \"conversation_breakdown\": {\n    \"Major Viktor Hessler\": 4,\n    \"Marguerite Fontaine\": 2,\n    \"Dr. Emil Kurtz\": 4,\n    \"Pyotr Volkov\": 2,\n    \"Teodora Novak\": 3,\n    \"Inspector Felix Brandt\": 1\n  }\n}",
+      "tag": "scene",
+      "word_count": 377
+    }
+  ],
+  "scores": {
+    "detective": {
+      "model": "deepseek/deepseek-chat",
+      "correct_killer": false,
+      "correct_weapon": true,
+      "correct_motive": true,
+      "speed_bonus": 20,
+      "clues_requested": 0,
+      "clue_penalty_pct": 0,
+      "score_before_penalty": 30,
+      "total": 30
+    },
+    "guilty_suspect": {
+      "name": "Teodora Novak",
+      "model": "mistralai/mistral-large",
+      "evaded_detection": true,
+      "total": 23
+    },
+    "innocent_suspects": {
+      "Major Viktor Hessler": {
+        "model": "anthropic/claude-3.5-sonnet",
+        "total": 3
+      },
+      "Marguerite Fontaine": {
+        "model": "openai/gpt-4o",
+        "total": 8
+      },
+      "Dr. Emil Kurtz": {
+        "model": "google/gemini-2.5-pro-preview-03-25",
+        "total": 8
+      },
+      "Pyotr Volkov": {
+        "model": "meta-llama/llama-3.3-70b-instruct",
+        "total": 13
+      },
+      "Inspector Felix Brandt": {
+        "model": "qwen/qwen-2.5-72b-instruct",
+        "total": 8
+      }
+    },
+    "total_conversations": 16,
+    "conversation_breakdown": {
+      "Major Viktor Hessler": 4,
+      "Marguerite Fontaine": 2,
+      "Dr. Emil Kurtz": 4,
+      "Pyotr Volkov": 2,
+      "Teodora Novak": 3,
+      "Inspector Felix Brandt": 1
+    }
+  }
+}

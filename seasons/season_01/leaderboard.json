@@ -1,9 +1,9 @@
 {
   "season": 1,
   "models": {
-    "google/gemini-2.5-pro-preview-03-25": {
-      "total": 14,
-      "detective_score": 14,
+    "deepseek/deepseek-chat": {
+      "total": 30,
+      "detective_score": 30,
       "suspect_score": 0,
       "games": 1
     },
@@ -25,13 +25,13 @@
       "suspect_score": 8,
       "games": 1
     },
-    "meta-llama/llama-3.3-70b-instruct": {
+    "google/gemini-2.5-pro-preview-03-25": {
       "total": 8,
       "detective_score": 0,
       "suspect_score": 8,
       "games": 1
     },
-    "deepseek/deepseek-chat": {
+    "meta-llama/llama-3.3-70b-instruct": {
       "total": 13,
       "detective_score": 0,
       "suspect_score": 13,
