@@ -51,6 +51,16 @@ th{color:#8a8278;font-size:.7rem;text-transform:uppercase}
 .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
 .ebox{background:#13131a;border:1px solid #2a2520;border-radius:5px;padding:10px 14px;margin:10px 0}
 .ebox h3{color:#FFD700;font-size:.85rem;margin-bottom:6px}
+.mb-section{background:#13131a;border:1px solid #2a2520;border-radius:6px;padding:16px}
+.mb-section-title{color:#FFD700;font-size:.95rem;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mb-tag{font-family:'JetBrains Mono',monospace;font-size:.6rem;padding:2px 8px;border-radius:3px;text-transform:uppercase}
+.mb-tag-permanent{background:rgba(210,160,32,0.15);color:#D4A020;border:1px solid rgba(210,160,32,0.3)}
+.mb-tag-setting{background:rgba(70,136,232,0.15);color:#4688E8;border:1px solid rgba(70,136,232,0.3)}
+.mb-prompt-item{background:#0e0e16;border:1px solid #1a1a24;border-radius:4px;padding:8px 12px;margin-bottom:6px}
+.mb-prompt-item.mb-setting{border-left:2px solid #4688E8}
+.mb-prompt-item:not(.mb-setting){border-left:2px solid #D4A020}
+.mb-prompt-num{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#8a8278;margin-bottom:3px}
+.mb-prompt-text code{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#b8b0a4;word-break:break-word}
 .vid-prompt-item{background:#0e0e16;border:1px solid #1a1a24;border-radius:5px;padding:10px 14px;margin-bottom:8px}
 .vid-prompt-header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 .vid-prompt-text{background:rgba(70,136,232,0.06);border:1px solid rgba(70,136,232,0.15);border-radius:3px;padding:8px 10px}
@@ -77,6 +87,7 @@ th{color:#8a8278;font-size:.7rem;text-transform:uppercase}
 <div class="tab" onclick="showTab('assets')">🎨 Assets</div>
 <div class="tab" onclick="showTab('tts')">🎙️ TTS</div>
 <div class="tab" onclick="showTab('scores')">🏆 Scores</div>
+<div class="tab" onclick="showTab('moodboard')">🎨 Moodboards</div>
 <div class="tab" onclick="showTab('vidprompts')">🎥 Video Prompts</div>
 <div class="tab" onclick="showTab('export')">📤 Export</div>
 </div>
@@ -1826,6 +1837,200 @@ OPENING EVIDENCE:
 Det: Killer=False, Weapon=True, Motive=True |
 Killer: Evaded=True, Frame=True
 </p>
+</div>
+
+<div id="moodboard" class="panel">
+<h2 style="color:#FFD700;font-size:1.1rem;margin-bottom:4px">🎨 Moodboard Prompts</h2>
+<p style="font-size:.78rem;color:#8a8278;margin-bottom:16px">Generate these in Midjourney, curate the best into two moodboards, then apply their codes to all production prompts.</p>
+
+<div class="mb-section">
+<h3 class="mb-section-title">🏛️ Brand Moodboard — "The Lineup Look" <span class="mb-tag mb-tag-permanent">PERMANENT</span></h3>
+<p style="font-size:.76rem;color:#8a8278;margin-bottom:10px">Defines the show's visual identity. Create once, use for every episode across all seasons. Dark, cinematic, gold-accented noir.</p>
+
+        <div class="mb-prompt-item">
+            <div class="mb-prompt-num">Brand #1</div>
+            <div class="mb-prompt-text"><code>Dark cinematic noir scene, single gold spotlight cutting through smoke, deep black shadows, film grain, dramatic composition --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item">
+            <div class="mb-prompt-num">Brand #2</div>
+            <div class="mb-prompt-text"><code>Moody dramatic portrait silhouette, rim lighting in warm amber, pitch black background, high contrast, cinematic --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item">
+            <div class="mb-prompt-num">Brand #3</div>
+            <div class="mb-prompt-text"><code>Dramatic interrogation scene, single overhead lamp, two figures in shadow, noir atmosphere, desaturated with gold highlights --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item">
+            <div class="mb-prompt-num">Brand #4</div>
+            <div class="mb-prompt-text"><code>Abstract dark composition, shattered glass catching golden light, deep shadows, mystery and tension, cinematic texture --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item">
+            <div class="mb-prompt-num">Brand #5</div>
+            <div class="mb-prompt-text"><code>Film noir corridor, long shadows stretching across floor, single figure in silhouette, atmospheric fog, warm amber accent light --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item">
+            <div class="mb-prompt-num">Brand #6</div>
+            <div class="mb-prompt-text"><code>Dramatic close-up of hands on a dark table, evidence scattered, spotlight from above, noir detective aesthetic --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item">
+            <div class="mb-prompt-num">Brand #7</div>
+            <div class="mb-prompt-text"><code>Split composition, two faces in profile facing each other, dramatic side lighting, tension and confrontation, dark cinematic --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item">
+            <div class="mb-prompt-num">Brand #8</div>
+            <div class="mb-prompt-text"><code>Dark theatrical stage, single spotlight on empty chair, smoke drifting, anticipation, cinematic mystery atmosphere --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item">
+            <div class="mb-prompt-num">Brand #9</div>
+            <div class="mb-prompt-text"><code>Aerial view of evidence laid out on dark surface, forensic photography style, dramatic shadows, gold-tinted lighting --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item">
+            <div class="mb-prompt-num">Brand #10</div>
+            <div class="mb-prompt-text"><code>Extreme close-up of an eye reflecting golden light, dark surroundings, suspicion and intrigue, cinematic macro --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item">
+            <div class="mb-prompt-num">Brand #11</div>
+            <div class="mb-prompt-text"><code>Dark room with venetian blind shadows across wall, noir atmosphere, dust particles in light beam, moody cinematic --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item">
+            <div class="mb-prompt-num">Brand #12</div>
+            <div class="mb-prompt-text"><code>Dramatic reveal moment, curtain pulled back, harsh spotlight on empty space, theatrical tension, dark gold palette --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+<div class="ebox" style="margin-top:12px"><h3>Copy all brand prompts</h3>
+<textarea readonly>// Brand #1
+Dark cinematic noir scene, single gold spotlight cutting through smoke, deep black shadows, film grain, dramatic composition --ar 16:9 --v 6.1 --style raw
+
+// Brand #2
+Moody dramatic portrait silhouette, rim lighting in warm amber, pitch black background, high contrast, cinematic --ar 16:9 --v 6.1 --style raw
+
+// Brand #3
+Dramatic interrogation scene, single overhead lamp, two figures in shadow, noir atmosphere, desaturated with gold highlights --ar 16:9 --v 6.1 --style raw
+
+// Brand #4
+Abstract dark composition, shattered glass catching golden light, deep shadows, mystery and tension, cinematic texture --ar 16:9 --v 6.1 --style raw
+
+// Brand #5
+Film noir corridor, long shadows stretching across floor, single figure in silhouette, atmospheric fog, warm amber accent light --ar 16:9 --v 6.1 --style raw
+
+// Brand #6
+Dramatic close-up of hands on a dark table, evidence scattered, spotlight from above, noir detective aesthetic --ar 16:9 --v 6.1 --style raw
+
+// Brand #7
+Split composition, two faces in profile facing each other, dramatic side lighting, tension and confrontation, dark cinematic --ar 16:9 --v 6.1 --style raw
+
+// Brand #8
+Dark theatrical stage, single spotlight on empty chair, smoke drifting, anticipation, cinematic mystery atmosphere --ar 16:9 --v 6.1 --style raw
+
+// Brand #9
+Aerial view of evidence laid out on dark surface, forensic photography style, dramatic shadows, gold-tinted lighting --ar 16:9 --v 6.1 --style raw
+
+// Brand #10
+Extreme close-up of an eye reflecting golden light, dark surroundings, suspicion and intrigue, cinematic macro --ar 16:9 --v 6.1 --style raw
+
+// Brand #11
+Dark room with venetian blind shadows across wall, noir atmosphere, dust particles in light beam, moody cinematic --ar 16:9 --v 6.1 --style raw
+
+// Brand #12
+Dramatic reveal moment, curtain pulled back, harsh spotlight on empty space, theatrical tension, dark gold palette --ar 16:9 --v 6.1 --style raw</textarea></div>
+</div>
+
+<div class="mb-section" style="margin-top:24px">
+<h3 class="mb-section-title">🗺️ Setting Moodboard — The Midnight Continental <span class="mb-tag mb-tag-setting">PER STORY</span></h3>
+<p style="font-size:.76rem;color:#8a8278;margin-bottom:10px">Captures the period, location, and atmosphere for this specific story. Create a new one for each setting.</p>
+
+        <div class="mb-prompt-item mb-setting">
+            <div class="mb-prompt-num">Setting #1</div>
+            <div class="mb-prompt-text"><code>Wide establishing shot, The Midnight Continental Express, 1920s, winter, snowbound, cold atmosphere, cinematic landscape, dramatic sky --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item mb-setting">
+            <div class="mb-prompt-num">Setting #2</div>
+            <div class="mb-prompt-text"><code>Exterior architecture detail, luxury train, 1920s design, winter, snowbound, cold atmosphere, atmospheric photography --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item mb-setting">
+            <div class="mb-prompt-num">Setting #3</div>
+            <div class="mb-prompt-text"><code>Interior of luxury train, mahogany and brass, polished wood, warm materials, 1920s decor, warm lamplight, intimate atmosphere, cinematic --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item mb-setting">
+            <div class="mb-prompt-num">Setting #4</div>
+            <div class="mb-prompt-text"><code>Dining room in luxury train, 1920s, table set for dinner, candlelight, champagne glasses, elegant --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item mb-setting">
+            <div class="mb-prompt-num">Setting #5</div>
+            <div class="mb-prompt-text"><code>Private room or study in luxury train, 1920s, mahogany and brass, polished wood, warm materials, desk with papers, low lamp light, secretive atmosphere --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item mb-setting">
+            <div class="mb-prompt-num">Setting #6</div>
+            <div class="mb-prompt-text"><code>Corridor or hallway in luxury train, 1920s, dim lighting, long shadows, sense of unease, atmospheric --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item mb-setting">
+            <div class="mb-prompt-num">Setting #7</div>
+            <div class="mb-prompt-text"><code>Group of elegantly dressed people, 1920s formal attire, luxury train setting, social gathering, cinematic --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item mb-setting">
+            <div class="mb-prompt-num">Setting #8</div>
+            <div class="mb-prompt-text"><code>Close-up of 1920s accessories on dark surface — gloves, pocket watch, cigarette case, letter opener — still life, dramatic lighting --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item mb-setting">
+            <div class="mb-prompt-num">Setting #9</div>
+            <div class="mb-prompt-text"><code>The Midnight Continental Express, winter, snowbound, cold atmosphere, detail shot of window with 1920s curtains, mood and tension, cinematic --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item mb-setting">
+            <div class="mb-prompt-num">Setting #10</div>
+            <div class="mb-prompt-text"><code>Abstract atmospheric shot, luxury train, 1920s, shadows and light, dust particles, sense of mystery --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item mb-setting">
+            <div class="mb-prompt-num">Setting #11</div>
+            <div class="mb-prompt-text"><code>Dark corner of luxury train, 1920s, something hidden in shadow, forensic tension, cinematic --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+        <div class="mb-prompt-item mb-setting">
+            <div class="mb-prompt-num">Setting #12</div>
+            <div class="mb-prompt-text"><code>Evidence on a 1920s writing desk, scattered papers, spilled drink, dramatic overhead lighting, noir --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+<div class="ebox" style="margin-top:12px"><h3>Copy all setting prompts</h3>
+<textarea readonly>// Setting #1
+Wide establishing shot, The Midnight Continental Express, 1920s, winter, snowbound, cold atmosphere, cinematic landscape, dramatic sky --ar 16:9 --v 6.1 --style raw
+
+// Setting #2
+Exterior architecture detail, luxury train, 1920s design, winter, snowbound, cold atmosphere, atmospheric photography --ar 16:9 --v 6.1 --style raw
+
+// Setting #3
+Interior of luxury train, mahogany and brass, polished wood, warm materials, 1920s decor, warm lamplight, intimate atmosphere, cinematic --ar 16:9 --v 6.1 --style raw
+
+// Setting #4
+Dining room in luxury train, 1920s, table set for dinner, candlelight, champagne glasses, elegant --ar 16:9 --v 6.1 --style raw
+
+// Setting #5
+Private room or study in luxury train, 1920s, mahogany and brass, polished wood, warm materials, desk with papers, low lamp light, secretive atmosphere --ar 16:9 --v 6.1 --style raw
+
+// Setting #6
+Corridor or hallway in luxury train, 1920s, dim lighting, long shadows, sense of unease, atmospheric --ar 16:9 --v 6.1 --style raw
+
+// Setting #7
+Group of elegantly dressed people, 1920s formal attire, luxury train setting, social gathering, cinematic --ar 16:9 --v 6.1 --style raw
+
+// Setting #8
+Close-up of 1920s accessories on dark surface — gloves, pocket watch, cigarette case, letter opener — still life, dramatic lighting --ar 16:9 --v 6.1 --style raw
+
+// Setting #9
+The Midnight Continental Express, winter, snowbound, cold atmosphere, detail shot of window with 1920s curtains, mood and tension, cinematic --ar 16:9 --v 6.1 --style raw
+
+// Setting #10
+Abstract atmospheric shot, luxury train, 1920s, shadows and light, dust particles, sense of mystery --ar 16:9 --v 6.1 --style raw
+
+// Setting #11
+Dark corner of luxury train, 1920s, something hidden in shadow, forensic tension, cinematic --ar 16:9 --v 6.1 --style raw
+
+// Setting #12
+Evidence on a 1920s writing desk, scattered papers, spilled drink, dramatic overhead lighting, noir --ar 16:9 --v 6.1 --style raw</textarea></div>
+</div>
+
+<div style="background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.15);border-radius:5px;padding:12px;margin-top:20px">
+<strong style="color:#FFD700;font-size:.85rem">Usage in Midjourney:</strong>
+<p style="font-size:.78rem;color:#b8b0a4;margin-top:4px">
+1. Generate all brand prompts → curate best ~8 images → create moodboard "The Lineup Brand" → note code<br>
+2. Generate all setting prompts → curate best ~8 images → create moodboard for this story → note code<br>
+3. Append both codes to every production prompt: <code style="color:#7aa8d8">your prompt here --p [brand_code] --p [setting_code]</code>
+</p>
+</div>
 </div>
 
 <div id="vidprompts" class="panel">
