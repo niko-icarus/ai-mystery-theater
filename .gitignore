@@ -1,20 +1,22 @@
+# API keys and secrets
+.env
+*.env
+api_keys*
+secrets*
+
 # Python
 __pycache__/
 *.pyc
 .venv/
+venv/
 
-# Production audio/video (too large for git)
-production/set_01/audio/
-production/set_01/*.mp4
-production/set_01/*.mp3
-*.mp4
+# Production artifacts (audio files, temp videos)
+production/
 *.mp3
 *.wav
 
+# Config with keys
+config.json
+
 # OS
 .DS_Store
-
-# Secrets (should never exist here, but just in case)
-*.env
-.env.*
-api_keys.json

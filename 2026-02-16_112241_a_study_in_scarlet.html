@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎭 AI Mystery Theater</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0f;
+  --bg-card: #13131a;
+  --bg-card-hover: #1a1a24;
+  --gold: #FFD700;
+  --gold-dim: #b8960f;
+  --amber: #d4a017;
+  --text: #e8e0d4;
+  --text-dim: #8a8278;
+  --border: #2a2520;
+  --detective: #FFD700;
+  --suspect1: #E74C3C;
+  --suspect2: #3498DB;
+  --suspect3: #2ECC71;
+  --suspect4: #9B59B6;
+  --suspect5: #E67E22;
+  --narrator: #95A5A6;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212,160,23,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 100%, rgba(139,69,19,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+.header-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.story-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 40px rgba(255,215,0,0.15);
+}
+
+.setting {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+/* Cast */
+.cast {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.cast-member {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+.cast-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.cast-name { font-weight: 600; }
+.cast-model {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+/* Act headings */
+.act-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  margin: 3.5rem 0 1.5rem;
+  position: relative;
+}
+
+.act-heading::before,
+.act-heading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: var(--border);
+}
+.act-heading::before { right: calc(100% + 12px); }
+.act-heading::after { left: calc(100% + 12px); }
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-speaker {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.speaker-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.speaker-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.speaker-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+.card-text {
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.card-text em, .card-text i {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* Narrator / Scene card */
+.card-narrator {
+  border-color: rgba(149,165,166,0.3);
+  background: linear-gradient(135deg, var(--bg-card) 0%, #141418 100%);
+}
+
+.card-narrator .card-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #c0b8a8;
+}
+
+/* Detective card */
+.card-detective {
+  border-left: 3px solid var(--detective);
+}
+
+/* Evidence card */
+.card-evidence {
+  border: 1px solid rgba(231,76,60,0.5);
+  background: linear-gradient(135deg, #1a1015 0%, var(--bg-card) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-evidence::before {
+  content: '🔍 EVIDENCE';
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: #E74C3C;
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+}
+
+.card-evidence.visible {
+  animation: evidenceFlash 0.6s ease;
+}
+
+@keyframes evidenceFlash {
+  0% { box-shadow: 0 0 0 rgba(231,76,60,0); }
+  30% { box-shadow: 0 0 30px rgba(231,76,60,0.3); }
+  100% { box-shadow: 0 0 0 rgba(231,76,60,0); }
+}
+
+/* Reveal */
+.reveal-card {
+  text-align: center;
+  padding: 2.5rem;
+  margin: 2rem 0;
+  border-radius: 16px;
+  border: 2px solid;
+}
+
+.reveal-correct {
+  border-color: rgba(46,204,113,0.6);
+  background: linear-gradient(135deg, #0a1a10 0%, var(--bg-card) 100%);
+}
+
+.reveal-wrong {
+  border-color: rgba(231,76,60,0.6);
+  background: linear-gradient(135deg, #1a0a0a 0%, var(--bg-card) 100%);
+}
+
+.reveal-card.visible {
+  animation: revealGlow 2s ease infinite;
+}
+
+.reveal-correct.visible {
+  animation: revealGlowGreen 2s ease infinite;
+}
+
+.reveal-wrong.visible {
+  animation: revealGlowRed 2s ease infinite;
+}
+
+@keyframes revealGlowGreen {
+  0%, 100% { box-shadow: 0 0 20px rgba(46,204,113,0.1); }
+  50% { box-shadow: 0 0 40px rgba(46,204,113,0.25); }
+}
+
+@keyframes revealGlowRed {
+  0%, 100% { box-shadow: 0 0 20px rgba(231,76,60,0.1); }
+  50% { box-shadow: 0 0 40px rgba(231,76,60,0.25); }
+}
+
+.reveal-result {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.reveal-correct .reveal-result { color: #2ECC71; }
+.reveal-wrong .reveal-result { color: #E74C3C; }
+
+.reveal-solution {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Parlor scene */
+.card-parlor {
+  border: 1px solid rgba(255,215,0,0.3);
+  background: linear-gradient(135deg, #14120a 0%, var(--bg-card) 100%);
+  padding: 2rem;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  color: var(--gold-dim);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container { padding: 1rem; }
+  .header { padding: 2rem 0 1.5rem; }
+  .card { padding: 1.15rem; }
+  .act-heading::before, .act-heading::after { width: 30px; }
+  .cast { gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+<script id="transcript-data" type="application/json">{"title": "A Study in Scarlet", "date": "2026-02-16_112241", "detective_model": "anthropic/claude-sonnet-4", "suspect_models": {"Jefferson Hope": "google/gemini-2.0-flash-001", "Arthur Charpentier": "openai/gpt-4o", "Joseph Stangerson": "deepseek/deepseek-chat", "Constable John Rance": "mistralai/mistral-large-2411", "Madame Charpentier": "meta-llama/llama-3.3-70b-instruct"}, "total_tokens": 42817, "transcript": [{"timestamp": "2026-02-16T11:20:03.896792", "phase": "scene_setting", "speaker": "narrator", "text": "Enoch Drebber found dead in an empty room at 3 Lauriston Gardens. No wounds on the body, but his face is contorted in an expression of absolute terror and hatred. The word 'RACHE' is written on the wall in blood \u2014 but NOT the victim's blood. A small pill box is found nearby, along with a woman's gold wedding ring on the floor. The victim's pockets contain a gold watch, a gold pin, business cards reading 'Enoch J. Drebber, Cleveland, Ohio,' a small diary-like book, and some money. No signs of robbery. No weapon found. A cab was seen outside the house earlier that evening.", "model": ""}, {"timestamp": "2026-02-16T11:20:05.629516", "phase": "initial_statements", "speaker": "Jefferson Hope", "text": "Right then, name's Jefferson Hope. I'm a cab driver, been plying these London streets for nigh on thirty years. Never met the deceased, this Drebber fellow, before in my life. This evenin', I was driving my usual route, looking for fares. Dropped a gent at Euston 'round nine, then cruised toward Brixton in hopes of another pickup. Never set foot inside that 'ouse, I swear on my mother's grave. It's a frame-up, I tell you!\n", "model": "google/gemini-2.0-flash-001"}, {"timestamp": "2026-02-16T11:20:09.612719", "phase": "initial_statements", "speaker": "Arthur Charpentier", "text": "I am Arthur Charpentier, a lieutenant in the Royal Navy. The victim, Enoch Drebber, was staying at my mother's boarding house. He had been making unwanted advances toward my sister, and I confronted him about it that evening. I admit I was furious and threw him out, but I swear I returned home and stayed in after 9 PM. My mother and sister can confirm my whereabouts.", "model": "openai/gpt-4o"}, {"timestamp": "2026-02-16T11:20:15.434267", "phase": "initial_statements", "speaker": "Joseph Stangerson", "text": "*speaks in a nervous, quavering voice* My name is Joseph Stangerson. I was Mr. Drebber's secretary and traveling companion. This evening, we had a disagreement after dinner and parted ways. I retired directly to my room at Halliday's Private Hotel on Little George Street, where I remained all night. The clerk will confirm this. This terrible business has come as a dreadful shock.", "model": "deepseek/deepseek-chat"}, {"timestamp": "2026-02-16T11:20:21.685539", "phase": "initial_statements", "speaker": "Constable John Rance", "text": "Good evening, sir. I'm Constable John Rance, assigned to this here beat. I didn't know the deceased, Mr. Enoch Drebber, personally; I only knew him as a recent arrival in London from America. I was on my regular night patrol this evening. Around 2 AM, I found the body in the empty house at 3 Lauriston Gardens. The door was ajar, which struck me as odd, so I investigated and found poor Mr. Drebber dead inside. I reported it straight away, sir.", "model": "mistralai/mistral-large-2411"}, {"timestamp": "2026-02-16T11:20:27.376008", "phase": "initial_statements", "speaker": "Madame Charpentier", "text": "Oh dear heavens, I'm Madame Charpentier, the proprietor of this humble boarding house. Enoch Drebber and his companion, Joseph Stangerson, were my lodgers, and I must say, they were a bit of a handful at times. This evening, I was right here in my boarding house, attending to my duties and keeping an eye on my daughter, Alice, after that dreadful man, Drebber, made a scene and was...ahem...asked to leave. I can assure you, I was here all evening, tending to my household and making sure everything was in order.", "model": "meta-llama/llama-3.3-70b-instruct"}, {"timestamp": "2026-02-16T11:20:33.770866", "phase": "interrogation_r1", "speaker": "detective", "text": "*adjusts cufflinks and fixes suspects with penetrating stare*\n\nAh, but of course! The little grey cells, they are already working, mes amis.\n\nI wish to question **Arthur Charpentier**.\n\nMonsieur Charpentier, you say you \"threw out\" Monsieur Drebber and returned home by 9 PM. But tell me precisely - at what time did this confrontation occur, and where exactly did you escort him when you \"threw him out\"? Did you simply put him on the street, or did you perhaps... accompany him somewhere to ensure he would not return to trouble your family?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:20:37.547149", "phase": "interrogation_r1", "speaker": "Arthur Charpentier", "text": "The confrontation took place around 7 PM. After I told Drebber to leave my mother\u2019s boarding house, I followed him down the street with the intention of making sure he wouldn't come back and harass my sister again. However, my temper got the better of me, and I admit I had a cudgel in my hand, but I didn't accompany him far. I returned home by 9 PM, determined to put the incident behind me.", "model": "openai/gpt-4o"}, {"timestamp": "2026-02-16T11:20:43.022485", "phase": "interrogation_r1", "speaker": "detective", "text": "*strokes mustache thoughtfully*\n\nMost illuminating, Monsieur Charpentier. But now...\n\nI wish to question **Jefferson Hope**.\n\nMonsieur Hope, you claim you were \"cruising toward Brixton in hopes of another pickup\" after dropping a passenger at Euston at nine o'clock. Yet a cab was observed outside the very house where the murder took place. Can you account for your precise whereabouts between 9 PM and midnight? And tell me - did you pick up any fares during this time, particularly in the Brixton area?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:20:46.793631", "phase": "interrogation_r1", "speaker": "Arthur Charpentier", "text": "It's not my place to answer for Jefferson Hope, but if you have any more questions for me, I am willing to cooperate. As for Jefferson, I have no insight into his comings and goings that evening. My focus was on dealing with the matter of keeping my family safe from Enoch Drebber's advances.", "model": "openai/gpt-4o"}, {"timestamp": "2026-02-16T11:20:48.301405", "phase": "evidence_reveal", "speaker": "narrator", "text": "Chemical analysis of the pill box found at the scene reveals it contained two pills of identical appearance. One contains a powerful alkaloid poison \u2014 a rare compound. The other is completely harmless. This was not a random poisoning but a deliberate, ritualistic method. Additionally, analysis of the blood writing 'RACHE' on the wall confirms it is NOT the victim's blood type \u2014 it belongs to someone else entirely.", "model": ""}, {"timestamp": "2026-02-16T11:20:54.853716", "phase": "interrogation_r2", "speaker": "detective", "text": "*eyes gleaming with understanding*\n\nMagnifique! The method becomes clear - this was no crime of passion, but something far more... personal.\n\nI wish to question **Joseph Stangerson**.\n\nMonsieur Stangerson, you mentioned a \"disagreement\" with your employer after dinner. Given this new evidence of a ritualistic poisoning method - two identical pills, one deadly, one harmless - I must ask: what was the nature of this disagreement? And tell me, as his secretary and traveling companion, were you aware of any enemies Monsieur Drebber might have made during your travels through Europe? Someone who might harbor such... elaborate revenge?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:21:01.521677", "phase": "interrogation_r2", "speaker": "Joseph Stangerson", "text": "*nervously wringing hands, voice trembling* Mr. Drebber...he accused me of stealing from him, which I swear I did not do! We argued most bitterly. As for enemies... *glances around furtively* I confess I've had this strange feeling we were being followed during our travels. Letters and telegrams would arrive at our hotels, warning us of danger. Mr. Drebber laughed them off, but I...I feared for our safety. *visibly pales* And now my worst fears have come to pass!", "model": "deepseek/deepseek-chat"}, {"timestamp": "2026-02-16T11:21:08.477296", "phase": "interrogation_r2", "speaker": "detective", "text": "*leans forward with intense focus*\n\nTr\u00e8s interessant, Monsieur Stangerson! Someone has been hunting your employer like a bloodhound across Europe!\n\nI wish to question **Jefferson Hope**.\n\nMonsieur Hope, you have been remarkably quiet about my previous question regarding your whereabouts. But now I must be more direct - this ritualistic poisoning method, these two identical pills where the victim must choose... this speaks of someone with intimate knowledge of poisons and a very personal vendetta. You claim to be merely a cab driver, but tell me truthfully - have you ever encountered Enoch Drebber before tonight? And what do you know of rare alkaloid poisons?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:21:15.783432", "phase": "interrogation_r2", "speaker": "Joseph Stangerson", "text": "*Voice grows increasingly frantic* Wait, detective, please! *pulls telegram from pocket with trembling hands* I just remembered - earlier today I received this! It warns that we're marked for death. I'd nearly forgotten in my distress. *handing over telegram* You must believe me, sir, I know nothing of any poisons! I'm just a simple secretary. But I fear Mr. Drebber's past may have finally caught up with him... *voice breaks* and whoever did this likely seeks me next!", "model": "deepseek/deepseek-chat"}, {"timestamp": "2026-02-16T11:21:17.289301", "phase": "evidence_reveal", "speaker": "narrator", "text": "Investigation into Drebber's background reveals he recently arrived from America and had been traveling rapidly through Europe as if being pursued. Hotel records show Drebber and his companion Stangerson moving between cities every few days \u2014 Copenhagen, Paris, and now London. A telegram found in Stangerson's possession reads: 'J.H. is in Europe. He knows. Leave immediately.' Furthermore, cab records show a cab was hired near Brixton at approximately 11 PM and the driver matches the description of a tall, rough-looking man.", "model": ""}, {"timestamp": "2026-02-16T11:21:24.047256", "phase": "interrogation_r3", "speaker": "detective", "text": "*eyes blazing with the fire of discovery*\n\nMon Dieu! The pieces of this puzzle, they begin to form a most sinister picture!\n\nI wish to question **Jefferson Hope**.\n\nMonsieur Hope, the evidence grows most damning! A telegram warns of \"J.H.\" - your very initials! - being in Europe and knowing something. Cab records show a tall, rough-looking driver hired near Brixton at 11 PM. You have avoided my direct questions twice now. I put it to you plainly: You are not merely a London cab driver, are you? What is your true connection to Enoch Drebber, and why have you been pursuing him across Europe like an avenging angel?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:21:27.941527", "phase": "interrogation_r3", "speaker": "Jefferson Hope", "text": "(Sweating, nervously tugging at my collar)\n\nNow hold on a minute! Avenging angel? Telegrams? This is preposterous! I told you, I'm just a simple cabbie! J.H. could be anyone. There are plenty of J.H.'s in London. And as for avoiding questions, I've answered everything you've asked! You're twisting things around.\n\n(Wipes brow with a handkerchief, leaving a smear of blood unnoticed)\n\nI did pick up a fare near Brixton, yes, but they were heading *away* from Lauriston Gardens, toward the city center! You're barking up the wrong tree, guv'nor. This \"pursuit across Europe\" is a figment of your imagination. A man can't make a living driving a cab and chasing shadows across the continent at the same time, can he?\n", "model": "google/gemini-2.0-flash-001"}, {"timestamp": "2026-02-16T11:21:35.109571", "phase": "interrogation_r3", "speaker": "detective", "text": "*notices the blood smear with sharp eyes, pointing dramatically*\n\nSacr\u00e9 bleu! Monsieur Hope, you protest your innocence most vigorously, but observe! You have just wiped your brow and left a smear of blood upon your handkerchief - the same blood, perhaps, that was used to write \"RACHE\" on the wall!\n\nI wish to question **Joseph Stangerson**.\n\nMonsieur Stangerson, you mentioned letters and telegrams warning of danger during your travels. Tell me precisely - what did these warnings say? Did they mention specific names or locations? And most importantly, what terrible secret from the past could drive someone to pursue you and Drebber across an entire continent with such methodical determination?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:21:38.694523", "phase": "interrogation_r3", "speaker": "Jefferson Hope", "text": "(Coughing, trying to cover the bloody handkerchief)\n\nJust a nosebleed, that's all. Been getting them for years. Bad blood, hereditary condition, nothing to do with...with anything!\n\n(Glaring at Stangerson)\n\nWhy don't you ask *him* about secrets and telegrams? He's the one who received them, isn't he? Sounds to me like he knows more than he's letting on. Maybe he was in on it, whatever \"it\" is supposed to be. Always seemed a shifty sort to me. Couldn't meet your eyes.\n", "model": "google/gemini-2.0-flash-001"}, {"timestamp": "2026-02-16T11:21:40.268673", "phase": "evidence_reveal", "speaker": "narrator", "text": "The wedding ring found at the scene has been identified \u2014 it is engraved inside with 'To my darling Lucy, with eternal love.' Records trace it to a Lucy Ferrier of Salt Lake City, Utah, who died twenty years ago shortly after being forced into marriage with Enoch Drebber. Her lover, a man named Jefferson Hope, disappeared shortly after her death and has never been found. A cab driver matching Hope's description was seen near the boarding house earlier that evening, and the same cab was spotted outside 3 Lauriston Gardens.", "model": ""}, {"timestamp": "2026-02-16T11:21:48.924841", "phase": "cross_examination", "speaker": "detective", "text": "*rises dramatically, pointing an accusatory finger*\n\n**Jefferson Hope**!\n\nThe game is up, monsieur! You speak of nosebleeds and hereditary conditions, but this wedding ring tells a far different story! \"To my darling Lucy, with eternal love\" - Lucy Ferrier of Salt Lake City, who died twenty years ago after being forced into marriage with Enoch Drebber! \n\nYou are not merely a London cab driver - you are Jefferson Hope, the lover who disappeared after her death! You have spent twenty years tracking down the man who destroyed your beloved Lucy, pursuing him across continents with the patience of Job and the determination of Nemesis herself!\n\nThe blood on your handkerchief is not from a nosebleed - it is the same blood you used to write \"RACHE\" on the wall! You forced Drebber to choose between two pills - one poison, one harmless - giving him the same choice of fate that you yourself never had when Lucy was taken from you!\n\nConfess, monsieur! This was no random murder but a twenty-year quest for justice!", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:21:52.722666", "phase": "cross_examination", "speaker": "Jefferson Hope", "text": "(Slumping into a chair, defeated, but a strange calm settles over me.)\n\nSo, you know about Lucy. Aye, it's true. I am Jefferson Hope. Twenty years... twenty years I've been hunting them. And yes, I gave Drebber a choice. A choice he never gave Lucy.\n\n(Reaches into my pocket, pulls out a small pillbox.)\n\nIt was supposed to be Stangerson too, but... (Coughs, clutching my chest) ...but I'm done running. And my time... (gasps) ...is near. Let me tell you about Lucy... (A faraway look in my eyes). Let me tell you about the Mormons, and the desert, and the oath I swore...\n", "model": "google/gemini-2.0-flash-001"}, {"timestamp": "2026-02-16T11:22:05.111727", "phase": "cross_examination", "speaker": "detective", "text": "*stands with solemn dignity, recognizing the moment of truth*\n\nI am ready to make my accusation.\n\n*turns to face the assembled group with theatrical flourish*\n\nMes amis, this case is not merely about murder - it is about justice delayed but not denied. The killer stands before us, and it is **Jefferson Hope**.\n\nBut let Poirot explain the complete picture:\n\nTwenty years ago in Salt Lake City, Utah, a young woman named Lucy Ferrier was forced into marriage with Enoch Drebber against her will. Her true love, Jefferson Hope, was powerless to save her. She died shortly after this forced marriage, and Hope disappeared - not as a coward, but as a man consumed by a sacred oath of vengeance.\n\nFor two decades, Hope tracked Drebber across continents. The telegrams warning \"J.H. is in Europe\" - these were not idle threats, but the closing of a net twenty years in the making. Hope, disguised as a London cab driver, finally cornered his prey at 3 Lauriston Gardens.\n\nThe method was deliberate - two identical pills, one poison, one harmless. He forced Drebber to choose, giving him the same cruel choice of fate that Lucy herself never had. The word \"RACHE\" written in Hope's own blood - German for \"revenge\" - was his signature upon this act of retribution.\n\nThis was no common murder, but justice served by a broken heart that refused to heal.\n\nJefferson Hope, you are guilty of murder - but Poirot understands why.", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:22:37.986490", "phase": "parlor_scene", "speaker": "detective", "text": "*stands in the center of the parlor, hands clasped behind back, surveying the assembled suspects with penetrating gaze*\n\nMes amis, we gather here tonight in the shadow of death - but also in the light of truth. For Hercule Poirot, he has unraveled a mystery that spans not mere hours, but decades. This is not simply the tale of one man's death, but of love, loss, and a terrible justice that has pursued its quarry across an entire continent.\n\n*begins pacing slowly*\n\nLet us examine what we discovered, oui? Enoch Drebber, found dead with no wounds, his face frozen in terror and hatred. Beside him, two crucial pieces of evidence: a pill box containing two identical pills - one harmless, one containing a rare alkaloid poison - and a woman's gold wedding ring, engraved \"To my darling Lucy, with eternal love.\"\n\n*pauses dramatically*\n\nThe method, mes amis, it tells us everything! This was no crime of passion, no robbery, no accident. Two identical pills - this speaks of ritual, of choice, of someone forcing their victim to face the same cruel lottery of fate that someone else once faced.\n\n*turns to face Jefferson Hope*\n\nThe word \"RACHE\" written on the wall - not in the victim's blood, but in the killer's own. Some might think it an unfinished word, \"Rachel\" perhaps. But non! It is German - RACHE means revenge. And the blood? It came from you, Jefferson Hope, when you cut yourself to write your signature upon this act of vengeance.\n\n*voice growing more intense*\n\nYou see, the telegrams warning \"J.H. is in Europe\" - these were not random threats. They tracked the approach of Jefferson Hope, a man who has spent twenty years hunting his prey. Hotel records show Drebber fleeing across Europe like a hunted animal - Copenhagen, Paris, London - always moving, always looking over his shoulder.\n\n*picks up the wedding ring*\n\nBut this ring, it holds the key to everything. Lucy Ferrier of Salt Lake City - forced into marriage with Enoch Drebber twenty years ago against her will. She died shortly after, and her true love, Jefferson Hope, disappeared into the wilderness. Not as a coward, mes amis, but as a man transformed by grief into an instrument of justice.\n\n*addresses Hope directly*\n\nYou became a cab driver here in London - the perfect disguise for a hunter. Who notices the cabbie? Who questions where he goes, when he drives? You watched, you waited, and when Drebber arrived at Madame Charpentier's boarding house, you struck.\n\n*reconstructs the timeline*\n\nArthur Charpentier, you did indeed throw Drebber out at 7 PM after he made advances to your sister. But your part in this drama ended there. You returned home by 9 PM, your alibi confirmed.\n\nJoseph Stangerson, you received those warning telegrams because Hope intended to kill you both - the two men responsible for Lucy's fate. Your terror was genuine, your fear justified.\n\n*turns back to Hope*\n\nBut you, Jefferson Hope - you followed Drebber that night. You picked him up in your cab near Brixton around 11 PM, as the records show. You brought him to that empty house at 3 Lauriston Gardens. And there, you gave him the same choice Lucy never had - choose your fate. Two pills, identical in appearance. One death, one life. You forced him to play the same deadly game that fate had played with your beloved Lucy.\n\n*voice softening with understanding*\n\nWhen he chose the poison pill, you watched him die in terror and hatred - the same emotions that had consumed your heart for twenty years. You took Lucy's ring from your pocket - carried all these years as a sacred token - and left it beside his body. Your final gift to her memory.\n\n*straightens to full height*\n\nThe blood on your handkerchief tonight was not from a hereditary nosebleed - it was evidence of your guilt, the same blood you used to write your signature of revenge upon that wall.\n\n*addresses the room with finality*\n\nMes amis, the murderer of Enoch Drebber is Jefferson Hope - not a mere cab driver, but a man who loved so deeply that twenty years of pursuit seemed but a moment in service to justice. He is guilty of murder, yes - but Poirot, he understands that sometimes the law and justice, they are not the same thing.\n\n*bows slightly*\n\nThe case, it is solved.", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T11:22:41.055734", "phase": "reveal", "speaker": "narrator", "text": "Jefferson Hope, a London cab driver, murdered Enoch Drebber as an act of revenge twenty years in the making. Hope had loved Lucy Ferrier, who was forced to marry Drebber by Mormon elders in Utah. Lucy died within a month. Hope tracked Drebber across two continents. On the night of the murder, he picked up a drunken Drebber in his cab, drove him to the empty house at Lauriston Gardens, and forced him to choose between two pills \u2014 one poisoned, one harmless \u2014 a grim game of chance. Drebber chose the poison and died. Hope wrote 'RACHE' (revenge) on the wall in blood from his own nosebleed \u2014 he suffers from a fatal aortic aneurysm. He accidentally dropped Lucy's wedding ring at the scene. The word RACHE, while German for revenge, was meant as Hope's personal declaration. Hope is dying and wanted justice before his own death.", "model": ""}, {"timestamp": "2026-02-16T11:22:41.055787", "phase": "reveal", "speaker": "result", "text": "CORRECT", "model": ""}]}</script>
+
+<div class="container" id="app"></div>
+
+<script>
+(function() {
+  const data = JSON.parse(document.getElementById('transcript-data').textContent);
+  const t = data.transcript;
+  const app = document.getElementById('app');
+
+  const COLORS = {
+    detective: '#FFD700',
+    narrator: '#95A5A6',
+  };
+  const SUSPECT_COLORS = ['#E74C3C','#3498DB','#2ECC71','#9B59B6','#E67E22'];
+
+  // Assign suspect colors
+  const suspectNames = Object.keys(data.suspect_models || {});
+  suspectNames.forEach((name, i) => {
+    COLORS[name] = SUSPECT_COLORS[i % SUSPECT_COLORS.length];
+  });
+
+  function getColor(speaker) {
+    if (speaker === 'detective') return COLORS.detective;
+    if (speaker === 'narrator' || speaker === 'result') return COLORS.narrator;
+    return COLORS[speaker] || '#95A5A6';
+  }
+
+  function initial(name) {
+    return name.split(' ').map(w => w[0]).filter(Boolean).slice(0,2).join('').toUpperCase();
+  }
+
+  function getRole(speaker) {
+    if (speaker === 'detective') return data.detective_model || '';
+    if (speaker === 'narrator' || speaker === 'result') return '';
+    return data.suspect_models?.[speaker] || '';
+  }
+
+  function formatText(text) {
+    // Convert **bold** and *italic*
+    let s = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*]+?)\*/g, '<em>$1</em>');
+    return s;
+  }
+
+  // Group transcript into phases
+  const phases = [];
+  let currentPhase = null;
+  for (const entry of t) {
+    if (entry.phase !== currentPhase) {
+      currentPhase = entry.phase;
+      phases.push({ phase: currentPhase, entries: [] });
+    }
+    phases[phases.length - 1].entries.push(entry);
+  }
+
+  const PHASE_NAMES = {
+    scene_setting: 'Act I — The Crime Scene',
+    initial_statements: 'Act II — Initial Statements',
+    interrogation_r1: 'Act III — First Interrogation',
+    interrogation_r2: 'Act III — Second Interrogation',
+    interrogation_r3: 'Act III — Third Interrogation',
+    evidence_reveal: '🔍 Evidence Revealed',
+    cross_examination: 'Act IV — Cross-Examination',
+    parlor_scene: 'Act V — The Parlor Scene',
+    reveal: 'The Reveal',
+  };
+
+  let html = '';
+
+  // Header
+  const sceneEntry = t.find(e => e.phase === 'scene_setting');
+  html += `
+    <div class="header">
+      <div class="header-label">🎭 AI Mystery Theater</div>
+      <h1 class="story-title">${data.title}</h1>
+      ${sceneEntry ? `<p class="setting">${sceneEntry.text}</p>` : ''}
+      <div class="cast">
+        <div class="cast-member">
+          <div class="cast-avatar" style="background:${COLORS.detective}">🔍</div>
+          <span class="cast-name" style="color:${COLORS.detective}">The Detective</span>
+          <span class="cast-model">${data.detective_model || ''}</span>
+        </div>
+        ${suspectNames.map(name => `
+          <div class="cast-member">
+            <div class="cast-avatar" style="background:${getColor(name)}">${initial(name)}</div>
+            <span class="cast-name" style="color:${getColor(name)}">${name}</span>
+            <span class="cast-model">${data.suspect_models[name]}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  // Track which act headings we've already shown
+  const shownHeadings = new Set();
+  let interrogationCount = 0;
+
+  for (const group of phases) {
+    const p = group.phase;
+
+    // Determine heading
+    let heading = PHASE_NAMES[p];
+    if (p.startsWith('interrogation_r')) {
+      interrogationCount++;
+      heading = `Act III — Interrogation Round ${interrogationCount}`;
+    }
+
+    // Evidence reveals get merged inline—show heading only if standalone
+    if (p === 'evidence_reveal') {
+      // Render evidence cards without a separate heading
+      for (const entry of group.entries) {
+        html += `<div class="card card-evidence card-narrator"><div class="card-text">${formatText(entry.text)}</div></div>`;
+      }
+      continue;
+    }
+
+    if (p === 'reveal') {
+      html += `<div class="act-heading">✨ The Reveal</div>`;
+      const resultEntry = group.entries.find(e => e.speaker === 'result');
+      const solutionEntry = group.entries.find(e => e.speaker === 'narrator');
+      const correct = resultEntry && resultEntry.text.trim().toUpperCase() === 'CORRECT';
+      html += `
+        <div class="card reveal-card ${correct ? 'reveal-correct' : 'reveal-wrong'}">
+          <div class="reveal-result">${correct ? '✅ THE DETECTIVE WAS CORRECT!' : '❌ THE DETECTIVE WAS WRONG!'}</div>
+          ${solutionEntry ? `<div class="reveal-solution">${formatText(solutionEntry.text)}</div>` : ''}
+        </div>
+      `;
+      continue;
+    }
+
+    if (p === 'scene_setting') continue; // Already shown in header
+
+    if (heading && !shownHeadings.has(heading)) {
+      html += `<div class="act-heading">${heading}</div>`;
+      shownHeadings.add(heading);
+    }
+
+    for (const entry of group.entries) {
+      const speaker = entry.speaker;
+      const color = getColor(speaker);
+      const isParlor = p === 'parlor_scene';
+      const isDetective = speaker === 'detective';
+      const isNarrator = speaker === 'narrator';
+
+      let cardClass = 'card';
+      if (isNarrator) cardClass += ' card-narrator';
+      if (isDetective) cardClass += ' card-detective';
+      if (isParlor) cardClass += ' card-parlor';
+
+      html += `
+        <div class="${cardClass}">
+          <div class="card-speaker">
+            <div class="speaker-avatar" style="background:${color}">${isDetective ? '🔍' : initial(speaker)}</div>
+            <div>
+              <div class="speaker-name" style="color:${color}">${isDetective ? 'The Detective' : speaker}</div>
+              ${getRole(speaker) ? `<div class="speaker-role">${getRole(speaker)}</div>` : ''}
+            </div>
+          </div>
+          <div class="card-text">${formatText(entry.text)}</div>
+        </div>
+      `;
+    }
+  }
+
+  // Footer
+  html += `
+    <div class="footer">
+      <div class="footer-meta">${data.total_tokens ? data.total_tokens.toLocaleString() + ' tokens used' : ''} · ${data.date || ''}</div>
+      <div class="footer-brand">Powered by AI Mystery Theater 🎭</div>
+    </div>
+  `;
+
+  app.innerHTML = html;
+
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.card, .reveal-card').forEach(el => observer.observe(el));
+})();
+</script>
+</body>
+</html>

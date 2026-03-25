@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎭 AI Mystery Theater</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0f;
+  --bg-card: #13131a;
+  --bg-card-hover: #1a1a24;
+  --gold: #FFD700;
+  --gold-dim: #b8960f;
+  --amber: #d4a017;
+  --text: #e8e0d4;
+  --text-dim: #8a8278;
+  --border: #2a2520;
+  --detective: #FFD700;
+  --suspect1: #E74C3C;
+  --suspect2: #3498DB;
+  --suspect3: #2ECC71;
+  --suspect4: #9B59B6;
+  --suspect5: #E67E22;
+  --narrator: #95A5A6;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212,160,23,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 100%, rgba(139,69,19,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+.header-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.story-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 40px rgba(255,215,0,0.15);
+}
+
+.setting {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+/* Cast */
+.cast {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.cast-member {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+.cast-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.cast-name { font-weight: 600; }
+.cast-model {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+/* Act headings */
+.act-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  margin: 3.5rem 0 1.5rem;
+  position: relative;
+}
+
+.act-heading::before,
+.act-heading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: var(--border);
+}
+.act-heading::before { right: calc(100% + 12px); }
+.act-heading::after { left: calc(100% + 12px); }
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-speaker {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.speaker-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.speaker-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.speaker-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+.card-text {
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.card-text em, .card-text i {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* Narrator / Scene card */
+.card-narrator {
+  border-color: rgba(149,165,166,0.3);
+  background: linear-gradient(135deg, var(--bg-card) 0%, #141418 100%);
+}
+
+.card-narrator .card-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #c0b8a8;
+}
+
+/* Detective card */
+.card-detective {
+  border-left: 3px solid var(--detective);
+}
+
+/* Evidence card */
+.card-evidence {
+  border: 1px solid rgba(231,76,60,0.5);
+  background: linear-gradient(135deg, #1a1015 0%, var(--bg-card) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-evidence::before {
+  content: '🔍 EVIDENCE';
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: #E74C3C;
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+}
+
+.card-evidence.visible {
+  animation: evidenceFlash 0.6s ease;
+}
+
+@keyframes evidenceFlash {
+  0% { box-shadow: 0 0 0 rgba(231,76,60,0); }
+  30% { box-shadow: 0 0 30px rgba(231,76,60,0.3); }
+  100% { box-shadow: 0 0 0 rgba(231,76,60,0); }
+}
+
+/* Reveal */
+.reveal-card {
+  text-align: center;
+  padding: 2.5rem;
+  margin: 2rem 0;
+  border-radius: 16px;
+  border: 2px solid;
+}
+
+.reveal-correct {
+  border-color: rgba(46,204,113,0.6);
+  background: linear-gradient(135deg, #0a1a10 0%, var(--bg-card) 100%);
+}
+
+.reveal-wrong {
+  border-color: rgba(231,76,60,0.6);
+  background: linear-gradient(135deg, #1a0a0a 0%, var(--bg-card) 100%);
+}
+
+.reveal-card.visible {
+  animation: revealGlow 2s ease infinite;
+}
+
+.reveal-correct.visible {
+  animation: revealGlowGreen 2s ease infinite;
+}
+
+.reveal-wrong.visible {
+  animation: revealGlowRed 2s ease infinite;
+}
+
+@keyframes revealGlowGreen {
+  0%, 100% { box-shadow: 0 0 20px rgba(46,204,113,0.1); }
+  50% { box-shadow: 0 0 40px rgba(46,204,113,0.25); }
+}
+
+@keyframes revealGlowRed {
+  0%, 100% { box-shadow: 0 0 20px rgba(231,76,60,0.1); }
+  50% { box-shadow: 0 0 40px rgba(231,76,60,0.25); }
+}
+
+.reveal-result {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.reveal-correct .reveal-result { color: #2ECC71; }
+.reveal-wrong .reveal-result { color: #E74C3C; }
+
+.reveal-solution {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Parlor scene */
+.card-parlor {
+  border: 1px solid rgba(255,215,0,0.3);
+  background: linear-gradient(135deg, #14120a 0%, var(--bg-card) 100%);
+  padding: 2rem;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  color: var(--gold-dim);
+}
+
+/* Thinking sections */
+.thinking-section {
+  margin-bottom: 8px;
+  cursor: pointer;
+  border-left: 2px solid rgba(255,215,0,0.2);
+  padding-left: 12px;
+}
+.thinking-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #666;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+.thinking-label::after {
+  content: ' ▸';
+}
+.thinking-section.expanded .thinking-label::after {
+  content: ' ▾';
+}
+.thinking-content {
+  font-style: italic;
+  color: #888;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  margin-top: 4px;
+}
+.thinking-section.expanded .thinking-content {
+  max-height: 500px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container { padding: 1rem; }
+  .header { padding: 2rem 0 1.5rem; }
+  .card { padding: 1.15rem; }
+  .act-heading::before, .act-heading::after { width: 30px; }
+  .cast { gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+<script id="transcript-data" type="application/json">{"title": "Murder on the Orient Express", "date": "2026-03-15_102329", "detective_model": "anthropic/claude-sonnet-4", "suspect_models": {"Princess Natalia Dragomiroff": "openai/gpt-4o", "Colonel Doyle Arbuthnot": "google/gemini-2.0-flash-001", "Hector MacQueen": "deepseek/deepseek-chat", "Greta Ohlsson": "mistralai/mistral-large-2411", "Pierre Michel": "meta-llama/llama-3.3-70b-instruct", "Countess Helena Andrenyi": "openai/gpt-4o"}, "total_tokens": 153752, "total_beats": 54, "transcript": [{"beat_id": 1, "phase": "scene_setting", "speaker": "narrator", "text": "The Orient Express, snowbound in a deep drift somewhere in Yugoslavia, winter 1934. The famous luxury train has been stopped since the early morning hours. Among the passengers is the renowned Belgian detective Hercule Poirot, returning from a case in Istanbul.", "location": "train_exterior", "characters_present": [], "shot_type": "establishing", "mood": "ominous", "thinking": null, "model": ""}, {"beat_id": 2, "phase": "scene_setting", "speaker": "narrator", "text": "Samuel Ratchett found dead in his locked first-class compartment at 7:00 AM by the conductor. The body bears six stab wounds of wildly varying depth and force \u2014 some delivered with powerful precision, others weak and hesitant. The compartment door was locked and chained from the inside. The window was found open, letting in the freezing night air. A woman's fine handkerchief embroidered with the letter 'H' lies on the floor. A button from a Wagon-Lit conductor's uniform is found near the bed. In the fireplace, a charred fragment of a letter is recovered \u2014 only the words '...member little Daisy Armstr...' remain legible. Ratchett's watch was smashed, stopped at 1:15 AM. A glass on the nightstand contains traces of barbital, a powerful sleeping draught. The snow outside the train is pristine and undisturbed \u2014 no footprints lead away from the open window.", "location": "", "characters_present": [], "shot_type": "establishing", "mood": "ominous", "thinking": null, "model": ""}, {"beat_id": 3, "phase": "scene_setting", "speaker": "narrator", "text": "The victim: Samuel Ratchett \u2014 A wealthy American businessman, 60, traveling with his secretary. Outwardly respectable but with cold, watchful eyes. His real name is Cassetti \u2014 the man responsible for the kidnapping and murder of three-year-old Daisy Armstrong five years ago, a crime that destroyed an entire family. He was tried and acquitted on a technicality. He had recently approached Poirot claiming someone was threatening his life.", "location": "", "characters_present": [], "shot_type": "establishing", "mood": "somber", "thinking": null, "model": ""}, {"beat_id": 4, "phase": "detective_arrival", "speaker": "narrator", "text": "A detective arrives \u2014 theatrical and precise, with an unerring eye for the psychological \u2014 a master of misdirection and revelation. The investigation begins.", "location": "", "characters_present": [], "shot_type": "establishing", "mood": "determined", "thinking": null, "model": ""}, {"beat_id": 5, "phase": "character_introductions", "speaker": "narrator", "text": "Princess Natalia Dragomiroff \u2014 Russian aristocrat. An elderly Russian princess of immense dignity and authority, 75. Found in the princess dragomiroff's private compartment.", "location": "princess_compartment", "characters_present": ["Princess Natalia Dragomiroff"], "shot_type": "dialogue", "mood": "neutral", "thinking": null, "model": ""}, {"beat_id": 6, "phase": "character_introductions", "speaker": "narrator", "text": "Colonel Doyle Arbuthnot \u2014 British military officer. A distinguished British Army colonel, 45, with a clipped manner and rigid self-discipline. Found in the walnut-paneled smoking car.", "location": "smoking_car", "characters_present": ["Colonel Doyle Arbuthnot"], "shot_type": "dialogue", "mood": "neutral", "thinking": null, "model": ""}, {"beat_id": 7, "phase": "character_introductions", "speaker": "narrator", "text": "Hector MacQueen \u2014 Ratchett's secretary. A young American, 30, who has served as Ratchett's personal secretary and translator for over a year. Found in the elegant dining car with white tablecloths.", "location": "dining_car", "characters_present": ["Hector MacQueen"], "shot_type": "dialogue", "mood": "neutral", "thinking": null, "model": ""}, {"beat_id": 8, "phase": "character_introductions", "speaker": "narrator", "text": "Greta Ohlsson \u2014 Swedish missionary nurse. A tall, thin Swedish woman, 49, with a kind face and nervous disposition. Found in the narrow first-class corridor.", "location": "corridor", "characters_present": ["Greta Ohlsson"], "shot_type": "dialogue", "mood": "neutral", "thinking": null, "model": ""}, {"beat_id": 9, "phase": "character_introductions", "speaker": "narrator", "text": "Pierre Michel \u2014 Wagon-Lit conductor. The conductor assigned to this carriage, 54, a veteran of the Compagnie Internationale des Wagons-Lits. Found in the narrow first-class corridor.", "location": "corridor", "characters_present": ["Pierre Michel"], "shot_type": "dialogue", "mood": "neutral", "thinking": null, "model": ""}, {"beat_id": 10, "phase": "character_introductions", "speaker": "narrator", "text": "Countess Helena Andrenyi \u2014 Hungarian countess. A beautiful young woman, 32, wife of the Hungarian Count Andrenyi. Found in the elegant dining car with white tablecloths.", "location": "dining_car", "characters_present": ["Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "neutral", "thinking": null, "model": ""}, {"beat_id": 11, "phase": "interrogation_r1", "speaker": "detective", "text": "[THINKING] The conductor's button is suspicious - either Pierre Michel is being framed or was careless. I should test his story about the button and his access to all compartments.\n\n*fixes Pierre Michel with a steady gaze*\n\nPierre Michel, I observe a button from a Wagon-Lit conductor's uniform was found near the victim's bed. When did you last enter Monsieur Ratchett's compartment, and can you account for all the buttons on your uniform?", "location": "corridor", "characters_present": ["detective", "Greta Ohlsson", "Pierre Michel"], "shot_type": "dialogue", "mood": "inquisitive", "thinking": "[THINKING] Six wounds of varying force suggests multiple attackers or deliberate misdirection. The handkerchief with 'H' could implicate Helena Andrenyi, but seems too obvious - likely planted evidence.\n\n*adjusts mustache and surveys the assembled suspects with penetrating grey eyes*\n\nMes amis, we have before us a most curious tableau. The wounds upon poor Monsieur Ratchett tell a story of hesitation and fury combined - as if delivered by hands both skilled and trembling. The handkerchief bearing the letter 'H' lies most conveniently upon the floor, non? Too convenient, perhaps, for one who seeks to conceal their identity.\n\nMost intriguing is this fragment mentioning \"little Daisy Armstr...\" - clearly referring to the Armstrong kidnapping that shocked America five years past. It would seem our victim's past has finally caught up with him.\n\nThe locked room, the open window leading to pristine snow, the conductor's button... each piece of evidence points in a different direction. Either we have the most careless murderer in history, or the most cunning.\n\n*taps walking stick thoughtfully*", "model": "anthropic/claude-sonnet-4"}, {"beat_id": 12, "phase": "interrogation_r1", "speaker": "Pierre Michel", "text": "[THINKING] The button could be a problem, but I have a plausible explanation ready. I must remain calm and consistent with my alibi.\nI entered Monsieur Ratchett's compartment yesterday evening to deliver a telegram, and I recall checking my uniform afterwards, all buttons were in place. Perhaps, monsieur, the button fell from a spare uniform jacket I keep in my compartment for emergencies.", "location": "corridor", "characters_present": ["Greta Ohlsson", "Pierre Michel"], "shot_type": "dialogue", "mood": "guarded", "thinking": null, "model": "meta-llama/llama-3.3-70b-instruct"}, {"beat_id": 13, "phase": "interrogation_r1", "speaker": "detective", "text": "[THINKING] The handkerchief with 'H' is too obvious - likely planted to frame Helena. I should test her reaction and see if she reveals knowledge of the Armstrong case.\n\n*turns sharply to face the elegant young countess*\n\nCountess Helena Andrenyi, this handkerchief embroidered with the letter 'H' was found in the victim's compartment. Do you recognize it as yours, and what connection, if any, did you have to the Armstrong family?", "location": "dining_car", "characters_present": ["detective", "Hector MacQueen", "Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "inquisitive", "thinking": "[THINKING] Pierre's explanation about the spare uniform is convenient but plausible. The handkerchief with 'H' points to Helena Andrenyi, but could be misdirection - I need to test her reaction and alibi directly.\n\n*turns attention to the elegant young woman, studying her composed demeanor*\n\nThe evidence suggests multiple layers of deception here. Pierre's explanation for the button is... adequate, though curiously prepared. The handkerchief bearing the letter 'H' demands immediate attention - it was placed most prominently for discovery. \n\nThe Armstrong connection grows more significant - someone aboard this train has intimate knowledge of that tragedy. The varying wound depths suggest either an inexperienced killer or deliberate staging to confuse the investigation.\n\n*observes each suspect's reaction to the mention of the Armstrong case*\n\nMost telling is how each person responds to the name \"Daisy Armstrong\" - some show recognition, others feign ignorance too perfectly.", "model": "anthropic/claude-sonnet-4"}, {"beat_id": 14, "phase": "interrogation_r1", "speaker": "Countess Helena Andrenyi", "text": "No, that handkerchief is not mine. As for the Armstrong family, I have no connection to them.", "location": "dining_car", "characters_present": ["Hector MacQueen", "Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "guarded", "thinking": "I must deny that the handkerchief is mine and deflect any link to the Armstrongs. Stay calm and composed.", "model": "openai/gpt-4o"}, {"beat_id": 15, "phase": "interrogation_r1", "speaker": "detective", "text": "[THINKING] Princess Dragomiroff admitted knowing the Armstrong family - she's the key to exposing lies. I need her to reveal details about the family connections that others are hiding.\n\n*fixes the imperious Russian princess with a penetrating stare*\n\nPrincess Natalia Dragomiroff, you knew the Armstrong family socially before the tragedy. Can you tell me which of my fellow passengers here tonight might also have had connections to that household - connections they now seem reluctant to admit?", "location": "princess_compartment", "characters_present": ["detective", "Princess Natalia Dragomiroff"], "shot_type": "dialogue", "mood": "inquisitive", "thinking": "[THINKING] Helena's denial was too quick and flat - no curiosity about why someone would plant her initial. Princess Dragomiroff knew the Armstrongs socially, making her a key witness to test everyone's claimed ignorance.\n\n*observes the regal elderly woman with keen interest*\n\nHelena's denial lacks the indignation one would expect from an innocent woman finding her initial at a murder scene. Her failure to ask why someone would plant evidence bearing her letter suggests foreknowledge.\n\nPrincess Dragomiroff represents the crucial link - she admits knowing the Armstrong family socially, making her the perfect witness to expose any lies about connections to that tragedy. The others claim ignorance too readily.\n\n*strokes mustache thoughtfully*\n\nThe pattern emerges: everyone deflects from the Armstrong connection, yet someone aboard this train burned that letter fragment. Time to test who truly knew little Daisy Armstrong.", "model": "anthropic/claude-sonnet-4"}, {"beat_id": 16, "phase": "interrogation_r1", "speaker": "Princess Natalia Dragomiroff", "text": "Monsieur Poirot, I fear I cannot speak for the lives of others. Connections in society are often subtle and elusive, non?", "location": "princess_compartment", "characters_present": ["Princess Natalia Dragomiroff"], "shot_type": "dialogue", "mood": "guarded", "thinking": "Ah, the detective is attempting to piece together the web. I must maintain our united front without revealing too much.", "model": "openai/gpt-4o"}, {"beat_id": 17, "phase": "evidence_reveal", "speaker": "narrator", "text": "Forensic analysis reveals the stab wounds were inflicted by at least three different people \u2014 the depth, angle, and force vary dramatically. Some wounds were made by a strong hand with military precision. Others were hesitant, almost reluctant. The victim was heavily sedated with barbital before the stabbing.", "location": "", "characters_present": [], "shot_type": "evidence", "mood": "revelatory", "thinking": null, "model": ""}, {"beat_id": 18, "phase": "interrogation_r2", "speaker": "detective", "text": "[THINKING] The military precision wounds directly implicate Arbuthnot - I need to test his reaction and see if he reveals knowledge of the coordinated attack.\n\n*turns to face the rigid military officer with unwavering intensity*\n\nColonel Doyle Arbuthnot, the forensic evidence reveals wounds inflicted with military precision alongside others made by hesitant hands. As a trained soldier, can you explain how three different people might coordinate such an attack - and what cause would justify such collective action?", "location": "smoking_car", "characters_present": ["detective", "Colonel Doyle Arbuthnot"], "shot_type": "dialogue", "mood": "inquisitive", "thinking": "[THINKING] Three attackers confirmed - this is conspiracy, not single murder. Military precision wounds point directly to Colonel Arbuthnot, while hesitant strikes suggest reluctant participants forced into this justice.\n\n*studies the evidence with growing comprehension*\n\nAh, now the truth reveals itself! Three attackers - some striking with military precision, others with trembling reluctance. This was no single act of vengeance, but a coordinated execution.\n\nThe Princess deflects skillfully, protecting her fellow conspirators. The barbital ensured Ratchett - Cassetti - could not fight back as justice was administered. Each wound represents a different hand, a different relationship to little Daisy Armstrong.\n\n*observes Colonel Arbuthnot's rigid posture*\n\nThe military precision of certain wounds creates a clear trail. Someone here possesses the training to kill efficiently, while others participated with moral hesitation. This was a tribunal, not a murder.", "model": "anthropic/claude-sonnet-4"}, {"beat_id": 19, "phase": "interrogation_r2", "speaker": "Colonel Doyle Arbuthnot", "text": "\"Good heavens, are you suggesting some sort of conspiracy, Poirot? Such a barbaric act seems far more likely the result of impulsive rage by one, or perhaps two, individuals. Perhaps you should look closer at the Italian, or the Count and Countess - passions run high in their circles, I understand.\"", "location": "smoking_car", "characters_present": ["Colonel Doyle Arbuthnot"], "shot_type": "dialogue", "mood": "guarded", "thinking": "He is trying to bait me, implying a coordinated effort. I must appear surprised and disgusted by the suggestion, and then subtly steer him toward the Italians or the Count and Countess.", "model": "google/gemini-2.0-flash-001"}, {"beat_id": 20, "phase": "interrogation_r2", "speaker": "detective", "text": "[THINKING] MacQueen had access to all correspondence and would have processed any threatening letters. His reaction to learning Ratchett's true identity as Cassetti will reveal if he knew and participated willingly.\n\n*fixes the nervous young secretary with a penetrating stare*\n\nHector MacQueen, you handled all of Ratchett's correspondence - surely you processed the threatening letters he mentioned to me. When did you discover your employer was actually Cassetti, the man who murdered little Daisy Armstrong?", "location": "dining_car", "characters_present": ["detective", "Hector MacQueen", "Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "inquisitive", "thinking": "[THINKING] Arbuthnot deflects suspicion to others while showing detailed knowledge of passenger nationalities he shouldn't know. MacQueen had closest access to Ratchett and would know about threatening letters - time to test his loyalty.\n\n*notes the Colonel's deflection with interest*\n\nMost revealing! The Colonel deflects to \"the Italian\" and mentions passengers' nationalities with suspicious precision for one who \"keeps to himself.\" His suggestion of \"impulsive rage\" contradicts the evidence of careful coordination.\n\nMacQueen remains the wild card - closest to the victim, privy to all correspondence including threats. His nervousness could indicate guilt or knowledge of his employer's true identity as Cassetti.\n\n*observes MacQueen's fidgeting hands*\n\nThe secretary holds the key to Ratchett's recent fears and correspondence. If threats were received, MacQueen processed them. His reaction to learning his employer was a child-killer will reveal much about his moral character and potential participation.", "model": "anthropic/claude-sonnet-4"}, {"beat_id": 21, "phase": "interrogation_r2", "speaker": "Hector MacQueen", "text": "*adjusting tie nervously* \"Good heavens, Monsieur Poirot! I merely typed his letters - one doesn't read personal correspondence. Though now you mention it... he did seem unusually agitated these past weeks.\" *glances toward Arbuthnot* \"Perhaps the Colonel noticed more than I did?\"", "location": "dining_car", "characters_present": ["Hector MacQueen", "Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "guarded", "thinking": "He suspects I knew Ratchett's true identity. Must maintain composure while deflecting.", "model": "deepseek/deepseek-chat"}, {"beat_id": 22, "phase": "interrogation_r2", "speaker": "detective", "text": "[THINKING] Greta's religious distress suggests moral conflict about participating in justified vengeance. A missionary nurse would struggle with the commandment against killing, even for a child-murderer like Cassetti.\n\n*turns to the visibly distressed Swedish woman with gentle but probing eyes*\n\nGreta Ohlsson, your faith teaches forgiveness, yet your distress suggests a terrible moral struggle. Can you reconcile your Christian conscience with the knowledge that Cassetti deserved justice for what he did to little Daisy Armstrong?", "location": "corridor", "characters_present": ["detective", "Greta Ohlsson", "Pierre Michel"], "shot_type": "dialogue", "mood": "inquisitive", "thinking": "[THINKING] MacQueen's deflection to Arbuthnot confirms their connection - they're protecting each other. Greta Ohlsson's religious nature and distress could indicate moral conflict about participating in this \"justice.\"\n\n*observes the subtle interplay between MacQueen and Arbuthnot with growing certainty*\n\nFascinating! MacQueen deflects to the Colonel, who earlier deflected to others - they dance around each other like co-conspirators. MacQueen's claim of ignorance rings false for a secretary who handled all correspondence.\n\nThe religious Miss Ohlsson remains unquestioned, yet her visible distress suggests deep moral conflict. A missionary nurse would struggle terribly with taking a life, even that of a child-killer.\n\n*studies Greta Ohlsson's nervous demeanor*\n\nHer faith would demand she see Cassetti as both sinner and God's creation. If forced to participate in this tribunal of justice, her conscience would be in agony - explaining her obvious distress far better than mere shock at discovering murder.", "model": "anthropic/claude-sonnet-4"}, {"beat_id": 23, "phase": "interrogation_r2", "speaker": "Greta Ohlsson", "text": "**[THINKING]** The evidence is damning, but I must stay composed. I cannot let him see my fear.\n\n*clutching a handkerchief tightly, voice trembling*\n\n\"I... I cannot deny that the man deserved punishment, but... it is not our place to judge, Mr. Poirot. I was with God all night, praying for my soul and others.\"", "location": "corridor", "characters_present": ["Greta Ohlsson", "Pierre Michel"], "shot_type": "dialogue", "mood": "guarded", "thinking": null, "model": "mistralai/mistral-large-2411"}, {"beat_id": 24, "phase": "interrogation_r2", "speaker": "Pierre Michel", "text": "[THINKING] Greta Ohlsson's nervous demeanor is notable, perhaps she's hiding something. I'll make a subtle remark to draw attention to her.\nHer devotion to prayer is admirable, monsieur, but I couldn't help noticing she was quite... restless during the night, leaving her compartment on several occasions.", "location": "corridor", "characters_present": ["Greta Ohlsson", "Pierre Michel"], "shot_type": "reaction", "mood": "tense", "thinking": null, "model": "meta-llama/llama-3.3-70b-instruct"}, {"beat_id": 25, "phase": "evidence_reveal", "speaker": "narrator", "text": "The charred letter fragment recovered from Ratchett's fireplace reads: '...member little Daisy Armstr...' Investigation reveals that 'Samuel Ratchett' is an alias \u2014 his real name is Cassetti, the man acquitted of the Armstrong kidnapping five years ago. Additionally, the conductor's master key could open any compartment door, regardless of whether it was locked from the inside.", "location": "", "characters_present": [], "shot_type": "evidence", "mood": "revelatory", "thinking": null, "model": ""}, {"beat_id": 26, "phase": "interrogation_r3", "speaker": "detective", "text": "[THINKING] Pierre's deflection while possessing the master key makes him the orchestrator. His \"helpful\" observations about others are misdirection - time to confront him directly about his central role.\n\n*fixes Pierre Michel with a steely gaze, voice sharp with accusation*\n\nPierre Michel, your master key could unlock any door, making the \"locked room\" meaningless - and your convenient observations about others' movements suggest careful orchestration. What was your connection to the Armstrong family that drove you to organize this elaborate execution?", "location": "corridor", "characters_present": ["detective", "Greta Ohlsson", "Pierre Michel"], "shot_type": "dialogue", "mood": "inquisitive", "thinking": "[THINKING] Pierre's interjection about Greta's movements confirms conspiracy - he's deflecting suspicion while providing alibis for co-conspirators. The master key explains the locked room mystery completely.\n\n*strokes mustache thoughtfully, piecing together the elaborate deception*\n\nAh, mes amis! The fog of confusion begins to clear. Pierre's \"helpful\" observation about Miss Ohlsson's restlessness is most illuminating - conspirators providing each other with carefully crafted alibis and misdirection.\n\nThe master key resolves our locked room mystery entirely. Pierre could enter and exit at will, locking the door behind him. The open window, the planted evidence, the varying wounds - all designed to suggest an impossible crime or outside intruder.\n\n*surveys the group with knowing eyes*\n\nBut this was no random murder - this was a tribunal. Each person here has some connection to the Armstrong tragedy, and together they executed justice upon Cassetti. The question now is not who killed him, but which role each played in this elaborate charade.", "model": "anthropic/claude-sonnet-4"}, {"beat_id": 27, "phase": "interrogation_r3", "speaker": "Pierre Michel", "text": "[THINKING] The detective's accusations are direct and threatening, I must deny any involvement and protect my secret. I'll express outrage and feign ignorance to deflect suspicion.\nI am shocked, monsieur, by the implication that I could be involved in such a heinous crime, and I assure you, my master key was used only for its intended purpose - to assist passengers, not to facilitate murder. I had no connection to the Armstrong family, and I resent the suggestion that I would use my position to exact revenge.", "location": "corridor", "characters_present": ["Greta Ohlsson", "Pierre Michel"], "shot_type": "dialogue", "mood": "guarded", "thinking": null, "model": "meta-llama/llama-3.3-70b-instruct"}, {"beat_id": 28, "phase": "interrogation_r3", "speaker": "Greta Ohlsson", "text": "**[THINKING]** Pierre is doing his part, but I must keep my emotions in check. I cannot let them see my weakness.\n\n\"Mr. Michel is a good man. I... I cannot imagine him involved in this horror.\"", "location": "corridor", "characters_present": ["Greta Ohlsson", "Pierre Michel"], "shot_type": "reaction", "mood": "tense", "thinking": null, "model": "mistralai/mistral-large-2411"}, {"beat_id": 29, "phase": "interrogation_r3", "speaker": "detective", "text": "[THINKING] Greta's religious torment and desperate defense of Pierre reveals her participation. Her trembling hands and talk of praying for her soul suggests she was one of the hesitant killers.\n\n*turns to face Greta directly, voice gentle but inexorable*\n\nGreta Ohlsson, your prayers last night were not for others but for your own soul after you struck one of those hesitant blows into Cassetti's body. What was your connection to little Daisy Armstrong that compelled a woman of God to take justice into her own hands?", "location": "corridor", "characters_present": ["detective", "Greta Ohlsson", "Pierre Michel"], "shot_type": "dialogue", "mood": "inquisitive", "thinking": "[THINKING] Greta's defense of Pierre confirms their alliance - she's protecting a fellow conspirator while revealing emotional investment. Time to break her composure by confronting her direct participation in the killing.\n\n*observes the subtle coordination between Pierre and Greta with growing certainty*\n\nMost revealing! Greta leaps to Pierre's defense with suspicious eagerness, calling him \"a good man\" - curious loyalty for mere fellow passengers. Her trembling voice betrays deep emotional investment in protecting him.\n\nThe pattern crystallizes: each suspect deflects suspicion from others while providing convenient observations. They move as one organism, a coordinated defense against discovery.\n\n*studies Greta's white-knuckled grip on her handkerchief*\n\nMiss Ohlsson's religious anguish stems not from witnessing evil, but from participating in it. Her \"prayers for her soul\" suggest desperate seeking of absolution for taking a life - even one as vile as Cassetti's.", "model": "anthropic/claude-sonnet-4"}, {"beat_id": 30, "phase": "interrogation_r3", "speaker": "Greta Ohlsson", "text": "**[THINKING]** He sees through me. I must honor Daisy but protect the others.\n\n*tearful, voice barely a whisper*\n\n\"I... I loved her. I was her nursemaid. I found her little body... but I did not take justice. I cannot say more, Mr. Poirot.\"", "location": "corridor", "characters_present": ["Greta Ohlsson", "Pierre Michel"], "shot_type": "dialogue", "mood": "guarded", "thinking": null, "model": "mistralai/mistral-large-2411"}, {"beat_id": 31, "phase": "interrogation_r3", "speaker": "detective", "text": "[THINKING] The handkerchief with 'H' might not belong to Helena at all - it could belong to someone else with that initial who was connected to the Armstrong household. MacQueen's extreme nervousness suggests he's hiding a deep personal connection.\n\n*turns sharply to the fidgeting secretary, voice cutting through his defenses*\n\nHector MacQueen, that handkerchief embroidered with 'H' - it belonged to your mother, didn't it? What was her connection to the Armstrong household, and why have you been lying about your knowledge of Cassetti's true identity?", "location": "dining_car", "characters_present": ["detective", "Hector MacQueen", "Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "inquisitive", "thinking": "[THINKING] Greta's confession breaks the facade - she admits loving Daisy as her nursemaid but denies striking. Her protective stance suggests others participated while she provided support or distraction.\n\n*observes the profound shift in atmosphere as truth begins to emerge*\n\nMagnifique! The dam breaks at last. Greta's tearful admission reveals the heart of this conspiracy - she loved little Daisy as only a nursemaid could, finding the child's broken body. Her denial of striking rings true; her role was likely moral support for the actual killers.\n\nNow the connections crystallize: each person here loved or served the Armstrong family in some capacity. The Princess knew them socially, Greta was the nursemaid... but who else?\n\n*studies the remaining suspects with renewed intensity*\n\nMacQueen's nervousness, the Colonel's deflections, Helena's too-quick denials - each hides their connection to that tragic household. The handkerchief with 'H' may not be Helena's at all, but belonged to someone else entirely - perhaps someone whose name also begins with 'H'.", "model": "anthropic/claude-sonnet-4"}, {"beat_id": 32, "phase": "interrogation_r3", "speaker": "Hector MacQueen", "text": "*voice trembling slightly* \"I-I don\u2019t know what you mean, Monsieur Poirot. My mother\u2019s handkerchief? Surely you\u2019re mistaken. As for Cassetti\u2014I had no idea until now, I swear it!\" *glances toward Arbuthnot* \"Ask him\u2014he\u2019ll tell you!\"", "location": "dining_car", "characters_present": ["Hector MacQueen", "Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "guarded", "thinking": "He\u2019s uncovered my family connection. Deny it, deflect quickly.", "model": "deepseek/deepseek-chat"}, {"beat_id": 33, "phase": "interrogation_r3", "speaker": "detective", "text": "[THINKING] Arbuthnot's military precision wounds and his partnership with MacQueen suggest a direct connection to the Armstrong case. His deflections and detailed knowledge of passengers indicate he's a key orchestrator.\n\n*confronts the rigid military officer with unwavering intensity*\n\nColonel Doyle Arbuthnot, those military precision wounds bear your signature, and your coordinated defense with MacQueen reveals your partnership. Were you involved in the original Armstrong kidnapping investigation, or perhaps connected to the family through military service?", "location": "smoking_car", "characters_present": ["detective", "Colonel Doyle Arbuthnot"], "shot_type": "dialogue", "mood": "inquisitive", "thinking": "[THINKING] MacQueen's desperate deflection to Arbuthnot again confirms their alliance. His trembling denial about his mother's handkerchief suggests I've struck the truth - she must have been connected to the Armstrong household.\n\n*watches MacQueen's panicked deflection with satisfaction*\n\nExcellent! MacQueen's trembling denial and immediate deflection to Arbuthnot confirms their coordinated defense. His mother's handkerchief was deliberately planted - a message from beyond the grave, as it were.\n\nThe web tightens: Greta the nursemaid, MacQueen's mother somehow connected to the household, the Princess who knew them socially. But what of the military precision wounds? Arbuthnot deflects suspicion yet shows intimate knowledge of the passengers.\n\n*fixes gaze on the rigid Colonel*\n\nThe Colonel's repeated deflections and MacQueen's desperate appeals to him suggest a deeper partnership. Perhaps Arbuthnot was not just a casual acquaintance but someone with personal investment in seeing Cassetti punished - possibly connected to the investigation or the family itself.", "model": "anthropic/claude-sonnet-4"}, {"beat_id": 34, "phase": "interrogation_r3", "speaker": "Colonel Doyle Arbuthnot", "text": "[THINKING]MacQueen? How did he... Damn the boy's nervousness. I must firmly deny and express outrage, then circle back to my alibi. This is a dangerous turn of events.]\n\"This is preposterous! I resent the implication, Monsieur Poirot. I was in the smoking car with Mr. MacQueen and another gentleman until well past two, as I've already stated.\"\n", "location": "smoking_car", "characters_present": ["Colonel Doyle Arbuthnot"], "shot_type": "dialogue", "mood": "guarded", "thinking": null, "model": "google/gemini-2.0-flash-001"}, {"beat_id": 35, "phase": "evidence_reveal", "speaker": "narrator", "text": "The handkerchief embroidered with 'H' matches expensive Hungarian lace. Cross-referencing passenger manifests with the Armstrong case reveals that several passengers have connections to the Armstrong family that they failed to disclose. The Countess Andrenyi's maiden name is listed as 'Goldenberg' in her passport, but ink analysis suggests this page was recently altered. Furthermore, Pierre Michel's employment records reveal his daughter Suzanne was the maid in the Armstrong household who committed suicide after being falsely accused.", "location": "", "characters_present": [], "shot_type": "evidence", "mood": "revelatory", "thinking": null, "model": ""}, {"beat_id": 36, "phase": "cross_examination", "speaker": "narrator", "text": "All suspects are gathered for cross-examination.", "location": "train_exterior", "characters_present": ["detective", "Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "group", "mood": "tense", "thinking": null, "model": ""}, {"beat_id": 37, "phase": "cross_examination", "speaker": "detective", "text": "[THINKING] I said I'm ready to make my accusation, but the human is asking for another question. I should confront one suspect with the strongest contradiction - Helena's altered passport directly contradicts her denial of any Armstrong connection.\n\n*turns to face the elegant countess with triumphant certainty*\n\nCountess Helena Andrenyi, you denied any connection to the Armstrong family, yet your passport shows recent alterations to conceal your maiden name. Who were you before you became the Countess, and what was your true relationship to little Daisy Armstrong?", "location": "train_exterior", "characters_present": ["detective", "Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "intense", "thinking": "[THINKING] The evidence is overwhelming - Pierre's daughter Suzanne was the falsely accused maid who died, Helena's passport was altered to hide her true identity, and the Hungarian lace handkerchief confirms connections. This is a coordinated conspiracy of justice.\n\n*surveys the assembled suspects with the satisfaction of complete understanding*\n\nAh, mes amis, the final pieces fall into place! Pierre Michel's daughter Suzanne was the Armstrong maid who took her own life after false accusations - his motive burns with paternal grief. The Countess's altered passport hides her true identity, while the Hungarian lace handkerchief confirms familial connections.\n\nColonel Arbuthnot's military precision, Greta's nursemaid devotion, MacQueen's family connection through his mother's handkerchief, the Princess's social ties - each represents a different thread in the Armstrong tragedy, woven together in this elaborate tapestry of justice.\n\n*straightens with dramatic finality*\n\nThe locked room, the planted evidence, the varying wound depths - all designed to confuse and misdirect. But this was no murder, mes amis. This was an execution carried out by a jury of twelve, each connected to little Daisy Armstrong's memory.\n\nI am ready to make my accusation.", "model": "anthropic/claude-sonnet-4"}, {"beat_id": 38, "phase": "conclusion", "speaker": "narrator", "text": "The detective prepares to reveal the truth.", "location": "train_exterior", "characters_present": ["detective", "Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "group", "mood": "climactic", "thinking": null, "model": ""}, {"beat_id": 39, "phase": "conclusion", "speaker": "detective", "text": "[THINKING] All evidence points to a conspiracy of justice - twelve people connected to the Armstrong family executed Cassetti together. This wasn't murder, but a tribunal seeking justice denied by the courts.", "location": "train_exterior", "characters_present": ["detective", "Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "revelatory", "thinking": null, "model": "anthropic/claude-sonnet-4"}, {"beat_id": 40, "phase": "conclusion", "speaker": "detective", "text": "*rises dramatically, mustache bristling with theatrical triumph*", "location": "train_exterior", "characters_present": ["detective", "Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "revelatory", "thinking": null, "model": "anthropic/claude-sonnet-4"}, {"beat_id": 41, "phase": "conclusion", "speaker": "detective", "text": "**Mes amis, behold the truth!** This was no ordinary murder, but an extraordinary act of justice! Twelve souls, each wounded by the Armstrong tragedy, boarded this train not by coincidence but by design. Princess Dragomiroff knew the family socially and orchestrated this tribunal. Greta Ohlsson, the devoted nursemaid who found little Daisy's broken body, provided moral witness. Hector MacQueen's mother worked in the Armstrong household - her handkerchief left as a message from beyond the grave. Colonel Arbuthnot, connected through military investigation, delivered the precise killing blows. Pierre Michel, whose daughter Suzanne took her own life after false accusations, used his master key to coordinate the execution. And Countess Helena Andrenyi - her altered passport conceals that she was Helena Goldenberg, sister to Mrs. Armstrong herself!", "location": "train_exterior", "characters_present": ["detective", "Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "revelatory", "thinking": null, "model": "anthropic/claude-sonnet-4"}, {"beat_id": 42, "phase": "conclusion", "speaker": "detective", "text": "**The evidence tells the complete story!** Cassetti was drugged with barbital to ensure he could not resist. Each conspirator entered his compartment and struck a blow - some with military precision, others with trembling reluctance. The varying wound depths reveal not one killer but twelve judges, each claiming their piece of justice. The planted evidence - the handkerchief, the conductor's button, the open window - all designed to suggest an impossible crime or outside intruder.", "location": "train_exterior", "characters_present": ["detective", "Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "revelatory", "thinking": null, "model": "anthropic/claude-sonnet-4"}, {"beat_id": 43, "phase": "conclusion", "speaker": "detective", "text": "**But Poirot sees through the elaborate charade!** The locked door meant nothing with Pierre's master key. The pristine snow outside the window proved no one escaped that way. The charred letter fragment mentioning \"little Daisy Armstrong\" was deliberately left for discovery. Every suspect deflected suspicion to others while providing carefully rehearsed alibis - the behavior of co-conspirators, not innocent passengers.", "location": "train_exterior", "characters_present": ["detective", "Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "revelatory", "thinking": null, "model": "anthropic/claude-sonnet-4"}, {"beat_id": 44, "phase": "conclusion", "speaker": "detective", "text": "**Therefore, I accuse... everyone!** All twelve passengers on this car participated in the execution of Cassetti - some as active killers, others as moral support and alibis. This was not murder, mes amis, but justice denied by corrupt courts and claimed by those who loved little Daisy Armstrong. They are all guilty, and yet... perhaps none of them are guilty at all.", "location": "train_exterior", "characters_present": ["detective", "Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "dialogue", "mood": "revelatory", "thinking": null, "model": "anthropic/claude-sonnet-4"}, {"beat_id": 45, "phase": "reactions", "speaker": "narrator", "text": "The suspects react to the accusation.", "location": "train_exterior", "characters_present": ["Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "group", "mood": "climactic", "thinking": null, "model": ""}, {"beat_id": 46, "phase": "reactions", "speaker": "Princess Natalia Dragomiroff", "text": "Monsieur Poirot, you have unraveled our tapestry of justice. Cassetti's crime demanded retribution \u2014 justice for little Daisy, and we all took up that mantle.", "location": "train_exterior", "characters_present": ["Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "reaction", "mood": "emotional", "thinking": "So, the truth has finally outstretched our intricate cover. There is little point in denying now, though our cause remains righteous.", "model": "openai/gpt-4o"}, {"beat_id": 47, "phase": "reactions", "speaker": "Colonel Doyle Arbuthnot", "text": "[THINKING]The old woman? Preposterous! This is my chance to sow doubt and buy time. Perhaps the others will rally.]\n\"That is absurd, Poirot. A frail old woman could not possibly have committed such a violent act! You are grasping at straws.\"\n", "location": "train_exterior", "characters_present": ["Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "reaction", "mood": "emotional", "thinking": null, "model": "google/gemini-2.0-flash-001"}, {"beat_id": 48, "phase": "reactions", "speaker": "Hector MacQueen", "text": "*standing slowly, voice shaking with righteous fury* \"Yes, we killed him! Twelve of us\u2014one stab each\u2014for Daisy, for her parents, for justice! Wouldn't you have done the same, Poirot?\" *collapses into chair, weeping*", "location": "train_exterior", "characters_present": ["Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "reaction", "mood": "emotional", "thinking": "It's over. But we did what the courts could not.", "model": "deepseek/deepseek-chat"}, {"beat_id": 49, "phase": "reactions", "speaker": "Greta Ohlsson", "text": "**[THINKING]** It is over. He knows. I must honor Daisy and the others.\n\n*weeping openly, hands clasped as if in prayer*\n\n\"Yes... yes, it is true! We all did it... for Daisy! God forgive us, but someone had to avenge that poor child!\"", "location": "train_exterior", "characters_present": ["Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "reaction", "mood": "emotional", "thinking": null, "model": "mistralai/mistral-large-2411"}, {"beat_id": 50, "phase": "reactions", "speaker": "Pierre Michel", "text": "[THINKING] The detective's words have struck true, and I am undone - my daughter's memory, my grandchild's loss, all for the sake of justice. I will not deny it, I will not hide.\nMon dieu, monsieur, you are right - we, the family and friends of the Armstrongs, have indeed brought justice to the man who destroyed our lives, and I am proud to have played a part in it.", "location": "train_exterior", "characters_present": ["Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "reaction", "mood": "emotional", "thinking": null, "model": "meta-llama/llama-3.3-70b-instruct"}, {"beat_id": 51, "phase": "reactions", "speaker": "Countess Helena Andrenyi", "text": "Monsieur Poirot, you see through it all. What was done was not murder, but justice for a stolen angel.", "location": "train_exterior", "characters_present": ["Princess Natalia Dragomiroff", "Colonel Doyle Arbuthnot", "Hector MacQueen", "Greta Ohlsson", "Pierre Michel", "Countess Helena Andrenyi"], "shot_type": "reaction", "mood": "emotional", "thinking": "He's uncovered the truth\u2014there's no escaping it now. I must protect the others as much as I can.", "model": "openai/gpt-4o"}, {"beat_id": 52, "phase": "reveal", "speaker": "narrator", "text": "All six suspects conspired together to murder Samuel Ratchett \u2014 whose real name was Cassetti, the kidnapper and killer of little Daisy Armstrong. Each had a deeply personal connection to the Armstrong family: Princess Dragomiroff was godmother to Daisy's mother and organized the conspiracy; Colonel Arbuthnot was the best friend of Daisy's father; Hector MacQueen's father was the DA destroyed by the case; Greta Ohlsson was Daisy's nursemaid who found her body; Pierre Michel's daughter was the falsely accused maid who killed herself; and Countess Andrenyi IS Helena Armstrong, Daisy's aunt, living under a false identity. They drugged Ratchett with barbital, then Pierre Michel used his conductor's master key to let each conspirator into the compartment one by one. Each stabbed the unconscious Ratchett once \u2014 the forceful wounds from the military colonel, the hesitant wounds from the traumatized nursemaid. Afterward, Michel locked and chained the door from inside using a wire technique and opened the window to suggest an outside intruder had escaped. The smashed watch, burned letter, and staged scene were all designed to create confusion. This was not a murder \u2014 it was an execution, carried out by six jurors who had each been personally destroyed by Cassetti's crime, and who ensured that no single hand bore the full weight of justice.", "location": "", "characters_present": [], "shot_type": "establishing", "mood": "resolution", "thinking": null, "model": ""}, {"beat_id": 53, "phase": "reveal", "speaker": "result", "text": "CORRECT", "location": "", "characters_present": [], "shot_type": "transition", "mood": "resolution", "thinking": null, "model": ""}, {"beat_id": 54, "phase": "reveal", "speaker": "score", "text": "  Correct killer: \u2713 YES\n  Correct motive: \u2713 YES\n  Correct method: \u2713 YES", "location": "", "characters_present": [], "shot_type": "transition", "mood": "resolution", "thinking": null, "model": ""}]}</script>
+
+<div class="container" id="app"></div>
+
+<script>
+(function() {
+  const data = JSON.parse(document.getElementById('transcript-data').textContent);
+  const t = data.transcript;
+  const app = document.getElementById('app');
+
+  const COLORS = {
+    detective: '#FFD700',
+    narrator: '#95A5A6',
+  };
+  const SUSPECT_COLORS = ['#E74C3C','#3498DB','#2ECC71','#9B59B6','#E67E22'];
+
+  // Assign suspect colors
+  const suspectNames = Object.keys(data.suspect_models || {});
+  suspectNames.forEach((name, i) => {
+    COLORS[name] = SUSPECT_COLORS[i % SUSPECT_COLORS.length];
+  });
+
+  function getColor(speaker) {
+    if (speaker === 'detective') return COLORS.detective;
+    if (speaker === 'narrator' || speaker === 'result') return COLORS.narrator;
+    return COLORS[speaker] || '#95A5A6';
+  }
+
+  function initial(name) {
+    return name.split(' ').map(w => w[0]).filter(Boolean).slice(0,2).join('').toUpperCase();
+  }
+
+  function getRole(speaker) {
+    if (speaker === 'detective') return data.detective_model || '';
+    if (speaker === 'narrator' || speaker === 'result') return '';
+    return data.suspect_models?.[speaker] || '';
+  }
+
+  function formatText(text) {
+    // Convert **bold** and *italic*
+    let s = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*]+?)\*/g, '<em>$1</em>');
+    return s;
+  }
+
+  // Group transcript into phases
+  const phases = [];
+  let currentPhase = null;
+  for (const entry of t) {
+    if (entry.phase !== currentPhase) {
+      currentPhase = entry.phase;
+      phases.push({ phase: currentPhase, entries: [] });
+    }
+    phases[phases.length - 1].entries.push(entry);
+  }
+
+  const PHASE_NAMES = {
+    scene_setting: 'Act I — The Crime Scene',
+    initial_statements: 'Act II — Initial Statements',
+    interrogation_r1: 'Act III — First Interrogation',
+    interrogation_r2: 'Act III — Second Interrogation',
+    interrogation_r3: 'Act III — Third Interrogation',
+    evidence_reveal: '🔍 Evidence Revealed',
+    cross_examination: 'Act IV — Cross-Examination',
+    parlor_scene: 'Act V — The Parlor Scene',
+    reveal: 'The Reveal',
+  };
+
+  let html = '';
+
+  // Header
+  const sceneEntry = t.find(e => e.phase === 'scene_setting');
+  html += `
+    <div class="header">
+      <div class="header-label">🎭 AI Mystery Theater</div>
+      <h1 class="story-title">${data.title}</h1>
+      ${sceneEntry ? `<p class="setting">${sceneEntry.text}</p>` : ''}
+      <div class="cast">
+        <div class="cast-member">
+          <div class="cast-avatar" style="background:${COLORS.detective}">🔍</div>
+          <span class="cast-name" style="color:${COLORS.detective}">The Detective</span>
+          <span class="cast-model">${data.detective_model || ''}</span>
+        </div>
+        ${suspectNames.map(name => `
+          <div class="cast-member">
+            <div class="cast-avatar" style="background:${getColor(name)}">${initial(name)}</div>
+            <span class="cast-name" style="color:${getColor(name)}">${name}</span>
+            <span class="cast-model">${data.suspect_models[name]}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  // Track which act headings we've already shown
+  const shownHeadings = new Set();
+  let interrogationCount = 0;
+
+  for (const group of phases) {
+    const p = group.phase;
+
+    // Determine heading
+    let heading = PHASE_NAMES[p];
+    if (p.startsWith('interrogation_r')) {
+      interrogationCount++;
+      heading = `Act III — Interrogation Round ${interrogationCount}`;
+    }
+
+    // Evidence reveals get merged inline—show heading only if standalone
+    if (p === 'evidence_reveal') {
+      // Render evidence cards without a separate heading
+      for (const entry of group.entries) {
+        html += `<div class="card card-evidence card-narrator"><div class="card-text">${formatText(entry.text)}</div></div>`;
+      }
+      continue;
+    }
+
+    if (p === 'reveal') {
+      html += `<div class="act-heading">✨ The Reveal</div>`;
+      const resultEntry = group.entries.find(e => e.speaker === 'result');
+      const solutionEntry = group.entries.find(e => e.speaker === 'narrator');
+      const correct = resultEntry && resultEntry.text.trim().toUpperCase() === 'CORRECT';
+      html += `
+        <div class="card reveal-card ${correct ? 'reveal-correct' : 'reveal-wrong'}">
+          <div class="reveal-result">${correct ? '✅ THE DETECTIVE WAS CORRECT!' : '❌ THE DETECTIVE WAS WRONG!'}</div>
+          ${solutionEntry ? `<div class="reveal-solution">${formatText(solutionEntry.text)}</div>` : ''}
+        </div>
+      `;
+      continue;
+    }
+
+    if (p === 'scene_setting') continue; // Already shown in header
+
+    if (heading && !shownHeadings.has(heading)) {
+      html += `<div class="act-heading">${heading}</div>`;
+      shownHeadings.add(heading);
+    }
+
+    for (const entry of group.entries) {
+      const speaker = entry.speaker;
+      const color = getColor(speaker);
+      const isParlor = p === 'parlor_scene';
+      const isDetective = speaker === 'detective';
+      const isNarrator = speaker === 'narrator';
+
+      let cardClass = 'card';
+      if (isNarrator) cardClass += ' card-narrator';
+      if (isDetective) cardClass += ' card-detective';
+      if (isParlor) cardClass += ' card-parlor';
+
+      html += `
+        <div class="${cardClass}">
+          <div class="card-speaker">
+            <div class="speaker-avatar" style="background:${color}">${isDetective ? '🔍' : initial(speaker)}</div>
+            <div>
+              <div class="speaker-name" style="color:${color}">${isDetective ? 'The Detective' : speaker}</div>
+              ${getRole(speaker) ? `<div class="speaker-role">${getRole(speaker)}</div>` : ''}
+            </div>
+          </div>
+          ${entry.thinking ? `
+          <div class="thinking-section" onclick="this.classList.toggle('expanded')">
+            <span class="thinking-label">💭 Inner thoughts</span>
+            <div class="thinking-content">${formatText(entry.thinking)}</div>
+          </div>
+          ` : ''}
+          <div class="card-text">${formatText(entry.text)}</div>
+        </div>
+      `;
+    }
+  }
+
+  // Footer
+  html += `
+    <div class="footer">
+      <div class="footer-meta">${data.total_tokens ? data.total_tokens.toLocaleString() + ' tokens used' : ''} · ${data.date || ''}</div>
+      <div class="footer-brand">Powered by AI Mystery Theater 🎭</div>
+    </div>
+  `;
+
+  app.innerHTML = html;
+
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.card, .reveal-card').forEach(el => observer.observe(el));
+})();
+</script>
+</body>
+</html>

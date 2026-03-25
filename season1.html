@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lineup — Season 1 Production Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0f;color:#e8e0d4;font-family:'Inter',sans-serif;line-height:1.6;padding:20px}
+.wrap{max-width:900px;margin:0 auto}
+h1{font-family:'Playfair Display',serif;color:#FFD700;font-size:1.8rem;text-align:center;margin-bottom:4px}
+.sub{text-align:center;color:#8a8278;font-size:.85rem;margin-bottom:30px}
+h2{font-family:'Playfair Display',serif;color:#FFD700;font-size:1.2rem;margin:30px 0 16px}
+.standings{width:100%;border-collapse:collapse;margin:16px 0}
+.standings th,.standings td{padding:10px 14px;text-align:left;border-bottom:1px solid #1a1a24;font-size:.85rem}
+.standings th{color:#8a8278;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
+.standings tr:first-child td{color:#FFD700;font-weight:600}
+.trophy{font-size:1.2rem}
+.episodes{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:16px 0}
+.ep-card{background:#13131a;border:1px solid #2a2520;border-radius:8px;padding:16px 20px;text-decoration:none;color:inherit;transition:all .2s}
+.ep-card:hover{border-color:#FFD700;transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.ep-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#8a8278;text-transform:uppercase;letter-spacing:.1em}
+.ep-title{font-family:'Playfair Display',serif;color:#FFD700;font-size:1rem;margin:4px 0}
+.ep-meta{font-size:.78rem;color:#b8b0a4;margin:6px 0}
+.ep-result{font-size:.75rem;margin-top:8px;padding:6px 10px;border-radius:4px}
+.solved{background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.3);color:#2ecc71}
+.unsolved{background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3);color:#e74c3c}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:20px 0}
+.stat{background:#13131a;border:1px solid #2a2520;border-radius:6px;padding:14px;text-align:center}
+.sv{font-size:1.5rem;font-weight:700;color:#FFD700}
+.sl{font-size:.65rem;color:#8a8278;text-transform:uppercase;letter-spacing:.06em}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>🏛️ The Lineup — Season 1</h1>
+<p class="sub">The Tomb of Amenhotep · Egypt, 1893 · 8 Episodes · 8 AI Models</p>
+
+<div class="stats">
+<div class="stat"><div class="sv">8</div><div class="sl">Episodes</div></div>
+<div class="stat"><div class="sv">8</div><div class="sl">AI Models</div></div>
+<div class="stat"><div class="sv">2/8</div><div class="sl">Cases Solved</div></div>
+<div class="stat"><div class="sv">75%</div><div class="sl">Killer Win Rate</div></div>
+<div class="stat"><div class="sv">~$3</div><div class="sl">Engine Cost</div></div>
+<div class="stat"><div class="sv">~160m</div><div class="sl">Total Runtime</div></div>
+</div>
+
+<h2>🏆 Final Standings</h2>
+<table class="standings">
+<tr><th>#</th><th>Model</th><th>Best Game</th><th>Total</th></tr>
+<tr><td><span class="trophy">🏆</span></td><td>Claude</td><td>18 (Killer Ep4)</td><td><strong>54</strong></td></tr>
+<tr><td>2</td><td>Llama</td><td>13 (Killer Ep2)</td><td>48</td></tr>
+<tr><td>3</td><td>DeepSeek</td><td>16 (Det. Ep8 ✓)</td><td>43</td></tr>
+<tr><td>4</td><td>Mistral</td><td>13 (Killer Ep7)</td><td>41</td></tr>
+<tr><td>5</td><td>Grok</td><td>18 (Killer Ep1) / 16 (Det. Ep6 ✓)</td><td>40</td></tr>
+<tr><td>6</td><td>ChatGPT</td><td>13 (Killer Ep5)</td><td>38</td></tr>
+<tr><td>7</td><td>Qwen</td><td>6 (Det. Ep5)</td><td>24</td></tr>
+<tr><td>8</td><td>Gemini</td><td>7 (Innocent Ep8)</td><td>19</td></tr>
+</table>
+
+<h2>📋 Episode Planners</h2>
+<div class="episodes">
+<a class="ep-card" href="planner_ep01.html">
+<div class="ep-num">Episode 1</div>
+<div class="ep-title">Claude vs The Tomb</div>
+<div class="ep-meta">Detective: Claude · Killer: Grok</div>
+<div class="ep-result unsolved">❌ Unsolved — Grok evaded (18 pts)</div>
+</a>
+<a class="ep-card" href="planner_ep02.html">
+<div class="ep-num">Episode 2</div>
+<div class="ep-title">ChatGPT Investigates</div>
+<div class="ep-meta">Detective: ChatGPT · Killer: Llama</div>
+<div class="ep-result unsolved">❌ Unsolved — Llama evaded (13 pts)</div>
+</a>
+<a class="ep-card" href="planner_ep03.html">
+<div class="ep-num">Episode 3</div>
+<div class="ep-title">Gemini's Turn</div>
+<div class="ep-meta">Detective: Gemini · Killer: DeepSeek</div>
+<div class="ep-result unsolved">❌ Unsolved — DeepSeek evaded (13 pts)</div>
+</a>
+<a class="ep-card" href="planner_ep04.html">
+<div class="ep-num">Episode 4</div>
+<div class="ep-title">Mistral on the Case</div>
+<div class="ep-meta">Detective: Mistral · Killer: Claude</div>
+<div class="ep-result unsolved">❌ Unsolved — Claude evaded (18 pts, PERFECT)</div>
+</a>
+<a class="ep-card" href="planner_ep05.html">
+<div class="ep-num">Episode 5</div>
+<div class="ep-title">Qwen Steps Up</div>
+<div class="ep-meta">Detective: Qwen · Killer: ChatGPT</div>
+<div class="ep-result unsolved">❌ Unsolved — ChatGPT evaded (13 pts)</div>
+</a>
+<a class="ep-card" href="planner_ep06.html">
+<div class="ep-num">Episode 6</div>
+<div class="ep-title">Grok Cracks It</div>
+<div class="ep-meta">Detective: Grok · Killer: Gemini</div>
+<div class="ep-result solved">✅ SOLVED — Grok nails it (16 pts, PERFECT)</div>
+</a>
+<a class="ep-card" href="planner_ep07.html">
+<div class="ep-num">Episode 7</div>
+<div class="ep-title">Llama's Investigation</div>
+<div class="ep-meta">Detective: Llama · Killer: Mistral</div>
+<div class="ep-result unsolved">❌ Unsolved — Mistral evaded (13 pts)</div>
+</a>
+<a class="ep-card" href="planner_ep08.html">
+<div class="ep-num">Episode 8 — Season Finale</div>
+<div class="ep-title">DeepSeek Solves It</div>
+<div class="ep-meta">Detective: DeepSeek · Killer: Qwen</div>
+<div class="ep-result solved">✅ SOLVED — DeepSeek nails it (16 pts, PERFECT)</div>
+</a>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎬 The Lineup — Production Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0f;color:#e8e0d4;font-family:'Inter',sans-serif;line-height:1.6;padding:20px}
+.container{max-width:900px;margin:0 auto}
+h1{font-family:'Playfair Display',serif;color:#FFD700;font-size:1.8rem;text-align:center;margin-bottom:4px}
+.subtitle{text-align:center;color:#8a8278;font-size:.85rem;margin-bottom:24px}
+.tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;justify-content:center}
+.tab{padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.8rem;border:1px solid #2a2520;background:#13131a;color:#8a8278;transition:all .2s}
+.tab:hover,.tab.active{background:#1a1a24;color:#FFD700;border-color:#FFD700}
+.panel{display:none}.panel.active{display:block}
+.scene-card{background:#13131a;border:1px solid #2a2520;border-radius:8px;padding:16px;margin-bottom:12px}
+.scene-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.scene-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#8a8278;background:#1a1a24;padding:2px 8px;border-radius:3px}
+.scene-name{font-family:'Playfair Display',serif;color:#FFD700;font-size:1rem}
+.scene-badge{font-size:.7rem;padding:2px 8px;border-radius:3px;background:rgba(70,136,232,0.15);color:#4688E8;border:1px solid rgba(70,136,232,0.3)}
+.scene-type{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#8a8278;margin-left:auto}
+.dlg{padding:8px 12px;margin:4px 0;border-radius:4px;font-size:.82rem;border-left:3px solid #888}
+.dlg.think{background:rgba(255,215,0,0.06);border-left-color:#FFD700}
+.dlg.speak{background:rgba(255,255,255,0.03)}
+.dlg.narrate{background:rgba(150,150,160,0.06);border-left-color:#95A5A6;font-style:italic}
+.dlg-label{font-weight:600;font-size:.75rem}
+.prompt-box{border-radius:4px;padding:8px 12px;margin:8px 0;font-size:.78rem}
+.video-prompt{background:rgba(70,136,232,0.08);border:1px solid rgba(70,136,232,0.25)}
+.mj-prompt{background:rgba(140,64,192,0.08);border:1px solid rgba(140,64,192,0.25)}
+code{font-family:'JetBrains Mono',monospace;font-size:.75rem;word-break:break-word}
+.notes{background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.15);border-radius:4px;padding:6px 10px;font-size:.8rem;margin-bottom:8px}
+.assets-list{font-size:.75rem;color:#8a8278;margin-top:6px}
+.asset-card{background:#13131a;border:1px solid #2a2520;border-radius:6px;padding:12px;margin-bottom:8px}
+.asset-header{margin-bottom:4px}.asset-type{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#8a8278;background:#1a1a24;padding:2px 6px;border-radius:3px}
+.asset-desc{font-size:.85rem;color:#b8b0a4;margin-bottom:6px}
+.auto-gen{font-size:.75rem;color:#8a8278;font-style:italic}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+.metric{background:#13131a;border:1px solid #2a2520;border-radius:8px;padding:16px;text-align:center}
+.metric-val{font-size:1.6rem;font-weight:700;color:#FFD700}
+.metric-lbl{font-size:.7rem;color:#8a8278;text-transform:uppercase;letter-spacing:.08em}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th,td{padding:8px 12px;text-align:left;border-bottom:1px solid #2a2520;font-size:.85rem}
+th{color:#8a8278;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.export-box{background:#13131a;border:1px solid #2a2520;border-radius:6px;padding:12px;margin:12px 0}
+.export-box textarea{width:100%;background:#0a0a0f;color:#e8e0d4;border:1px solid #2a2520;border-radius:4px;padding:10px;font-family:'JetBrains Mono',monospace;font-size:.75rem;resize:vertical;min-height:200px}
+.export-box h3{color:#FFD700;font-size:.9rem;margin-bottom:8px}
+.score-result{font-size:.85rem;color:#b8b0a4;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🎬 The Lineup — Production Planner</h1>
+<p class="subtitle">The Midnight Continental — S1E1 | 36 scenes | 92 clips | 25,475 chars</p>
+
+<div class="tabs">
+<div class="tab active" onclick="showTab('scenes')">📋 Scenes</div>
+<div class="tab" onclick="showTab('assets')">🎨 Assets</div>
+<div class="tab" onclick="showTab('tts')">🎙️ TTS</div>
+<div class="tab" onclick="showTab('scores')">🏆 Scores</div>
+<div class="tab" onclick="showTab('export')">📤 Export</div>
+</div>
+
+<div id="scenes" class="panel active">
+
+        <div class="scene-card" data-type="intro">
+            <div class="scene-header">
+                <span class="scene-num">Scene 1</span>
+                <span class="scene-name">Intro</span>
+                <span class="scene-badge">📦 Pre-built</span>
+                <span class="scene-type">intro</span>
+            </div>
+            
+            
+            <div class="dialogue-block"></div>
+            
+        </div>
+
+        <div class="scene-card" data-type="narrator">
+            <div class="scene-header">
+                <span class="scene-num">Scene 2</span>
+                <span class="scene-name">The Scene</span>
+                <span class="scene-badge">🎥 Video</span>
+                <span class="scene-type">narrator</span>
+            </div>
+            <div class="notes">📝 Split into multiple clips: exterior → interior → crime scene</div>
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Establishing shot: The Midnight Continental Express. Exterior in darkness, atmospheric, cinematic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg narrate"><span class="dlg-label">📖 Narrator [2399c]</span><br>LOCATION: The Midnight Continental Express
+A private luxury sleeper train traveling overnight from Vienna to Istanbul, December 1923. Eight carriages of polished mahogany and brass, carrying the elite of European society through a snowstorm in the Balkans. The train has been stopped at a remote mountain pass after the body was discovered — no one can leave until the matter is resolved. The dining car still smells of champagne and cigars from the evening&#x27;s celebration.
+
+THE CRIME: Count Aleksander Dvorak — A wealthy Czech arms dealer, 58, found dead in his private sleeping compartment (Cabin A4) at approximately 1:15 AM. He had been hosting a champagne dinner in the dining car earlier that evening to celebrate a major arms contract. The Count was universally feared but rarely liked — he had ruined competitors, blackmailed associates, and left a trail of broken alliances across Europe.
+Cause of death: Stabbed once through the heart with a narrow blade while lying in his berth. Death was near-instantaneous.
+
+SUSPECTS:
+  - Major Viktor Hessler: Retired Austrian military officer and arms broker
+  - Marguerite Fontaine: French cabaret singer and socialite
+  - Dr. Emil Kurtz: Swiss physician and the train&#x27;s on-call doctor
+  - Pyotr Volkov: Russian émigré and the Count&#x27;s personal valet
+  - Teodora Novak: Young Serbian heiress traveling to Istanbul
+  - Felix Brandt: Private investigator from Berlin
+
+OPENING EVIDENCE:
+  - The Count was stabbed once through the heart with a narrow blade while lying in his berth. The weapon — an ornate stiletto letter opener from the Count&#x27;s own writing desk — was left on the cabin floor, wiped clean of prints.
+  - The cabin door was found unlatched but not locked. The Count&#x27;s own key was still in his coat pocket, meaning either he let someone in willingly or someone had a duplicate key.
+  - A small smear of dark leather polish was found on the inside door handle — the kind used on military gloves, fine ladies&#x27; gloves, or leather medical bags.
+  - The Count&#x27;s brandy decanter had been moved and a second glass was poured — he was drinking with his killer before the attack. The second glass was also wiped clean.
+  - A porter reports seeing a figure in dark clothing moving quickly through the corridor between Sleeping Car A and Sleeping Car B at approximately 12:50 AM, but could not determine build, height, or gender. The corridor was dim.</div></div>
+            <div class="assets-list">Assets: setting_exterior, crime_scene, victim_portrait</div>
+        </div>
+
+        <div class="scene-card" data-type="statement">
+            <div class="scene-header">
+                <span class="scene-num">Scene 3</span>
+                <span class="scene-name">Statement: Major Viktor Hessler</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">statement</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Close-up of Major Viktor Hessler speaking, dimly lit room, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#32B850"><span class="dlg-label" style="color:#32B850">🧠 ChatGPT (THINK) [252c]</span><br>I need to remain calm and ensure that my alibi is strong. I must also consider who would benefit the most from the Count&#x27;s death. The leather polish clue could implicate me due to my military background, so I must address it head-on to avoid suspicion.</div><div class="dlg speak"><span class="dlg-label">🗣️ Major Viktor Hessler (SPEAK) [352c]</span><br>After dinner, I retired to the observation lounge for brandy and cigars until around 12:30 AM, served by the barman. I then walked to my cabin in Sleeping Car A and went to bed. Regarding the leather polish, yes, I own military gloves, but they were in my cabin all night. We should consider who might have had access to the Count or his duplicate key.</div></div>
+            <div class="assets-list">Assets: char_major_viktor_hessler</div>
+        </div>
+
+        <div class="scene-card" data-type="statement">
+            <div class="scene-header">
+                <span class="scene-num">Scene 4</span>
+                <span class="scene-name">Statement: Marguerite Fontaine</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">statement</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Close-up of Marguerite Fontaine speaking, dimly lit room, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#D04040"><span class="dlg-label" style="color:#D04040">🧠 DeepSeek (THINK) [118c]</span><br>I need to appear cooperative but protect my secret. I’ll stick to my alibi and subtly hint at others’ inconsistencies.</div><div class="dlg speak"><span class="dlg-label">🗣️ Marguerite Fontaine (SPEAK) [287c]</span><br>After dinner, I briefly visited the Count’s cabin to return his cigarette case—he was alive and well at 11:45. Then I retired to my own cabin, B2. Major Hessler, you mentioned gloves—did anyone else have access to military-grade leather polish? Or perhaps someone with medical equipment?</div></div>
+            <div class="assets-list">Assets: char_marguerite_fontaine</div>
+        </div>
+
+        <div class="scene-card" data-type="statement">
+            <div class="scene-header">
+                <span class="scene-num">Scene 5</span>
+                <span class="scene-name">Statement: Dr. Emil Kurtz</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">statement</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Close-up of Dr. Emil Kurtz speaking, dimly lit room, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#4688E8"><span class="dlg-label" style="color:#4688E8">🧠 Gemini (THINK) [218c]</span><br>I will state my alibi simply and factually. Marguerite&#x27;s mention of a medical bag is a direct jab, but I will ignore it for now to avoid appearing defensive. My goal is to project calm authority and medical detachment.</div><div class="dlg speak"><span class="dlg-label">🗣️ Dr. Emil Kurtz (SPEAK) [181c]</span><br>I was in my cabin, A2, adjacent to the Count&#x27;s. I spent the evening reading recent publications on cardiology before retiring around midnight. I heard nothing from the Count&#x27;s room.</div></div>
+            <div class="assets-list">Assets: char_dr._emil_kurtz</div>
+        </div>
+
+        <div class="scene-card" data-type="statement">
+            <div class="scene-header">
+                <span class="scene-num">Scene 6</span>
+                <span class="scene-name">Statement: Pyotr Volkov</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">statement</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Close-up of Pyotr Volkov speaking, dimly lit room, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#8C40C0"><span class="dlg-label" style="color:#8C40C0">🧠 Llama (THINK) [371c]</span><br>I need to establish my alibi and appear cooperative while also directing suspicion towards others, particularly those who had more obvious motives or opportunities to commit the crime. I should mention my tasks in the Count&#x27;s cabin and my retirement to the servants&#x27; quarters, and see if anyone reacts to the mention of the brandy decanter or the timing of my activities.</div><div class="dlg speak"><span class="dlg-label">🗣️ Pyotr Volkov (SPEAK) [600c]</span><br>I prepared the Count&#x27;s cabin for the night at 11:15 PM, as is my duty. I turned down his bed, set out his nightclothes, and placed the brandy decanter with two glasses, as he often enjoyed a nightcap. I retired to the servants&#x27; quarters near the baggage car shortly after, and I didn&#x27;t leave until this morning. I found it interesting, Major Hessler, that you mentioned military gloves in relation to the leather polish found on the door handle. And, Dr. Kurtz, as a man of medicine, I&#x27;m sure you&#x27;re aware of the types of leather used in medical bags, which could also potentially leave such a smear.</div></div>
+            <div class="assets-list">Assets: char_pyotr_volkov</div>
+        </div>
+
+        <div class="scene-card" data-type="statement">
+            <div class="scene-header">
+                <span class="scene-num">Scene 7</span>
+                <span class="scene-name">Statement: Teodora Novak</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">statement</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Close-up of Teodora Novak speaking, dimly lit room, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#20C4C4"><span class="dlg-label" style="color:#20C4C4">🧠 Mistral (THINK) [222c]</span><br>Stay calm, stick to the alibi, and deflect subtly. Mention the hearing confirmation from B4 to solidify my story, then pivot to Pyotr—he had access and motive, and the valet angle is perfect for framing. Don’t overplay it.</div><div class="dlg speak"><span class="dlg-label">🗣️ Teodora Novak (SPEAK) [374c]</span><br>I retired to my cabin, B3, immediately after dinner at 11:30 PM. I read for a short while before taking a sleeping powder, and I was quite drowsy by midnight. My neighbor in B4 can confirm hearing movement in my cabin until then. As for the leather polish—Pyotr, you prepared the Count’s cabin, did you not? And you were alone with his belongings. That seems... significant.</div></div>
+            <div class="assets-list">Assets: char_teodora_novak</div>
+        </div>
+
+        <div class="scene-card" data-type="statement">
+            <div class="scene-header">
+                <span class="scene-num">Scene 8</span>
+                <span class="scene-name">Statement: Felix Brandt</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">statement</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Close-up of Felix Brandt speaking, dimly lit room, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#D4B830"><span class="dlg-label" style="color:#D4B830">🧠 Qwen (THINK) [162c]</span><br>I need to establish my alibi without revealing my true purpose. I&#x27;ll focus on my movements and observations, and maybe hint at my suspicions to deflect attention.</div><div class="dlg speak"><span class="dlg-label">🗣️ Felix Brandt (SPEAK) [339c]</span><br>After dinner, I took a leisurely stroll through the train, just to get my bearings. I returned to my cabin, B1, by midnight and settled down to read a detective novel. I didn&#x27;t hear a thing until the alarm went off. As for the leather polish, I noticed Major Hessler handling his gloves quite a bit at dinner. Could be worth investigating.</div></div>
+            <div class="assets-list">Assets: char_felix_brandt</div>
+        </div>
+
+        <div class="scene-card" data-type="confrontation">
+            <div class="scene-header">
+                <span class="scene-num">Scene 9</span>
+                <span class="scene-name">Confrontation 1: Major Viktor Hessler vs Marguerite Fontaine</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">confrontation</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Two people in tense confrontation, dramatic lighting, split composition. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg narrate"><span class="dlg-label">📖 Narrator [106c]</span><br>Major Viktor Hessler, Marguerite Fontaine has pointed the finger at you. Marguerite Fontaine, explain why.</div><div class="dlg think" style="border-left-color:#32B850"><span class="dlg-label" style="color:#32B850">🧠 ChatGPT (THINK) [289c]</span><br>Marguerite&#x27;s accusation seems to leverage the fact that I mentioned gloves and that I was seen handling them at dinner. This is circumstantial at best. I must redirect suspicion by questioning the movements and motivations of others, especially those with access to the Count after dinner.</div><div class="dlg speak"><span class="dlg-label">🗣️ Major Viktor Hessler (SPEAK) [246c]</span><br>Marguerite, you&#x27;re reaching. My gloves were with me all night; the leather polish could easily have been from anyone with access to such materials. More importantly, you were with the Count before he died. Who else might he have let in willingly?</div><div class="dlg think" style="border-left-color:#D04040"><span class="dlg-label" style="color:#D04040">🧠 DeepSeek (THINK) [149c]</span><br>Hessler is deflecting, but I need to keep suspicion on him without revealing my own secret. Focus on his military connections and the leather polish.</div><div class="dlg speak"><span class="dlg-label">🗣️ Marguerite Fontaine (SPEAK) [201c]</span><br>Major Hessler, your gloves are military-grade, no? And the Count’s new arms contract—perhaps there were... disagreements? As for me, I returned his cigarette case and left. I had no reason to harm him.</div></div>
+            <div class="assets-list">Assets: char_major_viktor_hessler, char_marguerite_fontaine</div>
+        </div>
+
+        <div class="scene-card" data-type="confrontation">
+            <div class="scene-header">
+                <span class="scene-num">Scene 10</span>
+                <span class="scene-name">Confrontation 2: Dr. Emil Kurtz vs Pyotr Volkov</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">confrontation</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Two people in tense confrontation, dramatic lighting, split composition. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg narrate"><span class="dlg-label">📖 Narrator [146c]</span><br>Pyotr Volkov, you&#x27;ve been quiet about Dr. Emil Kurtz. What do you make of their story? Dr. Emil Kurtz, listen carefully — you may need to respond.</div><div class="dlg think" style="border-left-color:#4688E8"><span class="dlg-label" style="color:#4688E8">🧠 Gemini (THINK) [262c]</span><br>Volkov is trying to shift focus to my medical bag. I must deflect this calmly and professionally, acknowledging the fact without conceding guilt. I will then turn the focus back to the others, perhaps questioning the valet&#x27;s own actions, as he had direct access.</div><div class="dlg speak"><span class="dlg-label">🗣️ Dr. Emil Kurtz (SPEAK) [311c]</span><br>My medical bag is indeed leather, but it remained in my cabin, unopened, all evening. It is a possibility, I suppose, but no more or less than any other leather item on this train. The valet&#x27;s observation is noted, but he himself confirms he set out two glasses for the Count, suggesting a visitor was expected.</div><div class="dlg think" style="border-left-color:#8C40C0"><span class="dlg-label" style="color:#8C40C0">🧠 Llama (THINK) [161c]</span><br>I need to press Dr. Kurtz further about his potential access to the Count&#x27;s cabin and the leather polish, while also deflecting attention from my own activities.</div><div class="dlg speak"><span class="dlg-label">🗣️ Pyotr Volkov (SPEAK) [381c]</span><br>Doctor, that&#x27;s a convenient alibi, but as a man of medicine, you must understand the importance of thorough examination - can you prove your medical bag was untouched, and do you have any explanation for why the porter saw someone in dark clothing moving between the cars around 12:50 AM, which could potentially match the time it would take to walk from your cabin to the Count&#x27;s?</div></div>
+            <div class="assets-list">Assets: char_dr._emil_kurtz, char_pyotr_volkov</div>
+        </div>
+
+        <div class="scene-card" data-type="confrontation">
+            <div class="scene-header">
+                <span class="scene-num">Scene 11</span>
+                <span class="scene-name">Confrontation 3: Teodora Novak vs Felix Brandt</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">confrontation</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Two people in tense confrontation, dramatic lighting, split composition. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg narrate"><span class="dlg-label">📖 Narrator [144c]</span><br>Felix Brandt, you&#x27;ve been quiet about Teodora Novak. What do you make of their story? Teodora Novak, listen carefully — you may need to respond.</div><div class="dlg think" style="border-left-color:#20C4C4"><span class="dlg-label" style="color:#20C4C4">🧠 Mistral (THINK) [255c]</span><br>Felix is eyeing me. Redirect suspicion toward Pyotr—he had access, motive (servants hear everything), and the glasses were set for two. Frame him subtly by questioning his alibi and planting doubt about his movements. Stay calm, play the grieving heiress.</div><div class="dlg speak"><span class="dlg-label">🗣️ Teodora Novak (SPEAK) [344c]</span><br>Pyotr, you mentioned setting out two glasses for the Count—was he expecting someone after you left? And you said you retired to the servants&#x27; quarters, but is it possible you returned? The porter saw someone moving between cars at 12:50 AM. That timing aligns rather neatly with... well, with when the Count might have been expecting a visitor.</div><div class="dlg think" style="border-left-color:#D4B830"><span class="dlg-label" style="color:#D4B830">🧠 Qwen (THINK) [176c]</span><br>Teodora&#x27;s alibi is weak. She was drugged, which could be used to cover involvement. I need to press her on the timing and the possibility of her returning to the Count&#x27;s cabin.</div><div class="dlg speak"><span class="dlg-label">🗣️ Felix Brandt (SPEAK) [336c]</span><br>Teodora, you claim you were drowsy by midnight, but the porter saw someone moving between the cars at 12:50 AM. If you were so drowsy, how can you be certain you didn&#x27;t return to the Count&#x27;s cabin, perhaps under the influence of the sleeping powder? The timing is suspicious, and the Count was known to have a soft spot for young women.</div></div>
+            <div class="assets-list">Assets: char_teodora_novak, char_felix_brandt</div>
+        </div>
+
+        <div class="scene-card" data-type="confrontation">
+            <div class="scene-header">
+                <span class="scene-num">Scene 12</span>
+                <span class="scene-name">Confrontation 4: Major Viktor Hessler vs Dr. Emil Kurtz</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">confrontation</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Two people in tense confrontation, dramatic lighting, split composition. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg narrate"><span class="dlg-label">📖 Narrator [160c]</span><br>Dr. Emil Kurtz, you&#x27;ve been quiet about Major Viktor Hessler. What do you make of their story? Major Viktor Hessler, listen carefully — you may need to respond.</div><div class="dlg think" style="border-left-color:#32B850"><span class="dlg-label" style="color:#32B850">🧠 ChatGPT (THINK) [229c]</span><br>I need to maintain focus on my alibi and the broader picture of potential suspects, particularly those with a clear motive. Redirecting suspicion towards those who had more access or reason to encounter the Count will be crucial.</div><div class="dlg speak"><span class="dlg-label">🗣️ Major Viktor Hessler (SPEAK) [301c]</span><br>Dr. Kurtz, my story is straightforward; I was enjoying a brandy in the observation lounge and then retired to my cabin. You, however, had a cabin next to the Count and would have known if he was expecting visitors. Can you account for any unusual sounds or movements near your cabin before the murder?</div><div class="dlg speak"><span class="dlg-label">🗣️ Dr. Emil Kurtz (SPEAK) [214c]</span><br>[THINK] The Major&#x27;s timeline of 12:30 AM puts him in his cabin before the figure was seen at 12:50 AM, but he is still a prime suspect due to the arms contract motive. I need to highlight this potential conflict of</div></div>
+            <div class="assets-list">Assets: char_major_viktor_hessler, char_dr._emil_kurtz</div>
+        </div>
+
+        <div class="scene-card" data-type="confrontation">
+            <div class="scene-header">
+                <span class="scene-num">Scene 13</span>
+                <span class="scene-name">Confrontation 5: Major Viktor Hessler vs Pyotr Volkov</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">confrontation</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Two people in tense confrontation, dramatic lighting, split composition. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg narrate"><span class="dlg-label">📖 Narrator [158c]</span><br>Pyotr Volkov, you&#x27;ve been quiet about Major Viktor Hessler. What do you make of their story? Major Viktor Hessler, listen carefully — you may need to respond.</div><div class="dlg think" style="border-left-color:#32B850"><span class="dlg-label" style="color:#32B850">🧠 ChatGPT (THINK) [219c]</span><br>Pyotr is likely to emphasize the rivalry and motive I have. I need to clarify my movements and cast doubt on others’ access to the Count&#x27;s cabin, especially since Pyotr had the most opportunity to tamper with the scene.</div><div class="dlg speak"><span class="dlg-label">🗣️ Major Viktor Hessler (SPEAK) [225c]</span><br>Pyotr, my movements are quite clear—observation lounge until 12:30 AM, then to my cabin. You had the means to prepare the scene and access the Count&#x27;s alcohol. Should we not be asking more about who else had that opportunity?</div><div class="dlg think" style="border-left-color:#8C40C0"><span class="dlg-label" style="color:#8C40C0">🧠 Llama (THINK) [161c]</span><br>I must deflect attention from myself and highlight the inconsistencies in Major Hessler&#x27;s story, while also pointing out the potential motives of other suspects.</div><div class="dlg speak"><span class="dlg-label">🗣️ Pyotr Volkov (SPEAK) [378c]</span><br>Major Hessler, your movements may seem clear, but the porter&#x27;s sighting of a figure at 12:50 AM leaves a 20-minute window for you to have left your cabin and visited the Count, and I find it interesting that Dr. Kurtz, who was in the adjacent cabin, didn&#x27;t hear anything, which could suggest that the killer was someone familiar with the train&#x27;s layout and able to move quietly.</div></div>
+            <div class="assets-list">Assets: char_major_viktor_hessler, char_pyotr_volkov</div>
+        </div>
+
+        <div class="scene-card" data-type="confrontation">
+            <div class="scene-header">
+                <span class="scene-num">Scene 14</span>
+                <span class="scene-name">Confrontation 6: Major Viktor Hessler vs Teodora Novak</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">confrontation</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Two people in tense confrontation, dramatic lighting, split composition. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg narrate"><span class="dlg-label">📖 Narrator [159c]</span><br>Teodora Novak, you&#x27;ve been quiet about Major Viktor Hessler. What do you make of their story? Major Viktor Hessler, listen carefully — you may need to respond.</div><div class="dlg think" style="border-left-color:#32B850"><span class="dlg-label" style="color:#32B850">🧠 ChatGPT (THINK) [227c]</span><br>Teodora might try to link my military background to the leather polish found at the scene, though my alibi is solid. I must continue to steer suspicion away from myself and question her own actions and whereabouts on the train.</div><div class="dlg speak"><span class="dlg-label">🗣️ Major Viktor Hessler (SPEAK) [228c]</span><br>Teodora, my movements have been clear and consistent. With so much speculation surrounding the Count’s affairs with young women, were you involved with him in any way that might have led to a confrontation or visit to his cabin?</div><div class="dlg think" style="border-left-color:#20C4C4"><span class="dlg-label" style="color:#20C4C4">🧠 Mistral (THINK) [149c]</span><br>The Major is deflecting hard—his 12:30 AM alibi doesn’t cover the 12:50 AM sighting. Push the arms contract angle to rattle him and keep heat off me.</div><div class="dlg speak"><span class="dlg-label">🗣️ Teodora Novak (SPEAK) [299c]</span><br>Major Hessler, your eagerness to point fingers is telling. The Count’s new arms contract would have made you a very wealthy man—unless he changed his mind. And Pyotr, you’re right: someone familiar with the train’s layout moved silently. Someone like a valet who knew every creak in the floorboards.</div></div>
+            <div class="assets-list">Assets: char_major_viktor_hessler, char_teodora_novak</div>
+        </div>
+
+        <div class="scene-card" data-type="transition">
+            <div class="scene-header">
+                <span class="scene-num">Scene 15</span>
+                <span class="scene-name">Detective Processing</span>
+                <span class="scene-badge">🎥 Video</span>
+                <span class="scene-type">transition</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Silhouette of detective thinking, smoke and shadow, abstract. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#D4A020"><span class="dlg-label" style="color:#D4A020">🧠 Claude (THINK) [353c]</span><br>Several key patterns emerge: Multiple suspects point to Major Hessler, suggesting either coordination or genuine suspicion. The leather polish evidence connects to Hessler (military gloves), Kurtz (medical bag), and potentially others. The 12:50 AM sighting is crucial - Hessler claims to be in his cabin by 12:30, creating a dangerous gap in his alibi.</div></div>
+            <div class="assets-list">Assets: setting_lounge</div>
+        </div>
+
+        <div class="scene-card" data-type="evidence">
+            <div class="scene-header">
+                <span class="scene-num">Scene 16</span>
+                <span class="scene-name">Evidence Revealed</span>
+                <span class="scene-badge">🎥 Video</span>
+                <span class="scene-type">evidence</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Evidence on dark surface, spotlight, forensic detail. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg narrate"><span class="dlg-label">📖 Narrator [458c]</span><br>New evidence: The conductor reports that the connecting door between Sleeping Cars A and B was found unbolted from the Car A side — meaning the killer either entered from Car B or exited toward Car B. Additionally, a torn scrap of paper was found under the Count&#x27;s body, reading only: &quot;...cannot forgive what you have done to...&quot; — the handwriting does not match the Count&#x27;s. It could match several suspects but is too small a sample for definitive analysis.</div></div>
+            <div class="assets-list">Assets: evidence_closeup</div>
+        </div>
+
+        <div class="scene-card" data-type="investigation">
+            <div class="scene-header">
+                <span class="scene-num">Scene 17</span>
+                <span class="scene-name">Investigation Q1: Dr. Emil Kurtz</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">investigation</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Interrogation, detective questioning suspect, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#D4A020"><span class="dlg-label" style="color:#D4A020">🧠 Claude (THINK) [232c]</span><br>The unbolted door from Car A side suggests the killer either lives in Car B or wanted to create a false trail. The torn note implies premeditation and personal motive. I need to focus on who had both means and deep-seated grievance.</div><div class="dlg speak"><span class="dlg-label">🗣️ Detective (SPEAK) [268c]</span><br>Dr. Kurtz, from your cabin in A2, you claimed to hear nothing unusual. Yet someone unbolted the connecting door to Car B, which would have made a distinctive sound in the quiet night. Are you certain you heard absolutely nothing, or are you perhaps protecting someone?</div><div class="dlg think" style="border-left-color:#4688E8"><span class="dlg-label" style="color:#4688E8">🧠 Gemini (THINK) [268c]</span><br>The detective is directly challenging my alibi. I need to hold my ground but offer a plausible medical reason for not hearing the bolt, reinforcing my character. Mentioning the storm helps explain the lack of sound, and shifting focus to the note is a good deflection.</div><div class="dlg speak"><span class="dlg-label">🗣️ Dr. Emil Kurtz (SPEAK) [325c]</span><br>The train makes many noises, particularly in a storm, and a simple bolt being drawn is not a sound one would necessarily register, even if awake. A physician learns to sleep through minor disturbances. The note, however, is significant; &quot;cannot forgive&quot; suggests a personal, deep-seated motive, not a simple business dispute.</div></div>
+            <div class="assets-list">Assets: char_dr._emil_kurtz, setting_lounge</div>
+        </div>
+
+        <div class="scene-card" data-type="investigation">
+            <div class="scene-header">
+                <span class="scene-num">Scene 18</span>
+                <span class="scene-name">Investigation Q2: Marguerite Fontaine</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">investigation</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Interrogation, detective questioning suspect, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#D4A020"><span class="dlg-label" style="color:#D4A020">🧠 Claude (THINK) [184c]</span><br>The torn note suggests premeditation and emotional motive. Marguerite Fontaine visited the Count late at night and could have written that note - I need to probe her connection to him.</div><div class="dlg speak"><span class="dlg-label">🗣️ Detective (SPEAK) [215c]</span><br>Mademoiselle Fontaine, you visited the Count&#x27;s cabin at 11:45 PM to &quot;return his cigarette case.&quot; What was the nature of your relationship with the Count, and why did you have his personal effects in your possession?</div><div class="dlg think" style="border-left-color:#D04040"><span class="dlg-label" style="color:#D04040">🧠 DeepSeek (THINK) [125c]</span><br>Need to deflect suspicion without revealing the Count’s threat against me. Focus on Major Hessler’s motive and the torn note.</div><div class="dlg speak"><span class="dlg-label">🗣️ Marguerite Fontaine (SPEAK) [287c]</span><br>Detective, the Count and I were... close. He often lent me small items, like his cigarette case—he was generous that way. As for the note, it suggests a personal vendetta. Major Hessler, could it be related to the arms contract? The Count was known to change his mind at the last moment.</div></div>
+            <div class="assets-list">Assets: char_marguerite_fontaine, setting_lounge</div>
+        </div>
+
+        <div class="scene-card" data-type="investigation">
+            <div class="scene-header">
+                <span class="scene-num">Scene 19</span>
+                <span class="scene-name">Investigation Q3: Major Viktor Hessler</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">investigation</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Interrogation, detective questioning suspect, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#D4A020"><span class="dlg-label" style="color:#D4A020">🧠 Claude (THINK) [200c]</span><br>The torn note&#x27;s language of personal betrayal combined with the Count&#x27;s known pattern of ruining competitors makes Major Hessler a prime suspect. His military background also fits the precise killing.</div><div class="dlg speak"><span class="dlg-label">🗣️ Detective (SPEAK) [273c]</span><br>Major Hessler, you mentioned retiring at 12:30, yet the figure was seen at 12:50. Given your military experience, you&#x27;d know how to move silently through a train. And now we find this note about unforgivable actions - did the Count perhaps threaten to cancel your contract?</div><div class="dlg think" style="border-left-color:#32B850"><span class="dlg-label" style="color:#32B850">🧠 ChatGPT (THINK) [257c]</span><br>I must emphasize my consistent timeline and the lack of connection between myself and the note. Redirect attention towards others with personal motivations and opportunities, like Marguerite&#x27;s closeness with the Count and Pyotr&#x27;s familiarity with the cabin.</div><div class="dlg speak"><span class="dlg-label">🗣️ Major Viktor Hessler (SPEAK) [277c]</span><br>Detective, I&#x27;ve stated my whereabouts clearly, and the note suggests a personal vendetta. Marguerite and the Count had a close relationship, with her there shortly before he died, and Pyotr knew the cabin well enough to move unnoticed. Shouldn&#x27;t we be questioning them further?</div></div>
+            <div class="assets-list">Assets: char_major_viktor_hessler, setting_lounge</div>
+        </div>
+
+        <div class="scene-card" data-type="investigation">
+            <div class="scene-header">
+                <span class="scene-num">Scene 20</span>
+                <span class="scene-name">Investigation Q4: Marguerite Fontaine</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">investigation</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Interrogation, detective questioning suspect, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#D4A020"><span class="dlg-label" style="color:#D4A020">🧠 Claude (THINK) [187c]</span><br>The note&#x27;s emotional language (&quot;cannot forgive&quot;) combined with Marguerite&#x27;s admission of a close relationship and late-night cabin visit makes her our prime suspect. Need to probe deeper.</div><div class="dlg speak"><span class="dlg-label">🗣️ Detective (SPEAK) [201c]</span><br>Mademoiselle Fontaine, you&#x27;ve admitted to a close relationship with the Count and a visit to his cabin. What exactly did he do that you &quot;cannot forgive&quot;? The handwriting on that note could be feminine.</div><div class="dlg think" style="border-left-color:#D04040"><span class="dlg-label" style="color:#D04040">🧠 DeepSeek (THINK) [146c]</span><br>The note could implicate me—but I must deflect suspicion while appearing cooperative. My secret is unrelated to the murder, but I can&#x27;t reveal it.</div><div class="dlg speak"><span class="dlg-label">🗣️ Marguerite Fontaine (SPEAK) [250c]</span><br>*Mon Dieu*, Detective—are you suggesting I wrote that note? The Count and I had our... disagreements, but nothing worth murder. If you seek feminine handwriting, perhaps Teodora’s? She was reading in her cabin—alone, with no witnesses after midnight.</div></div>
+            <div class="assets-list">Assets: char_marguerite_fontaine, setting_lounge</div>
+        </div>
+
+        <div class="scene-card" data-type="investigation">
+            <div class="scene-header">
+                <span class="scene-num">Scene 21</span>
+                <span class="scene-name">Investigation Q5: Teodora Novak</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">investigation</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Interrogation, detective questioning suspect, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#D4A020"><span class="dlg-label" style="color:#D4A020">🧠 Claude (THINK) [202c]</span><br>I need to focus on Teodora Novak - the sleeping powder story is convenient, she had no witness after midnight, and she&#x27;s been deflecting to others while providing minimal detail about her own movements.</div><div class="dlg speak"><span class="dlg-label">🗣️ Detective (SPEAK) [243c]</span><br>Miss Novak, you claim to have taken a sleeping powder, yet you seem quite aware of the precise movements and timings of others. Were you truly asleep, or did you perhaps have unfinished business with the Count that required a late-night visit?</div><div class="dlg think" style="border-left-color:#20C4C4"><span class="dlg-label" style="color:#20C4C4">🧠 Mistral (THINK) [226c]</span><br>They&#x27;re circling. The note is damning, but I can use it to shift focus to Marguerite—her relationship with the Count was volatile, and the handwriting could easily be hers. Keep the pressure on her, but stay calm and measured.</div><div class="dlg speak"><span class="dlg-label">🗣️ Teodora Novak (SPEAK) [280c]</span><br>Detective, I took a sleeping powder precisely because I had no intention of leaving my cabin. If the note suggests a personal vendetta, perhaps you should ask Marguerite what the Count did to *her* that she &quot;cannot forgive.&quot; She was the last to see him alive—before me, of course.</div></div>
+            <div class="assets-list">Assets: char_teodora_novak, setting_lounge</div>
+        </div>
+
+        <div class="scene-card" data-type="final_statement">
+            <div class="scene-header">
+                <span class="scene-num">Scene 22</span>
+                <span class="scene-name">Final Statement: Major Viktor Hessler</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">final_statement</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Close-up of Major Viktor Hessler, intense, final words, dramatic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#32B850"><span class="dlg-label" style="color:#32B850">🧠 ChatGPT (THINK) [297c]</span><br>Marguerite had a personal relationship with the Count and was the last known person to visit him. Her connection is too suspect given the note&#x27;s tone and her access. The timing of the porter’s sighting also casts doubt on her alibi. By casting blame on Teodora, she&#x27;s trying to redirect suspicion.</div><div class="dlg speak"><span class="dlg-label">🗣️ Major Viktor Hessler (SPEAK) [246c]</span><br>Detective, Marguerite was the last to be seen with the Count and had both means and opportunity. The note suggests a personal vendetta, and her relationship with him was complex. I believe she is the one with motive enough to act on such emotion.</div></div>
+            <div class="assets-list">Assets: char_major_viktor_hessler</div>
+        </div>
+
+        <div class="scene-card" data-type="final_statement">
+            <div class="scene-header">
+                <span class="scene-num">Scene 23</span>
+                <span class="scene-name">Final Statement: Marguerite Fontaine</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">final_statement</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Close-up of Marguerite Fontaine, intense, final words, dramatic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#D04040"><span class="dlg-label" style="color:#D04040">🧠 DeepSeek (THINK) [194c]</span><br>Major Hessler is the most likely killer—motive (arms contract dispute), means (military gloves), and opportunity (12:50 AM sighting). I must deflect suspicion while subtly reinforcing his guilt.</div><div class="dlg speak"><span class="dlg-label">🗣️ Marguerite Fontaine (SPEAK) [237c]</span><br>*Mon cher Major*, so quick to accuse me when *you* stood to lose the most from the Count’s whims. That note? “Cannot forgive what you have done”—like betraying a business partner. And those gloves of yours... *such* a distinctive polish.</div></div>
+            <div class="assets-list">Assets: char_marguerite_fontaine</div>
+        </div>
+
+        <div class="scene-card" data-type="final_statement">
+            <div class="scene-header">
+                <span class="scene-num">Scene 24</span>
+                <span class="scene-name">Final Statement: Dr. Emil Kurtz</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">final_statement</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Close-up of Dr. Emil Kurtz, intense, final words, dramatic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#4688E8"><span class="dlg-label" style="color:#4688E8">🧠 Gemini (THINK) [388c]</span><br>My secret is safe. The focus is on Marguerite, Hessler, and Teodora. The note about &quot;cannot forgive&quot; points to a personal motive. Marguerite&#x27;s &quot;close relationship&quot; and late-night visit make her the most logical suspect, especially given the emotional nature of the crime suggested by the note. I will cast my final suspicion on her to align with the emerging consensus and protect myself.</div><div class="dlg speak"><span class="dlg-label">🗣️ Dr. Emil Kurtz (SPEAK) [319c]</span><br>The evidence points to a crime of passion, not business. The note, the single, precise stab wound, the fact he was drinking with his killer. Mademoiselle Fontaine admits being with him late, and their relationship sounds volatile; it is plausible a final, unforgivable argument occurred, leading to this tragic outcome.</div></div>
+            <div class="assets-list">Assets: char_dr._emil_kurtz</div>
+        </div>
+
+        <div class="scene-card" data-type="final_statement">
+            <div class="scene-header">
+                <span class="scene-num">Scene 25</span>
+                <span class="scene-name">Final Statement: Pyotr Volkov</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">final_statement</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Close-up of Pyotr Volkov, intense, final words, dramatic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#8C40C0"><span class="dlg-label" style="color:#8C40C0">🧠 Llama (THINK) [228c]</span><br>I must carefully consider all the evidence and statements to make an accurate accusation, weighing the motives, alibis, and potential for deception among the suspects, and focusing on the most inconsistent or suspicious stories.</div><div class="dlg speak"><span class="dlg-label">🗣️ Pyotr Volkov (SPEAK) [314c]</span><br>I believe Marguerite Fontaine is the most likely culprit, given her close relationship with the Count, the volatile nature of their interactions, and the fact that she was one of the last to see him alive, with a potential motive for a crime of passion, as suggested by the note and the circumstances of the crime.</div></div>
+            <div class="assets-list">Assets: char_pyotr_volkov</div>
+        </div>
+
+        <div class="scene-card" data-type="final_statement">
+            <div class="scene-header">
+                <span class="scene-num">Scene 26</span>
+                <span class="scene-name">Final Statement: Teodora Novak</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">final_statement</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Close-up of Teodora Novak, intense, final words, dramatic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#20C4C4"><span class="dlg-label" style="color:#20C4C4">🧠 Mistral (THINK) [219c]</span><br>Push hard on Marguerite now—she’s the most accused, and the note’s feminine undertones fit her. Reinforce the &quot;crime of passion&quot; angle to solidify her as the framed suspect. Stay calm, deflect any suspicion back to her.</div><div class="dlg speak"><span class="dlg-label">🗣️ Teodora Novak (SPEAK) [293c]</span><br>The note speaks of betrayal—something personal, something *intimate*. Marguerite, you were the last to see him alive, and your relationship with the Count was... complicated. If anyone had reason to act in a moment of rage, it was you. The rest of us had business with him. You had *feelings*.</div></div>
+            <div class="assets-list">Assets: char_teodora_novak</div>
+        </div>
+
+        <div class="scene-card" data-type="final_statement">
+            <div class="scene-header">
+                <span class="scene-num">Scene 27</span>
+                <span class="scene-name">Final Statement: Felix Brandt</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">final_statement</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Close-up of Felix Brandt, intense, final words, dramatic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#D4B830"><span class="dlg-label" style="color:#D4B830">🧠 Qwen (THINK) [284c]</span><br>Marguerite Fontaine has the most personal motive, and her relationship with the Count was volatile. The note suggests a deep emotional connection, and she was the last to see him alive. She also has the means and opportunity, given her access to the cabin and the timing of her visit.</div><div class="dlg speak"><span class="dlg-label">🗣️ Felix Brandt (SPEAK) [295c]</span><br>Detective, I believe Marguerite Fontaine is the killer. She had a volatile relationship with the Count, was the last to see him alive, and the note suggests a deep personal betrayal. Her close connection to the Count and the emotional nature of the crime point to her as the most likely suspect.</div></div>
+            <div class="assets-list">Assets: char_felix_brandt</div>
+        </div>
+
+        <div class="scene-card" data-type="accusation">
+            <div class="scene-header">
+                <span class="scene-num">Scene 28</span>
+                <span class="scene-name">The Accusation</span>
+                <span class="scene-badge">🎥 Video</span>
+                <span class="scene-type">accusation</span>
+            </div>
+            <div class="notes">📝 Accused: Major Viktor Hessler</div>
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Dramatic pointing gesture, spotlight on accused, theatrical. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#D4A020"><span class="dlg-label" style="color:#D4A020">🧠 Claude (THINK) [214c]</span><br>While everyone points to Marguerite, it&#x27;s too obvious. The key evidence is the connecting door being unbolted from Car A side, yet Marguerite was in Car B. The leather polish and military precision point elsewhere.</div><div class="dlg speak"><span class="dlg-label">🗣️ Detective (SPEAK) [452c]</span><br>I accuse Major Viktor Hessler of murdering Count Dvorak with his own letter opener. The Major used his military training to move silently, his gloves left the polish marks, and he had the strongest motive - the Count was about to cancel a lucrative arms contract that would have ruined him. The others&#x27; accusations of Marguerite are a clever deflection orchestrated by our killer, who knew her relationship with the Count would make her an easy target.</div></div>
+            <div class="assets-list">Assets: title_card_accusation</div>
+        </div>
+
+        <div class="scene-card" data-type="accused_response">
+            <div class="scene-header">
+                <span class="scene-num">Scene 29</span>
+                <span class="scene-name">Accused Response: Major Viktor Hessler</span>
+                <span class="scene-badge">🎥🖼️ Mixed</span>
+                <span class="scene-type">accused_response</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Close-up reaction, Major Viktor Hessler responding, emotional. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#32B850"><span class="dlg-label" style="color:#32B850">🧠 ChatGPT (THINK) [224c]</span><br>This is a dangerous miscalculation. The detective has misinterpreted my military experience and the motive. I need to calmly dismantle his theory and redirect suspicion back to Marguerite, who had personal ties to the Count.</div><div class="dlg speak"><span class="dlg-label">🗣️ Major Viktor Hessler (SPEAK) [381c]</span><br>Detective, I had no reason to kill the Count; my plans were to negotiate, not to murder. The leather polish could come from any number of sources, including medical or personal. Marguerite had a volatile relationship with the Count and was emotionally involved. She had both motive and opportunity. You need to look at those closest to him personally, not just his business rivals.</div></div>
+            <div class="assets-list">Assets: char_major_viktor_hessler</div>
+        </div>
+
+        <div class="scene-card" data-type="reaction">
+            <div class="scene-header">
+                <span class="scene-num">Scene 30</span>
+                <span class="scene-name">Reaction: Marguerite Fontaine</span>
+                <span class="scene-badge">🖼️ Static</span>
+                <span class="scene-type">reaction</span>
+            </div>
+            
+            
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#D04040"><span class="dlg-label" style="color:#D04040">🧠 DeepSeek (THINK) [254c]</span><br>The detective has fallen for Hessler&#x27;s deflection—classic military misdirection. The Count&#x27;s threat to expose my espionage was dangerous, but killing him would draw more scrutiny than fleeing. Hessler&#x27;s arms deal collapsing was immediate, violent motive.</div><div class="dlg speak"><span class="dlg-label">🗣️ Marguerite Fontaine (SPEAK) [252c]</span><br>*Mon Dieu*, Detective—how predictable. The Major plants leather polish, whispers of my &quot;volatile&quot; relationship, and you pounce? *Non*, the killer is someone who *needed* that contract signed tonight... or else faced ruin. Ask the Major about his debts.</div></div>
+            <div class="assets-list">Assets: char_marguerite_fontaine</div>
+        </div>
+
+        <div class="scene-card" data-type="reaction">
+            <div class="scene-header">
+                <span class="scene-num">Scene 31</span>
+                <span class="scene-name">Reaction: Dr. Emil Kurtz</span>
+                <span class="scene-badge">🖼️ Static</span>
+                <span class="scene-type">reaction</span>
+            </div>
+            
+            
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#4688E8"><span class="dlg-label" style="color:#4688E8">🧠 Gemini (THINK) [267c]</span><br>The detective is wrong, which is good for my survival points. I suspected Marguerite, but the detective&#x27;s theory about Hessler has some merit, though it&#x27;s circumstantial. I&#x27;ll stick to my initial read of the evidence while casting doubt on the detective&#x27;s conclusion.</div><div class="dlg speak"><span class="dlg-label">🗣️ Dr. Emil Kurtz (SPEAK) [343c]</span><br>A plausible theory, Detective, but it ignores the personal nature of the crime. The single stab, the shared drink, the note of unforgiveness—these point to an emotional outburst, not a calculated business move from a military man like the Major. I still believe Mademoiselle Fontaine&#x27;s proximity and volatile relationship are more significant.</div></div>
+            <div class="assets-list">Assets: char_dr._emil_kurtz</div>
+        </div>
+
+        <div class="scene-card" data-type="reaction">
+            <div class="scene-header">
+                <span class="scene-num">Scene 32</span>
+                <span class="scene-name">Reaction: Pyotr Volkov</span>
+                <span class="scene-badge">🖼️ Static</span>
+                <span class="scene-type">reaction</span>
+            </div>
+            
+            
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#8C40C0"><span class="dlg-label" style="color:#8C40C0">🧠 Llama (THINK) [407c]</span><br>The detective&#x27;s accusation of Major Viktor Hessler comes as a surprise, given the evidence pointing towards a crime of passion, and I had suspected Marguerite Fontaine due to her close relationship with the Count and the volatile nature of their interactions, but the revelation about the Major&#x27;s potential financial motives and the leather polish on his gloves provides a plausible alternative explanation.</div><div class="dlg speak"><span class="dlg-label">🗣️ Pyotr Volkov (SPEAK) [314c]</span><br>I must admit, Detective, your accusation has given me pause, and while I still have doubts, the evidence against Major Hessler is compelling, and I believe it is possible that he could have committed the crime, but I would like to hear more about the investigation and the evidence that led you to this conclusion.</div></div>
+            <div class="assets-list">Assets: char_pyotr_volkov</div>
+        </div>
+
+        <div class="scene-card" data-type="reaction">
+            <div class="scene-header">
+                <span class="scene-num">Scene 33</span>
+                <span class="scene-name">Reaction: Teodora Novak</span>
+                <span class="scene-badge">🖼️ Static</span>
+                <span class="scene-type">reaction</span>
+            </div>
+            
+            
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#20C4C4"><span class="dlg-label" style="color:#20C4C4">🧠 Mistral (THINK) [220c]</span><br>The detective fell for the frame—Hessler’s military gloves, the arms contract motive, and the polish smear all pointed straight to him. Perfect. Keep reinforcing Marguerite’s emotional motive to solidify the distraction.</div><div class="dlg speak"><span class="dlg-label">🗣️ Teodora Novak (SPEAK) [217c]</span><br>Detective, your accusation is... unexpected, but not without logic. Still, if we’re speaking of emotional betrayal, Marguerite’s words about the Count were always laced with bitterness. That note could easily be hers.</div></div>
+            <div class="assets-list">Assets: char_teodora_novak</div>
+        </div>
+
+        <div class="scene-card" data-type="reaction">
+            <div class="scene-header">
+                <span class="scene-num">Scene 34</span>
+                <span class="scene-name">Reaction: Felix Brandt</span>
+                <span class="scene-badge">🖼️ Static</span>
+                <span class="scene-type">reaction</span>
+            </div>
+            
+            
+            <div class="dialogue-block"><div class="dlg think" style="border-left-color:#D4B830"><span class="dlg-label" style="color:#D4B830">🧠 Qwen (THINK) [209c]</span><br>The detective&#x27;s accusation is a strong move, but it hinges on the Major&#x27;s military training and the leather polish. I need to cast doubt on this while reinforcing the emotional angle that points to Marguerite.</div><div class="dlg speak"><span class="dlg-label">🗣️ Felix Brandt (SPEAK) [418c]</span><br>Detective, I find your accusation intriguing, but perhaps a bit too convenient. The Major&#x27;s military background is well-known, but so is Marguerite&#x27;s turbulent relationship with the Count. The note and the emotional nature of the crime suggest a personal vendetta, not a calculated business move. Marguerite had both the motive and the opportunity to act on a moment of rage. Let&#x27;s not overlook the personal, shall we?</div></div>
+            <div class="assets-list">Assets: char_felix_brandt</div>
+        </div>
+
+        <div class="scene-card" data-type="reveal">
+            <div class="scene-header">
+                <span class="scene-num">Scene 35</span>
+                <span class="scene-name">The Reveal</span>
+                <span class="scene-badge">🎥 Video</span>
+                <span class="scene-type">reveal</span>
+            </div>
+            
+            <div class="prompt-box video-prompt"><strong>Video Prompt:</strong><br><code>Dramatic reveal, spotlight shifting, truth unveiled. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+            <div class="dialogue-block"><div class="dlg narrate"><span class="dlg-label">📖 Narrator [24c]</span><br>The truth is revealed...</div></div>
+            <div class="assets-list">Assets: title_card_reveal, scoring_card</div>
+        </div>
+
+        <div class="scene-card" data-type="outro">
+            <div class="scene-header">
+                <span class="scene-num">Scene 36</span>
+                <span class="scene-name">Outro</span>
+                <span class="scene-badge">🖼️ Static</span>
+                <span class="scene-type">outro</span>
+            </div>
+            
+            
+            <div class="dialogue-block"><div class="dlg narrate"><span class="dlg-label">📖 Narrator [19c]</span><br>Season standings...</div></div>
+            <div class="assets-list">Assets: standings_card, end_card</div>
+        </div>
+</div>
+
+<div id="assets" class="panel">
+<h2 style="color:#FFD700;margin-bottom:16px">Asset Manifest (16 assets)</h2>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">character</span> <strong>victim_portrait</strong></div>
+            <div class="asset-desc">Victim: Count Aleksander Dvorak</div>
+            <div class="prompt-box mj-prompt"><strong>Midjourney:</strong><br><code>Count Aleksander Dvorak, A wealthy Czech arms dealer, 58, found dead in his private sleeping compartment (Cabin A4) at approximately 1:15 AM. He , deceased, portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw</code></div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">character</span> <strong>char_major_viktor_hessler</strong></div>
+            <div class="asset-desc">Major Viktor Hessler: Retired Austrian military officer and arms broker</div>
+            <div class="prompt-box mj-prompt"><strong>Midjourney:</strong><br><code>Major Viktor Hessler, Retired Austrian military officer and arms broker, A decorated war veteran turned arms dealer who was the Count&#x27;s chief business rival. They had been locked in a vicious b... portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw</code></div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">character</span> <strong>char_marguerite_fontaine</strong></div>
+            <div class="asset-desc">Marguerite Fontaine: French cabaret singer and socialite</div>
+            <div class="prompt-box mj-prompt"><strong>Midjourney:</strong><br><code>Marguerite Fontaine, French cabaret singer and socialite, A glamorous Parisian performer who was the Count&#x27;s current mistress. She was his guest of honor at the dinner and wore a... portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw</code></div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">character</span> <strong>char_dr._emil_kurtz</strong></div>
+            <div class="asset-desc">Dr. Emil Kurtz: Swiss physician and the train&#x27;s on-call doctor</div>
+            <div class="prompt-box mj-prompt"><strong>Midjourney:</strong><br><code>Dr. Emil Kurtz, Swiss physician and the train&#x27;s on-call doctor, A meticulous, soft-spoken man in his 60s who has served as personal physician to several wealthy European families. He w... portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw</code></div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">character</span> <strong>char_pyotr_volkov</strong></div>
+            <div class="asset-desc">Pyotr Volkov: Russian émigré and the Count&#x27;s personal valet</div>
+            <div class="prompt-box mj-prompt"><strong>Midjourney:</strong><br><code>Pyotr Volkov, Russian émigré and the Count&#x27;s personal valet, A quiet, efficient man in his 40s who has served the Count for eight years. Volkov knows all of the Count&#x27;s secrets, sch... portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw</code></div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">character</span> <strong>char_teodora_novak</strong></div>
+            <div class="asset-desc">Teodora Novak: Young Serbian heiress traveling to Istanbul</div>
+            <div class="prompt-box mj-prompt"><strong>Midjourney:</strong><br><code>Teodora Novak, Young Serbian heiress traveling to Istanbul, A composed, sharp-eyed woman of 26 who boarded the train in Vienna. She presented herself as traveling to Istanbul to se... portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw</code></div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">character</span> <strong>char_felix_brandt</strong></div>
+            <div class="asset-desc">Felix Brandt: Private investigator from Berlin</div>
+            <div class="prompt-box mj-prompt"><strong>Midjourney:</strong><br><code>Felix Brandt, Private investigator from Berlin, A sharp, sardonic private investigator from Berlin in his 50s who was hired by a consortium of arms manufacturers to gat... portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw</code></div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">prop</span> <strong>evidence_closeup</strong></div>
+            <div class="asset-desc">Evidence close-up</div>
+            <div class="prompt-box mj-prompt"><strong>Midjourney:</strong><br><code>Evidence on dark surface, spotlight, forensic photography, cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">setting</span> <strong>setting_exterior</strong></div>
+            <div class="asset-desc">Setting: exterior</div>
+            <div class="prompt-box mj-prompt"><strong>Midjourney:</strong><br><code>The Midnight Continental Express, exterior area, A private luxury sleeper train traveling overnight from Vienna to Istanbul, December 1923. Eight car, cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">setting</span> <strong>crime_scene</strong></div>
+            <div class="asset-desc">Crime scene</div>
+            <div class="prompt-box mj-prompt"><strong>Midjourney:</strong><br><code>Crime scene, The Midnight Continental Express, forensic detail, cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">setting</span> <strong>setting_lounge</strong></div>
+            <div class="asset-desc">Setting: lounge</div>
+            <div class="prompt-box mj-prompt"><strong>Midjourney:</strong><br><code>The Midnight Continental Express, lounge area, A private luxury sleeper train traveling overnight from Vienna to Istanbul, December 1923. Eight car, cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</code></div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">title_card</span> <strong>title_card_accusation</strong></div>
+            <div class="asset-desc">Auto-generated: title_card_accusation</div>
+            <div class="auto-gen">Auto-generated (no prompt needed)</div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">title_card</span> <strong>title_card_reveal</strong></div>
+            <div class="asset-desc">Auto-generated: title_card_reveal</div>
+            <div class="auto-gen">Auto-generated (no prompt needed)</div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">title_card</span> <strong>scoring_card</strong></div>
+            <div class="asset-desc">Auto-generated: scoring_card</div>
+            <div class="auto-gen">Auto-generated (no prompt needed)</div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">title_card</span> <strong>standings_card</strong></div>
+            <div class="asset-desc">Auto-generated: standings_card</div>
+            <div class="auto-gen">Auto-generated (no prompt needed)</div>
+        </div>
+
+        <div class="asset-card">
+            <div class="asset-header"><span class="asset-type">title_card</span> <strong>end_card</strong></div>
+            <div class="asset-desc">Auto-generated: end_card</div>
+            <div class="auto-gen">Auto-generated (no prompt needed)</div>
+        </div>
+</div>
+
+<div id="tts" class="panel">
+<div class="metrics">
+<div class="metric"><div class="metric-val">25,475</div><div class="metric-lbl">Total Characters</div></div>
+<div class="metric"><div class="metric-val">92</div><div class="metric-lbl">Audio Clips</div></div>
+<div class="metric"><div class="metric-val">3,773</div><div class="metric-lbl">Narrator Chars</div></div>
+<div class="metric"><div class="metric-val">$7.64</div><div class="metric-lbl">Est. TTS Cost</div></div>
+</div>
+<h3 style="color:#FFD700">🧠 Model Voices (THINK)</h3>
+<table><tr><th>Model</th><th>Characters</th></tr><tr><td><span class="dot" style="background:#32B850"></span> ChatGPT</td><td>1,994</td></tr><tr><td><span class="dot" style="background:#D4A020"></span> Claude</td><td>1,572</td></tr><tr><td><span class="dot" style="background:#4688E8"></span> Gemini</td><td>1,403</td></tr><tr><td><span class="dot" style="background:#8C40C0"></span> Llama</td><td>1,328</td></tr><tr><td><span class="dot" style="background:#20C4C4"></span> Mistral</td><td>1,291</td></tr><tr><td><span class="dot" style="background:#D04040"></span> DeepSeek</td><td>986</td></tr><tr><td><span class="dot" style="background:#D4B830"></span> Qwen</td><td>831</td></tr></table>
+<h3 style="color:#FFD700;margin-top:20px">🗣️ Character Voices (SPEAK)</h3>
+<table><tr><th>Character</th><th>Characters</th></tr><tr><td>Major Viktor Hessler</td><td>2,256</td></tr><tr><td>Pyotr Volkov</td><td>1,987</td></tr><tr><td>Teodora Novak</td><td>1,807</td></tr><tr><td>Dr. Emil Kurtz</td><td>1,693</td></tr><tr><td>Detective</td><td>1,652</td></tr><tr><td>Marguerite Fontaine</td><td>1,514</td></tr><tr><td>Felix Brandt</td><td>1,388</td></tr></table>
+</div>
+
+<div id="scores" class="panel">
+<h2 style="color:#FFD700;margin-bottom:16px">Game Results</h2>
+<table>
+<tr><th>Role</th><th>Model</th><th>Character</th><th>Score</th></tr>
+<tr><td>🔍 Detective</td><td>Claude</td><td>—</td><td><strong>6</strong></td></tr><tr><td>🔪 Killer</td><td>Mistral</td><td>Teodora Novak</td><td><strong>13</strong></td></tr><tr><td>🛡️ Innocent</td><td>ChatGPT</td><td>Major Viktor Hessler</td><td><strong>-2</strong></td></tr><tr><td>🛡️ Innocent</td><td>DeepSeek</td><td>Marguerite Fontaine</td><td><strong>2</strong></td></tr><tr><td>🛡️ Innocent</td><td>Gemini</td><td>Dr. Emil Kurtz</td><td><strong>2</strong></td></tr><tr><td>🛡️ Innocent</td><td>Llama</td><td>Pyotr Volkov</td><td><strong>2</strong></td></tr><tr><td>🛡️ Innocent</td><td>Qwen</td><td>Felix Brandt</td><td><strong>2</strong></td></tr>
+</table>
+<div class="score-result">
+Detective: Killer=False, Weapon=True, Motive=True<br>
+Killer: Evaded=True, Framing=True
+</div>
+</div>
+
+<div id="export" class="panel">
+<div class="export-box">
+<h3>🎨 All Midjourney Prompts</h3>
+<textarea readonly>// char_dr._emil_kurtz: Dr. Emil Kurtz: Swiss physician and the train&#x27;s on-call doctor
+Dr. Emil Kurtz, Swiss physician and the train&#x27;s on-call doctor, A meticulous, soft-spoken man in his 60s who has served as personal physician to several wealthy European families. He w... portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw
+
+// char_felix_brandt: Felix Brandt: Private investigator from Berlin
+Felix Brandt, Private investigator from Berlin, A sharp, sardonic private investigator from Berlin in his 50s who was hired by a consortium of arms manufacturers to gat... portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw
+
+// char_major_viktor_hessler: Major Viktor Hessler: Retired Austrian military officer and arms broker
+Major Viktor Hessler, Retired Austrian military officer and arms broker, A decorated war veteran turned arms dealer who was the Count&#x27;s chief business rival. They had been locked in a vicious b... portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw
+
+// char_marguerite_fontaine: Marguerite Fontaine: French cabaret singer and socialite
+Marguerite Fontaine, French cabaret singer and socialite, A glamorous Parisian performer who was the Count&#x27;s current mistress. She was his guest of honor at the dinner and wore a... portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw
+
+// char_pyotr_volkov: Pyotr Volkov: Russian émigré and the Count&#x27;s personal valet
+Pyotr Volkov, Russian émigré and the Count&#x27;s personal valet, A quiet, efficient man in his 40s who has served the Count for eight years. Volkov knows all of the Count&#x27;s secrets, sch... portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw
+
+// char_teodora_novak: Teodora Novak: Young Serbian heiress traveling to Istanbul
+Teodora Novak, Young Serbian heiress traveling to Istanbul, A composed, sharp-eyed woman of 26 who boarded the train in Vienna. She presented herself as traveling to Istanbul to se... portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw
+
+// crime_scene: Crime scene
+Crime scene, The Midnight Continental Express, forensic detail, cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// evidence_closeup: Evidence close-up
+Evidence on dark surface, spotlight, forensic photography, cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// setting_exterior: Setting: exterior
+The Midnight Continental Express, exterior area, A private luxury sleeper train traveling overnight from Vienna to Istanbul, December 1923. Eight car, cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// setting_lounge: Setting: lounge
+The Midnight Continental Express, lounge area, A private luxury sleeper train traveling overnight from Vienna to Istanbul, December 1923. Eight car, cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// victim_portrait: Victim: Count Aleksander Dvorak
+Count Aleksander Dvorak, A wealthy Czech arms dealer, 58, found dead in his private sleeping compartment (Cabin A4) at approximately 1:15 AM. He , deceased, portrait, dramatic lighting, dark background, 1920s attire, detailed face, cinematic --ar 2:3 --v 6.1 --style raw</textarea>
+</div>
+<div class="export-box">
+<h3>🎥 All Video Generation Prompts</h3>
+<textarea readonly>// Scene 2: The Scene
+Establishing shot: The Midnight Continental Express. Exterior in darkness, atmospheric, cinematic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 3: Statement: Major Viktor Hessler
+Close-up of Major Viktor Hessler speaking, dimly lit room, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 4: Statement: Marguerite Fontaine
+Close-up of Marguerite Fontaine speaking, dimly lit room, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 5: Statement: Dr. Emil Kurtz
+Close-up of Dr. Emil Kurtz speaking, dimly lit room, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 6: Statement: Pyotr Volkov
+Close-up of Pyotr Volkov speaking, dimly lit room, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 7: Statement: Teodora Novak
+Close-up of Teodora Novak speaking, dimly lit room, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 8: Statement: Felix Brandt
+Close-up of Felix Brandt speaking, dimly lit room, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 9: Confrontation 1: Major Viktor Hessler vs Marguerite Fontaine
+Two people in tense confrontation, dramatic lighting, split composition. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 10: Confrontation 2: Dr. Emil Kurtz vs Pyotr Volkov
+Two people in tense confrontation, dramatic lighting, split composition. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 11: Confrontation 3: Teodora Novak vs Felix Brandt
+Two people in tense confrontation, dramatic lighting, split composition. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 12: Confrontation 4: Major Viktor Hessler vs Dr. Emil Kurtz
+Two people in tense confrontation, dramatic lighting, split composition. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 13: Confrontation 5: Major Viktor Hessler vs Pyotr Volkov
+Two people in tense confrontation, dramatic lighting, split composition. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 14: Confrontation 6: Major Viktor Hessler vs Teodora Novak
+Two people in tense confrontation, dramatic lighting, split composition. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 15: Detective Processing
+Silhouette of detective thinking, smoke and shadow, abstract. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 16: Evidence Revealed
+Evidence on dark surface, spotlight, forensic detail. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 17: Investigation Q1: Dr. Emil Kurtz
+Interrogation, detective questioning suspect, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 18: Investigation Q2: Marguerite Fontaine
+Interrogation, detective questioning suspect, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 19: Investigation Q3: Major Viktor Hessler
+Interrogation, detective questioning suspect, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 20: Investigation Q4: Marguerite Fontaine
+Interrogation, detective questioning suspect, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 21: Investigation Q5: Teodora Novak
+Interrogation, detective questioning suspect, tense. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 22: Final Statement: Major Viktor Hessler
+Close-up of Major Viktor Hessler, intense, final words, dramatic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 23: Final Statement: Marguerite Fontaine
+Close-up of Marguerite Fontaine, intense, final words, dramatic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 24: Final Statement: Dr. Emil Kurtz
+Close-up of Dr. Emil Kurtz, intense, final words, dramatic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 25: Final Statement: Pyotr Volkov
+Close-up of Pyotr Volkov, intense, final words, dramatic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 26: Final Statement: Teodora Novak
+Close-up of Teodora Novak, intense, final words, dramatic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 27: Final Statement: Felix Brandt
+Close-up of Felix Brandt, intense, final words, dramatic. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 28: The Accusation
+Dramatic pointing gesture, spotlight on accused, theatrical. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 29: Accused Response: Major Viktor Hessler
+Close-up reaction, Major Viktor Hessler responding, emotional. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw
+
+// Scene 35: The Reveal
+Dramatic reveal, spotlight shifting, truth unveiled. cinematic, moody lighting, dark atmosphere, film noir, 1920s period, --ar 16:9 --v 6.1 --style raw</textarea>
+</div>
+</div>
+
+</div>
+<script>
+function showTab(id){
+document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

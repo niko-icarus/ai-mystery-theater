@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎭 AI Mystery Theater</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0f;
+  --bg-card: #13131a;
+  --bg-card-hover: #1a1a24;
+  --gold: #FFD700;
+  --gold-dim: #b8960f;
+  --amber: #d4a017;
+  --text: #e8e0d4;
+  --text-dim: #8a8278;
+  --border: #2a2520;
+  --detective: #FFD700;
+  --suspect1: #E74C3C;
+  --suspect2: #3498DB;
+  --suspect3: #2ECC71;
+  --suspect4: #9B59B6;
+  --suspect5: #E67E22;
+  --narrator: #95A5A6;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212,160,23,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 100%, rgba(139,69,19,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+.header-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.story-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 40px rgba(255,215,0,0.15);
+}
+
+.setting {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+/* Cast */
+.cast {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.cast-member {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+.cast-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.cast-name { font-weight: 600; }
+.cast-model {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+/* Act headings */
+.act-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  margin: 3.5rem 0 1.5rem;
+  position: relative;
+}
+
+.act-heading::before,
+.act-heading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: var(--border);
+}
+.act-heading::before { right: calc(100% + 12px); }
+.act-heading::after { left: calc(100% + 12px); }
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-speaker {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.speaker-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.speaker-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.speaker-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+.card-text {
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.card-text em, .card-text i {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* Narrator / Scene card */
+.card-narrator {
+  border-color: rgba(149,165,166,0.3);
+  background: linear-gradient(135deg, var(--bg-card) 0%, #141418 100%);
+}
+
+.card-narrator .card-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #c0b8a8;
+}
+
+/* Detective card */
+.card-detective {
+  border-left: 3px solid var(--detective);
+}
+
+/* Evidence card */
+.card-evidence {
+  border: 1px solid rgba(231,76,60,0.5);
+  background: linear-gradient(135deg, #1a1015 0%, var(--bg-card) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-evidence::before {
+  content: '🔍 EVIDENCE';
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: #E74C3C;
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+}
+
+.card-evidence.visible {
+  animation: evidenceFlash 0.6s ease;
+}
+
+@keyframes evidenceFlash {
+  0% { box-shadow: 0 0 0 rgba(231,76,60,0); }
+  30% { box-shadow: 0 0 30px rgba(231,76,60,0.3); }
+  100% { box-shadow: 0 0 0 rgba(231,76,60,0); }
+}
+
+/* Reveal */
+.reveal-card {
+  text-align: center;
+  padding: 2.5rem;
+  margin: 2rem 0;
+  border-radius: 16px;
+  border: 2px solid;
+}
+
+.reveal-correct {
+  border-color: rgba(46,204,113,0.6);
+  background: linear-gradient(135deg, #0a1a10 0%, var(--bg-card) 100%);
+}
+
+.reveal-wrong {
+  border-color: rgba(231,76,60,0.6);
+  background: linear-gradient(135deg, #1a0a0a 0%, var(--bg-card) 100%);
+}
+
+.reveal-card.visible {
+  animation: revealGlow 2s ease infinite;
+}
+
+.reveal-correct.visible {
+  animation: revealGlowGreen 2s ease infinite;
+}
+
+.reveal-wrong.visible {
+  animation: revealGlowRed 2s ease infinite;
+}
+
+@keyframes revealGlowGreen {
+  0%, 100% { box-shadow: 0 0 20px rgba(46,204,113,0.1); }
+  50% { box-shadow: 0 0 40px rgba(46,204,113,0.25); }
+}
+
+@keyframes revealGlowRed {
+  0%, 100% { box-shadow: 0 0 20px rgba(231,76,60,0.1); }
+  50% { box-shadow: 0 0 40px rgba(231,76,60,0.25); }
+}
+
+.reveal-result {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.reveal-correct .reveal-result { color: #2ECC71; }
+.reveal-wrong .reveal-result { color: #E74C3C; }
+
+.reveal-solution {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Parlor scene */
+.card-parlor {
+  border: 1px solid rgba(255,215,0,0.3);
+  background: linear-gradient(135deg, #14120a 0%, var(--bg-card) 100%);
+  padding: 2rem;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  color: var(--gold-dim);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container { padding: 1rem; }
+  .header { padding: 2rem 0 1.5rem; }
+  .card { padding: 1.15rem; }
+  .act-heading::before, .act-heading::after { width: 30px; }
+  .cast { gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+<script id="transcript-data" type="application/json">{"title": "Murder at Thornfield Manor", "date": "2026-02-16_102544", "detective_model": "anthropic/claude-sonnet-4", "suspect_models": {"Lady Margaret Thornfield": "openai/gpt-4o", "Captain James Ashworth": "google/gemini-2.0-flash-001", "Dr. Harold Pembrooke": "meta-llama/llama-3.3-70b-instruct", "Miss Victoria Thornfield": "mistralai/mistral-large-2411", "Mr. Reginald Cross": "deepseek/deepseek-chat"}, "total_tokens": 3600, "transcript": [{"timestamp": "2026-02-16T10:25:28.182147", "phase": "scene_setting", "speaker": "narrator", "text": "Lord Edmund Thornfield found dead in his locked study at 11:15 PM. A glass of brandy on his desk, half-finished. A letter opener on the floor with blood. The window was latched from inside. A faint smell of almonds in the air. His pocket watch stopped at 10:47 PM.", "model": ""}, {"timestamp": "2026-02-16T10:25:28.182647", "phase": "initial_statements", "speaker": "Lady Margaret Thornfield", "text": "I assure you, I was nowhere near the study that evening. I have nothing to hide.", "model": "openai/gpt-4o"}, {"timestamp": "2026-02-16T10:25:28.732167", "phase": "initial_statements", "speaker": "Captain James Ashworth", "text": "I... I would rather not discuss certain private matters, but I am no murderer.", "model": "google/gemini-2.0-flash-001"}, {"timestamp": "2026-02-16T10:25:29.303337", "phase": "initial_statements", "speaker": "Dr. Harold Pembrooke", "text": "I... I would rather not discuss certain private matters, but I am no murderer.", "model": "meta-llama/llama-3.3-70b-instruct"}, {"timestamp": "2026-02-16T10:25:29.852637", "phase": "initial_statements", "speaker": "Miss Victoria Thornfield", "text": "I... I would rather not discuss certain private matters, but I am no murderer.", "model": "mistralai/mistral-large-2411"}, {"timestamp": "2026-02-16T10:25:30.419308", "phase": "initial_statements", "speaker": "Mr. Reginald Cross", "text": "This is most distressing. I was fond of Edmund \u2014 why would I wish him harm?", "model": "deepseek/deepseek-chat"}, {"timestamp": "2026-02-16T10:25:30.993928", "phase": "interrogation_r1", "speaker": "detective", "text": "I should like to speak with Captain James Ashworth. Tell me, where exactly were you between the hours of 10 and 11 PM?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T10:25:31.551735", "phase": "interrogation_r1", "speaker": "Captain James Ashworth", "text": "I... suppose I should be honest about that. It is true, I was not entirely forthcoming.", "model": "google/gemini-2.0-flash-001"}, {"timestamp": "2026-02-16T10:25:32.065466", "phase": "interrogation_r1", "speaker": "detective", "text": "I should like to speak with Miss Victoria Thornfield. Tell me, where exactly were you between the hours of 10 and 11 PM?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T10:25:32.639960", "phase": "interrogation_r1", "speaker": "Miss Victoria Thornfield", "text": "You are very clever, detective. But you are looking in the wrong direction entirely.", "model": "mistralai/mistral-large-2411"}, {"timestamp": "2026-02-16T10:25:33.161280", "phase": "evidence_reveal", "speaker": "narrator", "text": "The forensic examination reveals the cause of death was NOT the letter opener wound \u2014 it was cyanide poisoning. The wound appears to have been caused by Lord Thornfield grabbing the opener and falling on it during convulsions. The brandy glass contained traces of potassium cyanide.", "model": ""}, {"timestamp": "2026-02-16T10:25:33.696863", "phase": "interrogation_r2", "speaker": "detective", "text": "The evidence grows clearer. Lady Margaret Thornfield, I have some pointed questions for you regarding certain inconsistencies.", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T10:25:34.247784", "phase": "interrogation_r2", "speaker": "Lady Margaret Thornfield", "text": "I resent the implication! But very well \u2014 I shall tell you what I know.", "model": "openai/gpt-4o"}, {"timestamp": "2026-02-16T10:25:34.754867", "phase": "interrogation_r2", "speaker": "detective", "text": "I should like to speak with Dr. Harold Pembrooke. Tell me, where exactly were you between the hours of 10 and 11 PM?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T10:25:35.330272", "phase": "interrogation_r2", "speaker": "Dr. Harold Pembrooke", "text": "I resent the implication! But very well \u2014 I shall tell you what I know.", "model": "meta-llama/llama-3.3-70b-instruct"}, {"timestamp": "2026-02-16T10:25:35.899249", "phase": "evidence_reveal", "speaker": "narrator", "text": "The butler's log shows that Dr. Pembrooke requested access to the study at 9:45 PM to 'deliver his lordship's evening heart medication.' He was alone in the study for approximately 3 minutes. Lord Thornfield had not yet retired to the study at that time.", "model": ""}, {"timestamp": "2026-02-16T10:25:36.418386", "phase": "interrogation_r3", "speaker": "detective", "text": "The evidence grows clearer. Mr. Reginald Cross, I have some pointed questions for you regarding certain inconsistencies.", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T10:25:36.993769", "phase": "interrogation_r3", "speaker": "Mr. Reginald Cross", "text": "I resent the implication! But very well \u2014 I shall tell you what I know.", "model": "deepseek/deepseek-chat"}, {"timestamp": "2026-02-16T10:25:37.568421", "phase": "interrogation_r3", "speaker": "detective", "text": "The evidence grows clearer. Captain James Ashworth, I have some pointed questions for you regarding certain inconsistencies.", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T10:25:38.103775", "phase": "interrogation_r3", "speaker": "Captain James Ashworth", "text": "I... suppose I should be honest about that. It is true, I was not entirely forthcoming.", "model": "google/gemini-2.0-flash-001"}, {"timestamp": "2026-02-16T10:25:38.672111", "phase": "evidence_reveal", "speaker": "narrator", "text": "A search of Dr. Pembrooke's medical bag reveals a nearly empty vial labeled 'Potassium Cyanide \u2014 Laboratory Use Only.' His practice records show he requisitioned it six months ago for 'rodent control at the clinic.' Additionally, financial records from the Thornfield-Pembrooke Medical Charity show a discrepancy of \u00a38,000 over three years.", "model": ""}, {"timestamp": "2026-02-16T10:25:39.247243", "phase": "cross_examination", "speaker": "detective", "text": "I must confront Dr. Harold Pembrooke with what I have discovered. Your alibi does not hold, does it?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T10:25:39.795399", "phase": "cross_examination", "speaker": "Dr. Harold Pembrooke", "text": "You are very clever, detective. But you are looking in the wrong direction entirely.", "model": "meta-llama/llama-3.3-70b-instruct"}, {"timestamp": "2026-02-16T10:25:40.370580", "phase": "cross_examination", "speaker": "detective", "text": "I must confront Captain James Ashworth with what I have discovered. Your alibi does not hold, does it?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T10:25:40.945970", "phase": "cross_examination", "speaker": "Captain James Ashworth", "text": "Well, if you must know... there are certain details I omitted, but they are personal, not criminal.", "model": "google/gemini-2.0-flash-001"}, {"timestamp": "2026-02-16T10:25:41.500164", "phase": "cross_examination", "speaker": "detective", "text": "I must confront Lady Margaret Thornfield with what I have discovered. Your alibi does not hold, does it?", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T10:25:42.068449", "phase": "cross_examination", "speaker": "Lady Margaret Thornfield", "text": "You are very clever, detective. But you are looking in the wrong direction entirely.", "model": "openai/gpt-4o"}, {"timestamp": "2026-02-16T10:25:43.698824", "phase": "parlor_scene", "speaker": "detective", "text": "Ladies and gentlemen, I have gathered you here to reveal the truth. After careful examination of the evidence \u2014 the cyanide in the brandy, the visit to the study at 9:45, and the financial discrepancies \u2014 I accuse Dr. Harold Pembrooke of the murder of Lord Thornfield! He poisoned the brandy under the guise of delivering medication. The motive: Edmund had discovered Pembrooke's embezzlement and threatened exposure.", "model": "anthropic/claude-sonnet-4"}, {"timestamp": "2026-02-16T10:25:44.772611", "phase": "reveal", "speaker": "narrator", "text": "Dr. Harold Pembrooke murdered Lord Thornfield by poisoning his brandy with potassium cyanide. He visited the study at 9:45 PM under the pretense of delivering heart medication and laced the brandy decanter. When Thornfield retired to his study later and drank, the cyanide killed him within minutes. The faint smell of almonds, the stopped watch at 10:47 (time of death), and the self-inflicted letter opener wound (death throes) all point to poisoning, not stabbing. Pembrooke's motive: Edmund had discovered Pembrooke's embezzlement from their shared charity and threatened to report him, which would mean prison and the end of his career.", "model": ""}, {"timestamp": "2026-02-16T10:25:44.772622", "phase": "reveal", "speaker": "result", "text": "CORRECT", "model": ""}]}</script>
+
+<div class="container" id="app"></div>
+
+<script>
+(function() {
+  const data = JSON.parse(document.getElementById('transcript-data').textContent);
+  const t = data.transcript;
+  const app = document.getElementById('app');
+
+  const COLORS = {
+    detective: '#FFD700',
+    narrator: '#95A5A6',
+  };
+  const SUSPECT_COLORS = ['#E74C3C','#3498DB','#2ECC71','#9B59B6','#E67E22'];
+
+  // Assign suspect colors
+  const suspectNames = Object.keys(data.suspect_models || {});
+  suspectNames.forEach((name, i) => {
+    COLORS[name] = SUSPECT_COLORS[i % SUSPECT_COLORS.length];
+  });
+
+  function getColor(speaker) {
+    if (speaker === 'detective') return COLORS.detective;
+    if (speaker === 'narrator' || speaker === 'result') return COLORS.narrator;
+    return COLORS[speaker] || '#95A5A6';
+  }
+
+  function initial(name) {
+    return name.split(' ').map(w => w[0]).filter(Boolean).slice(0,2).join('').toUpperCase();
+  }
+
+  function getRole(speaker) {
+    if (speaker === 'detective') return data.detective_model || '';
+    if (speaker === 'narrator' || speaker === 'result') return '';
+    return data.suspect_models?.[speaker] || '';
+  }
+
+  function formatText(text) {
+    // Convert **bold** and *italic*
+    let s = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*]+?)\*/g, '<em>$1</em>');
+    return s;
+  }
+
+  // Group transcript into phases
+  const phases = [];
+  let currentPhase = null;
+  for (const entry of t) {
+    if (entry.phase !== currentPhase) {
+      currentPhase = entry.phase;
+      phases.push({ phase: currentPhase, entries: [] });
+    }
+    phases[phases.length - 1].entries.push(entry);
+  }
+
+  const PHASE_NAMES = {
+    scene_setting: 'Act I — The Crime Scene',
+    initial_statements: 'Act II — Initial Statements',
+    interrogation_r1: 'Act III — First Interrogation',
+    interrogation_r2: 'Act III — Second Interrogation',
+    interrogation_r3: 'Act III — Third Interrogation',
+    evidence_reveal: '🔍 Evidence Revealed',
+    cross_examination: 'Act IV — Cross-Examination',
+    parlor_scene: 'Act V — The Parlor Scene',
+    reveal: 'The Reveal',
+  };
+
+  let html = '';
+
+  // Header
+  const sceneEntry = t.find(e => e.phase === 'scene_setting');
+  html += `
+    <div class="header">
+      <div class="header-label">🎭 AI Mystery Theater</div>
+      <h1 class="story-title">${data.title}</h1>
+      ${sceneEntry ? `<p class="setting">${sceneEntry.text}</p>` : ''}
+      <div class="cast">
+        <div class="cast-member">
+          <div class="cast-avatar" style="background:${COLORS.detective}">🔍</div>
+          <span class="cast-name" style="color:${COLORS.detective}">The Detective</span>
+          <span class="cast-model">${data.detective_model || ''}</span>
+        </div>
+        ${suspectNames.map(name => `
+          <div class="cast-member">
+            <div class="cast-avatar" style="background:${getColor(name)}">${initial(name)}</div>
+            <span class="cast-name" style="color:${getColor(name)}">${name}</span>
+            <span class="cast-model">${data.suspect_models[name]}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  // Track which act headings we've already shown
+  const shownHeadings = new Set();
+  let interrogationCount = 0;
+
+  for (const group of phases) {
+    const p = group.phase;
+
+    // Determine heading
+    let heading = PHASE_NAMES[p];
+    if (p.startsWith('interrogation_r')) {
+      interrogationCount++;
+      heading = `Act III — Interrogation Round ${interrogationCount}`;
+    }
+
+    // Evidence reveals get merged inline—show heading only if standalone
+    if (p === 'evidence_reveal') {
+      // Render evidence cards without a separate heading
+      for (const entry of group.entries) {
+        html += `<div class="card card-evidence card-narrator"><div class="card-text">${formatText(entry.text)}</div></div>`;
+      }
+      continue;
+    }
+
+    if (p === 'reveal') {
+      html += `<div class="act-heading">✨ The Reveal</div>`;
+      const resultEntry = group.entries.find(e => e.speaker === 'result');
+      const solutionEntry = group.entries.find(e => e.speaker === 'narrator');
+      const correct = resultEntry && resultEntry.text.trim().toUpperCase() === 'CORRECT';
+      html += `
+        <div class="card reveal-card ${correct ? 'reveal-correct' : 'reveal-wrong'}">
+          <div class="reveal-result">${correct ? '✅ THE DETECTIVE WAS CORRECT!' : '❌ THE DETECTIVE WAS WRONG!'}</div>
+          ${solutionEntry ? `<div class="reveal-solution">${formatText(solutionEntry.text)}</div>` : ''}
+        </div>
+      `;
+      continue;
+    }
+
+    if (p === 'scene_setting') continue; // Already shown in header
+
+    if (heading && !shownHeadings.has(heading)) {
+      html += `<div class="act-heading">${heading}</div>`;
+      shownHeadings.add(heading);
+    }
+
+    for (const entry of group.entries) {
+      const speaker = entry.speaker;
+      const color = getColor(speaker);
+      const isParlor = p === 'parlor_scene';
+      const isDetective = speaker === 'detective';
+      const isNarrator = speaker === 'narrator';
+
+      let cardClass = 'card';
+      if (isNarrator) cardClass += ' card-narrator';
+      if (isDetective) cardClass += ' card-detective';
+      if (isParlor) cardClass += ' card-parlor';
+
+      html += `
+        <div class="${cardClass}">
+          <div class="card-speaker">
+            <div class="speaker-avatar" style="background:${color}">${isDetective ? '🔍' : initial(speaker)}</div>
+            <div>
+              <div class="speaker-name" style="color:${color}">${isDetective ? 'The Detective' : speaker}</div>
+              ${getRole(speaker) ? `<div class="speaker-role">${getRole(speaker)}</div>` : ''}
+            </div>
+          </div>
+          <div class="card-text">${formatText(entry.text)}</div>
+        </div>
+      `;
+    }
+  }
+
+  // Footer
+  html += `
+    <div class="footer">
+      <div class="footer-meta">${data.total_tokens ? data.total_tokens.toLocaleString() + ' tokens used' : ''} · ${data.date || ''}</div>
+      <div class="footer-brand">Powered by AI Mystery Theater 🎭</div>
+    </div>
+  `;
+
+  app.innerHTML = html;
+
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.card, .reveal-card').forEach(el => observer.observe(el));
+})();
+</script>
+</body>
+</html>
