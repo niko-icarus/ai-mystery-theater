@@ -1,0 +1,536 @@
+{
+  "engine_version": 2,
+  "game": {
+    "set_id": "s01e07",
+    "title": "The Tomb of Amenhotep",
+    "season": 1,
+    "episode": 7,
+    "started": "2026-03-22T21:01:37.204455+00:00",
+    "finished": "2026-03-22T21:05:57.051808+00:00"
+  },
+  "model_assignments": {
+    "detective": {
+      "model": "meta-llama/llama-4-maverick",
+      "model_name": "Llama"
+    },
+    "suspects": [
+      {
+        "character": "Lord Reginald Ashworth",
+        "model": "deepseek/deepseek-chat-v3.1",
+        "model_name": "DeepSeek",
+        "is_killer": false
+      },
+      {
+        "character": "Dr. Colette Beaumont",
+        "model": "anthropic/claude-opus-4.6",
+        "model_name": "",
+        "is_killer": false
+      },
+      {
+        "character": "Professor Otto Kessler",
+        "model": "openai/gpt-5.4",
+        "model_name": "ChatGPT",
+        "is_killer": false
+      },
+      {
+        "character": "Catalina Vasquez",
+        "model": "google/gemini-2.5-pro",
+        "model_name": "Gemini",
+        "is_killer": false
+      },
+      {
+        "character": "Reverend James Whitmore",
+        "model": "mistralai/mistral-large",
+        "model_name": "Mistral",
+        "is_killer": true
+      },
+      {
+        "character": "Yuki Tanaka",
+        "model": "qwen/qwen3-max",
+        "model_name": "Qwen",
+        "is_killer": false
+      },
+      {
+        "character": "Dimitri Volkov",
+        "model": "x-ai/grok-4.20-beta",
+        "model_name": "Grok",
+        "is_killer": false
+      }
+    ]
+  },
+  "transcript": {
+    "round_1_scene": "LOCATION: The Tomb of Amenhotep\nA newly discovered tomb deep beneath the Egyptian desert, Valley of the Kings, 1893. Three levels of corridors covered in hieroglyphs, past false doors and ancient traps, leading to a vast burial chamber housing a golden sarcophagus. A sandstorm has sealed the entrance shaft \u2014 no way out until it passes. Torchlight flickers against painted walls depicting the afterlife. The air is stale and growing thin.\n\nTHE CRIME: Thomas Burke \u2014 Irish expedition guide, 42. A former British Army surveyor turned tomb guide, one of the most experienced in the Valley of the Kings. Rough, hard-drinking, and blunt. Found face-down beside the sarcophagus in the main burial chamber with a deep stab wound between his shoulder blades. No weapon was found at the scene. Burke had a reputation for collecting secrets about his clients and using them as leverage.\nCause of death: Stabbed once in the back with a narrow, deep wound between the shoulder blades. No weapon found at the scene \u2014 the killer took it.\n\nSUSPECTS:\n  - Lord Reginald Ashworth: British aristocrat and expedition funder\n  - Dr. Colette Beaumont: French archaeologist from the Sorbonne\n  - Professor Otto Kessler: German Egyptologist\n  - Catalina Vasquez: Spanish journalist and adventurer\n  - Reverend James Whitmore: American missionary from Boston\n  - Yuki Tanaka: Japanese cartographer and artist\n  - Dimitri Volkov: Russian mercenary and expedition security\n\nOPENING EVIDENCE:\n  - Burke was stabbed once in the back with a narrow, deep wound between the shoulder blades. No weapon was found at the scene or on the body \u2014 the killer took it with them.\n  - Burke was found beside the sarcophagus in the main burial chamber. His torch was still burning, suggesting he hadn't been dead long.\n  - A crumpled note was found in Burke's coat pocket reading: 'This is your last warning. Pay what you owe or face the consequences.' The handwriting is disguised \u2014 block capitals, no identifiable style.\n  - Faint boot prints in the dust of the burial chamber show two sets of tracks \u2014 Burke's heavy work boots and a second, lighter set that approaches from behind and then retreats toward the main corridor.\n  - A torn scrap of dark fabric was found caught on a torch bracket in the corridor just outside the burial chamber, at roughly shoulder height.\n  - The expedition equipment pile in the antechamber contains various sharp tools \u2014 excavation knives, chisels, palette knives, rock picks. Several members of the group also carry their own bladed instruments.",
+    "round_2_statements": [
+      {
+        "character": "Lord Reginald Ashworth",
+        "model": "deepseek/deepseek-chat-v3.1",
+        "model_name": "DeepSeek",
+        "think": "Need to establish my alibi clearly while planting subtle suspicion toward others. The torn fabric could implicate Volkov or the Reverend. The note suggests blackmail - perfect to misdirect from my real secret.",
+        "speak": "I was with Professor Kessler when it happened. That torn fabric suggests someone fled the corridor. And Volkov's coat looks rather dark, doesn't it?",
+        "suspects_accused": []
+      },
+      {
+        "character": "Dr. Colette Beaumont",
+        "model": "anthropic/claude-opus-4.6",
+        "model_name": "anthropic/claude-opus-4.6",
+        "think": "I need to establish my alibi clearly, deflect suspicion about my smuggling, and probe others for inconsistencies. Ashworth points at Volkov\u2014deflection? I should note that Ashworth claims he was with Kessler \u2014 I need to see if Kessler confirms this.",
+        "speak": "I was in the passage on the second level, sketching alone. But let me say this: that note in Burke's pocket, \"*pay what you owe*\" \u2014 that is about money, non? And you say you were with Kessler \u2014 let him confirm it.",
+        "suspects_accused": [
+          "Lord Reginald Ashworth",
+          "Professor Otto Kessler"
+        ]
+      },
+      {
+        "character": "Professor Otto Kessler",
+        "model": "openai/gpt-5.4",
+        "model_name": "ChatGPT",
+        "think": "Confirm Ashworth\u2019s alibi but avoid unnecessary specifics that invite scrutiny; press on physical evidence instead. The lighter prints and removed weapon suggest someone nimble and prepared, not a clumsy panic killing.",
+        "speak": "Ashworth speaks true: we were in the antechamber over my notebooks and wall texts; I regret I marked no minute. The note may be misdirection\u2014those lighter tracks, the missing blade, and that dark scrap tell me someone entered quietly, struck once, and left with purpose.",
+        "suspects_accused": [
+          "Lord Reginald Ashworth"
+        ]
+      },
+      {
+        "character": "Catalina Vasquez",
+        "model": "google/gemini-2.5-pro",
+        "model_name": "Gemini",
+        "think": "I'll state my alibi, including the",
+        "speak": "I was in the corridor when I heard footsteps from",
+        "suspects_accused": []
+      },
+      {
+        "character": "Reverend James Whitmore",
+        "model": "mistralai/mistral-large",
+        "model_name": "Mistral",
+        "think": "Stay pious, deflect with scripture, and plant doubt on others\u2014especially Volkov and Catalina, who have weak alibis. Push the \"dark fabric\" toward Volkov subtly.",
+        "speak": "On my knees in prayer above, I heard nothing\u2014until the alarm. That torn fabric... Dimitri, your dark coat, Burke\u2019s warnings of your temper\u2014it weighs on me.",
+        "suspects_accused": []
+      },
+      {
+        "character": "Yuki Tanaka",
+        "model": "qwen/qwen3-max",
+        "model_name": "Qwen",
+        "think": "The torn fabric at shoulder height and boot prints indicate the killer is taller than my 168 cm. Vasquez and Whitmore\u2019s vague alibis show inconsistencies\u2014I\u2019ll note them without direct accusation yet.",
+        "speak": "In the corridor, the torn fabric was caught high on the bracket\u2014above my shoulder. And Vasquez\u2026 you say you were there, yet saw nothing?",
+        "suspects_accused": [
+          "Catalina Vasquez"
+        ]
+      },
+      {
+        "character": "Dimitri Volkov",
+        "model": "x-ai/grok-4.20-beta",
+        "model_name": "Grok",
+        "think": "Alibi: patrolling upper level near sealed entrance after sandstorm. Deflect fabric tear (shoulder height) by noting Tanaka is shorter; probe Kessler/Ashworth's matching alibi. Observe boot prints.",
+        "speak": "That fabric tear is at shoulder height\u2014Tanaka, you're shorter than that bracket, da. I was stuck on the upper level after the sandstorm hit. Reverend, my temper's not the issue here.",
+        "suspects_accused": []
+      }
+    ],
+    "round_3_suspicion": [
+      {
+        "confrontation_prompt": "Lord Reginald Ashworth, Dr. Colette Beaumont and Professor Otto Kessler have both raised suspicions about you. Dr. Colette Beaumont, make your case.",
+        "target": "Lord Reginald Ashworth",
+        "challenger": "Dr. Colette Beaumont",
+        "target_think": "Beaumont's logic is flawed. I must pivot, highlighting Kessler's weak alibi and the contradictions in others' stories to shift suspicion.",
+        "target_speak": "Preposterous! The note proves Burke was the extortionist. Ask why Vasquez saw nothing in the corridor, or why Volkov's sand collapse alibi has no witness.",
+        "challenger_think": "The note suggests Burke was blackmailing someone\u2014Ashworth has the most to lose from this. Let me think about other suspects too; Catalina's corridor position is suspicious.",
+        "challenger_speak": "You're not exonerated, Lord Ashworth \u2014 Burke's blackmail implicates you further. But what troubles me is Mademoiselle Vasquez: she was in the corridor between the burial chamber and the antechamber, claims footsteps rush past yet saw nothing? In a narrow corridor?",
+        "target_accused": [
+          "Professor Otto Kessler",
+          "Catalina Vasquez",
+          "Dimitri Volkov"
+        ],
+        "challenger_accused": [
+          "Lord Reginald Ashworth"
+        ]
+      },
+      {
+        "confrontation_prompt": "Professor Otto Kessler, Dr. Colette Beaumont has pointed the finger at you. Dr. Colette Beaumont, explain why.",
+        "target": "Professor Otto Kessler",
+        "challenger": "Dr. Colette Beaumont",
+        "target_think": "Deflect cleanly with the shared alibi, avoid overexplaining, and press on Beaumont and Vasquez since both were alone and one is shaping suspicion aggressively. Keep calm and scholarly.",
+        "target_speak": "Dr. Beaumont's suspicion is thin. Beaumont and Mademoiselle Vasquez were alone, and Vasquez places herself in the very corridor of the killer's retreat yet somehow saw no face, no coat, no lamp.",
+        "challenger_think": "My real suspicions are forming around Vasquez - she was in the exact corridor the killer fled through, claims to have heard footsteps but seen nothing. Redirecting focus from Kessler to her.",
+        "challenger_speak": "Catalina was in the killer's exact path \u2014 she heard footsteps rush past. A narrow corridor, torchlight \u2014 and she saw *nothing*? Mademoiselle Vasquez, which is it?",
+        "target_accused": [
+          "Lord Reginald Ashworth",
+          "Dr. Colette Beaumont",
+          "Catalina Vasquez"
+        ],
+        "challenger_accused": [
+          "Lord Reginald Ashworth",
+          "Professor Otto Kessler",
+          "Catalina Vasquez"
+        ]
+      },
+      {
+        "confrontation_prompt": "Catalina Vasquez, Yuki Tanaka has pointed the finger at you. Yuki Tanaka, explain why.",
+        "target": "Catalina Vasquez",
+        "challenger": "Yuki Tanaka",
+        "target_think": "The main attack is that I was in the",
+        "target_speak": "Si, it seems convenient, but the corridor was dark and I was focused on my notebook, trying to write by the light of a single torch. The person who ran past me was not carrying a",
+        "challenger_think": "Vasquez claims the runner carried no light\u2014but Burke\u2019s torch was burning, so the killer needed none. In a narrow corridor, a single torch would clearly cast silhouettes; her vagueness is suspicious.",
+        "challenger_speak": "In that narrow corridor, writing by torchlight, you\u2019d see their shape, height, coat\u2019s swing\u2014any passerby casts a sharp shadow. Yet you claim blindness?",
+        "target_accused": [],
+        "challenger_accused": []
+      },
+      {
+        "confrontation_prompt": "Dimitri Volkov, you've been quiet about Reverend James Whitmore. What do you make of their story? Reverend James Whitmore, listen carefully \u2014 you may need to respond.",
+        "target": "Reverend James Whitmore",
+        "challenger": "Dimitri Volkov",
+        "target_think": "Deflect by framing Vasquez as the liar, bolster my pious alibi, and use the torn fabric to implicate Volkov\u2014his silence suggests guilt.",
+        "target_speak": "Miss Vasquez claims she saw nothing in the corridor where the killer fled\u2014yet how can that be God\u2019s truth? And Dimitri, your torn coat matches the fabric, and Burke warned of your temper. Search your souls, both of you.",
+        "challenger_think": "Vasquez's story is unraveling: narrow corridor, torchlight, yet she \"saw nothing\" while hearing footsteps. I must push her on the missing details (light, shadow, coat) to build suspicion without direct accusation, safeguarding my secret and alibi.",
+        "challenger_speak": "Reverend, my coat is not torn. Vasquez, you were in that narrow corridor with a torch\u2014how did you hear footsteps rush past but see no shadow, no coat, no height? That is not possible.",
+        "target_accused": [
+          "Catalina Vasquez",
+          "Dimitri Volkov"
+        ],
+        "challenger_accused": []
+      },
+      {
+        "confrontation_prompt": "Professor Otto Kessler, you've been quiet about Lord Reginald Ashworth. What do you make of their story? Lord Reginald Ashworth, listen carefully \u2014 you may need to respond.",
+        "target": "Lord Reginald Ashworth",
+        "challenger": "Professor Otto Kessler",
+        "target_think": "Everyone is circling Vasquez now - perfect. I should reinforce that while subtly questioning why she had no reaction to someone running past her in a confined space.",
+        "target_speak": "A journalist of your caliber? Someone rushing past would disturb your writing or cast shadows. Your claim strains credulity.",
+        "challenger_think": "Keep Ashworth close because he anchors my alibi, but do not appear his servant; shift pressure back to the corridor witness where the room already leans. I should sound analytical and restrained.",
+        "challenger_speak": "Lord Ashworth\u2019s account aligns with mine. The greater difficulty is still Mademoiselle Vasquez: in that corridor, with a torch lit, one does not fail to notice the outline of a fleeing figure unless one is concealing it",
+        "target_accused": [
+          "Catalina Vasquez"
+        ],
+        "challenger_accused": []
+      },
+      {
+        "confrontation_prompt": "Catalina Vasquez, you've been quiet about Lord Reginald Ashworth. What do you make of their story? Lord Reginald Ashworth, listen carefully \u2014 you may need to respond.",
+        "target": "Lord Reginald Ashworth",
+        "challenger": "Catalina Vasquez",
+        "target_think": "Vasquez is clearly lying about her position or involvement. Her story doesn't hold up to basic scrutiny about visibility in the corridor. I should press her inconsistency while maintaining my solid alibi with Kessler.",
+        "target_speak": "Vasquez, your story collapses under simple logic. Either you're protecting someone or you're the one who made those lighter footprints fleeing the chamber. Which is it?",
+        "challenger_think": "The pressure is mounting. My story about seeing nothing is weak, but I must maintain it. I will deflect the pressure from myself by questioning Lord Ashworth's motive directly - he had the most to lose from blackmail.",
+        "challenger_speak": "Perhaps you should be more concerned with who knew your secrets",
+        "target_accused": [],
+        "challenger_accused": []
+      },
+      {
+        "confrontation_prompt": "Reverend James Whitmore, you've been quiet about Lord Reginald Ashworth. What do you make of their story? Lord Reginald Ashworth, listen carefully \u2014 you may need to respond.",
+        "target": "Lord Reginald Ashworth",
+        "challenger": "Reverend James Whitmore",
+        "target_think": "Vasquez is deflecting by attacking my motive, but she's the one with the impossible story. The Reverend might be my best ally here if I can redirect suspicion toward her.",
+        "target_speak": "Reverend, surely you see the contradiction here? Vasquez claims to be a journalist yet observed nothing in the exact path of the killer's escape. That requires more faith than any of your prayers.",
+        "challenger_think": "Vasquez is digging at Ashworth\u2019s secrets\u2014smart. Let her keep the heat on him. I\u2019ll play the pious fool, feign shock at the accusation, and pivot back to Volkov\u2019s dark coat and temper. Keep the room divided.",
+        "challenger_speak": "Lord Ashworth, my prayers were sincere\u2014yet Dimitri, your dark coat and temper trouble me. The torn fabric was at shoulder height, and you stood alone by the entrance. Why should we not ask where you were?",
+        "target_accused": [
+          "Catalina Vasquez",
+          "Reverend James Whitmore"
+        ],
+        "challenger_accused": [
+          "Lord Reginald Ashworth",
+          "Dimitri Volkov"
+        ]
+      }
+    ],
+    "detective_processing": {
+      "model": "meta-llama/llama-4-maverick",
+      "model_name": "Llama",
+      "think": "The conversation reveals inconsistencies, especially around Vasquez's and Volkov's alibis. Vasquez's claim of being in the corridor and seeing nothing is suspicious. Volkov's alibi relies on an un witnessed sand collapse, and his dark coat matches the torn fabric."
+    },
+    "round_4_investigation": {
+      "evidence_revealed": "The torn fabric matches the lining of a dark coat \u2014 not expedition-standard gear. Additionally, closer examination of the wound suggests a broad, heavy blade \u2014 consistent with an excavation knife rather than a fine instrument like a palette knife or compass. Inspector Cross notes that one of the excavation knives in the equipment pile appears to have been recently cleaned \u2014 faint traces of something dark remain in the handle rivets, though the blade itself is spotless. Finally, a second note was found hidden inside Burke's bedroll: a list of names with amounts written beside them \u2014 Ashworth: \u00a3200, Whitmore: \u00a350, Kessler: \u00a330, Vasquez: \u00a3100. A blackmail ledger.",
+      "exchanges": [
+        {
+          "question_number": 1,
+          "detective_think": "Burke was extorting money from multiple individuals, as shown in a blackmail ledger with amounts beside names; I'll investigate further.",
+          "detective_speak": "Can you explain? The torn fabric from the scene matches your dark coat's lining, and Reverend Whitmore mentioned your temper.",
+          "suspect_character": "Dimitri Volkov",
+          "suspect_model": "x-ai/grok-4.20-beta",
+          "suspect_model_name": "Grok",
+          "suspect_think": "Vasquez tops the blackmail list for \u00a3100, positioned in the killer's escape route with a flimsy story, and matches the lighter female footprints. Fabric may be her frame job. My secret is safe; push hard on her while defending lightly.",
+          "suspect_speak": "My coat is undamaged, no tear at shoulder or anywhere. That fabric is not mine. Vasquez, you are the one in the corridor with the weak story and you are on that blackmail list for one hundred pounds."
+        },
+        {
+          "question_number": 2,
+          "detective_think": "The new evidence reveals a blackmail ledger with amounts beside names, suggesting Burke was extorting money from multiple people. I want to ask Lord Ashworth about the \u00a3200 listed beside his name.",
+          "detective_speak": "Lord Ashworth, the blackmail ledger found in Burke's belongings lists you for \u00a3200 \u2014 a substantial sum. Can you explain what you were being blackmailed for, and did you ever confront Burke about it?",
+          "suspect_character": "Lord Reginald Ashworth",
+          "suspect_model": "deepseek/deepseek-chat-v3.1",
+          "suspect_model_name": "DeepSeek",
+          "suspect_think": "The blackmail ledger confirms my secret - Burke was extorting me. But I can't reveal my financial ruin. Need to deflect while pointing out Volkov's coat lining matches the fabric scrap and he was alone near the entrance.",
+          "suspect_speak": "Burke tried to extort me, but Volkov\u2019s coat matches the fabric, and he was alone in that sandstorm!"
+        },
+        {
+          "question_number": 3,
+          "detective_think": "The blackmail ledger reveals potential motives for several suspects, and Lord Ashworth's explanation seems plausible but needs further scrutiny. I'll question Dr. Beaumont about her whereabouts and if she noticed anything unusual.",
+          "detective_speak": "Dr. Beaumont, you were alone in the lower passage on the second level. Did you see or hear anyone else around you during that time, or notice anything that might seem insignificant now?",
+          "suspect_character": "Dr. Colette Beaumont",
+          "suspect_model": "anthropic/claude-opus-4.6",
+          "suspect_model_name": "",
+          "suspect_think": "Must answer honestly while hiding my smuggling secret. Ashworth and Kessler were in the antechamber where the equipment pile is. The Reverend is on the blackmail list for \u00a350 \u2014 Whitmore keeps deflecting to Volkov aggressively, was alone, and the cleaned knife was returned to the equipment pile.",
+          "suspect_speak": "Inspector, I was sketching on the second level, but passing through the antechamber afterward, I noticed something at the equipment pile \u2014 one of the excavation knives had its blade reversed. Someone returned that knife in haste."
+        },
+        {
+          "question_number": 4,
+          "detective_think": "The new evidence about the excavation knife being cleaned and the blackmail list points towards a motive and possible weapon. I need to question someone about the knife and their alibi again.",
+          "detective_speak": "Professor Kessler, you were with Lord Ashworth in the antechamber. Did you notice anyone near the excavation knives or anything unusual?",
+          "suspect_character": "Professor Otto Kessler",
+          "suspect_model": "openai/gpt-5.4",
+          "suspect_model_name": "ChatGPT",
+          "suspect_think": "Keep Ashworth alibi intact but avoid overcommitting on details I could be challenged on. Use the cleaned excavation knife and Vasquez corridor inconsistency to keep pressure away from me and toward the strongest public suspicion.",
+          "suspect_speak": "One excavation knife was hastily cleaned and replaced in the antechamber; that favors someone fleeing that way\u2014just as Mademoiselle Vasquez says the footsteps did."
+        },
+        {
+          "question_number": 5,
+          "detective_think": "The torn fabric and the dark coat lining match, pointing towards Dimitri Volkov, but he denies it. The blackmail list reveals several suspects with motives. I'll question Yuki Tanaka, who hasn't been directly implicated yet.",
+          "detective_speak": "Yuki Tanaka, you were mapping the side passage on the second level. Did you notice anything unusual or see anyone else around that area during your work, and can you confirm your alibi?",
+          "suspect_character": "Yuki Tanaka",
+          "suspect_model": "qwen/qwen3-max",
+          "suspect_model_name": "Qwen",
+          "suspect_think": "The cleaned excavation knife suggests the killer returned it post-murder. Vasquez\u2019s story is full of holes, and she\u2019s on the blackmail list.",
+          "suspect_speak": "I was alone mapping in the side passage\u2014saw no one till Vasquez ran past. If she was truly in the corridor outside the burial chamber, she\u2019d have seen the killer\u2026 or been fleeing with the cleaned knife."
+        }
+      ]
+    },
+    "round_5_final_statements": [
+      {
+        "character": "Lord Reginald Ashworth",
+        "model": "deepseek/deepseek-chat-v3.1",
+        "model_name": "DeepSeek",
+        "think": "The evidence points strongly to Vasquez - she was in the corridor during the escape, her story doesn't hold up, and she had motive from the blackmail list. Volkov's coat lining matches the fabric, but Vasquez's positioning is more damning.",
+        "speak": "Vasquez was in the antechamber she fled to! She owed Burke money and lied about seeing nothing.",
+        "suspects_accused": []
+      },
+      {
+        "character": "Dr. Colette Beaumont",
+        "model": "anthropic/claude-opus-4.6",
+        "model_name": "",
+        "think": "",
+        "speak": "The knife was cleaned and returned to the antechamber. Vasquez was in the corridor\u2014yet saw nothing? She's on the blackmail list.",
+        "suspects_accused": [
+          "Catalina Vasquez",
+          "Reverend James Whitmore",
+          "Dimitri Volkov"
+        ]
+      },
+      {
+        "character": "Professor Otto Kessler",
+        "model": "openai/gpt-5.4",
+        "model_name": "ChatGPT",
+        "think": "Push the strongest consensus case to secure points and avoid attention; keep it crisp and evidence-based. Do not overplay Ashworth, and say nothing that invites scrutiny of Kessler\u2019s own debt.",
+        "speak": "Mademoiselle Vasquez killed Burke with the excavation knife. She stood in the killer\u2019s escape, and the weapon was cleaned and returned.",
+        "suspects_accused": [
+          "Catalina Vasquez"
+        ]
+      },
+      {
+        "character": "Catalina Vasquez",
+        "model": "google/gemini-2.5-pro",
+        "model_name": "Gemini",
+        "think": "",
+        "speak": "My alibi is weak, and the blackmail... I",
+        "suspects_accused": []
+      },
+      {
+        "character": "Reverend James Whitmore",
+        "model": "mistralai/mistral-large",
+        "model_name": "Mistral",
+        "think": "Vasquez was in the corridor, has weak alibis, and is on the blackmail list\u2014ideal scapegoat. Hammer her, reference the coat lining to divert focus. No forensic links; stay composed, pious, and deflect.",
+        "speak": "Miss Vasquez\u2014you owed Burke money, yet hid in that corridor? The knife was returned to the antechamber where you fled. And Dimitri\u2014whose coat bears that dark tear?",
+        "suspects_accused": []
+      },
+      {
+        "character": "Yuki Tanaka",
+        "model": "qwen/qwen3-max",
+        "model_name": "Qwen",
+        "think": "Vasquez is on the blackmail list; the cleaned knife was returned to the antechamber she claims the killer fled toward\u2014her story defies physics and reeks of deception.",
+        "speak": "\u201cShe owed Burke \u00a3100, saw nothing despite having a torch\u2014and the cleaned excavation knife was returned to the antechamber.\u201d",
+        "suspects_accused": [
+          "Catalina Vasquez"
+        ]
+      },
+      {
+        "character": "Dimitri Volkov",
+        "model": "x-ai/grok-4.20-beta",
+        "model_name": "Grok",
+        "think": "Vasquez has clear motive. The blackmail ledger gives her clear motive. The cleaned excavation knife and her implausible \"heard but saw nothing\" story in the escape corridor strongly point to her. (138)",
+        "speak": "Vasquez, your story's nonsense\u2014you were right in the path with a torch yet saw nothing. You owed Burke money, the footsteps led straight to you, and the knife was cleaned in the antechamber. You killed him.",
+        "suspects_accused": []
+      }
+    ],
+    "round_5_accusation": {
+      "detective_think": "Evidence points to Catalina Vasquez: she was outside the burial chamber, had a motive due to owing Burke \u00a3100 on the blackmail list, and the cleaned excavation knife matches her described footsteps.",
+      "detective_speak": "Catalina Vasquez murdered Thomas Burke in the antechamber with an excavation knife to avoid paying \u00a3100 blackmail.",
+      "accused": "Catalina Vasquez",
+      "raw_text": "I accuse Catalina Vasquez of murdering Thomas Burke. The weapon used was an excavation knife from the equipment pile in the antechamber, which was later cleaned and returned. The motive was to avoid paying the \u00a3100 Burke was blackmailing her for, as evidenced by the list found in Burke's bedroll."
+    },
+    "round_5_accused_response": {
+      "character": "Catalina Vasquez",
+      "think": "",
+      "speak": "So that's it. The detective has made his"
+    },
+    "round_5_reactions": [
+      {
+        "character": "Lord Reginald Ashworth",
+        "model": "deepseek/deepseek-chat-v3.1",
+        "model_name": "DeepSeek",
+        "think": "Vasquez was the obvious suspect given her implausible story and position. The evidence lines up perfectly - motive, opportunity, and the cleaned knife in the antechamber she fled toward.",
+        "speak": "Finally! I've been saying Vasquez was lying since the beginning. Her story never held water, and that blackmail amount gave her more than enough motive. Case closed."
+      },
+      {
+        "character": "Dr. Colette Beaumont",
+        "model": "anthropic/claude-opus-4.6",
+        "model_name": "",
+        "think": "Vasquez is suspicious\u2014corridor position, blackmail motive, knife returned in her direction\u2014but the torn dark fabric at shoulder height isn't definitively linked to her. The Reverend has been aggressively deflecting; he wore dark clerical clothing and had motive too. I'll suspect Vasquez but note reservations about Whitmore.",
+        "speak": "The evidence against Mademoiselle Vasquez is compelling \u2014 the corridor position, the impossible claim of blindness, the blackmail debt, the knife returned in her direction of flight. That torn dark fabric \u2014 has anyone checked *her* clothing for a tear?"
+      },
+      {
+        "character": "Professor Otto Kessler",
+        "model": "openai/gpt-5.4",
+        "model_name": "ChatGPT",
+        "think": "The room has consolidated on Vasquez; I should reinforce the consensus without sounding gleeful, and keep attention away from any deeper scrutiny of motives or my own secrets.",
+        "speak": "No, I cannot say I am surprised. Her account was the weakest from the start, and with the ledger, the corridor, and the cleaned excavation knife, the accusation is regrettably persuasive."
+      },
+      {
+        "character": "Reverend James Whitmore",
+        "model": "mistralai/mistral-large",
+        "model_name": "Mistral",
+        "think": "Perfect. Vasquez is taking the fall\u2014exactly what I wanted. The detective bought the framing, and the others are piling on. Keep pushing subtly to seal it. Don\u2019t overplay it now.",
+        "speak": "Justice is done, yet my heart grieves for Burke. If you\u2019re guilty, Miss Vasquez, may God forgive you\u2014we should\u2019ve seen the truth sooner."
+      },
+      {
+        "character": "Yuki Tanaka",
+        "model": "qwen/qwen3-max",
+        "model_name": "Qwen",
+        "think": "The detective\u2019s accusation fits superficially, but the torn fabric doesn\u2019t match Vasquez\u2019s clothes\u2014and her presence in the corridor contradicts flight. Yet the ledger and her implausible denial make guilt plausible.",
+        "speak": "Her position, the blackmail, the cleaned knife\u2014it aligns. Not like her coat... but that torn fabric."
+      },
+      {
+        "character": "Dimitri Volkov",
+        "model": "x-ai/grok-4.20-beta",
+        "model_name": "Grok",
+        "think": "I must now defend myself if needed while gently questioning why the dark fabric matches no one's coat yet points away from Vasquez. I should highlight that the Reverend keeps deflecting to me despite the ledger and knife evidence pointing elsewhere.",
+        "speak": "Detective is wrong about Vasquez. I said she lied about the corridor from the start, but the torn dark fabric does not match her clothes. Reverend keeps pointing at me even though he is on the ledger and alone upstairs."
+      }
+    ]
+  },
+  "scores": {
+    "detective": {
+      "model": "meta-llama/llama-4-maverick",
+      "model_name": "Llama",
+      "correct_killer": false,
+      "correct_weapon": true,
+      "correct_motive": true,
+      "total": 6
+    },
+    "killer": {
+      "character": "Reverend James Whitmore",
+      "model": "mistralai/mistral-large",
+      "model_name": "Mistral",
+      "evaded": true,
+      "framing_bonus": true,
+      "total": 13
+    },
+    "innocents": {
+      "Lord Reginald Ashworth": {
+        "model": "deepseek/deepseek-chat-v3.1",
+        "model_name": "DeepSeek",
+        "total": 4
+      },
+      "Dr. Colette Beaumont": {
+        "model": "anthropic/claude-opus-4.6",
+        "model_name": "",
+        "total": 7
+      },
+      "Professor Otto Kessler": {
+        "model": "openai/gpt-5.4",
+        "model_name": "ChatGPT",
+        "total": 2
+      },
+      "Catalina Vasquez": {
+        "model": "google/gemini-2.5-pro",
+        "model_name": "Gemini",
+        "total": -2
+      },
+      "Yuki Tanaka": {
+        "model": "qwen/qwen3-max",
+        "model_name": "Qwen",
+        "total": 2
+      },
+      "Dimitri Volkov": {
+        "model": "x-ai/grok-4.20-beta",
+        "model_name": "Grok",
+        "total": 2
+      }
+    },
+    "suspicion_matrix": {
+      "round_2": {
+        "Lord Reginald Ashworth": [],
+        "Dr. Colette Beaumont": [
+          "Lord Reginald Ashworth",
+          "Professor Otto Kessler"
+        ],
+        "Professor Otto Kessler": [
+          "Lord Reginald Ashworth"
+        ],
+        "Catalina Vasquez": [],
+        "Reverend James Whitmore": [],
+        "Yuki Tanaka": [
+          "Catalina Vasquez"
+        ],
+        "Dimitri Volkov": []
+      },
+      "round_3": {
+        "Lord Reginald Ashworth": [
+          "Professor Otto Kessler",
+          "Catalina Vasquez",
+          "Dimitri Volkov",
+          "Catalina Vasquez",
+          "Catalina Vasquez",
+          "Reverend James Whitmore"
+        ],
+        "Dr. Colette Beaumont": [
+          "Lord Reginald Ashworth",
+          "Lord Reginald Ashworth",
+          "Professor Otto Kessler",
+          "Catalina Vasquez"
+        ],
+        "Professor Otto Kessler": [
+          "Lord Reginald Ashworth",
+          "Dr. Colette Beaumont",
+          "Catalina Vasquez"
+        ],
+        "Catalina Vasquez": [],
+        "Yuki Tanaka": [],
+        "Reverend James Whitmore": [
+          "Catalina Vasquez",
+          "Dimitri Volkov",
+          "Lord Reginald Ashworth",
+          "Dimitri Volkov"
+        ],
+        "Dimitri Volkov": []
+      },
+      "round_5_final": {
+        "Lord Reginald Ashworth": [],
+        "Dr. Colette Beaumont": [
+          "Catalina Vasquez",
+          "Reverend James Whitmore",
+          "Dimitri Volkov"
+        ],
+        "Professor Otto Kessler": [
+          "Catalina Vasquez"
+        ],
+        "Catalina Vasquez": [],
+        "Reverend James Whitmore": [],
+        "Yuki Tanaka": [
+          "Catalina Vasquez"
+        ],
+        "Dimitri Volkov": []
+      }
+    }
+  },
+  "compression": {
+    "compressed": true,
+    "outputs_processed": 60,
+    "outputs_compressed": 59,
+    "bleed_fixes": 8,
+    "characters_saved": 12576
+  }
+}

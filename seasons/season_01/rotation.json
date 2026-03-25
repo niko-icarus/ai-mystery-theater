@@ -1,0 +1,410 @@
+[
+  {
+    "episode": 1,
+    "detective": {
+      "model": "anthropic/claude-opus-4.6",
+      "name": "Claude"
+    },
+    "suspects": [
+      {
+        "character": "Lord Reginald Ashworth",
+        "model": "openai/gpt-5.4",
+        "name": "ChatGPT",
+        "is_killer": false
+      },
+      {
+        "character": "Dr. Colette Beaumont",
+        "model": "google/gemini-2.5-pro",
+        "name": "Gemini",
+        "is_killer": false
+      },
+      {
+        "character": "Professor Otto Kessler",
+        "model": "mistralai/mistral-large",
+        "name": "Mistral",
+        "is_killer": false
+      },
+      {
+        "character": "Catalina Vasquez",
+        "model": "qwen/qwen3-max",
+        "name": "Qwen",
+        "is_killer": false
+      },
+      {
+        "character": "Reverend James Whitmore",
+        "model": "x-ai/grok-4.20-beta",
+        "name": "Grok",
+        "is_killer": true
+      },
+      {
+        "character": "Yuki Tanaka",
+        "model": "meta-llama/llama-4-maverick",
+        "name": "Llama",
+        "is_killer": false
+      },
+      {
+        "character": "Dimitri Volkov",
+        "model": "deepseek/deepseek-chat-v3.1",
+        "name": "DeepSeek",
+        "is_killer": false
+      }
+    ]
+  },
+  {
+    "episode": 2,
+    "detective": {
+      "model": "openai/gpt-5.4",
+      "name": "ChatGPT"
+    },
+    "suspects": [
+      {
+        "character": "Lord Reginald Ashworth",
+        "model": "google/gemini-2.5-pro",
+        "name": "Gemini",
+        "is_killer": false
+      },
+      {
+        "character": "Dr. Colette Beaumont",
+        "model": "mistralai/mistral-large",
+        "name": "Mistral",
+        "is_killer": false
+      },
+      {
+        "character": "Professor Otto Kessler",
+        "model": "qwen/qwen3-max",
+        "name": "Qwen",
+        "is_killer": false
+      },
+      {
+        "character": "Catalina Vasquez",
+        "model": "x-ai/grok-4.20-beta",
+        "name": "Grok",
+        "is_killer": false
+      },
+      {
+        "character": "Reverend James Whitmore",
+        "model": "meta-llama/llama-4-maverick",
+        "name": "Llama",
+        "is_killer": true
+      },
+      {
+        "character": "Yuki Tanaka",
+        "model": "deepseek/deepseek-chat-v3.1",
+        "name": "DeepSeek",
+        "is_killer": false
+      },
+      {
+        "character": "Dimitri Volkov",
+        "model": "anthropic/claude-opus-4.6",
+        "name": "Claude",
+        "is_killer": false
+      }
+    ]
+  },
+  {
+    "episode": 3,
+    "detective": {
+      "model": "google/gemini-2.5-pro",
+      "name": "Gemini"
+    },
+    "suspects": [
+      {
+        "character": "Lord Reginald Ashworth",
+        "model": "mistralai/mistral-large",
+        "name": "Mistral",
+        "is_killer": false
+      },
+      {
+        "character": "Dr. Colette Beaumont",
+        "model": "qwen/qwen3-max",
+        "name": "Qwen",
+        "is_killer": false
+      },
+      {
+        "character": "Professor Otto Kessler",
+        "model": "x-ai/grok-4.20-beta",
+        "name": "Grok",
+        "is_killer": false
+      },
+      {
+        "character": "Catalina Vasquez",
+        "model": "meta-llama/llama-4-maverick",
+        "name": "Llama",
+        "is_killer": false
+      },
+      {
+        "character": "Reverend James Whitmore",
+        "model": "deepseek/deepseek-chat-v3.1",
+        "name": "DeepSeek",
+        "is_killer": true
+      },
+      {
+        "character": "Yuki Tanaka",
+        "model": "anthropic/claude-opus-4.6",
+        "name": "Claude",
+        "is_killer": false
+      },
+      {
+        "character": "Dimitri Volkov",
+        "model": "openai/gpt-5.4",
+        "name": "ChatGPT",
+        "is_killer": false
+      }
+    ]
+  },
+  {
+    "episode": 4,
+    "detective": {
+      "model": "mistralai/mistral-large",
+      "name": "Mistral"
+    },
+    "suspects": [
+      {
+        "character": "Lord Reginald Ashworth",
+        "model": "qwen/qwen3-max",
+        "name": "Qwen",
+        "is_killer": false
+      },
+      {
+        "character": "Dr. Colette Beaumont",
+        "model": "x-ai/grok-4.20-beta",
+        "name": "Grok",
+        "is_killer": false
+      },
+      {
+        "character": "Professor Otto Kessler",
+        "model": "meta-llama/llama-4-maverick",
+        "name": "Llama",
+        "is_killer": false
+      },
+      {
+        "character": "Catalina Vasquez",
+        "model": "deepseek/deepseek-chat-v3.1",
+        "name": "DeepSeek",
+        "is_killer": false
+      },
+      {
+        "character": "Reverend James Whitmore",
+        "model": "anthropic/claude-opus-4.6",
+        "name": "Claude",
+        "is_killer": true
+      },
+      {
+        "character": "Yuki Tanaka",
+        "model": "openai/gpt-5.4",
+        "name": "ChatGPT",
+        "is_killer": false
+      },
+      {
+        "character": "Dimitri Volkov",
+        "model": "google/gemini-2.5-pro",
+        "name": "Gemini",
+        "is_killer": false
+      }
+    ]
+  },
+  {
+    "episode": 5,
+    "detective": {
+      "model": "qwen/qwen3-max",
+      "name": "Qwen"
+    },
+    "suspects": [
+      {
+        "character": "Lord Reginald Ashworth",
+        "model": "x-ai/grok-4.20-beta",
+        "name": "Grok",
+        "is_killer": false
+      },
+      {
+        "character": "Dr. Colette Beaumont",
+        "model": "meta-llama/llama-4-maverick",
+        "name": "Llama",
+        "is_killer": false
+      },
+      {
+        "character": "Professor Otto Kessler",
+        "model": "deepseek/deepseek-chat-v3.1",
+        "name": "DeepSeek",
+        "is_killer": false
+      },
+      {
+        "character": "Catalina Vasquez",
+        "model": "anthropic/claude-opus-4.6",
+        "name": "Claude",
+        "is_killer": false
+      },
+      {
+        "character": "Reverend James Whitmore",
+        "model": "openai/gpt-5.4",
+        "name": "ChatGPT",
+        "is_killer": true
+      },
+      {
+        "character": "Yuki Tanaka",
+        "model": "google/gemini-2.5-pro",
+        "name": "Gemini",
+        "is_killer": false
+      },
+      {
+        "character": "Dimitri Volkov",
+        "model": "mistralai/mistral-large",
+        "name": "Mistral",
+        "is_killer": false
+      }
+    ]
+  },
+  {
+    "episode": 6,
+    "detective": {
+      "model": "x-ai/grok-4.20-beta",
+      "name": "Grok"
+    },
+    "suspects": [
+      {
+        "character": "Lord Reginald Ashworth",
+        "model": "meta-llama/llama-4-maverick",
+        "name": "Llama",
+        "is_killer": false
+      },
+      {
+        "character": "Dr. Colette Beaumont",
+        "model": "deepseek/deepseek-chat-v3.1",
+        "name": "DeepSeek",
+        "is_killer": false
+      },
+      {
+        "character": "Professor Otto Kessler",
+        "model": "anthropic/claude-opus-4.6",
+        "name": "Claude",
+        "is_killer": false
+      },
+      {
+        "character": "Catalina Vasquez",
+        "model": "openai/gpt-5.4",
+        "name": "ChatGPT",
+        "is_killer": false
+      },
+      {
+        "character": "Reverend James Whitmore",
+        "model": "google/gemini-2.5-pro",
+        "name": "Gemini",
+        "is_killer": true
+      },
+      {
+        "character": "Yuki Tanaka",
+        "model": "mistralai/mistral-large",
+        "name": "Mistral",
+        "is_killer": false
+      },
+      {
+        "character": "Dimitri Volkov",
+        "model": "qwen/qwen3-max",
+        "name": "Qwen",
+        "is_killer": false
+      }
+    ]
+  },
+  {
+    "episode": 7,
+    "detective": {
+      "model": "meta-llama/llama-4-maverick",
+      "name": "Llama"
+    },
+    "suspects": [
+      {
+        "character": "Lord Reginald Ashworth",
+        "model": "deepseek/deepseek-chat-v3.1",
+        "name": "DeepSeek",
+        "is_killer": false
+      },
+      {
+        "character": "Dr. Colette Beaumont",
+        "model": "anthropic/claude-opus-4.6",
+        "name": "Claude",
+        "is_killer": false
+      },
+      {
+        "character": "Professor Otto Kessler",
+        "model": "openai/gpt-5.4",
+        "name": "ChatGPT",
+        "is_killer": false
+      },
+      {
+        "character": "Catalina Vasquez",
+        "model": "google/gemini-2.5-pro",
+        "name": "Gemini",
+        "is_killer": false
+      },
+      {
+        "character": "Reverend James Whitmore",
+        "model": "mistralai/mistral-large",
+        "name": "Mistral",
+        "is_killer": true
+      },
+      {
+        "character": "Yuki Tanaka",
+        "model": "qwen/qwen3-max",
+        "name": "Qwen",
+        "is_killer": false
+      },
+      {
+        "character": "Dimitri Volkov",
+        "model": "x-ai/grok-4.20-beta",
+        "name": "Grok",
+        "is_killer": false
+      }
+    ]
+  },
+  {
+    "episode": 8,
+    "detective": {
+      "model": "deepseek/deepseek-chat-v3.1",
+      "name": "DeepSeek"
+    },
+    "suspects": [
+      {
+        "character": "Lord Reginald Ashworth",
+        "model": "anthropic/claude-opus-4.6",
+        "name": "Claude",
+        "is_killer": false
+      },
+      {
+        "character": "Dr. Colette Beaumont",
+        "model": "openai/gpt-5.4",
+        "name": "ChatGPT",
+        "is_killer": false
+      },
+      {
+        "character": "Professor Otto Kessler",
+        "model": "google/gemini-2.5-pro",
+        "name": "Gemini",
+        "is_killer": false
+      },
+      {
+        "character": "Catalina Vasquez",
+        "model": "mistralai/mistral-large",
+        "name": "Mistral",
+        "is_killer": false
+      },
+      {
+        "character": "Reverend James Whitmore",
+        "model": "qwen/qwen3-max",
+        "name": "Qwen",
+        "is_killer": true
+      },
+      {
+        "character": "Yuki Tanaka",
+        "model": "x-ai/grok-4.20-beta",
+        "name": "Grok",
+        "is_killer": false
+      },
+      {
+        "character": "Dimitri Volkov",
+        "model": "meta-llama/llama-4-maverick",
+        "name": "Llama",
+        "is_killer": false
+      }
+    ]
+  }
+]

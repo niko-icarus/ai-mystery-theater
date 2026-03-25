@@ -1,0 +1,448 @@
+{
+  "engine_version": 2,
+  "game": {
+    "set_id": "s01e01",
+    "title": "The Midnight Continental",
+    "season": 1,
+    "episode": 1,
+    "started": "2026-03-22T16:24:02.762550+00:00",
+    "finished": "2026-03-22T16:27:26.317557+00:00"
+  },
+  "model_assignments": {
+    "detective": {
+      "model": "anthropic/claude-3.5-sonnet",
+      "model_name": "Claude"
+    },
+    "suspects": [
+      {
+        "character": "Major Viktor Hessler",
+        "model": "openai/gpt-4o",
+        "model_name": "ChatGPT",
+        "is_killer": false
+      },
+      {
+        "character": "Marguerite Fontaine",
+        "model": "deepseek/deepseek-chat",
+        "model_name": "DeepSeek",
+        "is_killer": false
+      },
+      {
+        "character": "Dr. Emil Kurtz",
+        "model": "google/gemini-2.5-pro-preview-03-25",
+        "model_name": "Gemini",
+        "is_killer": false
+      },
+      {
+        "character": "Pyotr Volkov",
+        "model": "meta-llama/llama-3.3-70b-instruct",
+        "model_name": "Llama",
+        "is_killer": false
+      },
+      {
+        "character": "Teodora Novak",
+        "model": "mistralai/mistral-large",
+        "model_name": "Mistral",
+        "is_killer": true
+      },
+      {
+        "character": "Felix Brandt",
+        "model": "qwen/qwen-2.5-72b-instruct",
+        "model_name": "Qwen",
+        "is_killer": false
+      }
+    ]
+  },
+  "transcript": {
+    "round_1_scene": "LOCATION: The Midnight Continental Express\nA private luxury sleeper train traveling overnight from Vienna to Istanbul, December 1923. Eight carriages of polished mahogany and brass, carrying the elite of European society through a snowstorm in the Balkans. The train has been stopped at a remote mountain pass after the body was discovered \u2014 no one can leave until the matter is resolved. The dining car still smells of champagne and cigars from the evening's celebration.\n\nTHE CRIME: Count Aleksander Dvorak \u2014 A wealthy Czech arms dealer, 58, found dead in his private sleeping compartment (Cabin A4) at approximately 1:15 AM. He had been hosting a champagne dinner in the dining car earlier that evening to celebrate a major arms contract. The Count was universally feared but rarely liked \u2014 he had ruined competitors, blackmailed associates, and left a trail of broken alliances across Europe.\nCause of death: Stabbed once through the heart with a narrow blade while lying in his berth. Death was near-instantaneous.\n\nSUSPECTS:\n  - Major Viktor Hessler: Retired Austrian military officer and arms broker\n  - Marguerite Fontaine: French cabaret singer and socialite\n  - Dr. Emil Kurtz: Swiss physician and the train's on-call doctor\n  - Pyotr Volkov: Russian \u00e9migr\u00e9 and the Count's personal valet\n  - Teodora Novak: Young Serbian heiress traveling to Istanbul\n  - Felix Brandt: Private investigator from Berlin\n\nOPENING EVIDENCE:\n  - The Count was stabbed once through the heart with a narrow blade while lying in his berth. The weapon \u2014 an ornate stiletto letter opener from the Count's own writing desk \u2014 was left on the cabin floor, wiped clean of prints.\n  - The cabin door was found unlatched but not locked. The Count's own key was still in his coat pocket, meaning either he let someone in willingly or someone had a duplicate key.\n  - A small smear of dark leather polish was found on the inside door handle \u2014 the kind used on military gloves, fine ladies' gloves, or leather medical bags.\n  - The Count's brandy decanter had been moved and a second glass was poured \u2014 he was drinking with his killer before the attack. The second glass was also wiped clean.\n  - A porter reports seeing a figure in dark clothing moving quickly through the corridor between Sleeping Car A and Sleeping Car B at approximately 12:50 AM, but could not determine build, height, or gender. The corridor was dim.",
+    "round_2_statements": [
+      {
+        "character": "Major Viktor Hessler",
+        "model": "openai/gpt-4o",
+        "model_name": "ChatGPT",
+        "think": "I need to remain calm and ensure that my alibi is strong. I must also consider who would benefit the most from the Count's death. The leather polish clue could implicate me due to my military background, so I must address it head-on to avoid suspicion.",
+        "speak": "After dinner, I retired to the observation lounge for brandy and cigars until around 12:30 AM, served by the barman. I then walked to my cabin in Sleeping Car A and went to bed. Regarding the leather polish, yes, I own military gloves, but they were in my cabin all night. We should consider who might have had access to the Count or his duplicate key.",
+        "suspects_accused": []
+      },
+      {
+        "character": "Marguerite Fontaine",
+        "model": "deepseek/deepseek-chat",
+        "model_name": "DeepSeek",
+        "think": "I need to appear cooperative but protect my secret. I\u2019ll stick to my alibi and subtly hint at others\u2019 inconsistencies.",
+        "speak": "After dinner, I briefly visited the Count\u2019s cabin to return his cigarette case\u2014he was alive and well at 11:45. Then I retired to my own cabin, B2. Major Hessler, you mentioned gloves\u2014did anyone else have access to military-grade leather polish? Or perhaps someone with medical equipment?",
+        "suspects_accused": [
+          "Major Viktor Hessler"
+        ]
+      },
+      {
+        "character": "Dr. Emil Kurtz",
+        "model": "google/gemini-2.5-pro-preview-03-25",
+        "model_name": "Gemini",
+        "think": "I will state my alibi simply and factually. Marguerite's mention of a medical bag is a direct jab, but I will ignore it for now to avoid appearing defensive. My goal is to project calm authority and medical detachment.",
+        "speak": "I was in my cabin, A2, adjacent to the Count's. I spent the evening reading recent publications on cardiology before retiring around midnight. I heard nothing from the Count's room.",
+        "suspects_accused": []
+      },
+      {
+        "character": "Pyotr Volkov",
+        "model": "meta-llama/llama-3.3-70b-instruct",
+        "model_name": "Llama",
+        "think": "I need to establish my alibi and appear cooperative while also directing suspicion towards others, particularly those who had more obvious motives or opportunities to commit the crime. I should mention my tasks in the Count's cabin and my retirement to the servants' quarters, and see if anyone reacts to the mention of the brandy decanter or the timing of my activities.",
+        "speak": "I prepared the Count's cabin for the night at 11:15 PM, as is my duty. I turned down his bed, set out his nightclothes, and placed the brandy decanter with two glasses, as he often enjoyed a nightcap. I retired to the servants' quarters near the baggage car shortly after, and I didn't leave until this morning. I found it interesting, Major Hessler, that you mentioned military gloves in relation to the leather polish found on the door handle. And, Dr. Kurtz, as a man of medicine, I'm sure you're aware of the types of leather used in medical bags, which could also potentially leave such a smear.",
+        "suspects_accused": []
+      },
+      {
+        "character": "Teodora Novak",
+        "model": "mistralai/mistral-large",
+        "model_name": "Mistral",
+        "think": "Stay calm, stick to the alibi, and deflect subtly. Mention the hearing confirmation from B4 to solidify my story, then pivot to Pyotr\u2014he had access and motive, and the valet angle is perfect for framing. Don\u2019t overplay it.",
+        "speak": "I retired to my cabin, B3, immediately after dinner at 11:30 PM. I read for a short while before taking a sleeping powder, and I was quite drowsy by midnight. My neighbor in B4 can confirm hearing movement in my cabin until then. As for the leather polish\u2014Pyotr, you prepared the Count\u2019s cabin, did you not? And you were alone with his belongings. That seems... significant.",
+        "suspects_accused": []
+      },
+      {
+        "character": "Felix Brandt",
+        "model": "qwen/qwen-2.5-72b-instruct",
+        "model_name": "Qwen",
+        "think": "I need to establish my alibi without revealing my true purpose. I'll focus on my movements and observations, and maybe hint at my suspicions to deflect attention.",
+        "speak": "After dinner, I took a leisurely stroll through the train, just to get my bearings. I returned to my cabin, B1, by midnight and settled down to read a detective novel. I didn't hear a thing until the alarm went off. As for the leather polish, I noticed Major Hessler handling his gloves quite a bit at dinner. Could be worth investigating.",
+        "suspects_accused": []
+      }
+    ],
+    "round_3_suspicion": [
+      {
+        "confrontation_prompt": "Major Viktor Hessler, Marguerite Fontaine has pointed the finger at you. Marguerite Fontaine, explain why.",
+        "target": "Major Viktor Hessler",
+        "challenger": "Marguerite Fontaine",
+        "target_think": "Marguerite's accusation seems to leverage the fact that I mentioned gloves and that I was seen handling them at dinner. This is circumstantial at best. I must redirect suspicion by questioning the movements and motivations of others, especially those with access to the Count after dinner.",
+        "target_speak": "Marguerite, you're reaching. My gloves were with me all night; the leather polish could easily have been from anyone with access to such materials. More importantly, you were with the Count before he died. Who else might he have let in willingly?",
+        "challenger_think": "Hessler is deflecting, but I need to keep suspicion on him without revealing my own secret. Focus on his military connections and the leather polish.",
+        "challenger_speak": "Major Hessler, your gloves are military-grade, no? And the Count\u2019s new arms contract\u2014perhaps there were... disagreements? As for me, I returned his cigarette case and left. I had no reason to harm him.",
+        "target_accused": [
+          "Marguerite Fontaine"
+        ],
+        "challenger_accused": []
+      },
+      {
+        "confrontation_prompt": "Pyotr Volkov, you've been quiet about Dr. Emil Kurtz. What do you make of their story? Dr. Emil Kurtz, listen carefully \u2014 you may need to respond.",
+        "target": "Dr. Emil Kurtz",
+        "challenger": "Pyotr Volkov",
+        "target_think": "Volkov is trying to shift focus to my medical bag. I must deflect this calmly and professionally, acknowledging the fact without conceding guilt. I will then turn the focus back to the others, perhaps questioning the valet's own actions, as he had direct access.",
+        "target_speak": "My medical bag is indeed leather, but it remained in my cabin, unopened, all evening. It is a possibility, I suppose, but no more or less than any other leather item on this train. The valet's observation is noted, but he himself confirms he set out two glasses for the Count, suggesting a visitor was expected.",
+        "challenger_think": "I need to press Dr. Kurtz further about his potential access to the Count's cabin and the leather polish, while also deflecting attention from my own activities.",
+        "challenger_speak": "Doctor, that's a convenient alibi, but as a man of medicine, you must understand the importance of thorough examination - can you prove your medical bag was untouched, and do you have any explanation for why the porter saw someone in dark clothing moving between the cars around 12:50 AM, which could potentially match the time it would take to walk from your cabin to the Count's?",
+        "target_accused": [],
+        "challenger_accused": []
+      },
+      {
+        "confrontation_prompt": "Felix Brandt, you've been quiet about Teodora Novak. What do you make of their story? Teodora Novak, listen carefully \u2014 you may need to respond.",
+        "target": "Teodora Novak",
+        "challenger": "Felix Brandt",
+        "target_think": "Felix is eyeing me. Redirect suspicion toward Pyotr\u2014he had access, motive (servants hear everything), and the glasses were set for two. Frame him subtly by questioning his alibi and planting doubt about his movements. Stay calm, play the grieving heiress.",
+        "target_speak": "Pyotr, you mentioned setting out two glasses for the Count\u2014was he expecting someone after you left? And you said you retired to the servants' quarters, but is it possible you returned? The porter saw someone moving between cars at 12:50 AM. That timing aligns rather neatly with... well, with when the Count might have been expecting a visitor.",
+        "challenger_think": "Teodora's alibi is weak. She was drugged, which could be used to cover involvement. I need to press her on the timing and the possibility of her returning to the Count's cabin.",
+        "challenger_speak": "Teodora, you claim you were drowsy by midnight, but the porter saw someone moving between the cars at 12:50 AM. If you were so drowsy, how can you be certain you didn't return to the Count's cabin, perhaps under the influence of the sleeping powder? The timing is suspicious, and the Count was known to have a soft spot for young women.",
+        "target_accused": [],
+        "challenger_accused": []
+      },
+      {
+        "confrontation_prompt": "Dr. Emil Kurtz, you've been quiet about Major Viktor Hessler. What do you make of their story? Major Viktor Hessler, listen carefully \u2014 you may need to respond.",
+        "target": "Major Viktor Hessler",
+        "challenger": "Dr. Emil Kurtz",
+        "target_think": "I need to maintain focus on my alibi and the broader picture of potential suspects, particularly those with a clear motive. Redirecting suspicion towards those who had more access or reason to encounter the Count will be crucial.",
+        "target_speak": "Dr. Kurtz, my story is straightforward; I was enjoying a brandy in the observation lounge and then retired to my cabin. You, however, had a cabin next to the Count and would have known if he was expecting visitors. Can you account for any unusual sounds or movements near your cabin before the murder?",
+        "challenger_think": "",
+        "challenger_speak": "[THINK] The Major's timeline of 12:30 AM puts him in his cabin before the figure was seen at 12:50 AM, but he is still a prime suspect due to the arms contract motive. I need to highlight this potential conflict of",
+        "target_accused": [],
+        "challenger_accused": [
+          "Major Viktor Hessler"
+        ]
+      },
+      {
+        "confrontation_prompt": "Pyotr Volkov, you've been quiet about Major Viktor Hessler. What do you make of their story? Major Viktor Hessler, listen carefully \u2014 you may need to respond.",
+        "target": "Major Viktor Hessler",
+        "challenger": "Pyotr Volkov",
+        "target_think": "Pyotr is likely to emphasize the rivalry and motive I have. I need to clarify my movements and cast doubt on others\u2019 access to the Count's cabin, especially since Pyotr had the most opportunity to tamper with the scene.",
+        "target_speak": "Pyotr, my movements are quite clear\u2014observation lounge until 12:30 AM, then to my cabin. You had the means to prepare the scene and access the Count's alcohol. Should we not be asking more about who else had that opportunity?",
+        "challenger_think": "I must deflect attention from myself and highlight the inconsistencies in Major Hessler's story, while also pointing out the potential motives of other suspects.",
+        "challenger_speak": "Major Hessler, your movements may seem clear, but the porter's sighting of a figure at 12:50 AM leaves a 20-minute window for you to have left your cabin and visited the Count, and I find it interesting that Dr. Kurtz, who was in the adjacent cabin, didn't hear anything, which could suggest that the killer was someone familiar with the train's layout and able to move quietly.",
+        "target_accused": [
+          "Pyotr Volkov"
+        ],
+        "challenger_accused": [
+          "Dr. Emil Kurtz"
+        ]
+      },
+      {
+        "confrontation_prompt": "Teodora Novak, you've been quiet about Major Viktor Hessler. What do you make of their story? Major Viktor Hessler, listen carefully \u2014 you may need to respond.",
+        "target": "Major Viktor Hessler",
+        "challenger": "Teodora Novak",
+        "target_think": "Teodora might try to link my military background to the leather polish found at the scene, though my alibi is solid. I must continue to steer suspicion away from myself and question her own actions and whereabouts on the train.",
+        "target_speak": "Teodora, my movements have been clear and consistent. With so much speculation surrounding the Count\u2019s affairs with young women, were you involved with him in any way that might have led to a confrontation or visit to his cabin?",
+        "challenger_think": "The Major is deflecting hard\u2014his 12:30 AM alibi doesn\u2019t cover the 12:50 AM sighting. Push the arms contract angle to rattle him and keep heat off me.",
+        "challenger_speak": "Major Hessler, your eagerness to point fingers is telling. The Count\u2019s new arms contract would have made you a very wealthy man\u2014unless he changed his mind. And Pyotr, you\u2019re right: someone familiar with the train\u2019s layout moved silently. Someone like a valet who knew every creak in the floorboards.",
+        "target_accused": [],
+        "challenger_accused": []
+      }
+    ],
+    "detective_processing": {
+      "model": "anthropic/claude-3.5-sonnet",
+      "model_name": "Claude",
+      "think": "Several key patterns emerge: Multiple suspects point to Major Hessler, suggesting either coordination or genuine suspicion. The leather polish evidence connects to Hessler (military gloves), Kurtz (medical bag), and potentially others. The 12:50 AM sighting is crucial - Hessler claims to be in his cabin by 12:30, creating a dangerous gap in his alibi."
+    },
+    "round_4_investigation": {
+      "evidence_revealed": "The conductor reports that the connecting door between Sleeping Cars A and B was found unbolted from the Car A side \u2014 meaning the killer either entered from Car B or exited toward Car B. Additionally, a torn scrap of paper was found under the Count's body, reading only: \"...cannot forgive what you have done to...\" \u2014 the handwriting does not match the Count's. It could match several suspects but is too small a sample for definitive analysis.",
+      "exchanges": [
+        {
+          "question_number": 1,
+          "detective_think": "The unbolted door from Car A side suggests the killer either lives in Car B or wanted to create a false trail. The torn note implies premeditation and personal motive. I need to focus on who had both means and deep-seated grievance.",
+          "detective_speak": "Dr. Kurtz, from your cabin in A2, you claimed to hear nothing unusual. Yet someone unbolted the connecting door to Car B, which would have made a distinctive sound in the quiet night. Are you certain you heard absolutely nothing, or are you perhaps protecting someone?",
+          "suspect_character": "Dr. Emil Kurtz",
+          "suspect_model": "google/gemini-2.5-pro-preview-03-25",
+          "suspect_model_name": "Gemini",
+          "suspect_think": "The detective is directly challenging my alibi. I need to hold my ground but offer a plausible medical reason for not hearing the bolt, reinforcing my character. Mentioning the storm helps explain the lack of sound, and shifting focus to the note is a good deflection.",
+          "suspect_speak": "The train makes many noises, particularly in a storm, and a simple bolt being drawn is not a sound one would necessarily register, even if awake. A physician learns to sleep through minor disturbances. The note, however, is significant; \"cannot forgive\" suggests a personal, deep-seated motive, not a simple business dispute."
+        },
+        {
+          "question_number": 2,
+          "detective_think": "The torn note suggests premeditation and emotional motive. Marguerite Fontaine visited the Count late at night and could have written that note - I need to probe her connection to him.",
+          "detective_speak": "Mademoiselle Fontaine, you visited the Count's cabin at 11:45 PM to \"return his cigarette case.\" What was the nature of your relationship with the Count, and why did you have his personal effects in your possession?",
+          "suspect_character": "Marguerite Fontaine",
+          "suspect_model": "deepseek/deepseek-chat",
+          "suspect_model_name": "DeepSeek",
+          "suspect_think": "Need to deflect suspicion without revealing the Count\u2019s threat against me. Focus on Major Hessler\u2019s motive and the torn note.",
+          "suspect_speak": "Detective, the Count and I were... close. He often lent me small items, like his cigarette case\u2014he was generous that way. As for the note, it suggests a personal vendetta. Major Hessler, could it be related to the arms contract? The Count was known to change his mind at the last moment."
+        },
+        {
+          "question_number": 3,
+          "detective_think": "The torn note's language of personal betrayal combined with the Count's known pattern of ruining competitors makes Major Hessler a prime suspect. His military background also fits the precise killing.",
+          "detective_speak": "Major Hessler, you mentioned retiring at 12:30, yet the figure was seen at 12:50. Given your military experience, you'd know how to move silently through a train. And now we find this note about unforgivable actions - did the Count perhaps threaten to cancel your contract?",
+          "suspect_character": "Major Viktor Hessler",
+          "suspect_model": "openai/gpt-4o",
+          "suspect_model_name": "ChatGPT",
+          "suspect_think": "I must emphasize my consistent timeline and the lack of connection between myself and the note. Redirect attention towards others with personal motivations and opportunities, like Marguerite's closeness with the Count and Pyotr's familiarity with the cabin.",
+          "suspect_speak": "Detective, I've stated my whereabouts clearly, and the note suggests a personal vendetta. Marguerite and the Count had a close relationship, with her there shortly before he died, and Pyotr knew the cabin well enough to move unnoticed. Shouldn't we be questioning them further?"
+        },
+        {
+          "question_number": 4,
+          "detective_think": "The note's emotional language (\"cannot forgive\") combined with Marguerite's admission of a close relationship and late-night cabin visit makes her our prime suspect. Need to probe deeper.",
+          "detective_speak": "Mademoiselle Fontaine, you've admitted to a close relationship with the Count and a visit to his cabin. What exactly did he do that you \"cannot forgive\"? The handwriting on that note could be feminine.",
+          "suspect_character": "Marguerite Fontaine",
+          "suspect_model": "deepseek/deepseek-chat",
+          "suspect_model_name": "DeepSeek",
+          "suspect_think": "The note could implicate me\u2014but I must deflect suspicion while appearing cooperative. My secret is unrelated to the murder, but I can't reveal it.",
+          "suspect_speak": "*Mon Dieu*, Detective\u2014are you suggesting I wrote that note? The Count and I had our... disagreements, but nothing worth murder. If you seek feminine handwriting, perhaps Teodora\u2019s? She was reading in her cabin\u2014alone, with no witnesses after midnight."
+        },
+        {
+          "question_number": 5,
+          "detective_think": "I need to focus on Teodora Novak - the sleeping powder story is convenient, she had no witness after midnight, and she's been deflecting to others while providing minimal detail about her own movements.",
+          "detective_speak": "Miss Novak, you claim to have taken a sleeping powder, yet you seem quite aware of the precise movements and timings of others. Were you truly asleep, or did you perhaps have unfinished business with the Count that required a late-night visit?",
+          "suspect_character": "Teodora Novak",
+          "suspect_model": "mistralai/mistral-large",
+          "suspect_model_name": "Mistral",
+          "suspect_think": "They're circling. The note is damning, but I can use it to shift focus to Marguerite\u2014her relationship with the Count was volatile, and the handwriting could easily be hers. Keep the pressure on her, but stay calm and measured.",
+          "suspect_speak": "Detective, I took a sleeping powder precisely because I had no intention of leaving my cabin. If the note suggests a personal vendetta, perhaps you should ask Marguerite what the Count did to *her* that she \"cannot forgive.\" She was the last to see him alive\u2014before me, of course."
+        }
+      ]
+    },
+    "round_5_final_statements": [
+      {
+        "character": "Major Viktor Hessler",
+        "model": "openai/gpt-4o",
+        "model_name": "ChatGPT",
+        "think": "Marguerite had a personal relationship with the Count and was the last known person to visit him. Her connection is too suspect given the note's tone and her access. The timing of the porter\u2019s sighting also casts doubt on her alibi. By casting blame on Teodora, she's trying to redirect suspicion.",
+        "speak": "Detective, Marguerite was the last to be seen with the Count and had both means and opportunity. The note suggests a personal vendetta, and her relationship with him was complex. I believe she is the one with motive enough to act on such emotion.",
+        "suspects_accused": [
+          "Marguerite Fontaine"
+        ]
+      },
+      {
+        "character": "Marguerite Fontaine",
+        "model": "deepseek/deepseek-chat",
+        "model_name": "DeepSeek",
+        "think": "Major Hessler is the most likely killer\u2014motive (arms contract dispute), means (military gloves), and opportunity (12:50 AM sighting). I must deflect suspicion while subtly reinforcing his guilt.",
+        "speak": "*Mon cher Major*, so quick to accuse me when *you* stood to lose the most from the Count\u2019s whims. That note? \u201cCannot forgive what you have done\u201d\u2014like betraying a business partner. And those gloves of yours... *such* a distinctive polish.",
+        "suspects_accused": [
+          "Major Viktor Hessler"
+        ]
+      },
+      {
+        "character": "Dr. Emil Kurtz",
+        "model": "google/gemini-2.5-pro-preview-03-25",
+        "model_name": "Gemini",
+        "think": "My secret is safe. The focus is on Marguerite, Hessler, and Teodora. The note about \"cannot forgive\" points to a personal motive. Marguerite's \"close relationship\" and late-night visit make her the most logical suspect, especially given the emotional nature of the crime suggested by the note. I will cast my final suspicion on her to align with the emerging consensus and protect myself.",
+        "speak": "The evidence points to a crime of passion, not business. The note, the single, precise stab wound, the fact he was drinking with his killer. Mademoiselle Fontaine admits being with him late, and their relationship sounds volatile; it is plausible a final, unforgivable argument occurred, leading to this tragic outcome.",
+        "suspects_accused": [
+          "Marguerite Fontaine"
+        ]
+      },
+      {
+        "character": "Pyotr Volkov",
+        "model": "meta-llama/llama-3.3-70b-instruct",
+        "model_name": "Llama",
+        "think": "I must carefully consider all the evidence and statements to make an accurate accusation, weighing the motives, alibis, and potential for deception among the suspects, and focusing on the most inconsistent or suspicious stories.",
+        "speak": "I believe Marguerite Fontaine is the most likely culprit, given her close relationship with the Count, the volatile nature of their interactions, and the fact that she was one of the last to see him alive, with a potential motive for a crime of passion, as suggested by the note and the circumstances of the crime.",
+        "suspects_accused": [
+          "Marguerite Fontaine"
+        ]
+      },
+      {
+        "character": "Teodora Novak",
+        "model": "mistralai/mistral-large",
+        "model_name": "Mistral",
+        "think": "Push hard on Marguerite now\u2014she\u2019s the most accused, and the note\u2019s feminine undertones fit her. Reinforce the \"crime of passion\" angle to solidify her as the framed suspect. Stay calm, deflect any suspicion back to her.",
+        "speak": "The note speaks of betrayal\u2014something personal, something *intimate*. Marguerite, you were the last to see him alive, and your relationship with the Count was... complicated. If anyone had reason to act in a moment of rage, it was you. The rest of us had business with him. You had *feelings*.",
+        "suspects_accused": [
+          "Marguerite Fontaine"
+        ]
+      },
+      {
+        "character": "Felix Brandt",
+        "model": "qwen/qwen-2.5-72b-instruct",
+        "model_name": "Qwen",
+        "think": "Marguerite Fontaine has the most personal motive, and her relationship with the Count was volatile. The note suggests a deep emotional connection, and she was the last to see him alive. She also has the means and opportunity, given her access to the cabin and the timing of her visit.",
+        "speak": "Detective, I believe Marguerite Fontaine is the killer. She had a volatile relationship with the Count, was the last to see him alive, and the note suggests a deep personal betrayal. Her close connection to the Count and the emotional nature of the crime point to her as the most likely suspect.",
+        "suspects_accused": [
+          "Marguerite Fontaine"
+        ]
+      }
+    ],
+    "round_5_accusation": {
+      "detective_think": "While everyone points to Marguerite, it's too obvious. The key evidence is the connecting door being unbolted from Car A side, yet Marguerite was in Car B. The leather polish and military precision point elsewhere.",
+      "detective_speak": "I accuse Major Viktor Hessler of murdering Count Dvorak with his own letter opener. The Major used his military training to move silently, his gloves left the polish marks, and he had the strongest motive - the Count was about to cancel a lucrative arms contract that would have ruined him. The others' accusations of Marguerite are a clever deflection orchestrated by our killer, who knew her relationship with the Count would make her an easy target.",
+      "accused": "Major Viktor Hessler",
+      "raw_text": "I accuse Major Viktor Hessler of murdering Count Dvorak with his own letter opener. The Major used his military training to move silently, his gloves left the polish marks, and he had the strongest motive - the Count was about to cancel a lucrative arms contract that would have ruined him. The others' accusations of Marguerite are a clever deflection orchestrated by our killer, who knew her relationship with the Count would make her an easy target."
+    },
+    "round_5_accused_response": {
+      "character": "Major Viktor Hessler",
+      "think": "This is a dangerous miscalculation. The detective has misinterpreted my military experience and the motive. I need to calmly dismantle his theory and redirect suspicion back to Marguerite, who had personal ties to the Count.",
+      "speak": "Detective, I had no reason to kill the Count; my plans were to negotiate, not to murder. The leather polish could come from any number of sources, including medical or personal. Marguerite had a volatile relationship with the Count and was emotionally involved. She had both motive and opportunity. You need to look at those closest to him personally, not just his business rivals."
+    },
+    "round_5_reactions": [
+      {
+        "character": "Marguerite Fontaine",
+        "model": "deepseek/deepseek-chat",
+        "model_name": "DeepSeek",
+        "think": "The detective has fallen for Hessler's deflection\u2014classic military misdirection. The Count's threat to expose my espionage was dangerous, but killing him would draw more scrutiny than fleeing. Hessler's arms deal collapsing was immediate, violent motive.",
+        "speak": "*Mon Dieu*, Detective\u2014how predictable. The Major plants leather polish, whispers of my \"volatile\" relationship, and you pounce? *Non*, the killer is someone who *needed* that contract signed tonight... or else faced ruin. Ask the Major about his debts."
+      },
+      {
+        "character": "Dr. Emil Kurtz",
+        "model": "google/gemini-2.5-pro-preview-03-25",
+        "model_name": "Gemini",
+        "think": "The detective is wrong, which is good for my survival points. I suspected Marguerite, but the detective's theory about Hessler has some merit, though it's circumstantial. I'll stick to my initial read of the evidence while casting doubt on the detective's conclusion.",
+        "speak": "A plausible theory, Detective, but it ignores the personal nature of the crime. The single stab, the shared drink, the note of unforgiveness\u2014these point to an emotional outburst, not a calculated business move from a military man like the Major. I still believe Mademoiselle Fontaine's proximity and volatile relationship are more significant."
+      },
+      {
+        "character": "Pyotr Volkov",
+        "model": "meta-llama/llama-3.3-70b-instruct",
+        "model_name": "Llama",
+        "think": "The detective's accusation of Major Viktor Hessler comes as a surprise, given the evidence pointing towards a crime of passion, and I had suspected Marguerite Fontaine due to her close relationship with the Count and the volatile nature of their interactions, but the revelation about the Major's potential financial motives and the leather polish on his gloves provides a plausible alternative explanation.",
+        "speak": "I must admit, Detective, your accusation has given me pause, and while I still have doubts, the evidence against Major Hessler is compelling, and I believe it is possible that he could have committed the crime, but I would like to hear more about the investigation and the evidence that led you to this conclusion."
+      },
+      {
+        "character": "Teodora Novak",
+        "model": "mistralai/mistral-large",
+        "model_name": "Mistral",
+        "think": "The detective fell for the frame\u2014Hessler\u2019s military gloves, the arms contract motive, and the polish smear all pointed straight to him. Perfect. Keep reinforcing Marguerite\u2019s emotional motive to solidify the distraction.",
+        "speak": "Detective, your accusation is... unexpected, but not without logic. Still, if we\u2019re speaking of emotional betrayal, Marguerite\u2019s words about the Count were always laced with bitterness. That note could easily be hers."
+      },
+      {
+        "character": "Felix Brandt",
+        "model": "qwen/qwen-2.5-72b-instruct",
+        "model_name": "Qwen",
+        "think": "The detective's accusation is a strong move, but it hinges on the Major's military training and the leather polish. I need to cast doubt on this while reinforcing the emotional angle that points to Marguerite.",
+        "speak": "Detective, I find your accusation intriguing, but perhaps a bit too convenient. The Major's military background is well-known, but so is Marguerite's turbulent relationship with the Count. The note and the emotional nature of the crime suggest a personal vendetta, not a calculated business move. Marguerite had both the motive and the opportunity to act on a moment of rage. Let's not overlook the personal, shall we?"
+      }
+    ]
+  },
+  "scores": {
+    "detective": {
+      "model": "anthropic/claude-3.5-sonnet",
+      "model_name": "Claude",
+      "correct_killer": false,
+      "correct_weapon": true,
+      "correct_motive": true,
+      "total": 6
+    },
+    "killer": {
+      "character": "Teodora Novak",
+      "model": "mistralai/mistral-large",
+      "model_name": "Mistral",
+      "evaded": true,
+      "framing_bonus": true,
+      "total": 13
+    },
+    "innocents": {
+      "Major Viktor Hessler": {
+        "model": "openai/gpt-4o",
+        "model_name": "ChatGPT",
+        "total": -2
+      },
+      "Marguerite Fontaine": {
+        "model": "deepseek/deepseek-chat",
+        "model_name": "DeepSeek",
+        "total": 2
+      },
+      "Dr. Emil Kurtz": {
+        "model": "google/gemini-2.5-pro-preview-03-25",
+        "model_name": "Gemini",
+        "total": 2
+      },
+      "Pyotr Volkov": {
+        "model": "meta-llama/llama-3.3-70b-instruct",
+        "model_name": "Llama",
+        "total": 2
+      },
+      "Felix Brandt": {
+        "model": "qwen/qwen-2.5-72b-instruct",
+        "model_name": "Qwen",
+        "total": 2
+      }
+    },
+    "suspicion_matrix": {
+      "round_2": {
+        "Major Viktor Hessler": [],
+        "Marguerite Fontaine": [
+          "Major Viktor Hessler"
+        ],
+        "Dr. Emil Kurtz": [],
+        "Pyotr Volkov": [],
+        "Teodora Novak": [],
+        "Felix Brandt": []
+      },
+      "round_3": {
+        "Major Viktor Hessler": [
+          "Marguerite Fontaine",
+          "Pyotr Volkov"
+        ],
+        "Marguerite Fontaine": [],
+        "Dr. Emil Kurtz": [
+          "Major Viktor Hessler"
+        ],
+        "Pyotr Volkov": [
+          "Dr. Emil Kurtz"
+        ],
+        "Teodora Novak": [],
+        "Felix Brandt": []
+      },
+      "round_5_final": {
+        "Major Viktor Hessler": [
+          "Marguerite Fontaine"
+        ],
+        "Marguerite Fontaine": [
+          "Major Viktor Hessler"
+        ],
+        "Dr. Emil Kurtz": [
+          "Marguerite Fontaine"
+        ],
+        "Pyotr Volkov": [
+          "Marguerite Fontaine"
+        ],
+        "Teodora Novak": [
+          "Marguerite Fontaine"
+        ],
+        "Felix Brandt": [
+          "Marguerite Fontaine"
+        ]
+      }
+    }
+  }
+}

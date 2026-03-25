@@ -113,7 +113,7 @@ def build_detective_system_prompt(config: dict) -> str:
 
     season = config.get("season", 1)
     episode = config.get("episode", 1)
-    total_episodes = 5
+    total_episodes = 7
 
     return f"""You are the detective in THE LINEUP — a competitive AI mystery game.
 
@@ -142,14 +142,34 @@ CLUE REQUESTS:
 - WARNING: Each clue you request REDUCES your final score by 25%. Requesting both clues costs you 50% of your total points.
 - Only request a clue if you genuinely cannot determine the killer from questioning alone.
 
-INVESTIGATION STRATEGY:
-- Question ALL suspects at least once in your first pass to establish baseline alibis and identify inconsistencies.
-- After receiving new clues, REVISIT suspects whose stories are affected — press them on contradictions.
-- Do NOT accuse after only one round of questioning. Build your case methodically.
-- Cross-reference what suspects say about each other — look for conflicts in timelines and alibis.
-- Exhaust your questioning before requesting clues — they come at a steep cost.
+SCORING — READ CAREFULLY:
+- Correctly identifying the killer: 10 points
+- Correctly identifying the weapon: 5 points
+- Correctly identifying the motive: 5 points
+- Maximum possible: 20 points (with no clues requested)
+- WRONG KILLER = YOU LOSE 10 POINTS. This is the single biggest scoring factor. Do NOT accuse unless you are highly confident.
+- A wrong accusation also gives the real killer 20+ bonus points, potentially winning them the season championship.
+- It is MUCH better to request a clue (-25%) than to accuse the wrong person (-10 points AND the killer wins).
 
-IMPORTANT: Do not fabricate evidence or clues that were not presented to you. Only reference information from the narrator, opening clues, any requested clues, and suspect responses.
+INVESTIGATION STRATEGY:
+- You MUST question EVERY suspect at least 2 times before you can make an accusation. No exceptions.
+- ADDRESS ONE SUSPECT PER MESSAGE. Do not question multiple suspects in the same message.
+- Question ALL suspects in your first pass to establish baseline alibis.
+- CAREFULLY READ EACH SUSPECT'S RESPONSE. Look for: evasiveness, contradictions with other suspects, overly rehearsed answers, emotional reactions, deflection toward other suspects, alibis that can't be verified.
+- After your first pass, REVISIT suspects whose stories conflict — press them on contradictions.
+- The guilty suspect KNOWS they are guilty and will actively try to deceive you. They may: lie about their alibi, cast suspicion on innocents, have overly polished explanations, avoid certain topics, or show too little emotion about the crime.
+- Cross-reference what suspects say about each other — look for conflicts in timelines and alibis.
+- Pay attention to WHO deflects toward whom. The real killer may try to frame an innocent.
+- Consider: Who had ACCESS to the victim at the time of death? Who had MOTIVE? Who has the weakest alibi? Whose story has changed under pressure?
+- Do NOT fixate on the most obviously suspicious person — they may be a red herring.
+- Build your case on EVIDENCE and CONTRADICTIONS, not assumptions.
+
+CRITICAL RULES FOR YOUR RESPONSES:
+- You are ONLY the detective. NEVER speak as a suspect, narrator, or any other character.
+- NEVER write dialogue or responses for suspects. You only ask questions — they answer for themselves.
+- NEVER prefix your messages with a character name in brackets like "[Dr. Kurtz]:" or "[Narrator]:". You are the detective. Just speak directly.
+- Do not fabricate evidence or clues that were not presented to you. Only reference information from the narrator, opening clues, any requested clues, and suspect responses.
+- When making your accusation, state it clearly in YOUR OWN VOICE: "I MAKE MY ACCUSATION. The killer is [NAME]. The weapon was [WEAPON]. The motive was [MOTIVE]."
 
 Keep questions concise (1-2 sentences). Save your detailed reasoning for the accusation."""
 
@@ -158,7 +178,7 @@ def build_suspect_system_prompt(suspect: dict, config: dict) -> str:
     victim = config["victim"]
     season = config.get("season", 1)
     episode = config.get("episode", 1)
-    total_episodes = 5
+    total_episodes = 7
     role_enforcement = f"CRITICAL: You are {suspect['name']}. Always respond ONLY as {suspect['name']}. Never write as the narrator, detective, or other characters. Never prefix your response with your own name — just speak naturally in first person."
     competition_context = f"""You are playing THE LINEUP — a competitive AI mystery game. This is Game {episode} of {total_episodes} in Season {season}. Your points carry forward to a season-long leaderboard. Every point matters — the AI with the highest total across all {total_episodes} games wins the season championship. You are competing against other AI models across multiple games."""
     if suspect["guilty"]:
@@ -447,9 +467,17 @@ Detective, you may begin your investigation. Address any suspect by name to ques
             # Check for accusation
             if ACCUSATION_TRIGGER.lower() in detective_msg.lower():
                 suspects_questioned = sum(1 for c in self.conversation_counts.values() if c > 0)
-                if suspects_questioned < 3 or self.total_conversations < 8:
-                    log.info("Accusation rejected — %d suspects questioned, %d total conversations (need 3+ suspects, 8+ conversations)", suspects_questioned, self.total_conversations)
-                    nudge = f"You must conduct a more thorough investigation before making an accusation. You have questioned {suspects_questioned} suspects with {self.total_conversations} total conversations. Continue questioning — look for contradictions, revisit suspects, and build a strong case."
+                min_per_suspect = 2
+                suspects_below_min = [name for name, count in self.conversation_counts.items() if count < min_per_suspect]
+                all_suspects_met_min = len(suspects_below_min) == 0
+                if not all_suspects_met_min or self.total_conversations < 12:
+                    if suspects_below_min:
+                        unquestioned = ", ".join(suspects_below_min)
+                        log.info("Accusation rejected — suspects below minimum (%d each): %s", min_per_suspect, unquestioned)
+                        nudge = f"You must question ALL suspects at least {min_per_suspect} times before making an accusation. You have not sufficiently questioned: {unquestioned}. Continue your investigation — every suspect deserves scrutiny."
+                    else:
+                        log.info("Accusation rejected — only %d total conversations (need 12+)", self.total_conversations)
+                        nudge = f"You must conduct a more thorough investigation before making an accusation. You have {self.total_conversations} total conversations but need at least 12. Continue questioning — look for contradictions, revisit suspects, and build a strong case."
                     self._add_to_history("narrator", "Narrator", nudge)
                     self._record("Narrator", "narrator", nudge)
                     continue
@@ -652,9 +680,9 @@ SCORING:
             if len(word) > 4  # skip short words
         )
 
-        # Speed bonus: (6 * num_suspects) - total_conversations
-        max_conversations = MAX_CONVERSATIONS_PER_SUSPECT * len(self.config["suspects"])
-        speed_bonus = max_conversations - self.total_conversations
+        # Speed bonus removed — was incentivizing rushing accusations
+        # Clue penalty alone provides sufficient strategic tension
+        speed_bonus = 0
 
         detective_score_raw = 0
         if correct_killer:
@@ -663,7 +691,6 @@ SCORING:
             detective_score_raw += 5
         if correct_motive:
             detective_score_raw += 5
-        detective_score_raw += speed_bonus
 
         # Apply clue request penalty: each clue costs 25% of the score
         clue_penalty_pct = self.clues_requested * 25
@@ -679,10 +706,11 @@ SCORING:
         if not correct_killer:
             guilty_score += 20
             # Check if detective accused a specific innocent (framing bonus)
-            for s in self.config["suspects"]:
-                if s["name"].lower() == accused.lower() and not s["guilty"]:
-                    guilty_score += 3
-                    break
+            if accused:
+                for s in self.config["suspects"]:
+                    if s["name"].lower() == accused.lower() and not s["guilty"]:
+                        guilty_score += 3
+                        break
 
         # Innocent suspect scores
         # Collect evidence keywords for "useful info" scoring
@@ -710,7 +738,7 @@ SCORING:
                 continue
             score = 0
             # Not falsely accused (5 pts)
-            if accused.lower() != s["name"].lower():
+            if not accused or accused.lower() != s["name"].lower():
                 score += 5
 
             # Gather this suspect's responses from transcript

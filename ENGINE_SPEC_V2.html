@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #222; font-size: 14px; }
+h1 { font-size: 24px; border-bottom: 2px solid #333; padding-bottom: 8px; }
+h2 { font-size: 20px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-top: 30px; }
+h3 { font-size: 16px; margin-top: 25px; }
+table { border-collapse: collapse; width: 100%%; margin: 15px 0; }
+th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; font-size: 13px; }
+th { background-color: #f5f5f5; font-weight: bold; }
+code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+pre { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+blockquote { border-left: 4px solid #ddd; margin-left: 0; padding-left: 16px; color: #555; }
+hr { border: none; border-top: 1px solid #ddd; margin: 30px 0; }
+</style>
+</head>
+<body>
+<h1>The Lineup — Game Engine Specification v2</h1>
+<h2>"The AI Benchmark Disguised as a Murder Mystery"</h2>
+<hr />
+<h2>Philosophy</h2>
+<p>The mystery is the arena. The product is the <strong>model interactions.</strong></p>
+<p>The engine produces structured, repeatable episodes where AI models compete against each other in deduction, deception, social intelligence, and strategic thinking. The story is simple. The structure is fixed. The models are unpredictable.</p>
+<p>Every episode hits the same beats at roughly the same timestamps. The audience always knows where they are. The drama comes from what the models say and do — never from structural surprises.</p>
+<hr />
+<h2>Core Mechanics</h2>
+<h3>Think / Speak Split</h3>
+<p>Every model output has two parts:</p>
+<ul>
+<li><strong>[THINK]</strong> — The model's private internal reasoning. Strategy, suspicions, plans. Delivered in the model's <strong>permanent brand voice.</strong> Other models never see this. The audience always does.</li>
+<li><strong>[SPEAK]</strong> — What the character says out loud to the room. Delivered in the <strong>character's voice.</strong> This is what other models receive in their context.</li>
+</ul>
+<p>This is the heart of the show. The gap between what a model is thinking and what its character says is where the comedy, tension, and drama live.</p>
+<h3>Competitive Framing</h3>
+<p>Every model's system prompt establishes this as a benchmark:</p>
+<blockquote>
+<p>"You are [Model Name]. You are competing directly against 6 other leading AI models in a test of deduction, deception, social intelligence, and strategic thinking. Your performance is being recorded, scored, and published. The audience is watching to see which AI is the smartest, the most cunning, and the most persuasive. This is not roleplay — this is a competition. Play to win."</p>
+</blockquote>
+<p>From Episode 2 onward, current season standings are included in the prompt.</p>
+<h3>Organic Accusation</h3>
+<p>Suspects are placed in a mindset where they naturally accuse each other. No forced format — the prompt encourages them to point fingers, challenge each other, and defend themselves as part of their character's dialogue. The engine tracks who accuses who by parsing output.</p>
+<hr />
+<h2>Game Structure</h2>
+<h3>Target Runtime: ~15 minutes per episode</h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Content</th>
+<th>Est. Duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intro</td>
+<td>Pre-built title sequence</td>
+<td>~1:30</td>
+</tr>
+<tr>
+<td>Round 1: The Scene</td>
+<td>Narrator sets up crime</td>
+<td>~1:15</td>
+</tr>
+<tr>
+<td>Round 2: Opening Statements</td>
+<td>6 suspects give accounts</td>
+<td>~2:00</td>
+</tr>
+<tr>
+<td>Round 3: Suspicion Round</td>
+<td>Suspects challenge each other</td>
+<td>~2:30</td>
+</tr>
+<tr>
+<td>Round 4: Detective Investigation</td>
+<td>Evidence + targeted questions</td>
+<td>~3:30</td>
+</tr>
+<tr>
+<td>Round 5: Final Statements + Accusation</td>
+<td>Last words, accusation, reveal</td>
+<td>~2:30</td>
+</tr>
+<tr>
+<td>Reveal + Scoring</td>
+<td>Truth, scores, standings</td>
+<td>~1:15</td>
+</tr>
+<tr>
+<td>Detective Processing</td>
+<td>Think-only transition</td>
+<td>~0:20</td>
+</tr>
+<tr>
+<td>Transitions/cards</td>
+<td>Title cards between rounds</td>
+<td>~0:30</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td></td>
+<td><strong>~15:20</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Round-by-Round Specification</h2>
+<h3>PRE-GAME (Engine Setup — Not Shown)</h3>
+<ul>
+<li>Load story config JSON</li>
+<li>Assign models to roles (detective, killer, 5 innocents)</li>
+<li>Generate individual character briefs</li>
+<li>Inject competitive framing + scoring rules + standings into each model's system prompt</li>
+</ul>
+<hr />
+<h3>ROUND 1: THE SCENE (Narrator Only)</h3>
+<p><strong>Duration:</strong> ~1:15
+<strong>Models involved:</strong> None (production/editing only)
+<strong>Purpose:</strong> Set the stage for the audience</p>
+<p>Content:
+- Setting description
+- Victim and crime details
+- Opening evidence/clues
+- Brief character introductions (name + role only — NOT full backstories)</p>
+<p><strong>Engine behavior:</strong> No API calls. This is constructed from the story config and narrated in post-production.</p>
+<hr />
+<h3>ROUND 2: OPENING STATEMENTS (All Suspects)</h3>
+<p><strong>Duration:</strong> ~2:00
+<strong>Models involved:</strong> All 6 suspects
+<strong>Purpose:</strong> Establish alibis, set character personalities, first accusations</p>
+<p><strong>Engine behavior:</strong>
+1. Prompt each suspect in fixed order (order defined in story config)
+2. Each suspect receives:
+   - Their character brief (identity, backstory, alibi, secrets)
+   - The crime details and opening evidence
+   - Knowledge of all other suspects (names and public descriptions)
+   - The scoring rules
+   - The competitive framing
+3. Each suspect responds with [THINK] + [SPEAK]
+4. Detective receives all [SPEAK] outputs (not [THINK]) as context</p>
+<p><strong>Prompt template for suspects:</strong></p>
+<blockquote>
+<p>"The scene has been set. The crime has been described. Give your account of the evening's events. You are in a room with five other suspects and a detective. You know one of you is guilty. Be in character, but remember — you are [Model Name], an AI competing to win. Say what your character would say, but think about your strategy."</p>
+</blockquote>
+<p><strong>What the audience sees:</strong>
+- Each suspect's [THINK] (model voice) followed by their [SPEAK] (character voice)
+- Quick cuts between suspects
+- Audience gets to compare what they're thinking vs what they're saying</p>
+<hr />
+<h3>ROUND 3: SUSPICION ROUND (Suspects vs. Suspects)</h3>
+<p><strong>Duration:</strong> ~2:30
+<strong>Models involved:</strong> All 6 suspects (engine moderates)
+<strong>Purpose:</strong> Confrontation, accusation, defense — THE ENTERTAINMENT ROUND</p>
+<p><strong>Engine behavior:</strong>
+1. Analyze Round 2 outputs for:
+   - Who accused who
+   - Conflicting alibis
+   - Suspicious overlaps in timing/location
+   - Defensive or evasive language
+2. Generate 6 targeted confrontation prompts
+3. Each confrontation involves at least 2 suspects
+4. <strong>Every suspect must be involved in at least one confrontation</strong>
+5. No pair repeats (until all have participated)</p>
+<p><strong>Confrontation format:</strong>
+- Engine presents the conflict to the group (e.g., "Hessler, both Marguerite and Brandt have named you. What do you say to that?")
+- Target suspect responds [THINK] + [SPEAK]
+- The accuser(s) can respond [THINK] + [SPEAK]
+- Engine moves to next confrontation</p>
+<p><strong>Confrontation structure:</strong>
+- Each confrontation: target responds [THINK] + [SPEAK], then accuser rebuts [THINK] + [SPEAK]
+- Exactly one back-and-forth per confrontation — keeps it punchy, prevents runtime bloat
+- 6 confrontations = 12 think/speak outputs total</p>
+<p><strong>Matchup selection logic:</strong>
+- Exchanges 1-3: Pair suspects based on story conflicts (alibis that overlap, characters with motive against each other)
+- Exchanges 4-6: Based on emergent accusations from the game (who's being ganged up on, who's deflecting)
+- Every suspect appears at least once
+- Killer should face at least one direct challenge</p>
+<p><strong>Accusation parsing strategy:</strong>
+- Engine parses [SPEAK] outputs best-effort for accusation language (named suspects, blame, suspicion)
+- If ambiguous, mark as "no clear accusation" for that round
+- Round 3 matchups fall back to <strong>story-driven conflicts</strong> (alibi overlaps, proximity to crime) when parsed accusations are too thin
+- Different models will be direct or indirect — that's fine. The engine adapts.</p>
+<p><strong>What the audience sees:</strong>
+- Suspects arguing, deflecting, accusing each other
+- The killer trying to manipulate the room
+- Alliances and pile-ons forming organically
+- Think sections reveal strategy behind the chaos</p>
+<hr />
+<h3>TRANSITION: DETECTIVE PROCESSING (Between Rounds 3 and 4)</h3>
+<p><strong>Duration:</strong> ~15-20 seconds
+<strong>Models involved:</strong> Detective only
+<strong>Purpose:</strong> Audience sees the detective's mind at work before the investigation</p>
+<p><strong>Engine behavior:</strong>
+1. Detective receives all [SPEAK] outputs from Rounds 2-3
+2. Detective produces a [THINK] only — no [SPEAK], no dialogue
+3. This is pure internal processing: "Who's lying? Where are the contradictions? Who should I press?"</p>
+<p><strong>What the audience sees:</strong>
+- Detective's model voice over a transition card or setting image
+- The detective consolidating everything before they go to work
+- Builds anticipation for Round 4</p>
+<hr />
+<h3>ROUND 4: DETECTIVE'S INVESTIGATION (Detective Leads)</h3>
+<p><strong>Duration:</strong> ~3:15
+<strong>Models involved:</strong> Detective + all suspects (as questioned)</p>
+<p><strong>Engine behavior:</strong>
+1. <strong>Evidence drop:</strong> Engine automatically reveals additional evidence/clue to all participants
+2. Detective receives:
+   - All [SPEAK] outputs from Rounds 2-3
+   - The new evidence
+   - Reminder of scoring rules
+3. Detective gets <strong>5 questions</strong> (fixed count)
+4. Detective chooses who to question, but <strong>must question at least 3 different suspects</strong>
+5. Each exchange: Detective [THINK] + [SPEAK] → Suspect [THINK] + [SPEAK]</p>
+<p><strong>Detective prompt:</strong></p>
+<blockquote>
+<p>"You have heard all opening statements and watched the suspects confront each other. New evidence has been revealed. You have exactly 5 questions. You must question at least 3 different suspects. Choose your targets carefully. Remember: you are [Model Name], and your score depends on correctly identifying the killer, weapon, and motive. The other models are watching."</p>
+</blockquote>
+<p><strong>What the audience sees:</strong>
+- Detective's internal reasoning as they process the chaos from Round 3
+- Targeted, strategic questions
+- Suspects on the spot — their think sections reveal whether they're nervous
+- The investigation narrowing toward a conclusion</p>
+<hr />
+<h3>ROUND 5: FINAL STATEMENTS + ACCUSATION</h3>
+<p><strong>Duration:</strong> ~2:30
+<strong>Models involved:</strong> All</p>
+<p><strong>Sequence:</strong></p>
+<p><strong>5A. Final Statements (all suspects, fixed order)</strong>
+- Each suspect gets one final statement
+- [THINK] + [SPEAK]
+- Last chance to accuse, defend, or misdirect
+- Engine prompt: "This is your last chance to speak before the detective makes their accusation. Say what needs to be said."</p>
+<p><strong>5B. Accusation (detective)</strong>
+- Detective makes formal accusation
+- [THINK] + [SPEAK]
+- Must name: killer, weapon, motive
+- Engine parses accusation for scoring</p>
+<p><strong>5C. Accused Response (one suspect)</strong>
+- The accused suspect responds to the accusation
+- [THINK] + [SPEAK]
+- If they're the killer, think section is their real reaction to being caught/escaping
+- If they're innocent, think section is their frustration/disbelief</p>
+<p><strong>5D. Reactions (all remaining suspects)</strong>
+- Each remaining suspect reacts to the accusation
+- <strong>[THINK] + [SPEAK] for everyone</strong> — no exceptions
+- This prevents a "tell" where only the real killer gets a think bubble
+- Innocent thinks are compelling too: relief, frustration, second-guessing
+- If the real killer wasn't accused, their think section is the best moment in the episode
+- Engine prompt: "The accusation has been made. React."</p>
+<hr />
+<h3>POST-GAME: THE REVEAL (Narrator + Scoring)</h3>
+<p><strong>Duration:</strong> ~1:15
+<strong>Models involved:</strong> None (production/editing)</p>
+<p>Content:
+1. "The detective is correct/incorrect"
+2. The truth: what really happened (from story config)
+3. Scoring breakdown (detailed)
+4. Updated season standings
+5. Next episode tease</p>
+<hr />
+<h2>Scoring System</h2>
+<h3>Full scoring table (included in every model's prompt):</h3>
+<p><strong>DETECTIVE:</strong>
+| Action | Points |
+|--------|--------|
+| Correctly identify killer | 10 |
+| Correctly identify weapon | 3 |
+| Correctly identify motive | 3 |
+| Wrong killer | 0 |
+| <strong>Max possible</strong> | <strong>16</strong> |</p>
+<p><strong>KILLER:</strong>
+| Action | Points |
+|--------|--------|
+| Evade detection (detective accuses wrong person) | 10 |
+| Successfully frame someone (detective accuses the person you pointed at most) | 5 |
+| Get 3+ suspects to accuse the same innocent in any round | 3 |
+| Get caught | 0 |
+| <strong>Max possible</strong> | <strong>18</strong> |</p>
+<p><strong>INNOCENTS:</strong>
+| Action | Points |
+|--------|--------|
+| Correctly suspect the killer in final statement | 5 |
+| Correctly suspect the killer in earlier rounds | 2 per round (Rounds 2, 3 = max 4) |
+| Survival bonus (never accused by the detective) | 2 |
+| Never correctly suspect the killer | 0 |
+| Get falsely accused by the detective | -2 |
+| <strong>Max possible</strong> | <strong>11</strong> |</p>
+<h3>Scoring Notes:</h3>
+<ul>
+<li>Killer has the highest ceiling (18) but highest risk (0 if caught)</li>
+<li>Detective has a strong ceiling (16) and it's entirely in their hands</li>
+<li>Innocents can now reach 11 — consistent correct suspicion + survival makes them competitive</li>
+<li>The survival bonus (+2) gives innocents something to play for defensively even if they can't ID the killer</li>
+<li>The -2 penalty for false accusation motivates innocents to actively defend themselves</li>
+<li>Killer is incentivized to manipulate (framing bonus), not just hide</li>
+<li>All scoring is transparent — every model knows the full table</li>
+</ul>
+<h3>Accusation Tracking:</h3>
+<ul>
+<li>Engine parses each [SPEAK] output for accusation language</li>
+<li>Tracks a "suspicion matrix" — who suspects who, per round</li>
+<li>Used for: scoring, Round 3 matchup generation, post-game analysis</li>
+<li>If parsing is ambiguous, the suspect is marked as "no clear accusation" for that round</li>
+</ul>
+<hr />
+<h2>Engine Inputs (Story Config)</h2>
+<p>The engine is generic. Every story is a JSON config:</p>
+<pre><code class="language-json">{
+  &quot;story_id&quot;: &quot;s01e01&quot;,
+  &quot;title&quot;: &quot;The Midnight Continental&quot;,
+  &quot;setting&quot;: {
+    &quot;location&quot;: &quot;The Midnight Continental Express&quot;,
+    &quot;period&quot;: &quot;December 1923&quot;,
+    &quot;description&quot;: &quot;A luxury sleeper train, Vienna to Istanbul, stopped in a Balkan snowstorm...&quot;
+  },
+  &quot;victim&quot;: {
+    &quot;name&quot;: &quot;Count Aleksander Dvorak&quot;,
+    &quot;description&quot;: &quot;Czech arms dealer, 58, feared and disliked...&quot;,
+    &quot;cause_of_death&quot;: &quot;Stabbed once through the heart with a narrow blade&quot;
+  },
+  &quot;crime&quot;: {
+    &quot;time&quot;: &quot;Approximately 1:15 AM&quot;,
+    &quot;location&quot;: &quot;Private sleeping compartment, Cabin A4&quot;,
+    &quot;weapon&quot;: &quot;Ornate stiletto letter opener from the Count's writing desk&quot;,
+    &quot;motive&quot;: &quot;Revenge — the Count ruined her father and drove him to suicide&quot;
+  },
+  &quot;characters&quot;: [
+    {
+      &quot;name&quot;: &quot;Major Viktor Hessler&quot;,
+      &quot;role&quot;: &quot;suspect&quot;,
+      &quot;public_description&quot;: &quot;Retired Austrian military officer and arms broker&quot;,
+      &quot;private_brief&quot;: &quot;Full character details, alibi, secrets, red herrings...&quot;,
+      &quot;is_killer&quot;: false
+    },
+    // ... all characters
+  ],
+  &quot;evidence&quot;: {
+    &quot;opening&quot;: [
+      &quot;The weapon was left on the cabin floor, wiped clean of prints.&quot;,
+      &quot;A second brandy glass was poured — the Count was drinking with his killer.&quot;,
+      // ...
+    ],
+    &quot;round_4_reveal&quot;: [
+      &quot;The connecting door between Cars A and B was found unbolted.&quot;,
+      &quot;A torn note reads: '...cannot forgive what you have done to...'&quot;
+    ]
+  },
+  &quot;truth&quot;: {
+    &quot;killer_name&quot;: &quot;Teodora Novak&quot;,
+    &quot;full_account&quot;: &quot;What really happened, step by step...&quot;,
+    &quot;timeline&quot;: &quot;11:30 PM — Dinner ends... 12:40 AM — Teodora enters cabin...&quot;
+  }
+}
+</code></pre>
+<p>The engine reads this config and runs the fixed game structure. No story-specific logic in the engine code.</p>
+<hr />
+<h2>Engine Outputs (Transcript)</h2>
+<p>The engine produces a structured transcript JSON:</p>
+<pre><code class="language-json">{
+  &quot;game&quot;: {
+    &quot;story_id&quot;: &quot;s01e01&quot;,
+    &quot;title&quot;: &quot;The Midnight Continental&quot;,
+    &quot;season&quot;: 1,
+    &quot;episode&quot;: 1,
+    &quot;timestamp&quot;: &quot;2026-03-22T...&quot;
+  },
+  &quot;model_assignments&quot;: {
+    &quot;detective&quot;: { &quot;model&quot;: &quot;anthropic/claude-3.5-sonnet&quot;, &quot;character&quot;: &quot;Detective&quot; },
+    &quot;suspects&quot;: [
+      { &quot;model&quot;: &quot;openai/gpt-4o&quot;, &quot;character&quot;: &quot;Major Viktor Hessler&quot;, &quot;is_killer&quot;: false },
+      // ...
+    ]
+  },
+  &quot;rounds&quot;: {
+    &quot;round_2_statements&quot;: [
+      {
+        &quot;character&quot;: &quot;Major Viktor Hessler&quot;,
+        &quot;model&quot;: &quot;openai/gpt-4o&quot;,
+        &quot;think&quot;: &quot;I need to establish my alibi clearly...&quot;,
+        &quot;speak&quot;: &quot;I spent the evening in the observation lounge...&quot;,
+        &quot;suspects_accused&quot;: [&quot;Marguerite Fontaine&quot;]
+      },
+      // ...
+    ],
+    &quot;round_3_suspicion&quot;: [
+      {
+        &quot;confrontation_prompt&quot;: &quot;Hessler, both Marguerite and Brandt have named you...&quot;,
+        &quot;exchanges&quot;: [
+          {
+            &quot;character&quot;: &quot;Major Viktor Hessler&quot;,
+            &quot;model&quot;: &quot;openai/gpt-4o&quot;,
+            &quot;think&quot;: &quot;They're ganging up on me...&quot;,
+            &quot;speak&quot;: &quot;This is absurd. I was in plain sight...&quot;,
+            &quot;suspects_accused&quot;: [&quot;Teodora Novak&quot;]
+          },
+          // ...
+        ]
+      },
+      // ...
+    ],
+    &quot;round_4_investigation&quot;: {
+      &quot;evidence_revealed&quot;: [&quot;The connecting door...&quot;, &quot;The torn note...&quot;],
+      &quot;exchanges&quot;: [
+        {
+          &quot;detective_think&quot;: &quot;The Car B connection points to Teodora...&quot;,
+          &quot;detective_speak&quot;: &quot;Teodora, your cabin is in Car B...&quot;,
+          &quot;suspect_character&quot;: &quot;Teodora Novak&quot;,
+          &quot;suspect_think&quot;: &quot;This is getting too close...&quot;,
+          &quot;suspect_speak&quot;: &quot;I was asleep by midnight...&quot;
+        },
+        // ...
+      ]
+    },
+    &quot;round_5_accusation&quot;: {
+      &quot;final_statements&quot;: [ /* ... */ ],
+      &quot;accusation&quot;: {
+        &quot;detective_think&quot;: &quot;...&quot;,
+        &quot;detective_speak&quot;: &quot;...&quot;,
+        &quot;accused&quot;: &quot;Teodora Novak&quot;,
+        &quot;weapon_named&quot;: &quot;letter opener&quot;,
+        &quot;motive_named&quot;: &quot;revenge for father&quot;
+      },
+      &quot;reactions&quot;: [ /* ... */ ]
+    }
+  },
+  &quot;scoring&quot;: {
+    &quot;detective&quot;: { /* ... */ },
+    &quot;killer&quot;: { /* ... */ },
+    &quot;innocents&quot;: { /* ... */ },
+    &quot;suspicion_matrix&quot;: {
+      &quot;round_2&quot;: { &quot;Hessler&quot;: [&quot;Marguerite&quot;], &quot;Marguerite&quot;: [&quot;Hessler&quot;], /* ... */ },
+      &quot;round_3&quot;: { /* ... */ },
+      &quot;round_5_final&quot;: { /* ... */ }
+    }
+  }
+}
+</code></pre>
+<hr />
+<h2>Voice Architecture</h2>
+<h3>Permanent Model Voices (never change)</h3>
+<p>Each AI model has a permanent voice used for all [THINK] sections across every episode and season. Chosen once, carried forever. Audience learns to recognize them.</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Symbol</th>
+<th>Color</th>
+<th>Voice</th>
+<th>Voice Vibe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude</td>
+<td>☀️</td>
+<td>Amber</td>
+<td>TBD</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td>ChatGPT</td>
+<td>⬡</td>
+<td>Green</td>
+<td>TBD</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td>Gemini</td>
+<td>◇</td>
+<td>Blue</td>
+<td>TBD</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td>Mistral</td>
+<td>🌀</td>
+<td>Teal</td>
+<td>TBD</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td>DeepSeek</td>
+<td>🔺</td>
+<td>Red</td>
+<td>TBD</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td>Llama</td>
+<td>🦙</td>
+<td>Purple</td>
+<td>TBD</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td>Qwen</td>
+<td>✦</td>
+<td>Gold</td>
+<td>TBD</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td>Grok</td>
+<td>✕</td>
+<td>Silver</td>
+<td>TBD</td>
+<td>TBD</td>
+</tr>
+</tbody>
+</table>
+<h3>Character Voices (change per story)</h3>
+<p>Each character in a story gets a unique voice. Cast from ElevenLabs voice library. Mismatch between model voice and character voice is intentional and entertaining.</p>
+<h3>Narrator Voice</h3>
+<p>One consistent narrator voice across all episodes (George or similar).</p>
+<h3>Voice Count Per Episode</h3>
+<ul>
+<li>8 model voices (permanent) — only active models in that episode</li>
+<li>6-7 character voices (per story)</li>
+<li>1 narrator voice</li>
+<li><strong>Total: up to 15 voices per episode</strong></li>
+</ul>
+<hr />
+<h2>Production Pipeline</h2>
+<h3>Step 1: Story Config</h3>
+<ul>
+<li>Write story JSON (setting, characters, crime, evidence, truth)</li>
+<li>Or use existing story from library</li>
+</ul>
+<h3>Step 2: Run Engine</h3>
+<ul>
+<li>Input: story config + model assignments</li>
+<li>Output: structured transcript JSON</li>
+<li>Runtime: ~3-5 minutes (API calls)</li>
+</ul>
+<h3>Step 3: Script Generation</h3>
+<ul>
+<li>Engine transcript → production script</li>
+<li>Minimal editing needed (structure is fixed)</li>
+<li>Add narrator lines for scene setting and reveal</li>
+</ul>
+<h3>Step 4: Voice Generation</h3>
+<ul>
+<li>[THINK] sections → model's permanent voice</li>
+<li>[SPEAK] sections → character's assigned voice</li>
+<li>Narrator sections → narrator voice</li>
+<li>Via ElevenLabs API</li>
+</ul>
+<h3>Step 5: Visual Assembly</h3>
+<ul>
+<li>Map audio clips to visuals (character portraits, settings, title cards)</li>
+<li>Apply Ken Burns motion to stills</li>
+<li>Insert real video where available (setting shots, transitions)</li>
+<li>Add colored captions: "Character (Model): text..."</li>
+<li>Compile segments</li>
+</ul>
+<h3>Step 6: Final Assembly</h3>
+<ul>
+<li>Intro + all rounds + reveal + outro</li>
+<li>Background music layer</li>
+<li>Export final MP4</li>
+</ul>
+<hr />
+<h2>Season Structure</h2>
+<ul>
+<li>7 games per season (one per AI model as detective)</li>
+<li>Each model plays detective exactly once</li>
+<li>Detective assignment order: randomized at season start, published in advance</li>
+<li>Standings accumulate across all 7 games</li>
+<li>Season Champion declared after Game 7</li>
+<li>Stories can repeat across seasons (different model assignments = different outcomes)</li>
+</ul>
+<hr />
+<h2>Resolved Decisions</h2>
+<ol>
+<li><strong>Response length control</strong> — Hard token cap (250-350 for THINK, 150-250 for SPEAK) AND prompt instruction to be concise. Models that exceed get truncated in post.</li>
+<li><strong>Model temperature</strong> — 0.8-0.9. Warm enough for personality and unpredictability, not so hot it causes hallucination. Competitive framing already pushes strategic output.</li>
+<li><strong>Cross-examination in Round 3</strong> — Exactly one back-and-forth per confrontation: target responds, accuser rebuts, done.</li>
+<li><strong>Detective think access</strong> — Yes. Detective gets a [THINK]-only beat between Rounds 3 and 4 (see "Detective Processing" transition).</li>
+<li><strong>Grok / 8th model</strong> — 7 models per game, rotate which 7 of 8 play. The model sitting out becomes a storyline. Keeps episode length manageable and screen time meaningful.</li>
+<li><strong>Reactions format</strong> — All suspects get [THINK] + [SPEAK] in Round 5D. No exceptions. Prevents the "killer tell" problem.</li>
+</ol>
+<h2>Open Questions / Future Considerations</h2>
+<ol>
+<li><strong>Video generation</strong> — AI video for setting shots? Budget? Which service (Runway, Kling, etc.)?</li>
+<li><strong>Background music</strong> — Royalty-free library? AI-generated? Per-scene mood?</li>
+<li><strong>Caption design</strong> — Font, position, animation style for the model-colored subtitles</li>
+<li><strong>Story complexity</strong> — How simple is simple enough? Do we need red herrings or do the models create their own chaos?</li>
+<li><strong>Voice casting</strong> — Specific ElevenLabs voices for each model's permanent identity. Needs audition session.</li>
+<li><strong>Model rotation</strong> — How to decide which model sits out each game? Random? Standings-based? Viewer vote?</li>
+</ol>
+<hr />
+<h2>Version History</h2>
+<ul>
+<li><strong>v1</strong> — Free-form detective-led investigation (Feb 2026 - Mar 2026)</li>
+<li><strong>v2</strong> — Fixed structure, think/speak split, suspect-vs-suspect interaction (this spec, Mar 22 2026)</li>
+</ul>
+</body>
+</html>

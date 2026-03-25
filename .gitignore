@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Production audio/video (too large for git)
+production/set_01/audio/
+production/set_01/*.mp4
+production/set_01/*.mp3
+*.mp4
+*.mp3
+*.wav
+
+# OS
+.DS_Store
+
+# Secrets (should never exist here, but just in case)
+*.env
+.env.*
+api_keys.json

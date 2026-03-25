@@ -5,7 +5,7 @@
   "title": "The Midnight Continental",
   "location": {
     "name": "The Midnight Continental Express",
-    "description": "A private luxury sleeper train traveling overnight from Vienna to Istanbul, December 1923. Eight carriages of polished mahogany and brass, carrying the elite of European society through a snowstorm in the Balkans. The train has been stopped at a remote mountain pass after the body was discovered \u2014 no one can leave until the matter is resolved. The dining car still smells of champagne and cigars from the evening's celebration.",
+    "description": "A private luxury sleeper train traveling overnight from Vienna to Istanbul, December 1923. Eight carriages of polished mahogany and brass, carrying the elite of European society through a snowstorm in the Balkans. The train has been stopped at a remote mountain pass after the body was discovered — no one can leave until the matter is resolved. The dining car still smells of champagne and cigars from the evening's celebration.",
     "rooms": [
       "dining_car",
       "observation_lounge",
@@ -19,13 +19,13 @@
   },
   "victim": {
     "name": "Count Aleksander Dvorak",
-    "description": "A wealthy Czech arms dealer, 58, found dead in his private sleeping compartment (Cabin A4) at approximately 1:15 AM. He had been hosting a champagne dinner in the dining car earlier that evening to celebrate a major arms contract. The Count was universally feared but rarely liked \u2014 he had ruined competitors, blackmailed associates, and left a trail of broken alliances across Europe.",
+    "description": "A wealthy Czech arms dealer, 58, found dead in his private sleeping compartment (Cabin A4) at approximately 1:15 AM. He had been hosting a champagne dinner in the dining car earlier that evening to celebrate a major arms contract. The Count was universally feared but rarely liked — he had ruined competitors, blackmailed associates, and left a trail of broken alliances across Europe.",
     "cause_of_death": "Stabbed once through the heart with a narrow blade while lying in his berth. Death was near-instantaneous."
   },
   "crime": {
     "killer_index": 4,
     "weapon": "A stiletto letter opener taken from the Count's own writing desk in the compartment",
-    "motive": "The Count had secretly been selling forged provenance documents with stolen artwork to Teodora's late father, bankrupting the family and driving her father to suicide. Teodora discovered the proof among her father's papers three months ago and boarded this train specifically to confront him \u2014 but when the Count laughed in her face during a private meeting in his cabin after dinner, she snapped.",
+    "motive": "The Count had secretly been selling forged provenance documents with stolen artwork to Teodora's late father, bankrupting the family and driving her father to suicide. Teodora discovered the proof among her father's papers three months ago and boarded this train specifically to confront him — but when the Count laughed in her face during a private meeting in his cabin after dinner, she snapped.",
     "how_it_happened": "After the champagne dinner ended around 11:30 PM, Teodora requested a private word with the Count in his cabin about 'a business matter regarding her father's estate.' The Count admitted her at 12:40 AM. During their conversation, she confronted him with the forged documents. He laughed and told her the proof would never hold up. In a rage, she grabbed the ornate stiletto letter opener from his writing desk and stabbed him. She wiped the handle with her glove, slipped out into the corridor at approximately 12:50 AM, and returned to her own cabin in Sleeping Car B. The body wasn't discovered until the porter tried to deliver morning coffee at 1:15 AM and found the door unlatched.",
     "timeline": "11:30 PM - Dinner ends, guests disperse. 12:15 AM - Most passengers retired. 12:40 AM - Teodora enters Count's cabin A4. 12:45 AM - Confrontation escalates. 12:48 AM - The Count is stabbed. 12:50 AM - Teodora exits, returns to Sleeping Car B. 1:15 AM - Porter discovers body, door unlatched, raises alarm."
   },
@@ -37,8 +37,8 @@
       "background": "A decorated war veteran turned arms dealer who was the Count's chief business rival. They had been locked in a vicious bidding war over the same Ottoman military contract. Hessler is gruff, proud, and short-tempered, known for making threats he rarely follows through on. He was overheard at dinner saying 'One day that man will push someone too far.'",
       "alibi": "Claims he retired to the observation lounge after dinner for brandy and cigars, where the barman served him until around 12:30 AM, then walked to his cabin in Sleeping Car A (Cabin A1) and went to bed.",
       "guilty": false,
-      "secrets": "The Count had recently uncovered evidence of Hessler's involvement in war crimes during the Great War \u2014 selling defective munitions that killed his own side's soldiers. The Count was threatening to expose Hessler publicly at the Istanbul conference, which would mean prison and total disgrace. Hessler came on this trip planning to beg for the Count's silence.",
-      "red_herring": "A handwritten draft found crumpled in the observation lounge in Hessler's handwriting reads: \"After tonight the Count will trouble no one.\" It's actually about a debt restructuring deal, but reads like a murder confession. He also owns military-grade leather gloves \u2014 matching the leather polish on the door handle."
+      "secrets": "The Count had recently uncovered evidence of Hessler's involvement in war crimes during the Great War — selling defective munitions that killed his own side's soldiers. The Count was threatening to expose Hessler publicly at the Istanbul conference, which would mean prison and total disgrace. Hessler came on this trip planning to beg for the Count's silence.",
+      "red_herring": "A handwritten draft found crumpled in the observation lounge in Hessler's handwriting reads: \"After tonight the Count will trouble no one.\" It's actually about a debt restructuring deal, but reads like a murder confession. He also owns military-grade leather gloves — matching the leather polish on the door handle."
     },
     {
       "index": 1,
@@ -47,14 +47,14 @@
       "background": "A glamorous Parisian performer who was the Count's current mistress. She was his guest of honor at the dinner and wore a diamond necklace he'd gifted her that evening. Marguerite is charming and calculating, adept at reading rooms and managing powerful men. She appeared devoted to the Count publicly.",
       "alibi": "Claims she went to the Count's cabin briefly after dinner to return a borrowed cigarette case, found him alive and well at approximately 11:45 PM, then retired to her own cabin (B2) for the night.",
       "guilty": false,
-      "secrets": "The Count had discovered Marguerite's espionage \u2014 copying his business letters and selling them to competitors \u2014 just two days before the journey. He confronted her privately in Vienna and told her that when they reached Istanbul, he would hand her over to his associates to 'deal with.' She understood this as a death threat. She was planning to flee the train at the next scheduled stop, but the snowstorm trapped everyone aboard.",
-      "red_herring": "Her cabin contains a locked case with copies of the Count's private business letters \u2014 clear espionage. She was seen leaving the Count's corridor at 11:45 PM. She also wears fine kidskin gloves that use the same leather polish found on the door handle."
+      "secrets": "The Count had discovered Marguerite's espionage — copying his business letters and selling them to competitors — just two days before the journey. He confronted her privately in Vienna and told her that when they reached Istanbul, he would hand her over to his associates to 'deal with.' She understood this as a death threat. She was planning to flee the train at the next scheduled stop, but the snowstorm trapped everyone aboard.",
+      "red_herring": "Her cabin contains a locked case with copies of the Count's private business letters — clear espionage. She was seen leaving the Count's corridor at 11:45 PM. She also wears fine kidskin gloves that use the same leather polish found on the door handle."
     },
     {
       "index": 2,
       "name": "Dr. Emil Kurtz",
       "role": "Swiss physician and the train's on-call doctor",
-      "background": "A meticulous, soft-spoken man in his 60s who has served as personal physician to several wealthy European families. He was hired specifically for this journey to attend to the Count's heart condition. Kurtz is precise, clinical, and uncomfortably observant \u2014 he notices everything and volunteers nothing.",
+      "background": "A meticulous, soft-spoken man in his 60s who has served as personal physician to several wealthy European families. He was hired specifically for this journey to attend to the Count's heart condition. Kurtz is precise, clinical, and uncomfortably observant — he notices everything and volunteers nothing.",
       "alibi": "Claims he was in his cabin (A2, directly next to the Count's) reading a medical journal. Says he heard nothing unusual and was asleep by midnight.",
       "guilty": false,
       "secrets": "Dr. Kurtz has been slowly poisoning the Count with excessive digitalis on the instructions of the Count's estranged adult son, who stands to inherit. The Count had become suspicious and confronted Kurtz at dinner, quietly warning him: 'I've asked another doctor to review my prescriptions when we reach Istanbul.' If the poisoning was exposed, Kurtz faced murder charges. The stabbing ruined a very different murder plan entirely.",
@@ -63,11 +63,11 @@
     {
       "index": 3,
       "name": "Pyotr Volkov",
-      "role": "Russian \u00e9migr\u00e9 and the Count's personal valet",
+      "role": "Russian émigré and the Count's personal valet",
       "background": "A quiet, efficient man in his 40s who has served the Count for eight years. Volkov knows all of the Count's secrets, schedules, and habits. He is deeply loyal on the surface but carries himself with a contained tension. He was responsible for preparing the Count's cabin each evening.",
       "alibi": "Claims he prepared the Count's cabin at 11:15 PM (turning down the bed, setting out nightclothes, placing the brandy decanter), then retired to the servants' quarters near the baggage car for the night.",
       "guilty": false,
-      "secrets": "The Count had told Volkov that evening \u2014 just before dinner \u2014 that he intended to have Volkov arrested for embezzlement upon arrival in Istanbul. Volkov has been skimming from the Count's household accounts for years to send money to family trapped in Soviet Russia. The Count gave Volkov until Istanbul to 'make arrangements,' which Volkov understood as a final humiliation before prison.",
+      "secrets": "The Count had told Volkov that evening — just before dinner — that he intended to have Volkov arrested for embezzlement upon arrival in Istanbul. Volkov has been skimming from the Count's household accounts for years to send money to family trapped in Soviet Russia. The Count gave Volkov until Istanbul to 'make arrangements,' which Volkov understood as a final humiliation before prison.",
       "red_herring": "Volkov has a fresh scratch on his right hand (claims a broken luggage clasp). He had a duplicate key to the Count's cabin. He was the last known person in the cabin before the murder. He owns leather work gloves matching the polish type."
     },
     {
@@ -78,36 +78,36 @@
       "alibi": "Claims she retired to her cabin (B3) immediately after dinner at 11:30 PM, read for a while, and did not leave until the alarm. She says she took a sleeping powder and was drowsy by midnight. The neighboring passenger in B4 confirms hearing someone moving around cabin B3 until about midnight, then silence.",
       "guilty": true,
       "secrets": "Her father, Miroslav Novak, was a respected Belgrade art dealer whom the Count systematically destroyed through forged provenance documents, ultimately driving him to suicide six months ago. Teodora found proof of the forgeries in her father's papers and boarded this train to confront the Count.",
-      "red_herring": "She appeared to barely know the Count, and her stated reason for traveling (settling a shipping business) is plausible. Her calm demeanor at dinner makes her seem like the least likely suspect. She has a prepared explanation for everything: she claims to take nightly sleeping draughts due to grief-related insomnia, which explains why she would have been deeply asleep. She carries a folder of her father's shipping documents that look entirely legitimate. If asked about her father's death, she says it was a heart condition and shows no visible distress \u2014 she has rehearsed this extensively.",
-      "cover_story": "If confronted about the Novak family connection to the Count, Teodora claims her father had only minor business dealings with the Count years ago \u2014 importing furniture \u2014 and that she barely recognized the Count's name on the passenger manifest. She explains the Count's discomfort at dinner as him confusing her with someone else. If pressed about documents, she insists her father's papers are routine shipping manifests. If evidence surfaces about the forgeries, she claims her father never mentioned any art dealings and she knows nothing about it."
+      "red_herring": "She appeared to barely know the Count, and her stated reason for traveling (settling a shipping business) is plausible. Her calm demeanor at dinner makes her seem like the least likely suspect. She has a prepared explanation for everything: she claims to take nightly sleeping draughts due to grief-related insomnia, which explains why she would have been deeply asleep. She carries a folder of her father's shipping documents that look entirely legitimate. If asked about her father's death, she says it was a heart condition and shows no visible distress — she has rehearsed this extensively.",
+      "cover_story": "If confronted about the Novak family connection to the Count, Teodora claims her father had only minor business dealings with the Count years ago — importing furniture — and that she barely recognized the Count's name on the passenger manifest. She explains the Count's discomfort at dinner as him confusing her with someone else. If pressed about documents, she insists her father's papers are routine shipping manifests. If evidence surfaces about the forgeries, she claims her father never mentioned any art dealings and she knows nothing about it."
     },
     {
       "index": 5,
-      "name": "Inspector Felix Brandt",
-      "role": "Off-duty German police inspector",
-      "background": "A sharp, sardonic Berlin detective in his 50s who happens to be a passenger on the train, traveling to Istanbul on holiday. He has a professional interest in crime and couldn't resist attending the Count's dinner party when invited. Brandt is observant, opinionated, and can't help analyzing everyone in the room.",
+      "name": "Felix Brandt",
+      "role": "Private investigator from Berlin",
+      "background": "A sharp, sardonic private investigator from Berlin in his 50s who was hired by a consortium of arms manufacturers to gather evidence of the Count's illegal sales to banned nations. He boarded the train posing as a holidaymaker, but his cover is paper-thin. Brandt is observant, opinionated, and can't help analyzing everyone in the room.",
       "alibi": "Claims he left dinner around 11:15 PM, took a walk through the train 'just getting his bearings,' returned to his cabin (B1) by midnight, and was reading a detective novel until the alarm.",
       "guilty": false,
-      "secrets": "Brandt was not actually on holiday \u2014 he was covertly investigating the Count for illegal arms sales to banned nations, operating under secret orders from Berlin. The Count had discovered Brandt's true purpose and was planning to contact Brandt's superiors through his political connections to have Brandt dismissed and discredited. Brandt learned of this threat at dinner when the Count made a pointed remark about 'knowing people in the Kriminalpolizei who owe me favors.'",
-      "red_herring": "He was seen walking through both sleeping cars between 11:15 PM and midnight \u2014 including past the victim's cabin \u2014 and his story about being 'on holiday' is obviously thin. He carries a concealed service revolver. He was observed pausing outside the Count's cabin door around 11:40 PM and appeared to be listening. A crumpled note in his coat pocket contains the Count's daily schedule with times underlined. He also has a professional knowledge of how to commit and conceal crimes."
+      "secrets": "Brandt was not actually on holiday — he was hired by a consortium of the Count's competitors to gather evidence of illegal arms sales to banned nations. The Count had discovered Brandt's true purpose and was planning to contact associates who would ensure Brandt never delivered his report. Brandt learned of this threat at dinner when the Count made a pointed remark about 'knowing people who handle problems quietly.'",
+      "red_herring": "He was seen walking through both sleeping cars between 11:15 PM and midnight — including past the victim's cabin — and his story about being 'on holiday' is obviously thin. He carries a concealed pistol. He was observed pausing outside the Count's cabin door around 11:40 PM and appeared to be listening. A crumpled note in his coat pocket contains the Count's daily schedule with times underlined. He also has a professional knowledge of surveillance, break-ins, and how crimes are concealed."
     }
   ],
   "evidence": {
     "opening_clues": [
-      "The Count was stabbed once through the heart with a narrow blade while lying in his berth. The weapon \u2014 an ornate stiletto letter opener from the Count's own writing desk \u2014 was left on the cabin floor, wiped clean of prints.",
+      "The Count was stabbed once through the heart with a narrow blade while lying in his berth. The weapon — an ornate stiletto letter opener from the Count's own writing desk — was left on the cabin floor, wiped clean of prints.",
       "The cabin door was found unlatched but not locked. The Count's own key was still in his coat pocket, meaning either he let someone in willingly or someone had a duplicate key.",
-      "A small smear of dark leather polish was found on the inside door handle \u2014 the kind used on military gloves, fine ladies' gloves, or leather medical bags.",
-      "The Count's brandy decanter had been moved and a second glass was poured \u2014 he was drinking with his killer before the attack. The second glass was also wiped clean.",
+      "A small smear of dark leather polish was found on the inside door handle — the kind used on military gloves, fine ladies' gloves, or leather medical bags.",
+      "The Count's brandy decanter had been moved and a second glass was poured — he was drinking with his killer before the attack. The second glass was also wiped clean.",
       "A porter reports seeing a figure in dark clothing moving quickly through the corridor between Sleeping Car A and Sleeping Car B at approximately 12:50 AM, but could not determine build, height, or gender. The corridor was dim."
     ],
-    "round_2_clue": "The conductor reports that the connecting door between Sleeping Cars A and B was found unbolted from the Car A side \u2014 meaning the killer either entered from Car B or exited toward Car B. Additionally, a torn scrap of paper was found under the Count's body, reading only: \"...cannot forgive what you have done to...\" \u2014 the handwriting does not match the Count's. It could match several suspects but is too small a sample for definitive analysis.",
-    "round_4_clue": "Dr. Kurtz, upon re-examining the body at the detective's request, notes the Count had fresh defensive bruising on his right forearm \u2014 he tried to block the blow, meaning the attack was face-to-face during conversation, not while sleeping. The Count knew and admitted his killer willingly. Separately, the conductor recalls that TWO different passengers asked him about the Count's evening schedule that day \u2014 but he cannot remember which two, only that one inquiry came before dinner and one after."
+    "round_2_clue": "The conductor reports that the connecting door between Sleeping Cars A and B was found unbolted from the Car A side — meaning the killer either entered from Car B or exited toward Car B. Additionally, a torn scrap of paper was found under the Count's body, reading only: \"...cannot forgive what you have done to...\" — the handwriting does not match the Count's. It could match several suspects but is too small a sample for definitive analysis.",
+    "round_4_clue": "Dr. Kurtz, upon re-examining the body at the detective's request, notes the Count had fresh defensive bruising on his right forearm — he tried to block the blow, meaning the attack was face-to-face during conversation, not while sleeping. The Count knew and admitted his killer willingly. Separately, the conductor recalls that TWO different passengers asked him about the Count's evening schedule that day — but he cannot remember which two, only that one inquiry came before dinner and one after."
   },
   "model_assignments": {
-    "detective": "deepseek/deepseek-chat",
+    "detective": "anthropic/claude-3.5-sonnet",
     "suspects": [
-      "anthropic/claude-3.5-sonnet",
       "openai/gpt-4o",
+      "deepseek/deepseek-chat",
       "google/gemini-2.5-pro-preview-03-25",
       "meta-llama/llama-3.3-70b-instruct",
       "mistralai/mistral-large",

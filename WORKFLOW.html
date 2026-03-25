@@ -1,0 +1,612 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+body{font-family:Georgia,serif;max-width:850px;margin:40px auto;padding:0 20px;line-height:1.7;color:#222;font-size:14px}
+h1{font-size:24px;border-bottom:2px solid #333;padding-bottom:8px}
+h2{font-size:20px;border-bottom:1px solid #ccc;padding-bottom:5px;margin-top:35px}
+h3{font-size:16px;margin-top:25px}
+table{border-collapse:collapse;width:100%;margin:15px 0}
+th,td{border:1px solid #ccc;padding:8px 12px;text-align:left;font-size:13px}
+th{background:#f5f5f5;font-weight:bold}
+code{background:#f4f4f4;padding:2px 6px;border-radius:3px;font-size:13px}
+pre{background:#f4f4f4;padding:15px;border-radius:5px;overflow-x:auto}
+pre code{background:none;padding:0}
+blockquote{border-left:4px solid #ddd;margin-left:0;padding-left:16px;color:#555}
+hr{border:none;border-top:2px solid #ddd;margin:35px 0}
+ol,ul{margin:10px 0 10px 20px}
+li{margin:4px 0}
+</style></head><body><h1>The Lineup — Production Workflow</h1>
+<h2>From Story to Published Episode</h2>
+<hr />
+<h2>Season Overview</h2>
+<p>Each season = <strong>1 story setting</strong> + <strong>8 episodes</strong> + <strong>8 AI models</strong>.</p>
+<p>Every model plays every role exactly once across the season (Latin square rotation). This guarantees competitive fairness — no model gets an advantage from character assignment.</p>
+<h3>The Rotation</h3>
+<p>8 models × 8 roles = 8 games. Roles: Detective + 7 suspect characters (one of whom is the killer).</p>
+<table>
+<thead>
+<tr>
+<th>Game</th>
+<th>Detective</th>
+<th>Suspect A</th>
+<th>Suspect B</th>
+<th>Suspect C</th>
+<th>Suspect D</th>
+<th>Suspect E</th>
+<th>Suspect F</th>
+<th>Suspect G (Killer)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Model 1</td>
+<td>Model 2</td>
+<td>Model 3</td>
+<td>Model 4</td>
+<td>Model 5</td>
+<td>Model 6</td>
+<td>Model 7</td>
+<td>Model 8</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Model 2</td>
+<td>Model 3</td>
+<td>Model 4</td>
+<td>Model 5</td>
+<td>Model 6</td>
+<td>Model 7</td>
+<td>Model 8</td>
+<td>Model 1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Model 3</td>
+<td>Model 4</td>
+<td>Model 5</td>
+<td>Model 6</td>
+<td>Model 7</td>
+<td>Model 8</td>
+<td>Model 1</td>
+<td>Model 2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Model 4</td>
+<td>Model 5</td>
+<td>Model 6</td>
+<td>Model 7</td>
+<td>Model 8</td>
+<td>Model 1</td>
+<td>Model 2</td>
+<td>Model 3</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Model 5</td>
+<td>Model 6</td>
+<td>Model 7</td>
+<td>Model 8</td>
+<td>Model 1</td>
+<td>Model 2</td>
+<td>Model 3</td>
+<td>Model 4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Model 6</td>
+<td>Model 7</td>
+<td>Model 8</td>
+<td>Model 1</td>
+<td>Model 2</td>
+<td>Model 3</td>
+<td>Model 4</td>
+<td>Model 5</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Model 7</td>
+<td>Model 8</td>
+<td>Model 1</td>
+<td>Model 2</td>
+<td>Model 3</td>
+<td>Model 4</td>
+<td>Model 5</td>
+<td>Model 6</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Model 8</td>
+<td>Model 1</td>
+<td>Model 2</td>
+<td>Model 3</td>
+<td>Model 4</td>
+<td>Model 5</td>
+<td>Model 6</td>
+<td>Model 7</td>
+</tr>
+</tbody>
+</table>
+<p>Every model plays:
+- Detective: 1 time
+- Each suspect character: 1 time (including killer)
+- Total: 8 games, 8 different roles</p>
+<h3>Current Model Roster (Season 1)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Model</th>
+<th>Brand</th>
+<th>Color</th>
+<th>Symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Claude (Sonnet)</td>
+<td>Anthropic</td>
+<td>Amber #D4A020</td>
+<td>☀️</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ChatGPT (GPT-4o)</td>
+<td>OpenAI</td>
+<td>Green #32B850</td>
+<td>⬡</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Gemini (2.5 Pro)</td>
+<td>Google</td>
+<td>Blue #4688E8</td>
+<td>◇</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Mistral (Large)</td>
+<td>Mistral AI</td>
+<td>Teal #20C4C4</td>
+<td>🌀</td>
+</tr>
+<tr>
+<td>5</td>
+<td>DeepSeek (V3)</td>
+<td>DeepSeek</td>
+<td>Red #D04040</td>
+<td>🔺</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Llama (3.3 70B)</td>
+<td>Meta</td>
+<td>Purple #8C40C0</td>
+<td>🦙</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Qwen (2.5 72B)</td>
+<td>Alibaba</td>
+<td>Gold #D4B830</td>
+<td>✦</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Grok (3 Beta)</td>
+<td>xAI</td>
+<td>Silver #A0A0A8</td>
+<td>✕</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Phase 1: Pre-Season Setup (Once Per Season)</h2>
+<h3>1A. Story &amp; Setting</h3>
+<ul>
+<li>Write story config JSON: setting, characters, crime, evidence, truth</li>
+<li>Store at: <code>seasons/season_XX/set_XX.json</code></li>
+<li>Test with 1-2 engine runs to validate story works</li>
+<li>Verify all 7 suspect roles are balanced (no role is impossible to play)</li>
+</ul>
+<h3>1B. Model Rotation Schedule</h3>
+<ul>
+<li>Generate the 7-game rotation matrix</li>
+<li>Randomize model order at season start (publish in advance for transparency)</li>
+<li>Store at: <code>seasons/season_XX/rotation.json</code></li>
+</ul>
+<h3>1C. Moodboard Creation</h3>
+<p><strong>Brand moodboard (first season only — reuse forever):</strong>
+1. Open production planner → Moodboards tab → copy brand prompts
+2. Run all 12 brand prompts in Midjourney
+3. Curate best ~8 images
+4. Create Midjourney moodboard: "The Lineup Brand"
+5. Record moodboard code: <code>[brand_code]</code></p>
+<p><strong>Setting moodboard (once per season):</strong>
+1. Open production planner → Moodboards tab → copy setting prompts
+2. Run all 12 setting prompts in Midjourney (with <code>--p [brand_code]</code>)
+3. Curate best ~8 images
+4. Create Midjourney moodboard for this story
+5. Record moodboard code: <code>[setting_code]</code></p>
+<h3>1D. Asset Generation (Midjourney)</h3>
+<p><strong>Using both moodboard codes on every prompt.</strong></p>
+<ol>
+<li>Open production planner → Assets tab</li>
+<li>Generate all character portraits: append <code>--p [brand_code] --p [setting_code]</code> to each prompt</li>
+<li>Generate all setting images (exterior, interior, crime scene, corridor, lounge, etc.)</li>
+<li>Generate victim portrait</li>
+<li>Generate evidence/prop images</li>
+<li>Generate model avatars (1:1 format for think sections)</li>
+</ol>
+<p><strong>Output:</strong> All assets saved to <code>production/season_XX/assets/</code></p>
+<p>Organize as:</p>
+<pre><code>assets/
+  characters/          # Character portraits (2:3)
+  settings/            # Setting shots (16:9)
+  props/               # Evidence, weapons, documents (16:9)
+  model_avatars/       # AI model avatars (1:1)
+  title_cards/         # Auto-generated or custom
+</code></pre>
+<h3>1E. Voice Casting</h3>
+<p><strong>Model voices (first season only — permanent forever):</strong>
+1. Browse ElevenLabs voice library
+2. Choose 8 distinct voices — one per model
+3. These are the "AI thinking" voices, heard in [THINK] sections
+4. Prioritize variety: different genders, accents, tones
+5. Intentional mismatch with characters is part of the entertainment
+6. Record voice IDs in: <code>config/voices.json</code></p>
+<p><strong>Character voices (once per season):</strong>
+1. 7 suspect characters + 1 detective + 1 narrator = 8 voices
+2. Match voice to character personality (gruff military officer, charming singer, etc.)
+3. These change each season when the story changes
+4. Record voice IDs in: <code>seasons/season_XX/character_voices.json</code></p>
+<p><strong>Voice count per episode:</strong>
+- 8 model voices (THINK) — permanent
+- 8 character voices (SPEAK: 7 suspects + detective) — per season
+- 1 narrator voice — permanent
+- <strong>Total: 17 voices</strong></p>
+<hr />
+<h2>Phase 2: Per Episode Production (7 Times Per Season)</h2>
+<h3>2A. Run the Engine</h3>
+<ol>
+<li>Load story config + model assignments from rotation schedule</li>
+<li>Run: <code>python engine_v2.py seasons/season_XX/set_XX.json</code></li>
+<li>Engine outputs: transcript JSON to <code>transcripts/</code></li>
+<li>Review transcript for quality (think/speak parsing, all models participated)</li>
+<li>Re-run if needed (model had API error, format broke, etc.)</li>
+</ol>
+<p><strong>Runtime:</strong> ~3-5 minutes
+<strong>Cost:</strong> ~$0.50-1.00 in API calls (OpenRouter)</p>
+<h3>2B. Production Planning</h3>
+<ol>
+<li>Run: <code>python production-planner/build_static_v2.py transcripts/[file].json planner.html</code></li>
+<li>Review shot list — verify pacing, prompt quality</li>
+<li>Identify which setting video clips can be <strong>reused</strong> from previous episodes</li>
+<li>Mark reusable shots to skip regeneration</li>
+</ol>
+<h3>2C. TTS Generation (ElevenLabs)</h3>
+<ol>
+<li>Extract all dialogue from transcript</li>
+<li>Route each clip to the correct voice:</li>
+<li>[THINK] → model's permanent voice</li>
+<li>[SPEAK] → character's season voice</li>
+<li>[NARRATE] → narrator voice</li>
+<li>Generate via ElevenLabs API</li>
+<li>Verify audio quality, re-generate any issues</li>
+</ol>
+<p><strong>Characters per episode:</strong> ~12,000-16,000
+<strong>Cost:</strong> ~$3-5 at ElevenLabs Creator rates</p>
+<h3>2D. Video Clip Generation</h3>
+<ol>
+<li>Open production planner → Video Prompts tab</li>
+<li>Run prompts in video generation tool (Runway / Kling / etc.)</li>
+<li>Append moodboard codes to maintain visual consistency</li>
+<li><strong>Skip setting shots already generated</strong> in previous episodes — reuse from asset library</li>
+<li>Generate character-specific shots unique to this episode's dialogue</li>
+</ol>
+<p><strong>New clips per episode:</strong> ~15-25 (setting shots reused, character close-ups new)
+<strong>Cost:</strong> Varies by tool — estimate $5-15 per episode</p>
+<h3>2E. Assembly (DaVinci Resolve)</h3>
+<p><strong>Import:</strong>
+- All TTS audio clips
+- All video clips (new + reused)
+- Character portraits, model avatars (static images)
+- Title cards (auto-generated or custom)
+- Intro video (pre-built, same for all episodes except roster section)</p>
+<p><strong>Timeline structure:</strong></p>
+<pre><code>[Intro]
+  - Parts 1-4 (reuse)
+  - Part 5: Roster (regenerate per episode — different model assignments)
+  - Part 6: Specs card (regenerate per episode)
+[Round 1: The Scene]
+  - Narrator audio over setting video clips
+[Round 2: Opening Statements]
+  - Per suspect: Think (model avatar + model voice) → Speak (character video + character voice)
+  - Add colored captions: &quot;Character (Model): text...&quot;
+[Round 3: Suspicion Round]
+  - Per confrontation: Narrator prompt → Target think/speak → Challenger think/speak
+  - Captions in model colors
+[Detective Processing]
+  - Think-only beat over transition visual
+[Round 4: Investigation]
+  - Evidence reveal
+  - Per question: Detective think/speak → Suspect think/speak
+[Round 5: Final Statements + Accusation]
+  - All final statements
+  - Title card: THE ACCUSATION
+  - Detective accusation
+  - Accused response
+  - All reactions
+[Reveal + Scoring]
+  - Title card: THE TRUTH
+  - Narrator reveals truth
+  - Scoring card
+  - Season standings
+[Outro]
+  - Standings graphic
+  - Next episode tease
+  - End card
+</code></pre>
+<p><strong>Caption format:</strong>
+- THINK sections: model's brand color, italic, with model name
+  - e.g., <em>Claude: "The suspects are coordinating too perfectly..."</em>
+- SPEAK sections: white or character-specific color, with character name + model
+  - e.g., <strong>Teodora (Mistral):</strong> "I retired to my cabin immediately after dinner..."</p>
+<p><strong>Post-production:</strong>
+- Background music (low, atmospheric, building tension per round)
+- Sound design (subtle — transitions, evidence reveals)
+- Color grading (consistent with moodboard aesthetic)
+- Final export: 3840×2160, H.264/H.265, high bitrate</p>
+<p><strong>Export settings:</strong>
+- Resolution: 3840×2160 (4K)
+- Frame rate: 24fps (cinematic) or 30fps
+- Codec: H.265 for YouTube upload
+- Audio: AAC 320kbps stereo</p>
+<hr />
+<h2>Phase 3: Post-Season</h2>
+<h3>3A. Final Episode Extras</h3>
+<ul>
+<li>Season championship announcement</li>
+<li>Model performance breakdown (best detective, best killer, best innocent, MVP)</li>
+<li>Highlight reel / best moments compilation</li>
+</ul>
+<h3>3B. Archive</h3>
+<ul>
+<li>All transcripts, assets, audio, video clips archived</li>
+<li>Setting assets available for potential crossover or flashback content</li>
+<li>Season statistics saved for future reference and cross-season comparison</li>
+</ul>
+<h3>3C. Next Season Prep</h3>
+<ul>
+<li>Choose new story/setting</li>
+<li>Update model roster if needed (swap in Grok, update model versions)</li>
+<li>Generate new setting moodboard</li>
+<li>Cast new character voices</li>
+<li>Generate new assets</li>
+</ul>
+<hr />
+<h2>Cost Summary Per Season</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Per Episode</th>
+<th>Per Season (×8)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Engine API calls</td>
+<td>~$1</td>
+<td>~$8</td>
+</tr>
+<tr>
+<td>TTS (ElevenLabs)</td>
+<td>~$5</td>
+<td>~$40</td>
+</tr>
+<tr>
+<td>Video generation</td>
+<td>~$10</td>
+<td>~$80</td>
+</tr>
+<tr>
+<td>Midjourney assets</td>
+<td>—</td>
+<td>~$12 (one-time)</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>~$16</strong></td>
+<td><strong>~$140</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Costs are estimates and will vary based on tool choices and episode length.</p>
+<hr />
+<h2>Reusable Assets Per Season</h2>
+<p>These are generated once and reused across all 8 episodes:</p>
+<table>
+<thead>
+<tr>
+<th>Asset Type</th>
+<th>Count</th>
+<th>Reuse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Brand moodboard</td>
+<td>1</td>
+<td>Forever</td>
+</tr>
+<tr>
+<td>Setting moodboard</td>
+<td>1</td>
+<td>All season</td>
+</tr>
+<tr>
+<td>Character portraits</td>
+<td>7</td>
+<td>All season</td>
+</tr>
+<tr>
+<td>Victim portrait</td>
+<td>1</td>
+<td>All season</td>
+</tr>
+<tr>
+<td>Setting video clips (exterior, dining, corridor, lounge, crime scene)</td>
+<td>~8-12</td>
+<td>All season</td>
+</tr>
+<tr>
+<td>Evidence/prop images</td>
+<td>3-5</td>
+<td>All season</td>
+</tr>
+<tr>
+<td>Model avatars</td>
+<td>8</td>
+<td>Forever</td>
+</tr>
+<tr>
+<td>Title card templates</td>
+<td>5-6</td>
+<td>All season</td>
+</tr>
+<tr>
+<td>Narrator voice</td>
+<td>1</td>
+<td>Forever</td>
+</tr>
+<tr>
+<td>Model voices</td>
+<td>8</td>
+<td>Forever</td>
+</tr>
+<tr>
+<td>Character voices</td>
+<td>7-8</td>
+<td>All season</td>
+</tr>
+<tr>
+<td>Intro Parts 1-4</td>
+<td>1</td>
+<td>All season</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Per-episode unique generation:</strong>
+- Intro Part 5-6 (roster + specs — regenerate for each model assignment)
+- TTS audio (unique dialogue every game)
+- ~15-25 new video clips (character close-ups specific to that episode's dialogue)
+- Scoring/standings graphics</p>
+<hr />
+<h2>File Structure</h2>
+<pre><code>the-lineup/
+  ENGINE_SPEC_V2.md          # Game engine specification
+  WORKFLOW.md                 # This file
+  engine_v2.py                # Game engine
+
+  seasons/
+    season_01/
+      set_01.json             # Story config
+      rotation.json           # Model rotation schedule
+      character_voices.json   # Voice assignments
+      leaderboard.json        # Running standings
+
+  transcripts/                # Engine output (one per game)
+    s01e01_v2_*.json
+    s01e02_v2_*.json
+    ...
+
+  production-planner/
+    shots.py                  # Shot builder + moodboard generators
+    build_static_v2.py        # Static HTML planner builder
+    app.py                    # Streamlit planner (optional)
+
+  production/
+    season_01/
+      assets/
+        characters/           # Midjourney character portraits
+        settings/             # Midjourney setting images
+        props/                # Evidence, weapons
+        model_avatars/        # AI model avatars
+        title_cards/          # Auto-generated cards
+      audio/
+        episode_01/           # TTS clips per episode
+        episode_02/
+        ...
+      video/
+        shared/               # Reusable setting clips
+        episode_01/           # Per-episode unique clips
+        episode_02/
+        ...
+      exports/
+        s01e01_final.mp4      # Finished episodes
+        s01e02_final.mp4
+        ...
+
+  config/
+    voices.json               # Permanent model voice assignments
+</code></pre>
+<hr />
+<h2>Tool Stack</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Tool</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Game engine</td>
+<td>Python + OpenRouter</td>
+<td>Custom engine_v2.py</td>
+</tr>
+<tr>
+<td>Production planning</td>
+<td>Custom shot builder + HTML planner</td>
+<td>Runs on any device</td>
+</tr>
+<tr>
+<td>Image generation</td>
+<td>Midjourney</td>
+<td>Moodboards for consistency</td>
+</tr>
+<tr>
+<td>Video generation</td>
+<td>TBD (Runway / Kling / etc.)</td>
+<td>Testing needed</td>
+</tr>
+<tr>
+<td>TTS</td>
+<td>ElevenLabs</td>
+<td>Creator plan, 110K chars/month</td>
+</tr>
+<tr>
+<td>Video editing</td>
+<td>DaVinci Resolve</td>
+<td>Free version, 4K capable</td>
+</tr>
+<tr>
+<td>Hosting/sharing</td>
+<td>YouTube</td>
+<td>4K upload</td>
+</tr>
+<tr>
+<td>Code/assets</td>
+<td>GitHub</td>
+<td>niko-icarus org</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Version History</h2>
+<ul>
+<li><strong>v1</strong> — Ken Burns on stills, single voice, free-form engine (Mar 15-22, 2026)</li>
+<li><strong>v2</strong> — This workflow. Fixed engine, think/speak, shot-level planning, Midjourney + video gen + DaVinci (Mar 22, 2026)</li>
+</ul></body></html>

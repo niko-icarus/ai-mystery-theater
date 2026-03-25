@@ -1,0 +1,127 @@
+{
+  "set_id": "s01e03",
+  "season": 1,
+  "episode": 3,
+  "title": "The Tomb of Amenhotep",
+  "location": {
+    "name": "The Tomb of Amenhotep",
+    "description": "A newly discovered tomb deep beneath the Egyptian desert, Valley of the Kings, 1893. Three levels of corridors covered in hieroglyphs, past false doors and ancient traps, leading to a vast burial chamber housing a golden sarcophagus. A sandstorm has sealed the entrance shaft \u2014 no way out until it passes. Torchlight flickers against painted walls depicting the afterlife. The air is stale and growing thin.",
+    "rooms": [
+      "burial_chamber",
+      "antechamber",
+      "upper_corridor",
+      "lower_passage",
+      "second_level",
+      "side_passage",
+      "sealed_entrance"
+    ]
+  },
+  "victim": {
+    "name": "Thomas Burke",
+    "description": "Irish expedition guide, 42. A former British Army surveyor turned tomb guide, one of the most experienced in the Valley of the Kings. Rough, hard-drinking, and blunt. Found face-down beside the sarcophagus in the main burial chamber with a deep stab wound between his shoulder blades. No weapon was found at the scene. Burke had a reputation for collecting secrets about his clients and using them as leverage.",
+    "cause_of_death": "Stabbed once in the back with a narrow, deep wound between the shoulder blades. No weapon found at the scene \u2014 the killer took it."
+  },
+  "crime": {
+    "killer_index": 4,
+    "weapon": "Burke's own excavation knife \u2014 a heavy, broad-bladed tool taken from the equipment pile in the antechamber before the murder and returned afterward, wiped clean and placed back among a dozen similar tools",
+    "motive": "Self-preservation \u2014 Burke's escalating blackmail threatened to expose Whitmore's entire false identity, including fake missionary credentials, fraud convictions, and outstanding warrants in three American states",
+    "how_it_happened": "Burke cornered Whitmore in the lower passage demanding double his blackmail payment. Whitmore, broke and desperate, knew exposure meant prison. He waited until the camp settled around 10 PM, took Burke's own excavation knife from the equipment pile in the antechamber, found Burke alone in the burial chamber examining the sarcophagus by torchlight, approached from behind, and drove the knife between Burke's shoulder blades. He then pulled the knife out, wiped the blade on his coat lining, and returned it to the equipment pile \u2014 tucking it back among identical excavation tools. He returned to the upper corridor and resumed praying as if nothing had happened.",
+    "timeline": "9:00 PM \u2014 Expedition members settle into assigned areas. 9:15 PM \u2014 Burke and Whitmore seen arguing quietly in the lower passage. 9:30 PM \u2014 Burke goes to the burial chamber alone. 9:45 PM \u2014 Whitmore takes the excavation knife from the equipment pile. 9:50 PM \u2014 Whitmore enters burial chamber, stabs Burke. 9:55 PM \u2014 Whitmore wipes knife, returns it to equipment pile, goes to upper corridor to pray. 10:30 PM \u2014 Volkov discovers the body."
+  },
+  "suspects": [
+    {
+      "index": 0,
+      "name": "Lord Reginald Ashworth",
+      "role": "British aristocrat and expedition funder",
+      "background": "A pompous, silver-haired English lord, 55, who inherited a fortune and a fascination with ancient Egypt. Ashworth funded the entire expedition and considers everything inside the tomb his personal property. He treats the other members as employees, regardless of their credentials.",
+      "alibi": "Claims he was in the antechamber examining wall carvings with Professor Kessler when Burke was killed. Says he heard nothing unusual \u2014 the thick stone walls muffle everything.",
+      "guilty": false,
+      "secrets": "Ashworth is nearly bankrupt. His family fortune is gone, squandered on bad investments and expensive collections. This expedition is a desperate gamble \u2014 he needs to find sellable artifacts to avoid financial ruin. Burke knew about the debts and had been quietly extorting him for months.",
+      "red_herring": "Found arguing with Burke an hour before the murder about 'what belongs to whom.' A servant overheard Ashworth say, 'You'll get nothing more from me, Burke. Nothing.' His excavation gloves have a small tear \u2014 and a matching leather fragment was found near the body."
+    },
+    {
+      "index": 1,
+      "name": "Dr. Colette Beaumont",
+      "role": "French archaeologist from the Sorbonne",
+      "background": "Brilliant, passionate, and furious about the British plundering of Egyptian heritage. Beaumont, 38, is one of the few women in professional archaeology and has fought for every ounce of respect. She joined officially to document the tomb's historical significance but is also working as an informant for the Egyptian Antiquities Service.",
+      "alibi": "Claims she was in the lower passage sketching hieroglyphs on the second level, alone, with only her lantern. Says she didn't return to the burial chamber until she heard shouting.",
+      "guilty": false,
+      "secrets": "Beaumont has been secretly removing small artifacts from sites for years \u2014 not for money, but to donate them to French museums. She's exactly the kind of smuggler Inspector Cross was sent to find. Burke discovered her hidden stash and threatened to expose her.",
+      "red_herring": "She was seen entering the burial chamber alone thirty minutes before the body was discovered. Her leather satchel contained wrapping materials and a small crowbar. She also carries a sharp palette knife for cleaning artifacts."
+    },
+    {
+      "index": 2,
+      "name": "Professor Otto Kessler",
+      "role": "German Egyptologist",
+      "background": "A quiet, meticulous scholar, 62, who has spent thirty years deciphering hieroglyphs. Kessler believes this tomb contains a previously unknown text \u2014 a lost chapter of the Book of the Dead \u2014 that would be the discovery of his career. He's been translating inscriptions obsessively since they entered the tomb.",
+      "alibi": "Claims he was with Lord Ashworth in the antechamber, cross-referencing inscriptions with his notebooks. Says he was so absorbed in his work that he lost track of time.",
+      "guilty": false,
+      "secrets": "Kessler has been falsifying translations for years, publishing papers based on invented hieroglyphic interpretations. If the real inscriptions don't match his published work, his fraud will be exposed. Burke noticed discrepancies and confronted Kessler privately.",
+      "red_herring": "His notebooks contain pages torn out recently. The torn edges match paper fragments found near Burke's body. He has ink stains on his hands, and the ink matches a threatening note found in Burke's pocket."
+    },
+    {
+      "index": 3,
+      "name": "Catalina Vasquez",
+      "role": "Spanish journalist and adventurer",
+      "background": "A sharp, charismatic reporter, 31, writing a serialized account of the expedition for a Madrid newspaper. Vasquez has a gift for getting people to talk and an instinct for being in the right place at the wrong time. She's charming, fearless, and always scribbling in her notebook.",
+      "alibi": "Claims she was in the corridor between the antechamber and the burial chamber, writing notes by torchlight. Says she heard footsteps moving quickly past her in the dark but couldn't see who it was.",
+      "guilty": false,
+      "secrets": "Vasquez was hired by a rival collector in Madrid to steal a golden scarab from inside the sarcophagus. She's been paid half up front and needs the scarab to collect the rest. Burke caught her trying to open the sarcophagus alone the previous night and demanded a cut.",
+      "red_herring": "Her notebook contains detailed sketches of the sarcophagus mechanism \u2014 far more detailed than a journalist would need. She was seen having a heated whispered conversation with Burke earlier that day. A gold coin \u2014 her advance payment \u2014 was found dropped near the entrance to the burial chamber."
+    },
+    {
+      "index": 4,
+      "name": "Reverend James Whitmore",
+      "role": "American missionary from Boston",
+      "background": "A tall, earnest man, 50, who presents himself as a religious observer here to ensure the dead are treated with proper Christian respect. He's uncomfortable with tomb raiding and frequently quotes scripture about disturbing the dead. The others find him preachy and slightly odd.",
+      "alibi": "Claims he was praying in the upper corridor near the sealed entrance, asking God to protect the expedition. Says the storm made terrible sounds and he was focused on prayer until he heard the alarm raised.",
+      "guilty": true,
+      "secrets": "Whitmore is not a real reverend. He's a former confidence man from New York who reinvented himself as a missionary after a fraud conviction. He came to Egypt running from creditors and joined the expedition because he heard rumors of treasure. Burke recognized him from a wanted poster in a Cairo police station and had been blackmailing him since the second day.",
+      "red_herring": "He was seen leaving the burial chamber area approximately twenty minutes before the body was discovered, walking quickly and looking agitated. His Bible has a hollowed-out center containing lockpicks and a small derringer pistol. His missionary credentials are forged.",
+      "cover_story": "If confronted about his movements, Whitmore claims he walked toward the burial chamber to check on Burke but turned back when he heard Burke talking to someone \u2014 suggesting someone else was already with the victim. If pressed about the hollowed Bible, he claims it was a gift and he didn't know about the hidden compartment. If his credentials are questioned, he becomes emotional and accuses the questioner of religious persecution."
+    },
+    {
+      "index": 5,
+      "name": "Yuki Tanaka",
+      "role": "Japanese cartographer and artist",
+      "background": "Hired to map the tomb's passages and illustrate the findings for publication. Tanaka, 29, is quiet, precise, and intensely observant. While others argue and posture, Tanaka watches, sketches, and says little. This makes some of the group uncomfortable.",
+      "alibi": "Claims he was on the second level mapping a newly discovered side passage, completely alone, working by the light of a single oil lamp. Says he heard nothing until Vasquez came running down to announce the murder.",
+      "guilty": false,
+      "secrets": "Tanaka is an agent of the Japanese Imperial government, sent to photograph everything in the tomb and secure diplomatic rights to future excavations. Burke found Tanaka's hidden camera \u2014 photography in tombs was explicitly forbidden by Ashworth \u2014 and threatened to have him expelled.",
+      "red_herring": "His detailed maps show a passage connecting the second level directly to the burial chamber \u2014 a passage no one else knew about. He could have traveled to and from the murder scene without being seen. His mapping instruments include a sharp steel compass that could serve as a weapon."
+    },
+    {
+      "index": 6,
+      "name": "Dimitri Volkov",
+      "role": "Russian mercenary and expedition security",
+      "background": "A broad-shouldered, scarred man, 40, hired by Ashworth to protect the expedition from tomb robbers and bandits. Volkov speaks little, drinks less, and keeps his hand near his revolver at all times. He claims this is just another job, but he's been inside Egyptian tombs before.",
+      "alibi": "Claims he was patrolling the upper level near the sealed entrance, checking the stability of the passage after the sandstorm started. Says the sand collapse kept him occupied and he didn't return to the lower levels until after the body was found.",
+      "guilty": false,
+      "secrets": "Volkov was hired by a Moscow antiquities dealer to steal the golden scarab from the sarcophagus \u2014 the same artifact Vasquez is after. Burke discovered a letter written in Russian in Volkov's pack. Burke couldn't read Russian, but showed the letter to Tanaka, who translated it.",
+      "red_herring": "His revolver has been recently fired \u2014 he claims he shot at a snake in the upper passage, but no snake was found. He has sand on his boots inconsistent with his claimed location. A torn piece of his coat sleeve was found caught on a torch bracket in the corridor outside the burial chamber."
+    }
+  ],
+  "evidence": {
+    "opening_clues": [
+      "Burke was stabbed once in the back with a narrow, deep wound between the shoulder blades. No weapon was found at the scene or on the body \u2014 the killer took it with them.",
+      "Burke was found beside the sarcophagus in the main burial chamber. His torch was still burning, suggesting he hadn't been dead long.",
+      "A crumpled note was found in Burke's coat pocket reading: 'This is your last warning. Pay what you owe or face the consequences.' The handwriting is disguised \u2014 block capitals, no identifiable style.",
+      "Faint boot prints in the dust of the burial chamber show two sets of tracks \u2014 Burke's heavy work boots and a second, lighter set that approaches from behind and then retreats toward the main corridor.",
+      "A torn scrap of dark fabric was found caught on a torch bracket in the corridor just outside the burial chamber, at roughly shoulder height.",
+      "The expedition equipment pile in the antechamber contains various sharp tools \u2014 excavation knives, chisels, palette knives, rock picks. Several members of the group also carry their own bladed instruments."
+    ],
+    "round_2_clue": "The torn fabric matches the lining of a dark coat \u2014 not expedition-standard gear. Additionally, closer examination of the wound suggests a broad, heavy blade \u2014 consistent with an excavation knife rather than a fine instrument like a palette knife or compass. Inspector Cross notes that one of the excavation knives in the equipment pile appears to have been recently cleaned \u2014 faint traces of something dark remain in the handle rivets, though the blade itself is spotless. Finally, a second note was found hidden inside Burke's bedroll: a list of names with amounts written beside them \u2014 Ashworth: \u00a3200, Whitmore: \u00a350, Kessler: \u00a330, Vasquez: \u00a3100. A blackmail ledger."
+  },
+  "model_assignments": {
+    "detective": "google/gemini-2.5-pro",
+    "suspects": [
+      "mistralai/mistral-large",
+      "qwen/qwen3-max",
+      "x-ai/grok-4.20-beta",
+      "meta-llama/llama-4-maverick",
+      "deepseek/deepseek-chat-v3.1",
+      "anthropic/claude-opus-4.6",
+      "openai/gpt-5.4"
+    ]
+  }
+}

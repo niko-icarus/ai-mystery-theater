@@ -90,13 +90,12 @@ The narrator reveals:
 | Correct killer | 10 |
 | Correct weapon | 5 |
 | Correct motive | 5 |
-| Speed bonus | +1 per unused conversation slot (max theoretically +36, realistically +5-15) |
 | Clue penalty | -25% of total per clue requested (0, 1, or 2 clues available) |
-| **Max possible** | **~56 (with 0 clues)** |
-
-Speed bonus = (6 × number_of_suspects) - total_conversations_used. Rewards efficient detective work.
+| **Max possible** | **20 (with 0 clues)** |
 
 Clue penalty is applied AFTER all other scoring: `final_score = raw_score × (100 - 25 × clues_requested) / 100`
+
+Note: Speed bonus was removed — it incentivized rushing accusations rather than thorough investigation. The clue penalty alone provides sufficient strategic tension.
 
 ### Guilty Suspect
 | Category | Points |
@@ -120,15 +119,15 @@ Clue penalty is applied AFTER all other scoring: `final_score = raw_score × (10
 
 ## Season Structure
 
-### Season = 5 Games (Sets)
+### Season = 7 Games (Sets)
 Each set is a unique scenario:
 - Different location, characters, crime, weapons, evidence
 - Same engine, same rules, same timing
 
 ### Model Rotation
-- All participating models rotate through roles across the 5 games
-- Each model plays **detective at least once** per season
-- Remaining games: model plays suspect roles (guilty or innocent varies)
+- All 7 participating models rotate through roles across the 7 games
+- Each model plays **detective exactly once** per season
+- Remaining 6 games: model plays suspect roles (guilty or innocent varies)
 - Role assignments determined before the season starts and published (except who's guilty — that's hidden until reveal)
 
 ### Leaderboard
@@ -136,6 +135,13 @@ Each set is a unique scenario:
 - Tracks: total score, detective score, suspect score (guilty + innocent)
 - Crowns a season champion
 - Stats tracked: solve rate as detective, deception success rate as guilty, false accusation rate
+
+### Season Math
+- 7 games × 7 models = 49 total role assignments
+- 7 detective slots (1 per model)
+- 42 suspect slots (6 per game × 7 games)
+- Each model plays suspect 6 times across the season
+- Guilty assignments distributed as evenly as possible (~1 each, some models may be guilty twice)
 
 ---
 
@@ -383,7 +389,9 @@ mystery-theater/
 │       ├── set_02.json        # Game 2 config
 │       ├── set_03.json        # ...
 │       ├── set_04.json
-│       └── set_05.json
+│       ├── set_05.json
+│       ├── set_06.json
+│       └── set_07.json
 ├── transcripts/               # Game outputs (JSON + MD)
 ├── videos/                    # Produced video files
 ├── viewer/                    # Web viewer (existing, update for v3)
